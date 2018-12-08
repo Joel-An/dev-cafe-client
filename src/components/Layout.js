@@ -6,7 +6,7 @@ import { pullRight, h1 } from './layout.css';
 
 const Layout = ({ children }) => {
   return (
-    <Container>
+    <Container textAlign="center">
       <Link to="/">
         <Header as="h1" className={h1}>
           Jeol's Dev Cafe
