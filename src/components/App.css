@@ -17,6 +17,8 @@
 }
 .main-footer {
   grid-area: footer;
+  text-align: center;
+  font-size: medium;
 }
 
 .wrapper {

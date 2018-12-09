@@ -42,7 +42,10 @@ const App = () => {
         </article>
         <aside class="side">Sidebar</aside>
         <div class="ad">Advertising</div>
-        <footer class="main-footer">The footer</footer>
+        <footer class="main-footer">
+          <hr />
+          Would you like a cup of coffee?
+        </footer>
       </div>
     </Router>
   );

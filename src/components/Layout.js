@@ -5,15 +5,7 @@ import { Header, Container, Divider, Icon } from 'semantic-ui-react';
 import { pullRight, h1 } from './layout.css';
 
 const Layout = ({ children }) => {
-  return (
-    <Container textAlign="center">
-      {children}
-      <Divider />
-      <p className={pullRight}>
-        Would you like a cup of <Icon name="coffee" color="brown" />?
-      </p>
-    </Container>
-  );
+  return <Container textAlign="center">{children}</Container>;
 };
 
 export default Layout;
