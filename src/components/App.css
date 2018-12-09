@@ -8,12 +8,19 @@
 }
 .main-nav {
   grid-area: nav;
+  text-align: center;
+
+  background-color: rgba(165, 182, 199, 0.644);
 }
 .side {
   grid-area: sidebar;
+
+  background-color: rgba(165, 182, 199, 0.644);
 }
 .ad {
   grid-area: ad;
+
+  background-color: rgba(165, 182, 199, 0.644);
 }
 .main-footer {
   grid-area: footer;

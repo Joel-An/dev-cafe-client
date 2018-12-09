@@ -16,6 +16,7 @@ const App = () => {
       <div class="wrapper">
         <header className="main-head">
           <Link to="/">Joel's Dev Cafe</Link>
+          <hr />
         </header>
         <nav class="main-nav">
           <ul>
