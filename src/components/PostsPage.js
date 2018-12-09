@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
 import axios from 'axios';
 import { sortBy } from 'lodash';
 import classNames from 'classnames';
