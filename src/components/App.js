@@ -5,6 +5,8 @@ import Home from './Home';
 import Users from './UsersPage';
 import Posts from './PostsPage';
 import NoMatch from './NoMatch';
+import Login from './Login';
+import Signup from './Signup';
 
 import axios from 'axios';
 
@@ -27,7 +29,10 @@ const App = () => {
               <Link to="/posts">POSTS</Link>
             </li>
             <li>
-              <a href="">FREE</a>
+              <Link to="/login">LOGIN</Link>
+            </li>
+            <li>
+              <Link to="/signup">SIGNUP</Link>
             </li>
           </ul>
         </nav>
@@ -37,6 +42,8 @@ const App = () => {
               <Route exact path="/" component={Home} />
               <Route exact path="/users" component={Users} />
               <Route exact path="/posts" component={Posts} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/signup" component={Signup} />
               <Route component={NoMatch} />
             </Switch>
           </div>
