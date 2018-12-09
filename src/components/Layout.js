@@ -7,11 +7,6 @@ import { pullRight, h1 } from './layout.css';
 const Layout = ({ children }) => {
   return (
     <Container textAlign="center">
-      <Link to="/">
-        <Header as="h1" className={h1}>
-          Jeol's Dev Cafe
-        </Header>
-      </Link>
       {children}
       <Divider />
       <p className={pullRight}>
