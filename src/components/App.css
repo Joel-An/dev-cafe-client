@@ -26,6 +26,8 @@
   grid-area: footer;
   text-align: center;
   font-size: medium;
+
+  align-self: end;
 }
 
 .wrapper {
