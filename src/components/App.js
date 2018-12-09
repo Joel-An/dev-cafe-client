@@ -20,13 +20,13 @@ const App = () => {
         <nav class="main-nav">
           <ul>
             <li>
-              <a href="">Nav 1</a>
+              <Link to="/users">USERS</Link>
             </li>
             <li>
-              <a href="">Nav 2</a>
+              <Link to="/posts">POSTS</Link>
             </li>
             <li>
-              <a href="">Nav 3</a>
+              <a href="">FREE</a>
             </li>
           </ul>
         </nav>
