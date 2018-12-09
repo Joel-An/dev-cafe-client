@@ -13,12 +13,12 @@ import './App.css';
 const App = () => {
   return (
     <Router>
-      <div class="wrapper">
+      <div className="wrapper">
         <header className="main-head">
           <Link to="/">Joel's Dev Cafe</Link>
           <hr />
         </header>
-        <nav class="main-nav">
+        <nav className="main-nav">
           <ul>
             <li>
               <Link to="/users">USERS</Link>
@@ -31,7 +31,7 @@ const App = () => {
             </li>
           </ul>
         </nav>
-        <article class="content">
+        <article className="content">
           <div>
             <Switch>
               <Route exact path="/" component={Home} />
@@ -41,9 +41,9 @@ const App = () => {
             </Switch>
           </div>
         </article>
-        <aside class="side">Sidebar</aside>
-        <div class="ad">Advertising</div>
-        <footer class="main-footer">
+        <aside className="side">Sidebar</aside>
+        <div className="ad">Advertising</div>
+        <footer className="main-footer">
           <hr />
           Would you like a cup of coffee?
         </footer>
