@@ -4,7 +4,6 @@ import axios from 'axios';
 import { sortBy } from 'lodash';
 import classNames from 'classnames';
 
-import Layout from './Layout';
 import './postPage.css';
 
 const SORTS = {
@@ -118,7 +117,7 @@ class PostsPage extends Component {
     } = this.state;
     const page = (results && results.page) || 0;
     return (
-      <Layout>
+      <div>
         <Header as="h2">Posts</Header>
         <div className="page">
           <div className="interactions">
@@ -154,7 +153,7 @@ class PostsPage extends Component {
             </ButtonWithLoading>
           </div>
         </div>
-      </Layout>
+      </div>
     );
   }
 }

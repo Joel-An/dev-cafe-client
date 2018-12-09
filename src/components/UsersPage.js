@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Header } from 'semantic-ui-react';
 import axios from 'axios';
 
-import Layout from './Layout';
-
 class UsersPage extends Component {
   constructor(props) {
     super(props);
@@ -29,10 +27,10 @@ class UsersPage extends Component {
   render() {
     const { users } = this.state;
     return (
-      <Layout>
+      <div>
         <Header as="h2">Users</Header>
         {users && <Table users={users} />}
-      </Layout>
+      </div>
     );
   }
 }
