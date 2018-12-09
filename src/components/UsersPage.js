@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
 import axios from 'axios';
 
 class UsersPage extends Component {
@@ -28,7 +27,7 @@ class UsersPage extends Component {
     const { users } = this.state;
     return (
       <div>
-        <Header as="h2">Users</Header>
+        <h2>Users</h2>
         {users && <Table users={users} />}
       </div>
     );

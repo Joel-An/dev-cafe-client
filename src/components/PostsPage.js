@@ -118,7 +118,7 @@ class PostsPage extends Component {
     const page = (results && results.page) || 0;
     return (
       <div>
-        <Header as="h2">Posts</Header>
+        <h2>Posts</h2>
         <div className="page">
           <div className="interactions">
             <Search
