@@ -17,6 +17,11 @@ class Login extends React.Component {
     this.setState({ [name]: target.value });
   };
 
+  handleInputSubmit = event => {
+    event.preventDefault();
+    console.log(`email: ${this.state.email}\npassword: ${this.state.password}`);
+  };
+
   render() {
     const { email, password } = this.state;
 
@@ -26,6 +31,7 @@ class Login extends React.Component {
           email={email}
           password={password}
           onChange={this.handleInputChange}
+          onSubmit={this.handleInputSubmit}
         />
         <div>
           <Link to="/signup">회원가입</Link>
@@ -38,10 +44,10 @@ class Login extends React.Component {
   }
 }
 
-const LoginForm = ({ email, password, onChange }) => {
+const LoginForm = ({ email, password, onChange, onSubmit }) => {
   return (
     <div>
-      <form>
+      <form onSubmit={onSubmit}>
         <legend>로그인</legend>
         <div>
           <label>이메일</label>
