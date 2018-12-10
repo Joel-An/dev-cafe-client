@@ -10,10 +10,23 @@ class Login extends React.Component {
     };
   }
 
+  handleInputChange = event => {
+    const target = event.target;
+    const name = target.name;
+
+    this.setState({ [name]: target.value });
+  };
+
   render() {
+    const { email, password } = this.state;
+
     return (
       <div>
-        <LoginForm />
+        <LoginForm
+          email={email}
+          password={password}
+          onChange={this.handleInputChange}
+        />
         <div>
           <Link to="/signup">회원가입</Link>
         </div>
@@ -25,22 +38,29 @@ class Login extends React.Component {
   }
 }
 
-const LoginForm = () => {
+const LoginForm = ({ email, password, onChange }) => {
   return (
     <div>
-      <form accept-charset="UTF-8" method="post" action="/api/v1/login">
+      <form>
         <legend>로그인</legend>
         <div>
           <label>이메일</label>
-          <input name="email" value="" placeholder="E-mail" type="text" />
+          <input
+            name="email"
+            value={email}
+            placeholder="E-mail"
+            type="text"
+            onChange={onChange}
+          />
         </div>
         <div>
           <label>비밀번호</label>
           <input
             name="password"
-            value=""
+            value={password}
             placeholder="Password"
             type="password"
+            onChange={onChange}
           />
         </div>
         <input type="submit" value="로그인" />
