@@ -13,7 +13,9 @@ const SORTS = {
   VIEWED: list => sortBy(list, 'viewed').reverse(),
 };
 
-const Sort = ({ sortKey, activeSortKey, onSort, children }) => {
+const Sort = ({
+  sortKey, activeSortKey, onSort, children,
+}) => {
   const sortClass = classNames('button-inline', {
     'button-active': sortKey === activeSortKey,
   });
@@ -26,21 +28,18 @@ const Sort = ({ sortKey, activeSortKey, onSort, children }) => {
 
 const Loading = () => <div>Loading...</div>;
 
-const withLoading = Component => ({ isLoading, ...rest }) => {
-  return isLoading ? <Loading /> : <Component {...rest} />;
-};
-const Button = ({ onClick, className = '', children }) => {
-  return (
-    <button onClick={onClick} className={className} type="button">
-      {children}
-    </button>
-  );
-};
+const withLoading = Component => ({ isLoading, ...rest }) => (isLoading ? <Loading /> : <Component {...rest} />);
+const Button = ({ onClick, className = '', children }) => (
+  <button onClick={onClick} className={className} type="button">
+    {children}
+  </button>
+);
 
 const ButtonWithLoading = withLoading(Button);
 
 class PostsPage extends Component {
   _isMounted = false;
+
   constructor(props) {
     super(props);
 
@@ -62,7 +61,7 @@ class PostsPage extends Component {
       .catch(error => this._isMounted && this.setState({ error }));
   };
 
-  setPosts = results => {
+  setPosts = (results) => {
     const { hits, page } = results;
 
     const oldHits = page !== 0 ? this.state.results.hits : [];
@@ -72,24 +71,23 @@ class PostsPage extends Component {
     this.setState({ results: { hits: updatedHits, page }, isLoading: false });
   };
 
-  onSort = sortKey => {
-    const isSortReverse =
-      this.state.sortKey === sortKey && !this.state.isSortReverse;
+  onSort = (sortKey) => {
+    const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
     this.setState({ sortKey, isSortReverse });
   };
 
-  onDismiss = id => {
+  onDismiss = (id) => {
     const isNotId = result => result._id !== id;
     const updatedPosts = this.state.results.hits.filter(isNotId);
 
     this.setState({ results: { ...this.state.result, hits: updatedPosts } });
   };
 
-  onSearchChange = event => {
+  onSearchChange = (event) => {
     this.setState({ searchTerm: event.target.value });
   };
 
-  onSearchSubmit = event => {
+  onSearchSubmit = (event) => {
     const { searchTerm } = this.state;
     this.getPosts(searchTerm);
     event.preventDefault();
@@ -125,8 +123,15 @@ class PostsPage extends Component {
               onChange={this.onSearchChange}
               onSubmit={this.onSearchSubmit}
             >
+
+
+
+
+
+
+
               SEARCH
-            </Search>
+</Search>
           </div>
           {error ? (
             <div className="interactions">
@@ -148,8 +153,15 @@ class PostsPage extends Component {
               isLoading={isLoading}
               onClick={() => this.getPosts(searchTerm, page + 1)}
             >
+
+
+
+
+
+
+
               More
-            </ButtonWithLoading>
+</ButtonWithLoading>
           </div>
         </div>
       </div>
@@ -157,7 +169,9 @@ class PostsPage extends Component {
   }
 }
 
-const Search = ({ value, onChange, onSubmit, children }) => (
+const Search = ({
+  value, onChange, onSubmit, children,
+}) => (
   <form onSubmit={onSubmit}>
     <input type="text" value={value} onChange={onChange} />
     <button type="submit">{children}</button>
@@ -191,24 +205,52 @@ class Table extends Component {
       <div className="table">
         <div className="table-header">
           <span style={midColumn}>
-            <Sort sortKey={'TITLE'} onSort={onSort} activeSortKey={sortKey}>
+            <Sort sortKey="TITLE" onSort={onSort} activeSortKey={sortKey}>
+
+
+
+
+
+
+
               Title
-            </Sort>
+</Sort>
           </span>
           <span style={largeColumn}>
-            <Sort sortKey={'AUTHOR'} onSort={onSort} activeSortKey={sortKey}>
+            <Sort sortKey="AUTHOR" onSort={onSort} activeSortKey={sortKey}>
+
+
+
+
+
+
+
               Author
-            </Sort>
+</Sort>
           </span>
           <span style={smallColumn}>
-            <Sort sortKey={'UPVOTES'} onSort={onSort} activeSortKey={sortKey}>
+            <Sort sortKey="UPVOTES" onSort={onSort} activeSortKey={sortKey}>
+
+
+
+
+
+
+
               UpVotes
-            </Sort>
+</Sort>
           </span>
           <span style={smallColumn}>
-            <Sort sortKey={'VIEWED'} onSort={onSort} activeSortKey={sortKey}>
+            <Sort sortKey="VIEWED" onSort={onSort} activeSortKey={sortKey}>
+
+
+
+
+
+
+
               Views
-            </Sort>
+</Sort>
           </span>
           <span style={smallColumn}>Archive</span>
         </div>

@@ -8,6 +8,10 @@ class UsersPage extends Component {
     this.state = { users: null };
   }
 
+  componentDidMount() {
+    this.getUsers();
+  }
+
   getUsers = () => {
     axios
       .get('/api/v1/users')
@@ -15,13 +19,10 @@ class UsersPage extends Component {
       .catch(err => console.log(err));
   };
 
-  setUsers = users => {
+  setUsers = (users) => {
     this.setState({ users });
   };
 
-  componentDidMount() {
-    this.getUsers();
-  }
 
   render() {
     const { users } = this.state;

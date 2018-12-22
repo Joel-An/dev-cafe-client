@@ -8,7 +8,7 @@ const port = process.env.PORT || 4000;
 module.exports = {
   mode: 'development',
   entry: {
-    app: ['@babel/polyfill', './src/index.js'],
+    app: ['@babel/polyfill', './src/index.jsx'],
   },
   output: {
     path: path.join(__dirname, '/dist'),
@@ -76,7 +76,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     host: 'localhost',
-    port: port,
+    port,
     historyApiFallback: true,
     open: true,
     hot: true,

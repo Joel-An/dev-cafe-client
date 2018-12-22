@@ -10,14 +10,16 @@ class Login extends React.Component {
     };
   }
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const target = event.target;
     const name = target.name;
+
+    const abc = event.abc;
 
     this.setState({ [name]: target.value });
   };
 
-  handleInputSubmit = event => {
+  handleInputSubmit = (event) => {
     event.preventDefault();
     console.log(`email: ${this.state.email}\npassword: ${this.state.password}`);
   };
@@ -44,35 +46,29 @@ class Login extends React.Component {
   }
 }
 
-const LoginForm = ({ email, password, onChange, onSubmit }) => {
-  return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <legend>로그인</legend>
-        <div>
-          <label>이메일</label>
-          <input
-            name="email"
-            value={email}
-            placeholder="E-mail"
-            type="text"
-            onChange={onChange}
-          />
-        </div>
-        <div>
-          <label>비밀번호</label>
-          <input
-            name="password"
-            value={password}
-            placeholder="Password"
-            type="password"
-            onChange={onChange}
-          />
-        </div>
-        <input type="submit" value="로그인" />
-      </form>
-    </div>
-  );
-};
+const LoginForm = ({
+  email, password, onChange, onSubmit,
+}) => (
+  <div>
+    <form onSubmit={onSubmit}>
+      <legend>로그인</legend>
+      <div>
+        <label>이메일</label>
+        <input name="email" value={email} placeholder="E-mail" type="text" onChange={onChange} />
+      </div>
+      <div>
+        <label>비밀번호</label>
+        <input
+          name="password"
+          value={password}
+          placeholder="Password"
+          type="password"
+          onChange={onChange}
+        />
+      </div>
+      <input type="submit" value="로그인" />
+    </form>
+  </div>
+);
 
 export default Login;
