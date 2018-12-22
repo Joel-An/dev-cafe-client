@@ -1,36 +1,63 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      loginForm: {
+        username: '',
+        password: '',
+      },
+      redirect: false,
+      error: null,
     };
   }
 
   handleInputChange = (event) => {
-    const target = event.target;
-    const name = target.name;
+    const { target } = event;
+    const { name, value } = target;
+    const { loginForm } = this.state;
 
-    const abc = event.abc;
-
-    this.setState({ [name]: target.value });
+    this.setState({ loginForm: { ...loginForm, [name]: value } });
   };
 
   handleInputSubmit = (event) => {
     event.preventDefault();
-    console.log(`email: ${this.state.email}\npassword: ${this.state.password}`);
+    const { loginForm } = this.state;
+
+    this.login(loginForm);
+  };
+
+  login = (loginForm) => {
+    axios
+      .post('/api/v1/auth', loginForm)
+      .then((result) => {
+        if (result.status === 201) {
+          localStorage.setItem('token', result.data.accessToken);
+          this.setState({ redirect: true });
+        }
+      })
+      .catch((err) => {
+        this.setState({ error: err.response.data.message });
+      });
   };
 
   render() {
-    const { email, password } = this.state;
+    const {
+      username, password, redirect, error,
+    } = this.state;
+
+    if (redirect) {
+      return <Redirect to="/"/>;
+    }
 
     return (
       <div>
         <LoginForm
-          email={email}
+          username={username}
           password={password}
           onChange={this.handleInputChange}
           onSubmit={this.handleInputSubmit}
@@ -39,36 +66,54 @@ class Login extends React.Component {
           <Link to="/signup">회원가입</Link>
         </div>
         <div>
-          <button> 구글로 로그인</button>
+          <button type="button"> 구글로 로그인</button>
         </div>
+        <div>{error}</div>
       </div>
     );
   }
 }
 
 const LoginForm = ({
-  email, password, onChange, onSubmit,
+  username, password, onChange, onSubmit,
 }) => (
   <div>
     <form onSubmit={onSubmit}>
       <legend>로그인</legend>
       <div>
-        <label>이메일</label>
-        <input name="email" value={email} placeholder="E-mail" type="text" onChange={onChange} />
+        <label htmlFor="username">
+          사용자 이름
+          <input
+            name="username"
+            id="username"
+            value={username}
+            placeholder="username or E-mail"
+            type="text"
+            onChange={onChange} />
+        </label>
       </div>
       <div>
-        <label>비밀번호</label>
-        <input
-          name="password"
-          value={password}
-          placeholder="Password"
-          type="password"
-          onChange={onChange}
-        />
+        <label htmlFor="password">
+          비밀번호
+          <input
+            name="password"
+            id="password"
+            value={password}
+            placeholder="비밀번호"
+            type="password"
+            onChange={onChange} />
+        </label>
       </div>
-      <input type="submit" value="로그인" />
+      <button type="submit">로그인</button>
     </form>
   </div>
 );
+
+LoginForm.propTypes = {
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Login;
