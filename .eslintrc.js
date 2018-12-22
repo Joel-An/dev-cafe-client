@@ -4,7 +4,7 @@ module.exports = {
     es6: true,
   },
   parser: 'babel-eslint',
-  extends: 'airbnb',
+  extends: ['airbnb', 'prettier/react'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
