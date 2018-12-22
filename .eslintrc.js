@@ -1,0 +1,28 @@
+module.exports = {
+  env: {
+    browser: true,
+    es6: true,
+  },
+  parser: 'babel-eslint',
+  extends: 'airbnb',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2018,
+    sourceType: 'module',
+  },
+  plugins: ['react', 'jsx-a11y', 'import'],
+  rules: {
+    indent: ['error', 2],
+    'linebreak-style': ['error', 'windows'],
+    quotes: ['error', 'single'],
+    semi: ['error', 'always'],
+    "prefer-destructuring": ["error", {
+      "array": true,
+      "object": true
+    }, {
+      "enforceForRenamedProperties": false
+    }],
+  },
+};
