@@ -10,16 +10,14 @@ import Posts from './PostsPage';
 import NoMatch from './NoMatch';
 import Login from './Login';
 import Signup from './Signup';
+import Header from './layout/Header';
 
 import './App.css';
 
 const App = () => (
   <Router>
     <div className="wrapper">
-      <header className="main-head">
-        <Link to="/">Joel's Dev Cafe</Link>
-        <hr />
-      </header>
+      <Header />
       <nav className="main-nav">
         <ul>
           <li>
