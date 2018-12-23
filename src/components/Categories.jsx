@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import CreateCategory from './CreateCategory';
+import DeleteCategory from './DeleteCategory';
 
 
 class Categories extends React.Component {
@@ -36,8 +37,13 @@ class Categories extends React.Component {
             && categories.map(category => (
               <li style={style} id={category._id}>
                 {category.name}
+                <DeleteCategory
+                  id={category._id}
+                  token={token}
+                />
                 <ChildCategories
                   childCategories={category.children}
+                  token={token}
                 />
                 <CreateCategory
                   token={token}
@@ -51,7 +57,7 @@ class Categories extends React.Component {
   }
 }
 
-const ChildCategories = ({ childCategories }) => {
+const ChildCategories = ({ childCategories, token }) => {
   if (childCategories.length === 0) {
     return null;
   }
@@ -61,6 +67,10 @@ const ChildCategories = ({ childCategories }) => {
       {childCategories.map(child => (
         <li id={child._id}>
           ㄴ{child.name}
+          <DeleteCategory
+            id={child._id}
+            token={token}
+          />
         </li>
       ))
       }
@@ -69,6 +79,7 @@ const ChildCategories = ({ childCategories }) => {
 };
 ChildCategories.propTypes = {
   childCategories: PropTypes.shape([{ _id: 'id', name: 'name' }]).isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 Categories.propTypes = {
