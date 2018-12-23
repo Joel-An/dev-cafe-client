@@ -13,6 +13,7 @@ import Header from './layout/Header';
 import ManageCategories from './ManageCategories';
 
 import './App.css';
+import CategoryList from './CategoryList';
 
 class App extends React.Component {
   constructor(props) {
@@ -72,7 +73,9 @@ class App extends React.Component {
             </Switch>
           </div>
         </article>
-        <aside className="side">Sidebar</aside>
+        <aside className="side">
+          <CategoryList/>
+        </aside>
         <div className="ad">Advertising</div>
         <footer className="main-footer">
           <p>Would you like a cup of coffee?</p>
