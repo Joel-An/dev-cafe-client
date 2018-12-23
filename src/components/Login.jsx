@@ -54,7 +54,7 @@ class Login extends React.Component {
 
   render() {
     const {
-      username, password, redirect, error,
+      loginForm, redirect, error,
     } = this.state;
 
     if (redirect) {
@@ -64,8 +64,8 @@ class Login extends React.Component {
     return (
       <div>
         <LoginForm
-          username={username}
-          password={password}
+          username={loginForm.username}
+          password={loginForm.password}
           onChange={this.handleInputChange}
           onSubmit={this.handleInputSubmit}
         />
