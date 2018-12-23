@@ -26,6 +26,11 @@ class App extends React.Component {
     this.setState({ token: localStorage.getItem('token') });
   }
 
+  logout = () => {
+    localStorage.removeItem('token');
+    this.updateToken();
+  }
+
   render() {
     const { token } = this.state;
     return (<Router>
@@ -41,6 +46,9 @@ class App extends React.Component {
             </li>
             <li>
               <Link to="/login">LOGIN</Link>
+            </li>
+            <li>
+              <button type="button" onClick={this.logout}>LOGOUT</button>
             </li>
             <li>
               <Link to="/signup">SIGNUP</Link>
