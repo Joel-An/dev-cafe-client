@@ -36,6 +36,9 @@ class Categories extends React.Component {
             && categories.map(category => (
               <li style={style} id={category._id}>
                 {category.name}
+                <ChildCategories
+                  childCategories={category.children}
+                />
                 <CreateCategory
                   token={token}
                   parent={category._id}
@@ -47,6 +50,26 @@ class Categories extends React.Component {
     );
   }
 }
+
+const ChildCategories = ({ childCategories }) => {
+  if (childCategories.length === 0) {
+    return null;
+  }
+
+  return (
+    <ul>
+      {childCategories.map(child => (
+        <li id={child._id}>
+          ㄴ{child.name}
+        </li>
+      ))
+      }
+    </ul>
+  );
+};
+ChildCategories.propTypes = {
+  childCategories: PropTypes.shape([{ _id: 'id', name: 'name' }]).isRequired,
+};
 
 Categories.propTypes = {
   token: PropTypes.string,
