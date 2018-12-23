@@ -27,9 +27,10 @@ class App extends React.Component {
   }
 
   render() {
+    const { token } = this.state;
     return (<Router>
       <div className="wrapper">
-        <Header />
+        <Header token={token} />
         <nav className="main-nav">
           <ul>
             <li>
