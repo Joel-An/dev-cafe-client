@@ -3,7 +3,7 @@ import axios from 'axios';
 import { sortBy } from 'lodash';
 import classNames from 'classnames';
 
-import './postPage.css';
+import './PostPage.css';
 
 const SORTS = {
   NONE: list => list,
@@ -123,15 +123,8 @@ class PostsPage extends Component {
               onChange={this.onSearchChange}
               onSubmit={this.onSearchSubmit}
             >
-
-
-
-
-
-
-
               SEARCH
-</Search>
+            </Search>
           </div>
           {error ? (
             <div className="interactions">
@@ -153,15 +146,8 @@ class PostsPage extends Component {
               isLoading={isLoading}
               onClick={() => this.getPosts(searchTerm, page + 1)}
             >
-
-
-
-
-
-
-
               More
-</ButtonWithLoading>
+            </ButtonWithLoading>
           </div>
         </div>
       </div>
@@ -206,51 +192,23 @@ class Table extends Component {
         <div className="table-header">
           <span style={midColumn}>
             <Sort sortKey="TITLE" onSort={onSort} activeSortKey={sortKey}>
-
-
-
-
-
-
-
               Title
-</Sort>
+            </Sort>
           </span>
           <span style={largeColumn}>
             <Sort sortKey="AUTHOR" onSort={onSort} activeSortKey={sortKey}>
-
-
-
-
-
-
-
               Author
-</Sort>
+            </Sort>
           </span>
           <span style={smallColumn}>
             <Sort sortKey="UPVOTES" onSort={onSort} activeSortKey={sortKey}>
-
-
-
-
-
-
-
               UpVotes
-</Sort>
+            </Sort>
           </span>
           <span style={smallColumn}>
             <Sort sortKey="VIEWED" onSort={onSort} activeSortKey={sortKey}>
-
-
-
-
-
-
-
               Views
-</Sort>
+            </Sort>
           </span>
           <span style={smallColumn}>Archive</span>
         </div>
