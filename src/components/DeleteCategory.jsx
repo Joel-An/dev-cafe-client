@@ -24,10 +24,9 @@ const DeleteCategory = ({ id, token }) => {
   );
 };
 
-DeleteCategory.prototypes = {
+DeleteCategory.propTypes = {
   id: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
 };
-
 
 export default DeleteCategory;
