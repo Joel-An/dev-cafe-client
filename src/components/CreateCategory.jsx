@@ -39,15 +39,17 @@ class CreateCategory extends React.Component {
 
   render() {
     const { categoryName } = this.state;
+    const { parent } = this.props;
+    const placeholder = parent ? '하위 카테고리' : '상위 카테고리';
+
     return (
       <form onSubmit={this.onSubmit}>
-        <legend>카테고리 생성</legend>
         <div>
           <label htmlFor="categoryName">
-              이름
             <input type="text"
               name="categoryName"
               value={categoryName}
+              placeholder={placeholder}
               onChange={this.onChange}/>
           </label>
           <button type="submit">추가</button>
