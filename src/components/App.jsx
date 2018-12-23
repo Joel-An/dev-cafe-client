@@ -5,7 +5,7 @@ import {
 
 import Home from './Home';
 import Users from './UsersPage';
-import Posts from './PostsPage';
+import OldPosts from './PostsPage';
 import NoMatch from './NoMatch';
 import Login from './Login';
 import Signup from './Signup';
@@ -43,7 +43,7 @@ class App extends React.Component {
               <Link to="/users">USERS</Link>
             </li>
             <li>
-              <Link to="/posts">POSTS</Link>
+              <Link to="/oldposts">POSTS</Link>
             </li>
             <li>
               <Link to="/login">LOGIN</Link>
@@ -64,7 +64,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/users" component={Users} />
-              <Route exact path="/posts" component={Posts} />
+              <Route exact path="/oldPosts" component={OldPosts} />
               <Route exact path="/login" render={props => (<Login {...props} updateToken={this.updateToken}/>)}/>
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/manageCategories" render={props => (<ManageCategories {...props} token={token}/>)} />
