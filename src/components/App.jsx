@@ -3,7 +3,6 @@ import {
   Switch, BrowserRouter as Router, Route, Link,
 } from 'react-router-dom';
 
-import axios from 'axios';
 import Home from './Home';
 import Users from './UsersPage';
 import Posts from './PostsPage';
