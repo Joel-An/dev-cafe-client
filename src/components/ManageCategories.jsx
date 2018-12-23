@@ -15,7 +15,7 @@ class ManageCategories extends React.Component {
     const { token } = this.props;
     return (
       <div >
-        <Categories/>
+        <Categories token={token} />
         <CreateCategory token={token} />
       </div>
     );

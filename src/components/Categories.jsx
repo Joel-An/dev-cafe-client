@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import CreateCategory from './CreateCategory';
 
 
 class Categories extends React.Component {
@@ -33,7 +34,13 @@ class Categories extends React.Component {
       <ul style={style}>
         {categories
             && categories.map(category => (
-              <li style={style} id={category._id}>{category.name}</li>
+              <li style={style} id={category._id}>
+                {category.name}
+                <CreateCategory
+                  token={token}
+                  parent={category._id}
+                />
+              </li>
             ))
         }
       </ul>
