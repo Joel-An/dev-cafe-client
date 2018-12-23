@@ -49,9 +49,7 @@ class CreateCategory extends React.Component {
               value={categoryName}
               onChange={this.onChange}/>
           </label>
-        </div>
-        <div>
-          <button type="submit">생성</button>
+          <button type="submit">추가</button>
         </div>
       </form>
     );
