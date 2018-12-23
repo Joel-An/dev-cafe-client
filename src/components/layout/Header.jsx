@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   constructor(props) {
@@ -13,9 +14,16 @@ class Header extends React.Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('token');
+    const { token } = this.props;
     if (token) {
       this.getUserInfo(token);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { token } = this.props;
+    if (token !== nextProps.token) {
+      this.getUserInfo(nextProps.token);
     }
   }
 
@@ -47,5 +55,7 @@ class Header extends React.Component {
       </header>);
   }
 }
-
+Header.propTypes = {
+  token: PropTypes.string.isRequired,
+};
 export default Header;
