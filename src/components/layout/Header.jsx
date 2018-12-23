@@ -28,6 +28,10 @@ class Header extends React.Component {
   }
 
   getUserInfo = (token) => {
+    if (!token) {
+      this.setState({ isLoggedIn: false });
+      return;
+    }
     const headers = {
       'x-access-token': token,
     };
