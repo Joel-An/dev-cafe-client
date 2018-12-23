@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class UsersPage extends Component {
   constructor(props) {
@@ -35,25 +36,22 @@ class UsersPage extends Component {
   }
 }
 
-class Table extends Component {
-  constructor(props) {
-    super(props);
-  }
+const Table = ({ users }) => (
+  <ul>
+    {users.map(user => (
+      <li key={user._id}>
+        <p>
+          {user.profileName}&nbsp;&nbsp;
+          {user.email}
+        </p>
+      </li>
+    ))}
+  </ul>
+);
 
-  render() {
-    const { users } = this.props;
+Table.propTypes = {
+  users: PropTypes.shape([{ _id: 'id', username: 'username' }]).isRequired,
+};
 
-    return (
-      <div>
-        {users.map(user => (
-          <div key={user._id}>
-            <span>{user.name}</span>
-            <span>{user.email}</span>
-          </div>
-        ))}
-      </div>
-    );
-  }
-}
 
 export default UsersPage;
