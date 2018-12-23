@@ -14,7 +14,8 @@ class CreateCategory extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { categoryName } = this.state;
-    this.postCategories(categoryName);
+    const { parent } = this.props;
+    this.postCategories(categoryName, parent);
   }
 
   onChange = (e) => {
