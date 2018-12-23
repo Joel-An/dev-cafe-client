@@ -52,7 +52,7 @@ class App extends React.Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/users" component={Users} />
               <Route exact path="/posts" component={Posts} />
-              <Route exact path="/login" component={Login} />
+              <Route exact path="/login" render={props => (<Login {...props} updateToken={this.updateToken}/>)}/>
               <Route exact path="/signup" component={Signup} />
               <Route component={NoMatch} />
             </Switch>

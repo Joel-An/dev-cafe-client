@@ -31,13 +31,20 @@ class Login extends React.Component {
     this.login(loginForm);
   };
 
+  saveToken = (token) => {
+    localStorage.setItem('token', token);
+    const { updateToken } = this.props;
+    updateToken();
+    this.setState({ redirect: true });
+  }
+
   login = (loginForm) => {
     axios
       .post('/api/v1/auth', loginForm)
       .then((result) => {
         if (result.status === 201) {
-          localStorage.setItem('token', result.data.accessToken);
-          this.setState({ redirect: true });
+          const { accessToken } = result.data;
+          this.saveToken(accessToken);
         }
       })
       .catch((err) => {
@@ -73,6 +80,10 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  updateToken: PropTypes.func.isRequired,
+};
 
 const LoginForm = ({
   username, password, onChange, onSubmit,
