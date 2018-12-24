@@ -14,6 +14,7 @@ import ManageCategories from './ManageCategories';
 
 import './App.css';
 import CategoryList from './CategoryList';
+import Write from './posts/Write';
 
 class App extends React.Component {
   constructor(props) {
@@ -66,6 +67,7 @@ class App extends React.Component {
               <Route exact path="/" component={Home} />
               <Route exact path="/users" component={Users} />
               <Route exact path="/oldPosts" component={OldPosts} />
+              <Route exact path="/write" render={props => (<Write {...props} token={token}/>)} />
               <Route exact path="/login" render={props => (<Login {...props} updateToken={this.updateToken}/>)}/>
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/manageCategories" render={props => (<ManageCategories {...props} token={token}/>)} />
