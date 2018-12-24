@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import SelectCategory from '../SelectCategory';
 
 class Write extends React.Component {
@@ -13,6 +13,7 @@ class Write extends React.Component {
         contents: '',
         categoryId: '',
       },
+      redirect: false,
     };
   }
 
@@ -25,6 +26,7 @@ class Write extends React.Component {
       .post('/api/v1/posts', postForm, config)
       .then((res) => {
         console.log(res.data);
+        this.setState({ redirect: true });
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -45,7 +47,15 @@ class Write extends React.Component {
   }
 
   render() {
-    const { postForm } = this.state;
+    const { postForm, redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to={{
+        pathname: '/posts',
+        search: `category=${postForm.categoryId}`,
+      }}/>;
+    }
+
     return (
       <form onSubmit={this.onSubmit}>
         <div>
