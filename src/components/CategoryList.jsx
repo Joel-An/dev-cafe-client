@@ -32,7 +32,7 @@ class CategoryList extends React.Component {
     const style = { border: '0.5px solid #eeeeee' };
     return (
       <ul style={style}>
-        <li>
+        <li key="categoryAll">
           <Link to="/posts">전체 보기</Link>
         </li>
         {categories
