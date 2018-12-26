@@ -40,7 +40,10 @@ class App extends React.Component {
     const { token } = this.state;
     return (<Router>
       <div className="wrapper">
-        <Header token={token} />
+        <Header
+          token={token}
+          logout={this.logout}
+        />
         <nav className="main-nav">
           <ul>
             <li>
@@ -48,12 +51,6 @@ class App extends React.Component {
             </li>
             <li>
               <Link to="/oldposts">POSTS</Link>
-            </li>
-            <li>
-              <Link to="/login">LOGIN</Link>
-            </li>
-            <li>
-              <button type="button" onClick={this.logout}>LOGOUT</button>
             </li>
             <li>
               <Link to="/signup">SIGNUP</Link>

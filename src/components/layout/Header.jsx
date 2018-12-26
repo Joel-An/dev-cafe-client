@@ -51,15 +51,28 @@ class Header extends React.Component {
 
   render() {
     const { profileName, isLoggedIn } = this.state;
+    const { logout } = this.props;
     return (
       <header className="main-head">
         <Link to="/">Joel&apos;s Dev Cafe</Link>
-        <p>{!isLoggedIn || `${profileName}님`} 안녕하세요</p>
+        <p>
+          {!isLoggedIn || `${profileName}님`} 안녕하세요
+          <Link to="/login" style={{ textDecoration: 'none' }}>
+            <button type="button">
+
+              LOGIN
+            </button>
+
+          </Link>
+
+          <button type="button" onClick={logout}>LOGOUT</button>
+        </p>
         <hr />
       </header>);
   }
 }
 Header.propTypes = {
   token: PropTypes.string.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 export default Header;
