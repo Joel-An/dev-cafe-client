@@ -50,7 +50,12 @@ const Table = ({ users }) => (
 );
 
 Table.propTypes = {
-  users: PropTypes.shape([{ _id: 'id', username: 'username' }]).isRequired,
+  users: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string,
+    username: PropTypes.string,
+    profileName: PropTypes.string,
+    email: PropTypes.string,
+  })).isRequired,
 };
 
 
