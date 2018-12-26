@@ -9,7 +9,7 @@ const PostList = ({ posts }) => {
   return (
     <ul>
       {posts.map(post => (
-        <li id={post._id}>
+        <li key={post._id}>
           <p>
             <Link to={`posts/${post._id}`}>
               제목 : {post.title}<br/>
