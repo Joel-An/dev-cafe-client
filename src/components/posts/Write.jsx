@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import SelectCategory from '../SelectCategory';
+import SelectCategory from '../categories/SelectCategory';
 
 class Write extends React.Component {
   constructor(props) {

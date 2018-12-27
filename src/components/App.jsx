@@ -10,10 +10,10 @@ import NoMatch from './NoMatch';
 import Login from './Login';
 import Signup from './Signup';
 import Header from './layout/Header';
-import ManageCategories from './ManageCategories';
+import ManageCategories from './categories/ManageCategories';
 
 import './App.css';
-import CategoryList from './CategoryList';
+import CategoryList from './categories/CategoryList';
 import Posts from './posts/Posts';
 import Post from './posts/Post';
 import Write from './posts/Write';
