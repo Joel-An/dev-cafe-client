@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import CommentArea from '../comments/CommentArea';
 
 class Post extends React.Component {
   constructor(props) {
@@ -34,6 +35,8 @@ class Post extends React.Component {
 
   render() {
     const { post, error } = this.state;
+    const { token } = this.props;
+    const { id } = this.props.match.params;
     return (
       <div>
         {error
@@ -45,6 +48,10 @@ class Post extends React.Component {
             내용 : {post.contents}
           </p>
         }
+        <CommentArea
+          post={id}
+          token={token}
+        />
       </div>
     );
   }
