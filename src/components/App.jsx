@@ -13,7 +13,7 @@ import Header from './layout/Header';
 import ManageCategories from './categories/ManageCategories';
 
 import './App.css';
-import CategoryList from './categories/CategoryList';
+import CategoryContainer from '../containers/CategoryContainer';
 import Posts from './posts/Posts';
 import Post from './posts/Post';
 import Write from './posts/Write';
@@ -77,7 +77,7 @@ class App extends React.Component {
           </div>
         </article>
         <aside className="side">
-          <CategoryList/>
+          <CategoryContainer/>
         </aside>
         <div className="ad">Advertising</div>
         <footer className="main-footer">
