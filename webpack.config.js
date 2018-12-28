@@ -81,6 +81,5 @@ module.exports = {
     open: true,
     hot: true,
     proxy: { '/api': 'http://localhost:3000' },
-    disableHostCheck: true,
   },
 };
