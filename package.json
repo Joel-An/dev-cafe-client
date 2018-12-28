@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --content-base ./dist --inline",
     "build": "webpack",
     "test": "jest",
-    "test:watch": "jest --watch",   
+    "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors"
   },
   "keywords": [],
