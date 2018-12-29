@@ -7,4 +7,5 @@ export default function* root() {
   yield spawn(watchCategories);
   yield spawn(auth.loginFlow);
   yield spawn(auth.logoutFlow);
+  yield spawn(auth.watchFetchUserInfo);
 }

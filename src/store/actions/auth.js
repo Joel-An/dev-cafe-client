@@ -5,6 +5,9 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_ERROR,
+  FETCH_USERINFO,
+  FETCH_USERINFO_FULFILLED,
+  FETCH_USERINFO_REJECTED,
 } from '../types/auth';
 
 export const login = loginForm => ({
@@ -32,5 +35,20 @@ export const logoutSucceeded = () => ({
 
 export const logoutFailed = error => ({
   type: LOGOUT_ERROR,
+  error,
+});
+
+export const fetchUserInfo = token => ({
+  type: FETCH_USERINFO,
+  payload: token,
+});
+
+export const fetchUserInfoFulfilled = user => ({
+  type: FETCH_USERINFO_FULFILLED,
+  payload: user,
+});
+
+export const fetchUserInfoRejected = error => ({
+  type: FETCH_USERINFO_REJECTED,
   error,
 });

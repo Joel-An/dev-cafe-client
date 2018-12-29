@@ -20,3 +20,14 @@ export const storeToken = (token) => {
 export const clearToken = () => {
   localStorage.removeItem('token');
 };
+
+export const fetchUserInfo = (token) => {
+  const headers = {
+    'x-access-token': token,
+  };
+  return axios.get('/api/v1/users/me', { headers })
+    .then(result => result.data.myInfo)
+    .catch((err) => {
+      throw err.data;
+    });
+};

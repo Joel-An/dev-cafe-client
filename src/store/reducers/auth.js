@@ -3,10 +3,13 @@ import {
   LOGIN_ERROR,
   LOGOUT_SUCCESS,
   LOGOUT_ERROR,
+  FETCH_USERINFO_FULFILLED,
+  FETCH_USERINFO_REJECTED,
 } from '../types/auth';
 
 const INITIAL_STATE = {
   token: localStorage.getItem('token'),
+  user: { id: null, profileName: null },
   showError: false,
   error: null,
 };
@@ -30,10 +33,22 @@ export default (state = INITIAL_STATE, { type, payload, error }) => {
     return {
       ...state,
       token: null,
+      user: { id: null, profileName: null },
       showError: false,
       error: null,
     };
   case LOGOUT_ERROR:
+    return {
+      ...state,
+      showError: true,
+      error,
+    };
+  case FETCH_USERINFO_FULFILLED:
+    return {
+      ...state,
+      user: { ...payload },
+    };
+  case FETCH_USERINFO_REJECTED:
     return {
       ...state,
       showError: true,

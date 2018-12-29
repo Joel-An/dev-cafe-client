@@ -1,10 +1,11 @@
 import {
-  put, take, call, fork, cancel,
+  put, take, call, fork, cancel, takeLatest,
 } from 'redux-saga/effects';
 
 import {
   LOGIN_REQUEST,
   LOGOUT_REQUEST,
+  FETCH_USERINFO,
 } from '../types/auth';
 import * as actions from '../actions/auth';
 import * as api from '../../api/auth';
@@ -61,4 +62,18 @@ function* logoutFlow() {
   }
 }
 
-export default { loginFlow, logoutFlow };
+function* fetchUserInfo(action) {
+  try {
+    const token = action.payload;
+    const user = yield call(api.fetchUserInfo, token);
+    yield put(actions.fetchUserInfoFulfilled(user));
+  } catch (error) {
+    yield put(actions.fetchUserInfoRejected(error));
+  }
+}
+
+function* watchFetchUserInfo() {
+  yield takeLatest(FETCH_USERINFO, fetchUserInfo);
+}
+
+export default { loginFlow, logoutFlow, watchFetchUserInfo };
