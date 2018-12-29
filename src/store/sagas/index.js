@@ -15,10 +15,10 @@ function* fetchCategoriesSaga() {
   }
 }
 
-function* watchBoard() {
+function* watchCategories() {
   yield takeEvery(FETCH_CATEGORIES, fetchCategoriesSaga);
 }
 
 export default function* root() {
-  yield spawn(watchBoard);
+  yield spawn(watchCategories);
 }
