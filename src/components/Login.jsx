@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import axios from 'axios';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import { login } from '../store/actions/auth';
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,8 +13,6 @@ class Login extends React.Component {
         username: '',
         password: '',
       },
-      redirect: false,
-      error: null,
     };
   }
 
@@ -27,37 +27,15 @@ class Login extends React.Component {
   handleInputSubmit = (event) => {
     event.preventDefault();
     const { loginForm } = this.state;
-
-    this.login(loginForm);
-  };
-
-  saveToken = (token) => {
-    localStorage.setItem('token', token);
-    const { updateToken } = this.props;
-    updateToken();
-    this.setState({ redirect: true });
-  }
-
-  login = (loginForm) => {
-    axios
-      .post('/api/v1/auth', loginForm)
-      .then((result) => {
-        if (result.status === 201) {
-          const { accessToken } = result.data;
-          this.saveToken(accessToken);
-        }
-      })
-      .catch((err) => {
-        this.setState({ error: err.response.data.message });
-      });
+    this.props.login(loginForm);
   };
 
   render() {
     const {
-      loginForm, redirect, error,
+      loginForm, error,
     } = this.state;
 
-    if (redirect) {
+    if (this.props.token) {
       return <Redirect to="/"/>;
     }
 
@@ -81,8 +59,13 @@ class Login extends React.Component {
   }
 }
 
+const mapStateToProps = ({ auth }) => ({
+  token: auth.payload,
+});
+
+const mapDispatchToProps = { login };
+
 Login.propTypes = {
-  updateToken: PropTypes.func.isRequired,
 };
 
 const LoginForm = ({
@@ -127,4 +110,7 @@ LoginForm.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);

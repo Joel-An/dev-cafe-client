@@ -69,7 +69,7 @@ class App extends React.Component {
               <Route path="/posts/:id" render={props => (<Post {...props} token={token}/>)} />
               <Route exact path="/posts" component={Posts} />
               <Route exact path="/write" render={props => (<Write {...props} token={token}/>)} />
-              <Route exact path="/login" render={props => (<Login {...props} updateToken={this.updateToken}/>)}/>
+              <Route exact path="/login" component={Login}/>
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/manageCategories" render={props => (<ManageCategories {...props} token={token}/>)} />
               <Route component={NoMatch} />
