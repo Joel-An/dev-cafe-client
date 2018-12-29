@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
+import LogoutButton from './LogoutButton';
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -51,7 +53,6 @@ class Header extends React.Component {
 
   render() {
     const { profileName, isLoggedIn } = this.state;
-    const { logout } = this.props;
     return (
       <header className="main-head">
         <Link to="/">Joel&apos;s Dev Cafe</Link>
@@ -63,7 +64,7 @@ class Header extends React.Component {
                     LOGIN
               </button>
             </Link>
-            : <button type="button" onClick={logout}>LOGOUT</button>
+            : <LogoutButton/>
           }
         </p>
         <hr />

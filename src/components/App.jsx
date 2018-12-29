@@ -42,7 +42,6 @@ class App extends React.Component {
       <div className="wrapper">
         <Header
           token={token}
-          logout={this.logout}
         />
         <nav className="main-nav">
           <ul>
