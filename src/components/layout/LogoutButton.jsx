@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logout } from '../../store/actions/auth';
 
-const LogoutButton = ({ logout }) => (
-  <button type="button" onClick={logout}>LOGOUT</button>
+const LogoutButton = ({ requestLogout }) => (
+  <button type="button" onClick={requestLogout}>LOGOUT</button>
 );
 
-const mapDispatchToProps = { logout };
+const mapDispatchToProps = { requestLogout: logout };
 
 export default connect(
   null,
