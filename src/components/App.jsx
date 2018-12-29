@@ -40,9 +40,7 @@ class App extends React.Component {
     const { token } = this.state;
     return (<Router>
       <div className="wrapper">
-        <Header
-          token={token}
-        />
+        <Header/>
         <nav className="main-nav">
           <ul>
             <li>

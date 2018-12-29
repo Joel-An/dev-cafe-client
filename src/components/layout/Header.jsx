@@ -1,64 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+
+import { fetchUserInfo as fetchUserInfoAction } from '../../store/actions/auth';
 import LogoutButton from './LogoutButton';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isLoggedIn: false,
-      profileName: '',
-    };
   }
 
   componentDidMount() {
-    const { token } = this.props;
+    const { token, fetchUserInfo } = this.props;
     if (token) {
-      this.getUserInfo(token);
+      fetchUserInfo(token);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { token } = this.props;
-    if (token !== nextProps.token) {
-      this.getUserInfo(nextProps.token);
+    const { token, fetchUserInfo } = this.props;
+    if (nextProps.token && nextProps.token !== token) {
+      fetchUserInfo(nextProps.token);
     }
-  }
-
-  getUserInfo = (token) => {
-    if (!token) {
-      this.setState({ isLoggedIn: false });
-      return;
-    }
-    const headers = {
-      'x-access-token': token,
-    };
-    axios.get('/api/v1/users/me', { headers })
-      .then((result) => {
-        if (result.status === 200) {
-          this.setState({
-            profileName: result.data.myInfo.profileName,
-            isLoggedIn: true,
-          });
-        }
-      })
-      .catch((err) => {
-        console.error(err.data);
-      });
   }
 
   render() {
-    const { profileName, isLoggedIn } = this.state;
+    const { profileName } = this.props;
     return (
       <header className="main-head">
         <Link to="/">Joel&apos;s Dev Cafe</Link>
         <p>
-          {!isLoggedIn || `${profileName}님`} 안녕하세요
-          {!isLoggedIn
+          {!profileName || `${profileName}님`} 안녕하세요
+          {!profileName
             ? <Link to="/login" style={{ textDecoration: 'none' }}>
               <button type="button">
                     LOGIN
@@ -72,8 +47,19 @@ class Header extends React.Component {
     );
   }
 }
+
+const mapStateToProps = ({ auth }) => ({
+  token: auth.token,
+  profileName: auth.user.profileName,
+});
+
+const mapDispatchToProps = { fetchUserInfo: fetchUserInfoAction };
+
 Header.propTypes = {
   token: PropTypes.string.isRequired,
-  logout: PropTypes.func.isRequired,
 };
-export default Header;
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Header);
