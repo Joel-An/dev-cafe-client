@@ -6,7 +6,7 @@ import {
 } from '../types/auth';
 
 const INITIAL_STATE = {
-  payload: localStorage.getItem('token'),
+  token: localStorage.getItem('token'),
   showError: false,
   error: null,
 };
@@ -16,7 +16,7 @@ export default (state = INITIAL_STATE, { type, payload, error }) => {
   case LOGIN_SUCCESS:
     return {
       ...state,
-      payload,
+      token: payload,
       showError: false,
       error: null,
     };
@@ -29,7 +29,7 @@ export default (state = INITIAL_STATE, { type, payload, error }) => {
   case LOGOUT_SUCCESS:
     return {
       ...state,
-      payload: null,
+      token: null,
       showError: false,
       error: null,
     };

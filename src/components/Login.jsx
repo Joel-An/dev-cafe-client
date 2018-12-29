@@ -60,7 +60,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = ({ auth }) => ({
-  token: auth.payload,
+  token: auth.token,
 });
 
 const mapDispatchToProps = { login };
