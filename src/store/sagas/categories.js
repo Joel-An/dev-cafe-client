@@ -20,6 +20,7 @@ function* loadCategoriesSaga() {
   if (state.categories.payload.length) {
     yield put(actions.loadCategoriesSuccess());
   } else {
+    yield put(actions.newFetchCategoires());
     yield put(actions.fetchCategories());
   }
 }
