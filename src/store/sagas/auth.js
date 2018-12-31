@@ -63,12 +63,13 @@ function* logoutFlow() {
 }
 
 function* fetchUserInfo(action) {
+  const token = action.payload;
   try {
-    const token = action.payload;
     const user = yield call(api.fetchUserInfo, token);
     yield put(actions.fetchUserInfoFulfilled(user));
   } catch (error) {
     yield put(actions.fetchUserInfoRejected(error));
+    yield put(actions.logout(token));
   }
 }
 
