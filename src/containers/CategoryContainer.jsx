@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 
-import { fetchCategories } from '../store/actions/categories';
+import { loadCategories } from '../store/actions/categories';
 import CategoryList from '../components/categories/CategoryList';
 
 class CategoryContainer extends React.Component {
@@ -12,7 +12,7 @@ class CategoryContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchCategories();
+    this.props.loadCategories();
   }
 
 
@@ -28,7 +28,7 @@ const mapStateToProps = ({ categories }) => ({
   categories,
 });
 
-const mapDispatchToProps = { fetchCategories };
+const mapDispatchToProps = { loadCategories };
 
 
 export default connect(

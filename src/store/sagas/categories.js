@@ -1,8 +1,8 @@
 import {
-  put, takeEvery, call,
+  put, takeLatest, call, select,
 } from 'redux-saga/effects';
 
-import { FETCH_CATEGORIES } from '../types/categories';
+import { LOAD_CATEGORIES, FETCH_CATEGORIES } from '../types/categories';
 import * as actions from '../actions/categories';
 import * as api from '../../api/categories';
 
@@ -15,6 +15,16 @@ function* fetchCategoriesSaga() {
   }
 }
 
+function* loadCategoriesSaga() {
+  const state = yield select();
+  if (state.categories.payload.length) {
+    yield put(actions.loadCategoriesSuccess());
+  } else {
+    yield put(actions.fetchCategories());
+  }
+}
+
 export default function* watchCategories() {
-  yield takeEvery(FETCH_CATEGORIES, fetchCategoriesSaga);
+  yield takeLatest(LOAD_CATEGORIES, loadCategoriesSaga);
+  yield takeLatest(FETCH_CATEGORIES, fetchCategoriesSaga);
 }
