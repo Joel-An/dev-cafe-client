@@ -24,9 +24,8 @@ export default function withCategoryContainer(ComposedComponent) {
     }
   }
 
-  const mapStateToProps = (state, ownProps) => {
+  const mapStateToProps = (state) => {
     const { categories } = state.entities;
-    const { Component } = ownProps;
     const categoryNames = Object.keys(categories);
 
     if (!categoryNames.length) {
