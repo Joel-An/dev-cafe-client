@@ -13,10 +13,13 @@ import Header from './layout/Header';
 import ManageCategories from './categories/ManageCategories';
 
 import './App.css';
-import CategoryContainer from '../containers/CategoryContainer';
+import withCategoryContainer from '../containers/CategoryContainer';
 import Posts from './posts/Posts';
 import Post from './posts/Post';
 import Write from './posts/Write';
+import CategoryList from './categories/CategoryList';
+
+const CategoryMenu = withCategoryContainer(CategoryList);
 
 class App extends React.Component {
   constructor(props) {
@@ -74,7 +77,7 @@ class App extends React.Component {
           </div>
         </article>
         <aside className="side">
-          <CategoryContainer/>
+          <CategoryMenu/>
         </aside>
         <div className="ad">Advertising</div>
         <footer className="main-footer">
