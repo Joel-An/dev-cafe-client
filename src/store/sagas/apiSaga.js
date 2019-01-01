@@ -1,8 +1,8 @@
 import { take, fork, put } from 'redux-saga/effects';
-import { normalize, schema } from 'normalizr';
+import { normalize, schema as Schema } from 'normalizr';
 import axios from 'axios';
 
-const childCategorySchema = new schema.Entity('categories', {},
+const childCategorySchema = new Schema.Entity('categories', {},
   {
     idAttribute: category => category.name,
     processStrategy: (value, parent, key) => {
@@ -11,7 +11,7 @@ const childCategorySchema = new schema.Entity('categories', {},
     },
   });
 
-const categorySchema = new schema.Entity('categories', {
+const categorySchema = new Schema.Entity('categories', {
   children: [childCategorySchema],
 }, {
   idAttribute: category => category.name,
