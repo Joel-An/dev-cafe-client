@@ -24,9 +24,24 @@ class CategoryContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ categories }) => ({
-  categories,
-});
+const mapStateToProps = (state) => {
+  const { categories } = state.entities;
+  const categoryNames = Object.keys(categories);
+
+  if (!categoryNames.length) {
+    return { categories: [] };
+  }
+
+  const parentCategoryNames = categoryNames.filter(name => !categories[name].isChild);
+
+  const denormalizedCategories = parentCategoryNames.map((name) => {
+    const denormalizedChildren = categories[name].children.map(childName => categories[childName]);
+    const parentCategory = { ...categories[name], children: denormalizedChildren };
+    return parentCategory;
+  });
+
+  return { categories: denormalizedCategories };
+};
 
 const mapDispatchToProps = { loadCategories };
 

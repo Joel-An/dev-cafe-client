@@ -10,9 +10,9 @@ const CategoryList = ({ categories }) => {
       <li key="categoryAll">
         <Link to="/posts">전체 보기</Link>
       </li>
-      {categories.showError
-        ? categories.error
-        : categories.payload.map(category => (
+      {!categories.length
+        ? <p>Loading</p>
+        : categories.map(category => (
           <li style={style} key={category._id}>
             <Link to={{
               pathname: '/posts',
