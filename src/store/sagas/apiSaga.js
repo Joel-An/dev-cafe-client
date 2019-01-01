@@ -51,7 +51,7 @@ function* callApi(action) {
     const normalizedData = normalizeData(response, schema);
     yield put(actionWith({
       type: successType,
-      payload: normalizedData,
+      response: normalizedData,
     }));
   } catch (err) {
     yield put(actionWith({
