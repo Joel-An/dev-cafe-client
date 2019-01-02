@@ -17,9 +17,10 @@ export default function withCategoryContainer(ComposedComponent) {
 
 
     render() {
-      const { categories, parentCategoryNames } = this.props;
+      const newProps = { ...this.props };
+      delete newProps.loadCategories;
       return (
-        <ComposedComponent categories={categories} parentCategoryNames={parentCategoryNames} />
+        <ComposedComponent {...newProps} />
       );
     }
   }
