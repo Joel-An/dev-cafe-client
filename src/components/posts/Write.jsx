@@ -3,6 +3,10 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import SelectCategory from '../categories/SelectCategory';
 
+import withCategoryContainer from '../../containers/CategoryContainer';
+
+const CategorySelector = withCategoryContainer(SelectCategory);
+
 class Write extends React.Component {
   constructor(props) {
     super(props);
@@ -59,7 +63,7 @@ class Write extends React.Component {
     return (
       <form onSubmit={this.onSubmit}>
         <div>
-          <SelectCategory
+          <CategorySelector
             onSelect={this.onSelectCategory}
             selectedCategory={postForm.categoryId}
           />

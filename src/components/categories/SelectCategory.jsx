@@ -1,92 +1,74 @@
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 
+// TODO: Fragment <></> 삭제. 코드를 더 깔끔하게...
 
-class SelectCategory extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categories: null,
-    };
-  }
-
-  componentDidMount() {
-    this.getCategories();
-  }
-
-  getCategories = () => {
-    axios
-      .get('/api/v1/categories')
-      .then((result) => {
-        const { categories } = result.data;
-        const { onSelect } = this.props;
-        onSelect(categories[0]._id);
-        this.setState({ categories });
-      })
-      .catch(err => console.error(err.message));
-  }
-
-  onChange = (e) => {
-    const { onSelect } = this.props;
-    onSelect(e.target.value);
-  }
-
-  render() {
-    const { categories } = this.state;
-    const { selectedCategory } = this.props;
-
-    return (
-      <select value={selectedCategory} onChange={this.onChange}>
-        {categories
-            && categories.map(category => (
-              <>
-                <Category
-                  category={category}
-                />
-                <ChildCategories
-                  childCategories={category.children}
-                />
-              </>
-            ))
-        }
-      </select>
-    );
-  }
-}
-
-const Category = ({ category, prefix }) => (
-  <option value={category._id}>
-    {prefix}{category.name}
-  </option>
+const renderCategory = category => (
+  <option key={category._id} value={category._id}>{category.name}</option>
 );
 
-Category.propTypes = {
-  category: PropTypes.shape({ _id: 'id', name: 'name' }).isRequired,
-  prefix: PropTypes.string,
-};
-
-Category.defaultProps = {
-  prefix: '',
-};
-
-const ChildCategories = ({ childCategories }) => {
-  if (childCategories.length === 0) {
+const rederSubCategories = (categories, name) => {
+  const parent = categories[name];
+  if (!parent.children.length) {
     return null;
   }
 
-  const children = childCategories.map(child => (
-    <Category
-      category={child}
-      prefix="ㄴ"
-    />
-  ));
-
-  return children;
+  return (
+    <>
+      {parent.children.map(childName => (
+        <option key={categories[childName]._id} value={categories[childName]._id}>
+          {`ㄴ${categories[childName].name}`}
+        </option>
+      ))}
+    </>
+  );
 };
 
-ChildCategories.propTypes = {
-  childCategories: PropTypes.shape([{ _id: 'id', name: 'name' }]).isRequired,
+const SelectCategory = (props) => {
+  const {
+    categories, parentCategoryNames, onSelect, selectedCategory,
+  } = props;
+  const isEmpty = !parentCategoryNames.length;
+
+  if (!isEmpty && !selectedCategory) {
+    // TODO: 카테고리 로딩 전에 /write 페이지로 바로 접속하면 Redux랑 충돌함
+    onSelect(categories[parentCategoryNames[0]]._id);
+  }
+
+  const onChange = (e) => {
+    onSelect(e.target.value);
+  };
+
+
+  return (
+    <select value={selectedCategory} onChange={onChange}>
+      {isEmpty
+        ? <p key="Loading">Loading...</p>
+        : parentCategoryNames.map(name => (
+          <>
+            {renderCategory(categories[name])}
+            {rederSubCategories(categories, name)}
+          </>
+        ))
+      }
+    </select>
+  );
 };
+
+const Category = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  parent: PropTypes.string, // default: null
+  isChild: PropTypes.bool.isRequired,
+  children: PropTypes.arrayOf(PropTypes.string).isRequired,
+});
+
+SelectCategory.propTypes = {
+  categories: PropTypes.objectOf(Category).isRequired,
+  parentCategoryNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onSelect: PropTypes.func.isRequired,
+  selectedCategory: PropTypes.string.isRequired,
+};
+
 
 export default SelectCategory;
