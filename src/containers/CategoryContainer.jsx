@@ -17,9 +17,9 @@ export default function withCategoryContainer(ComposedComponent) {
 
 
     render() {
-      const { categories } = this.props;
+      const { categories, parentCategoryNames } = this.props;
       return (
-        <ComposedComponent categories={categories} />
+        <ComposedComponent categories={categories} parentCategoryNames={parentCategoryNames} />
       );
     }
   }
@@ -29,20 +29,13 @@ export default function withCategoryContainer(ComposedComponent) {
     const categoryNames = Object.keys(categories);
 
     if (!categoryNames.length) {
-      return { categories: [] };
+      return { categories: {}, parentCategoryNames: [] };
     }
 
     const parentCategoryNames = categoryNames.filter(name => !categories[name].isChild);
 
-    const denormalizedCategories = parentCategoryNames.map((name) => {
-      const denormalizedChildren = categories[name].children.map(childName => categories[childName]);
-      const parentCategory = { ...categories[name], children: denormalizedChildren };
-      return parentCategory;
-    });
-
-    return { categories: denormalizedCategories };
+    return { categories, parentCategoryNames };
   };
-
   const mapDispatchToProps = { loadCategories };
 
 
