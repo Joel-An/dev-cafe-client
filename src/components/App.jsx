@@ -17,9 +17,9 @@ import withCategoryContainer from '../containers/CategoryContainer';
 import Posts from './posts/Posts';
 import Post from './posts/Post';
 import Write from './posts/Write';
-import CategoryList from './categories/CategoryList';
+import CategoryLinkMenu from './categories/CategoryMenu';
 
-const CategoryMenu = withCategoryContainer(CategoryList);
+const CategoryMenu = withCategoryContainer(CategoryLinkMenu);
 
 class App extends React.Component {
   constructor(props) {
