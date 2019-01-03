@@ -8,11 +8,12 @@ import {
 
 import { CALL_API, Schemas } from '../sagas/apiSaga';
 
-export const fetchCategories = () => ({
+export const fetchCategories = (refreshCache = false) => ({
   type: CALL_API,
   types: [GET_CATEGORIES_REQUEST, GET_CATEGORIES_SUCCESS, GET_CATEGORIES_FAILURE],
   endpoint: '/categories',
   method: 'get',
+  refreshCache,
   schema: Schemas.CATEGORY_ARRAY,
 });
 
