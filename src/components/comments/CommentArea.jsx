@@ -36,7 +36,7 @@ class CommentArea extends React.Component {
       .then((result) => {
         if (result.status === 200) {
           this.setState({
-            comments: result.data.comments,
+            comments: result.data,
             error: false,
           });
         }
