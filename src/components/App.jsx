@@ -10,7 +10,7 @@ import NoMatch from './NoMatch';
 import Login from './Login';
 import Signup from './Signup';
 import Header from './layout/Header';
-import ManageCategories from './categories/ManageCategories';
+import CategoryManager from './categories/CategoryManager';
 
 import './App.css';
 import withCategoryContainer from '../containers/CategoryContainer';
@@ -56,7 +56,7 @@ class App extends React.Component {
               <Link to="/signup">SIGNUP</Link>
             </li>
             <li>
-              <Link to="/manageCategories">MANAGE CATEGORIES</Link>
+              <Link to="/categoryManager">MANAGE CATEGORIES</Link>
             </li>
           </ul>
         </nav>
@@ -71,7 +71,7 @@ class App extends React.Component {
               <Route exact path="/write" render={props => (<Write {...props} token={token}/>)} />
               <Route exact path="/login" component={Login}/>
               <Route exact path="/signup" component={Signup} />
-              <Route exact path="/manageCategories" component={ManageCategories} />
+              <Route exact path="/categoryManager" component={CategoryManager} />
               <Route component={NoMatch} />
             </Switch>
           </div>

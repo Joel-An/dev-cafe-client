@@ -24,7 +24,7 @@ const renderChildCategories = (categories, name) => {
   );
 };
 
-const Categories = (props) => {
+const CategoryManager = (props) => {
   const { categories, parentCategoryNames } = props;
   const style = { border: '0.5px solid #dddddd' };
 
@@ -64,10 +64,10 @@ const Category = PropTypes.shape({
   children: PropTypes.arrayOf(PropTypes.string).isRequired,
 });
 
-Categories.propTypes = {
+CategoryManager.propTypes = {
   categories: PropTypes.objectOf(Category).isRequired,
   parentCategoryNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 
-export default withCategoryContainer(Categories);
+export default withCategoryContainer(CategoryManager);
