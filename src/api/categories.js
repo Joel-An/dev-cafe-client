@@ -7,3 +7,9 @@ export const postCategory = (category, token) => {
 
   return axios.post('/api/v1/categories', category, config);
 };
+
+export const deleteCategory = (id, token) => {
+  const config = { headers: { 'x-access-token': token } };
+
+  return axios.delete(`/api/v1/categories/${id}`, config);
+};
