@@ -17,9 +17,10 @@ const INITIAL_STATE = () => ({
 export default (state = INITIAL_STATE(), { type, payload, error }) => {
   switch (type) {
   case LOGIN_SUCCESS:
+    localStorage.setItem('token', payload);
     return {
       ...state,
-      token: payload,
+      token: localStorage.getItem('token'),
       showError: false,
       error: null,
     };
@@ -30,6 +31,7 @@ export default (state = INITIAL_STATE(), { type, payload, error }) => {
       error,
     };
   case LOGOUT_SUCCESS:
+    localStorage.removeItem('token');
     return {
       ...INITIAL_STATE(),
     };

@@ -13,14 +13,6 @@ export const login = loginForm => axios
 export const logout = () => Promise.resolve();
 // TODO: 백엔드에 로그아웃 구현이 안 돼있음.
 
-export const storeToken = (token) => {
-  localStorage.setItem('token', token);
-};
-
-export const clearToken = () => {
-  localStorage.removeItem('token');
-};
-
 export const fetchUserInfo = (token) => {
   const headers = {
     'x-access-token': token,

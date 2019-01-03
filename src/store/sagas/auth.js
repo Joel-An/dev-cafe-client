@@ -14,7 +14,6 @@ function* authorize(loginForm) {
   try {
     const token = yield call(api.login, loginForm);
     yield put(actions.loginSucceeded(token));
-    yield call(api.storeToken, token);
   } catch (error) {
     yield put(actions.loginFailed(error));
   }
@@ -43,7 +42,6 @@ function* requestLogout(token) {
   try {
     yield call(api.logout, token);
     yield put(actions.logoutSucceeded());
-    yield call(api.clearToken);
   } catch (error) {
     yield put(actions.logoutFailed(error));
   }
