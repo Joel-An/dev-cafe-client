@@ -10,9 +10,9 @@ const renderChildCategories = (categories, name) => {
   }
 
   return (
-    <ul>
+    <ul className="subCategoryList">
       {categories[name].children.map(childName => (
-        <li key={categories[childName]._id}>
+        <li name={childName} key={categories[childName]._id}>
           ㄴ{categories[childName].name}
           <DeleteCategory
             id={categories[childName]._id}
@@ -36,9 +36,9 @@ const CategoryManager = (props) => {
 
   return (
     <>
-      <ul style={style}>
+      <ul className="categoryList" style={style}>
         {parentCategoryNames.map(name => (
-          <li style={style} key={categories[name]._id}>
+          <li name={name} style={style} key={categories[name]._id}>
             {categories[name].name}
             <DeleteCategory
               id={categories[name]._id}
