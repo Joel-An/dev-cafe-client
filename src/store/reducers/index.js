@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import merge from 'lodash/merge';
-import categories from './categories';
 import auth from './auth';
 
 const entities = (state = { categories: {} }, action) => {
@@ -12,5 +11,5 @@ const entities = (state = { categories: {} }, action) => {
 };
 
 export default combineReducers({
-  categories, auth, entities,
+  auth, entities,
 });
