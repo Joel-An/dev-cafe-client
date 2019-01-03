@@ -1,15 +1,15 @@
 import {
   LOAD_CATEGORIES,
-  CATEGORIES_REQUEST,
-  CATEGORIES_SUCCESS,
-  CATEGORIES_FAILURE,
+  GET_CATEGORIES_REQUEST,
+  GET_CATEGORIES_SUCCESS,
+  GET_CATEGORIES_FAILURE,
 } from '../types/categories';
 
 import { CALL_API, Schemas } from '../sagas/apiSaga';
 
 export const fetchCategories = () => ({
   type: CALL_API,
-  types: [CATEGORIES_REQUEST, CATEGORIES_SUCCESS, CATEGORIES_FAILURE],
+  types: [GET_CATEGORIES_REQUEST, GET_CATEGORIES_SUCCESS, GET_CATEGORIES_FAILURE],
   endpoint: '/categories',
   method: 'get',
   schema: Schemas.CATEGORY_ARRAY,
