@@ -31,7 +31,7 @@ class Posts extends React.Component {
       .then((result) => {
         if (result.status === 200) {
           this.setState({
-            posts: result.data.posts,
+            posts: result.data,
             error: false,
           });
         }
