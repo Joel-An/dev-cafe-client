@@ -71,7 +71,7 @@ class App extends React.Component {
               <Route exact path="/write" render={props => (<Write {...props} token={token}/>)} />
               <Route exact path="/login" component={Login}/>
               <Route exact path="/signup" component={Signup} />
-              <Route exact path="/manageCategories" render={props => (<ManageCategories {...props} token={token}/>)} />
+              <Route exact path="/manageCategories" component={ManageCategories} />
               <Route component={NoMatch} />
             </Switch>
           </div>
