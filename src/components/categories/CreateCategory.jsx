@@ -1,46 +1,49 @@
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import withTokenContainer from '../../containers/TokenContainer';
+import { fetchCategories } from '../../store/actions/categories';
+import * as api from '../../api/categories';
 
 class CreateCategory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       categoryName: '',
+      error: null,
     };
   }
 
   onSubmit = (e) => {
     e.preventDefault();
     const { categoryName } = this.state;
-    const { parent } = this.props;
-    this.postCategories(categoryName, parent);
+
+    this.setState(prevState => ({ ...prevState, categoryName: '' }));
+    this.postCategories(categoryName);
   }
 
   onChange = (e) => {
     const { value } = e.target;
-    this.setState({ categoryName: value });
+    this.setState(prevState => ({ ...prevState, categoryName: value }));
   }
 
-  postCategories = (name, parent) => {
+  postCategories = (name) => {
+    const { parent, token, dispatch } = this.props;
     const category = { name, parent };
-    const { token } = this.props;
-    const config = { headers: { 'x-access-token': token } };
-    axios
-      .post('/api/v1/categories', category, config)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
+
+    api.postCategory(category, token)
+      .then(() => {
+        this.setState(prevState => ({ ...prevState, error: null }));
+        dispatch(fetchCategories());
+      }).catch((err) => {
+        this.setState(prevState => ({ ...prevState, error: err.response.data }));
       });
   }
 
   render() {
-    const { categoryName } = this.state;
+    const { categoryName, error } = this.state;
     const { parent } = this.props;
+
     const placeholder = parent ? '하위 카테고리' : '상위 카테고리';
 
     return (
@@ -55,6 +58,7 @@ class CreateCategory extends React.Component {
           </label>
           <button type="submit">추가</button>
         </div>
+        {error && <p>{error.message}</p>}
       </form>
     );
   }
@@ -63,6 +67,7 @@ class CreateCategory extends React.Component {
 CreateCategory.propTypes = {
   token: PropTypes.string.isRequired,
   parent: PropTypes.string,
+  dispatch: PropTypes.func.isRequired,
 };
 
 CreateCategory.defaultProps = {
