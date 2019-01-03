@@ -13,3 +13,14 @@ const childCategorySchema = new Schema.Entity('categories', {},
 export const categorySchema = new Schema.Entity('categories',
   { children: [childCategorySchema] },
   { idAttribute: category => category.name });
+
+export const userSchema = new Schema.Entity('users',
+  {},
+  { idAttribute: user => user._id });
+
+export const postSchema = new Schema.Entity('posts',
+  {
+    category: categorySchema,
+    author: userSchema,
+  },
+  { idAttribute: post => post._id });

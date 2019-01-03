@@ -2,12 +2,13 @@ import { take, fork, put } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 import axios from 'axios';
 
-import { categorySchema } from './schema';
+import { categorySchema, postSchema } from './schema';
 
 
 export const CALL_API = 'CALL_API';
 export const Schemas = {
   CATEGORY_ARRAY: [categorySchema],
+  POST_ARRAY: [postSchema],
 };
 
 const API_URI = '/api/v1';
