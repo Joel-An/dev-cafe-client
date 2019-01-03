@@ -1,5 +1,6 @@
 import {
   LOAD_CATEGORIES,
+  LOAD_CATEGORIES_SUCCESS,
   GET_CATEGORIES_REQUEST,
   GET_CATEGORIES_SUCCESS,
   GET_CATEGORIES_FAILURE,
@@ -17,4 +18,8 @@ export const fetchCategories = () => ({
 
 export const loadCategories = () => ({
   type: LOAD_CATEGORIES,
+});
+
+export const loadCategoriesSuccess = () => ({
+  type: LOAD_CATEGORIES_SUCCESS,
 });
