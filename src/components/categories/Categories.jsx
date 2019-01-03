@@ -1,75 +1,21 @@
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import CreateCategory from './CreateCategory';
 import DeleteCategory from './DeleteCategory';
+import withCategoryContainer from '../../containers/CategoryContainer';
 
-
-class Categories extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categories: null,
-    };
-  }
-
-  componentDidMount() {
-    this.getCategories();
-  }
-
-  getCategories = () => {
-    axios
-      .get('/api/v1/categories')
-      .then((result) => {
-        const { categories } = result.data;
-        this.setState({ categories });
-      })
-      .catch(err => console.error(err.message));
-  }
-
-  render() {
-    const { token } = this.props;
-    const { categories } = this.state;
-    const style = { border: '0.5px solid #dddddd' };
-    return (
-      <ul style={style}>
-        {categories
-            && categories.map(category => (
-              <li style={style} id={category._id}>
-                {category.name}
-                <DeleteCategory
-                  id={category._id}
-                  token={token}
-                />
-                <ChildCategories
-                  childCategories={category.children}
-                  token={token}
-                />
-                <CreateCategory
-                  token={token}
-                  parent={category._id}
-                />
-              </li>
-            ))
-        }
-      </ul>
-    );
-  }
-}
-
-const ChildCategories = ({ childCategories, token }) => {
-  if (childCategories.length === 0) {
+const renderChildCategories = (categories, name) => {
+  if (categories[name].children.length === 0) {
     return null;
   }
 
   return (
     <ul>
-      {childCategories.map(child => (
-        <li id={child._id}>
-          ㄴ{child.name}
+      {categories[name].children.map(childName => (
+        <li id={categories[childName]._id}>
+          ㄴ{categories[childName].name}
           <DeleteCategory
-            id={child._id}
-            token={token}
+            id={categories[childName]._id}
           />
         </li>
       ))
@@ -77,17 +23,48 @@ const ChildCategories = ({ childCategories, token }) => {
     </ul>
   );
 };
-ChildCategories.propTypes = {
-  childCategories: PropTypes.shape([{ _id: 'id', name: 'name' }]).isRequired,
-  token: PropTypes.string.isRequired,
+
+const Categories = (props) => {
+  const { categories, parentCategoryNames } = props;
+  const style = { border: '0.5px solid #dddddd' };
+
+  const isEmpty = !parentCategoryNames.length;
+
+  if (isEmpty) {
+    return null;
+  }
+
+  return (
+    <ul style={style}>
+      {parentCategoryNames.map(name => (
+        <li style={style} id={categories[name]._id}>
+          {categories[name].name}
+          <DeleteCategory
+            id={categories[name]._id}
+          />
+          {renderChildCategories(categories, name)}
+          <CreateCategory
+            parent={categories[name]._id}
+          />
+        </li>
+      ))
+      }
+    </ul>
+  );
 };
+
+const Category = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  parent: PropTypes.string, // default: null
+  isChild: PropTypes.bool.isRequired,
+  children: PropTypes.arrayOf(PropTypes.string).isRequired,
+});
 
 Categories.propTypes = {
-  token: PropTypes.string,
+  categories: PropTypes.objectOf(Category).isRequired,
+  parentCategoryNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-Categories.defaultProps = {
-  token: null,
-};
 
-export default Categories;
+export default withCategoryContainer(Categories);
