@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
+import withTokenContainer from '../../containers/TokenContainer';
 
 class CreateCategory extends React.Component {
   constructor(props) {
@@ -68,4 +69,4 @@ CreateCategory.defaultProps = {
   parent: null,
 };
 
-export default CreateCategory;
+export default withTokenContainer(CreateCategory);
