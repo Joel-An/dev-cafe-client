@@ -5,9 +5,10 @@ import axios from 'axios';
 const childCategorySchema = new Schema.Entity('categories', {},
   {
     idAttribute: category => category.name,
-    processStrategy: (value, parent, key) => {
-      value.parent = parent.name;
-      return value;
+    processStrategy: (value, parent) => {
+      const newCategory = { ...value };
+      newCategory.parent = parent.name;
+      return newCategory;
     },
   });
 
