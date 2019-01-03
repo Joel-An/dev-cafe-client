@@ -1,22 +1,8 @@
 import { take, fork, put } from 'redux-saga/effects';
-import { normalize, schema as Schema } from 'normalizr';
+import { normalize } from 'normalizr';
 import axios from 'axios';
 
-const childCategorySchema = new Schema.Entity('categories', {},
-  {
-    idAttribute: category => category.name,
-    processStrategy: (value, parent) => {
-      const newCategory = { ...value };
-      newCategory.parent = parent.name;
-      return newCategory;
-    },
-  });
-
-const categorySchema = new Schema.Entity('categories', {
-  children: [childCategorySchema],
-}, {
-  idAttribute: category => category.name,
-});
+import { categorySchema } from './schema';
 
 
 export const CALL_API = 'CALL_API';
