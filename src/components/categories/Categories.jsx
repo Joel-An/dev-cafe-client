@@ -35,21 +35,24 @@ const Categories = (props) => {
   }
 
   return (
-    <ul style={style}>
-      {parentCategoryNames.map(name => (
-        <li style={style} id={categories[name]._id}>
-          {categories[name].name}
-          <DeleteCategory
-            id={categories[name]._id}
-          />
-          {renderChildCategories(categories, name)}
-          <CreateCategory
-            parent={categories[name]._id}
-          />
-        </li>
-      ))
-      }
-    </ul>
+    <>
+      <ul style={style}>
+        {parentCategoryNames.map(name => (
+          <li style={style} id={categories[name]._id}>
+            {categories[name].name}
+            <DeleteCategory
+              id={categories[name]._id}
+            />
+            {renderChildCategories(categories, name)}
+            <CreateCategory
+              parent={categories[name]._id}
+            />
+          </li>
+        ))
+        }
+      </ul>
+      <CreateCategory/>
+    </>
   );
 };
 
