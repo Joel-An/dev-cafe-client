@@ -26,7 +26,7 @@ export const Schemas = {
 const API_URI = '/api/v1';
 
 function normalizeData(response, schema) {
-  const normalizedData = normalize(response.data.categories, schema);
+  const normalizedData = normalize(response.data, schema);
   return normalizedData;
 }
 
