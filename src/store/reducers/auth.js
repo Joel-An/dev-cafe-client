@@ -7,14 +7,14 @@ import {
   FETCH_USERINFO_REJECTED,
 } from '../types/auth';
 
-const INITIAL_STATE = {
+const INITIAL_STATE = () => ({
   token: localStorage.getItem('token'),
-  user: { id: null, profileName: null },
+  user: { _id: null, profileName: null },
   showError: false,
   error: null,
-};
+});
 
-export default (state = INITIAL_STATE, { type, payload, error }) => {
+export default (state = INITIAL_STATE(), { type, payload, error }) => {
   switch (type) {
   case LOGIN_SUCCESS:
     return {
@@ -31,11 +31,7 @@ export default (state = INITIAL_STATE, { type, payload, error }) => {
     };
   case LOGOUT_SUCCESS:
     return {
-      ...state,
-      token: null,
-      user: { id: null, profileName: null },
-      showError: false,
-      error: null,
+      ...INITIAL_STATE(),
     };
   case LOGOUT_ERROR:
     return {
