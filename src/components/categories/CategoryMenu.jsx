@@ -34,7 +34,7 @@ const CategoryMenu = ({ categories, parentCategoryNames }) => {
   return (
     <ul className="categoryList">
       <li key="categoryAll" name="전체보기">
-        <Link to="/posts">전체 보기</Link>
+        <Link to="/posts?category=all">전체 보기</Link>
       </li>
       {isEmpty
         ? <p>Loading...</p>
