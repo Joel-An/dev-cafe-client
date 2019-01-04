@@ -5,6 +5,8 @@ import SelectCategory from '../categories/SelectCategory';
 
 import withTokenContainer from '../../containers/TokenContainer';
 import withCategoryContainer from '../../containers/CategoryContainer';
+import { postPost } from '../../api/posts';
+import { fetchPosts } from '../../store/actions/posts';
 
 const CategorySelector = withCategoryContainer(SelectCategory);
 
@@ -23,22 +25,22 @@ class Write extends React.Component {
         categoryId: initialId,
       },
       redirect: false,
+      error: null,
     };
   }
 
   onSubmit = (e) => {
     e.preventDefault();
     const { postForm } = this.state;
-    const { token } = this.props;
-    const config = { headers: { 'x-access-token': token } };
-    axios
-      .post('/api/v1/posts', postForm, config)
-      .then((res) => {
-        console.log(res.data);
+    const { token, dispatch } = this.props;
+    postPost(postForm, token)
+      .then(() => {
+        const fetchPostAction = fetchPosts(postForm.categoryId);
+        dispatch(fetchPostAction);
         this.setState({ redirect: true });
       })
       .catch((err) => {
-        console.log(err.response.data);
+        this.setState(prevState => ({ ...prevState, error: err.response.data }));
       });
   }
 
@@ -56,7 +58,7 @@ class Write extends React.Component {
   }
 
   render() {
-    const { postForm, redirect } = this.state;
+    const { postForm, redirect, error } = this.state;
 
     if (redirect) {
       return <Redirect to={{
@@ -92,6 +94,7 @@ class Write extends React.Component {
           </label>
         </div>
         <button type="submit">작성</button>
+        {error}
       </form>
     );
   }
