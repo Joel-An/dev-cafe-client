@@ -68,7 +68,7 @@ class App extends React.Component {
               <Route exact path="/oldPosts" component={OldPosts} />
               <Route path="/posts/:id" render={props => (<Post {...props} token={token}/>)} />
               <Route exact path="/posts" component={Posts} />
-              <Route exact path="/write" render={props => (<Write {...props} token={token}/>)} />
+              <Route path="/write/:categoryId" render={props => (<Write {...props} token={token}/>)} />
               <Route exact path="/login" component={Login}/>
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/categoryManager" component={CategoryManager} />

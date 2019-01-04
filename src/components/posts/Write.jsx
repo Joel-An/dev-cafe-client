@@ -12,11 +12,15 @@ class Write extends React.Component {
   constructor(props) {
     super(props);
 
+    const { match } = this.props;
+    const { categoryId } = match.params;
+    const initialId = categoryId === 'all' ? '' : categoryId;
+
     this.state = {
       postForm: {
         title: '',
         contents: '',
-        categoryId: '',
+        categoryId: initialId,
       },
       redirect: false,
     };

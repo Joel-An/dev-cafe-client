@@ -16,7 +16,7 @@ const Posts = (props) => {
         : <PostList entities={entities} postIds={postsInfo.ids}/>
       }
       <button type="button">
-        <Link to="/write">글쓰기</Link>
+        <Link to={`/write/${category}`}>글쓰기</Link>
       </button>
     </div>
   );
