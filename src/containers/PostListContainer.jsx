@@ -34,14 +34,14 @@ export default function withPostListContainer(ComposedComponent) {
   };
 
   const mapStateToProps = (state, ownProps) => {
-    const { posts, categories } = state.entities;
+    const { entities } = state;
     const { postsByCategory } = state.pagination;
 
     const { search: query } = ownProps.location;
     const category = getCategoryId(query);
 
     return {
-      posts, categories, category, postsByCategory,
+      entities, category, postsByCategory,
     };
   };
   const mapDispatchToProps = { loadPosts: loadPostsAction };

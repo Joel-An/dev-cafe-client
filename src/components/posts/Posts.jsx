@@ -4,18 +4,20 @@ import PostList from './PostList';
 import withPostListContainer from '../../containers/PostListContainer';
 
 const Posts = (props) => {
-  const error = true;
-  console.log(props);
+  const { entities, postsByCategory, category } = props;
+
+  const postsInfo = postsByCategory[category];
+  const isFetching = (typeof postsInfo === 'undefined') || postsInfo.isFetching;
 
   return (
     <div>
-      {error
-        ? '글이 없어!'
-        : <PostList posts={posts}/>
+      {isFetching
+        ? 'Loading posts....'
+        : <PostList entities={entities} postIds={postsInfo.ids}/>
       }
-      <div>
+      <button type="button">
         <Link to="/write">글쓰기</Link>
-      </div>
+      </button>
     </div>
   );
 };
