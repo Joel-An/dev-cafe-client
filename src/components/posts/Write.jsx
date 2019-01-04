@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import SelectCategory from '../categories/SelectCategory';
 
+import withTokenContainer from '../../containers/TokenContainer';
 import withCategoryContainer from '../../containers/CategoryContainer';
 
 const CategorySelector = withCategoryContainer(SelectCategory);
@@ -92,4 +93,4 @@ class Write extends React.Component {
   }
 }
 
-export default Write;
+export default withTokenContainer(Write);
