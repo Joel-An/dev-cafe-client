@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PostList from './PostList';
+import withPostListContainer from '../../containers/PostListContainer';
 
 class Posts extends React.Component {
   constructor(props) {
@@ -58,4 +59,4 @@ class Posts extends React.Component {
   }
 }
 
-export default Posts;
+export default withPostListContainer(Posts);
