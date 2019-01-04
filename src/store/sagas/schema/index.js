@@ -20,7 +20,14 @@ export const userSchema = new Schema.Entity('users',
 
 export const postSchema = new Schema.Entity('posts',
   {
-    category: categorySchema,
     author: userSchema,
   },
-  { idAttribute: post => post._id });
+  {
+    idAttribute: post => post._id,
+    processStrategy: (post) => {
+      const newPost = { ...post };
+      newPost.category = post.category.name;
+
+      return newPost;
+    },
+  });
