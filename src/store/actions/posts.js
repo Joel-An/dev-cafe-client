@@ -4,6 +4,11 @@ import {
   GET_POSTS_REQUEST,
   GET_POSTS_SUCCESS,
   GET_POSTS_FAILURE,
+  LOAD_POST,
+  LOAD_POST_SUCCESS,
+  GET_POST_REQUEST,
+  GET_POST_SUCCESS,
+  GET_POST_FAILURE,
 } from '../types/posts';
 
 import { CALL_API, Schemas } from '../sagas/apiSaga';
@@ -25,4 +30,23 @@ export const loadPosts = category => ({
 
 export const loadPostsSuccess = () => ({
   type: LOAD_POSTS_SUCCESS,
+});
+
+export const fetchPost = (postId, refreshCache = false) => ({
+  type: CALL_API,
+  types: [GET_POST_REQUEST, GET_POST_SUCCESS, GET_POST_FAILURE],
+  endpoint: `/posts/${postId}`,
+  postId,
+  method: 'get',
+  refreshCache,
+  schema: Schemas.POST,
+});
+
+export const loadPost = postId => ({
+  type: LOAD_POST,
+  postId,
+});
+
+export const loadPostSuccess = () => ({
+  type: LOAD_POST_SUCCESS,
 });

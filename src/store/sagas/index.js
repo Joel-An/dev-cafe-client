@@ -8,6 +8,7 @@ import watchCallApi from './apiSaga';
 export default function* root() {
   yield spawn(watchCategories);
   yield spawn(posts.watchPosts);
+  yield spawn(posts.watchPost);
   yield spawn(auth.loginFlow);
   yield spawn(auth.logoutFlow);
   yield spawn(auth.watchFetchUserInfo);

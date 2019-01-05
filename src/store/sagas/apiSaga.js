@@ -8,6 +8,7 @@ import { categorySchema, postSchema } from './schema';
 export const CALL_API = 'CALL_API';
 export const Schemas = {
   CATEGORY_ARRAY: [categorySchema],
+  POST: postSchema,
   POST_ARRAY: [postSchema],
 };
 

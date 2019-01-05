@@ -2,7 +2,7 @@ import {
   put, takeLatest, select,
 } from 'redux-saga/effects';
 
-import { LOAD_POSTS } from '../types/posts';
+import { LOAD_POSTS, LOAD_POST } from '../types/posts';
 import * as actions from '../actions/posts';
 
 
@@ -20,4 +20,21 @@ function* loadPostsSaga(action) {
 
 export function* watchPosts() {
   yield takeLatest(LOAD_POSTS, loadPostsSaga);
+}
+
+
+function* loadPostSaga(action) {
+  const state = yield select();
+  const { postId } = action;
+  const cache = state.entities.posts[postId] && state.entities.posts[postId].contents;
+
+  if (cache) {
+    yield put(actions.loadPostSuccess());
+  } else {
+    yield put(actions.fetchPost(postId));
+  }
+}
+
+export function* watchPost() {
+  yield takeLatest(LOAD_POST, loadPostSaga);
 }
