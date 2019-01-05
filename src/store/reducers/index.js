@@ -4,7 +4,11 @@ import auth from './auth';
 import paginate from './paginate';
 import * as PostActions from '../types/posts';
 
-const entities = (state = { categories: {}, users: {} }, action) => {
+const INITIAL_ENTITIES = {
+  categories: {}, users: {}, posts: {}, comments: {},
+};
+
+const entities = (state = INITIAL_ENTITIES, action) => {
   if (action.response && action.response.entities) {
     if (action.refreshCache) {
       return ({ ...state, ...action.response.entities });
