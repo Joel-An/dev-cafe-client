@@ -18,6 +18,6 @@ function* loadPostsSaga(action) {
   }
 }
 
-export default function* watchPosts() {
+export function* watchPosts() {
   yield takeLatest(LOAD_POSTS, loadPostsSaga);
 }
