@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import CommentList from './CommentList';
 import WriteComment from './WriteComment';
+import withCommentContainer from '../../containers/CommentContainer';
 
 class CommentArea extends React.Component {
   static propTypes = {
@@ -67,4 +68,4 @@ class CommentArea extends React.Component {
   }
 }
 
-export default CommentArea;
+export default withCommentContainer(CommentArea);
