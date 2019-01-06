@@ -3,6 +3,7 @@ import merge from 'lodash/merge';
 import auth from './auth';
 import paginate from './paginate';
 import * as PostActions from '../types/posts';
+import * as CommentActions from '../types/comments';
 
 const INITIAL_ENTITIES = {
   categories: {}, users: {}, posts: {}, comments: {},
@@ -26,6 +27,14 @@ const pagination = combineReducers({
       PostActions.GET_POSTS_REQUEST,
       PostActions.GET_POSTS_SUCCESS,
       PostActions.GET_POSTS_FAILURE,
+    ],
+  }),
+  commentsByPost: paginate({
+    mapActionToKey: action => action.postId,
+    types: [
+      CommentActions.GET_COMMENTS_REQUEST,
+      CommentActions.GET_COMMENTS_SUCCESS,
+      CommentActions.GET_COMMENTS_FAILURE,
     ],
   }),
 });

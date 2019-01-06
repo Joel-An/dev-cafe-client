@@ -2,7 +2,7 @@ import { take, fork, put } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 import axios from 'axios';
 
-import { categorySchema, postSchema } from './schema';
+import { categorySchema, postSchema, commentSchema } from './schema';
 
 
 export const CALL_API = 'CALL_API';
@@ -10,6 +10,7 @@ export const Schemas = {
   CATEGORY_ARRAY: [categorySchema],
   POST: postSchema,
   POST_ARRAY: [postSchema],
+  COMMENT_ARRAY: [commentSchema],
 };
 
 const API_URI = '/api/v1';

@@ -31,3 +31,11 @@ export const postSchema = new Schema.Entity('posts',
       return newPost;
     },
   });
+
+const childCommentSchema = new Schema.Entity('comments', {},
+  { idAttribute: comment => comment._id });
+
+
+export const commentSchema = new Schema.Entity('comments',
+  { children: [childCommentSchema] },
+  { idAttribute: comment => comment._id });
