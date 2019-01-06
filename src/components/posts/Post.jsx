@@ -26,7 +26,7 @@ const Post = (props) => {
         내용 : {contents}
       </p>
       <CommentArea
-        post={postId}
+        postId={postId}
       />
     </div>
   );
