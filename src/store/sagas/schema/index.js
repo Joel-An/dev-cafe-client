@@ -32,10 +32,14 @@ export const postSchema = new Schema.Entity('posts',
     },
   });
 
-const childCommentSchema = new Schema.Entity('comments', {},
+const childCommentSchema = new Schema.Entity('comments',
+  { author: userSchema },
   { idAttribute: comment => comment._id });
 
 
 export const commentSchema = new Schema.Entity('comments',
-  { children: [childCommentSchema] },
+  {
+    children: [childCommentSchema],
+    author: userSchema,
+  },
   { idAttribute: comment => comment._id });
