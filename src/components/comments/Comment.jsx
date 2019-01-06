@@ -15,18 +15,19 @@ class Comment extends React.Component {
 
   onAddReply = (e) => {
     e.preventDefault();
-    this.setState({ addReply: !this.state.addReply });
+    this.setState(prevState => ({ addReply: !prevState.addReply }));
   }
 
   render() {
     const {
-      comment, token, post, getComments,
+      comments, commentId, users, token,
     } = this.props;
     const { addReply } = this.state;
+    const comment = comments[commentId];
     return (
       <li key={comment._id} style={style}>
     내용 : {comment.contents}<br/>
-    작성자 : {comment.author.profileName}<br/>
+    작성자 : {users[comment.author].profileName}<br/>
         <button type="button">
           수정
         </button>
@@ -38,12 +39,10 @@ class Comment extends React.Component {
         </button>
         }
 
-        <ChildCommentList childComments={comment.children}/>
+        <ChildCommentList childCommentIds={comment.children} users={users} comments={comments}/>
         {comment.isChild || !addReply || <WriteComment
-          token={token}
-          post={post}
+          postId={comment.post}
           parent={comment._id}
-          getComments={getComments}
         />}
       </li>
 
