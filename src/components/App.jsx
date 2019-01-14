@@ -13,13 +13,10 @@ import Header from './layout/Header';
 import CategoryManager from './categories/CategoryManager';
 
 import './App.css';
-import withCategoryContainer from '../containers/CategoryContainer';
 import Posts from './posts/Posts';
 import Post from './posts/Post';
 import Write from './posts/Write';
-import CategoryLinkMenu from './categories/CategoryMenu';
-
-const CategoryMenu = withCategoryContainer(CategoryLinkMenu);
+import CategoryMenu from './categories/CategoryMenu';
 
 class App extends React.Component {
   constructor(props) {

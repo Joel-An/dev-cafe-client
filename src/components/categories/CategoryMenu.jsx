@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import withCategoryContainer from '../../containers/CategoryContainer';
+
 
 const renderCategory = category => (
   <Link to={{
@@ -63,4 +65,4 @@ CategoryMenu.propTypes = {
 };
 
 
-export default CategoryMenu;
+export default withCategoryContainer(CategoryMenu);
