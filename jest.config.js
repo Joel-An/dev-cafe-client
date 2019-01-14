@@ -19,7 +19,7 @@ module.exports = {
   setupFiles: ['<rootDir>/src/enzyme.config.js'],
 
   // The test environment that will be used for testing
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
 
   // The glob patterns Jest uses to detect test files
   testMatch: ['**/__tests__/**/*.js?(x)', '**/?(*.)+(spec|test).js?(x)'],
