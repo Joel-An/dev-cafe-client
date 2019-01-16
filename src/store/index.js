@@ -6,15 +6,14 @@ import rootSaga from './sagas';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export default function configureStore(extraMiddlewares = []) {
+export default function configureStore(extraEnhancers = []) {
   const saga = createSagaMiddleware();
-  const middlewares = [saga, ...extraMiddlewares];
+  const middlewares = [saga];
 
   const store = createStore(
     rootReducer,
-    {},
     composeEnhancers(
-      applyMiddleware(...middlewares),
+      applyMiddleware(...middlewares), ...extraEnhancers,
     ),
   );
 
