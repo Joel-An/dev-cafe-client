@@ -5,11 +5,8 @@ import App from './components/App';
 
 import './index.css';
 import configureStore from './store';
-import rootSaga from './store/sagas';
-import rootReducer from './store/reducers';
 
 const store = configureStore();
-store.runSaga(rootSaga);
 
 const renderApp = () => {
   render(
