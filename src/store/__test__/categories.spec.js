@@ -8,6 +8,8 @@ import * as types from '../types/categories';
 import normalizeData from '../utils/normalizer';
 import { categorySchema } from '../sagas/schema';
 
+expectRedux.configure({ betterErrorMessagesTimeout: 1000 });
+
 const categoriesResponse = [
   {
     _id: '5c1f8f78bbfd51296cb0ba8b',
@@ -29,19 +31,14 @@ const categoriesResponse = [
 const { entities } = normalizeData(categoriesResponse, [categorySchema]);
 const normalizedCategories = entities.categories;
 
-const categoriesSelector = state => state.entities.categories;
-
-let store;
+const categoriesSelector = state => state.newEntities.categories;
 
 function setupStore() {
-  store = configureStore([storeSpy]);
+  return configureStore([storeSpy]);
 }
-beforeAll(() => {
-  setupStore();
-});
 
-describe('state.entities.categories', () => {
-  beforeAll(() => {
+describe('스토어 categories', () => {
+  beforeEach(() => {
     nock('http://localhost')
       .get('/api/v1/categories')
       .reply(200, categoriesResponse);
@@ -51,11 +48,17 @@ describe('state.entities.categories', () => {
     nock.cleanAll();
   });
 
-  it('LOAD_CATEGORIES -> 스토어에 카테고리가 저장된다', async () => {
-    expectRedux.configure({ betterErrorMessagesTimeout: 1000 });
+  it('카테고리가 없으면 카테고리를 fetch한다', async () => {
+    // Given
+    const store = setupStore();
+    const categories = categoriesSelector(store.getState());
 
+    expect(categories).toEqual({});
+
+    // When
     store.dispatch(actions.loadCategories());
 
+    // Then
     await expectRedux(store)
       .toDispatchAnAction()
       .ofType(types.GET_CATEGORIES_SUCCESS);
@@ -66,15 +69,21 @@ describe('state.entities.categories', () => {
       .matching(normalizedCategories);
   });
 
-  describe('스토어에 카테고리가 있다면', () => {
-    it('LOAD_CATEGORIES -> LOAD_CATEGORIES_SUCCESS', async () => {
-      store.dispatch(actions.loadCategories());
+  it('스토어에 카테고리정보가 있다면 fetch하지 않는다', async () => {
+    // Given
+    const store = setupStore();
+    store.dispatch(actions.loadCategories());
 
-      await expectRedux(store)
-        .toDispatchAnAction()
-        .ofType(types.LOAD_CATEGORIES_SUCCESS);
+    await expectRedux(store)
+      .toDispatchAnAction()
+      .ofType(types.GET_CATEGORIES_SUCCESS);
 
-      // TODO: fetchCategories.should.have.not.called
-    });
+    // When
+    store.dispatch(actions.loadCategories());
+
+    // Then
+    await expectRedux(store)
+      .toDispatchAnAction()
+      .ofType(types.LOAD_CATEGORIES_SUCCESS);
   });
 });
