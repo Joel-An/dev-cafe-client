@@ -23,8 +23,8 @@ const PostList = (props) => {
               </Link>
 
             카테고리 :
-              <Link to={`posts?categories=${categories[post.category]._id}`}>
-                {post.category}<br/>
+              <Link to={`posts?categories=${post.category}`}>
+                {categories[post.category].name}<br/>
               </Link>
             작성자 : {users[post.author].profileName}<br/>
             </p>

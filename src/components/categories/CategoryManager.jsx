@@ -4,18 +4,18 @@ import CreateCategory from './CreateCategory';
 import DeleteCategory from './DeleteCategory';
 import withCategoryContainer from '../../containers/CategoryContainer';
 
-const renderChildCategories = (categories, name) => {
-  if (categories[name].children.length === 0) {
+const renderChildCategories = (categories, id) => {
+  if (categories[id].children.length === 0) {
     return null;
   }
 
   return (
     <ul className="subCategoryList">
-      {categories[name].children.map(childName => (
-        <li name={childName} key={categories[childName]._id}>
-          ㄴ{categories[childName].name}
+      {categories[id].children.map(childId => (
+        <li name={categories[childId].name} key={childId}>
+          ㄴ{categories[childId].name}
           <DeleteCategory
-            id={categories[childName]._id}
+            id={childId}
           />
         </li>
       ))
@@ -25,10 +25,10 @@ const renderChildCategories = (categories, name) => {
 };
 
 const CategoryManager = (props) => {
-  const { categories, parentCategoryNames } = props;
+  const { categories, parentCategoryIds } = props;
   const style = { border: '0.5px solid #dddddd' };
 
-  const isEmpty = !parentCategoryNames.length;
+  const isEmpty = !parentCategoryIds.length;
 
   if (isEmpty) {
     return null;
@@ -37,15 +37,15 @@ const CategoryManager = (props) => {
   return (
     <>
       <ul className="categoryList" style={style}>
-        {parentCategoryNames.map(name => (
-          <li name={name} style={style} key={categories[name]._id}>
-            {categories[name].name}
+        {parentCategoryIds.map(id => (
+          <li name={categories[id].name} style={style} key={id}>
+            {categories[id].name}
             <DeleteCategory
-              id={categories[name]._id}
+              id={id}
             />
-            {renderChildCategories(categories, name)}
+            {renderChildCategories(categories, id)}
             <CreateCategory
-              parent={categories[name]._id}
+              parent={id}
             />
           </li>
         ))

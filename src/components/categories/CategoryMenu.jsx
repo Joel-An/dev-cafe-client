@@ -13,8 +13,8 @@ const renderCategory = category => (
   </Link>
 );
 
-const rederSubCategories = (categories, name) => {
-  const parent = categories[name];
+const rederSubCategories = (categories, id) => {
+  const parent = categories[id];
   if (!parent.children.length) {
     return null;
   }
@@ -22,16 +22,16 @@ const rederSubCategories = (categories, name) => {
 
   return (
     <ul className="subCategoryList">
-      {parent.children.map(childName => (
-        <li key={categories[childName]._id} name={childName} style={style}>
-          {renderCategory(categories[childName])}
+      {parent.children.map(childId => (
+        <li key={childId} name={categories[childId].name} style={style}>
+          {renderCategory(categories[childId])}
         </li>))}
     </ul>
   );
 };
 
-const CategoryMenu = ({ categories, parentCategoryNames }) => {
-  const isEmpty = !parentCategoryNames.length;
+const CategoryMenu = ({ categories, parentCategoryIds }) => {
+  const isEmpty = !parentCategoryIds.length;
 
   return (
     <ul className="categoryList">
@@ -40,10 +40,10 @@ const CategoryMenu = ({ categories, parentCategoryNames }) => {
       </li>
       {isEmpty
         ? <p>Loading...</p>
-        : parentCategoryNames.map(name => (
-          <li key={categories[name]._id} name={name}>
-            {renderCategory(categories[name])}
-            {rederSubCategories(categories, name)}
+        : parentCategoryIds.map(id => (
+          <li key={id} name={categories[id].name}>
+            {renderCategory(categories[id])}
+            {rederSubCategories(categories, id)}
           </li>
         ))}
     </ul>
@@ -61,7 +61,7 @@ const Category = PropTypes.shape({
 
 CategoryMenu.propTypes = {
   categories: PropTypes.objectOf(Category).isRequired,
-  parentCategoryNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  parentCategoryIds: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 
