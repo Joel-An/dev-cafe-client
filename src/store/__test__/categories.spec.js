@@ -100,24 +100,30 @@ describe('스토어 categories', () => {
   });
 
   describe('GET_CATEGORY', () => {
+    const newCategory = {
+      _id: 'newID',
+      parent: null,
+      isChild: false,
+      name: 'NEW CATEGORY',
+      children: [],
+    };
+
+    const result = normalizeCategories(newCategory);
+    const normalizedNewCategory = result.selectCategories();
+
+    beforeEach(() => {
+      nock('http://localhost')
+        .get(`/api/v1/categories/${newCategory._id}`)
+        .reply(200, newCategory);
+    });
+
+    beforeAll(() => {
+      nock.cleanAll();
+    });
+
     describe('카테고리가 없을 때', () => {
       it('성공하면 새로운 카테고리가 추가된다', async () => {
         // Given
-        const newCategory = {
-          _id: 'newID',
-          parent: null,
-          isChild: false,
-          name: 'NEW CATEGORY',
-          children: [],
-        };
-
-        const result = normalizeCategories(newCategory);
-        const normalizedNewCategory = result.selectCategories();
-
-        nock('http://localhost')
-          .get(`/api/v1/categories/${newCategory._id}`)
-          .reply(200, newCategory);
-
         const store = setupStore();
 
         // When
