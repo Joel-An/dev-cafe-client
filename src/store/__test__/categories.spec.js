@@ -38,6 +38,13 @@ function setupStore() {
 }
 
 describe('스토어 categories', () => {
+  it('categories의 기본값은 빈 객체{} 다', () => {
+    const store = setupStore();
+    const categories = categoriesSelector(store.getState());
+
+    expect(categories).toEqual({});
+  });
+
   describe('LOAD_CATEGORIES', () => {
     beforeEach(() => {
       nock('http://localhost')
@@ -52,9 +59,6 @@ describe('스토어 categories', () => {
     it('카테고리가 없으면 카테고리를 fetch한다', async () => {
       // Given
       const store = setupStore();
-      const categories = categoriesSelector(store.getState());
-
-      expect(categories).toEqual({});
 
       // When
       store.dispatch(actions.loadCategories());
