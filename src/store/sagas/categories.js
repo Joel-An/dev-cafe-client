@@ -17,6 +17,6 @@ function* loadCategoriesSaga() {
   }
 }
 
-export function* watchCategories() {
+export default function* watchCategories() {
   yield takeLatest(LOAD_CATEGORIES, loadCategoriesSaga);
 }
