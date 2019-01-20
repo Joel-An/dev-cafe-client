@@ -38,52 +38,54 @@ function setupStore() {
 }
 
 describe('스토어 categories', () => {
-  beforeEach(() => {
-    nock('http://localhost')
-      .get('/api/v1/categories')
-      .reply(200, categoriesResponse);
-  });
+  describe('LOAD_CATEGORIES', () => {
+    beforeEach(() => {
+      nock('http://localhost')
+        .get('/api/v1/categories')
+        .reply(200, categoriesResponse);
+    });
 
-  afterAll(() => {
-    nock.cleanAll();
-  });
+    afterAll(() => {
+      nock.cleanAll();
+    });
 
-  it('카테고리가 없으면 카테고리를 fetch한다', async () => {
-    // Given
-    const store = setupStore();
-    const categories = categoriesSelector(store.getState());
+    it('카테고리가 없으면 카테고리를 fetch한다', async () => {
+      // Given
+      const store = setupStore();
+      const categories = categoriesSelector(store.getState());
 
-    expect(categories).toEqual({});
+      expect(categories).toEqual({});
 
-    // When
-    store.dispatch(actions.loadCategories());
+      // When
+      store.dispatch(actions.loadCategories());
 
-    // Then
-    await expectRedux(store)
-      .toDispatchAnAction()
-      .ofType(types.GET_CATEGORIES_SUCCESS);
+      // Then
+      await expectRedux(store)
+        .toDispatchAnAction()
+        .ofType(types.GET_CATEGORIES_SUCCESS);
 
-    await expectRedux(store)
-      .toHaveState()
-      .withSubtree(categoriesSelector)
-      .matching(normalizedCategories);
-  });
+      await expectRedux(store)
+        .toHaveState()
+        .withSubtree(categoriesSelector)
+        .matching(normalizedCategories);
+    });
 
-  it('스토어에 카테고리정보가 있다면 fetch하지 않는다', async () => {
-    // Given
-    const store = setupStore();
-    store.dispatch(actions.loadCategories());
+    it('스토어에 카테고리정보가 있다면 fetch하지 않는다', async () => {
+      // Given
+      const store = setupStore();
+      store.dispatch(actions.loadCategories());
 
-    await expectRedux(store)
-      .toDispatchAnAction()
-      .ofType(types.GET_CATEGORIES_SUCCESS);
+      await expectRedux(store)
+        .toDispatchAnAction()
+        .ofType(types.GET_CATEGORIES_SUCCESS);
 
-    // When
-    store.dispatch(actions.loadCategories());
+      // When
+      store.dispatch(actions.loadCategories());
 
-    // Then
-    await expectRedux(store)
-      .toDispatchAnAction()
-      .ofType(types.LOAD_CATEGORIES_SUCCESS);
+      // Then
+      await expectRedux(store)
+        .toDispatchAnAction()
+        .ofType(types.LOAD_CATEGORIES_SUCCESS);
+    });
   });
 });
