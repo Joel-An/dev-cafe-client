@@ -28,17 +28,10 @@ export const loadCategoriesSuccess = () => ({
   type: LOAD_CATEGORIES_SUCCESS,
 });
 
-export const getCategoryRequest = id => ({
-  type: GET_CATEGORY_REQUEST,
-  payload: id,
-});
-
-export const getCategorySuccess = category => ({
-  type: GET_CATEGORY_SUCCESS,
-  payload: category,
-});
-
-export const getCategoryFailure = err => ({
-  type: GET_CATEGORY_FAILURE,
-  payload: err,
+export const getCategory = id => ({
+  type: CALL_API,
+  types: [GET_CATEGORY_REQUEST, GET_CATEGORY_SUCCESS, GET_CATEGORY_FAILURE],
+  endpoint: `/categories/${id}`,
+  method: 'get',
+  schema: Schemas.CATEGORY,
 });

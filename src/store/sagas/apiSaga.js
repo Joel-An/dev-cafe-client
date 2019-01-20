@@ -7,6 +7,7 @@ import { categorySchema, postSchema, commentSchema } from './schema';
 
 export const CALL_API = 'CALL_API';
 export const Schemas = {
+  CATEGORY: categorySchema,
   CATEGORY_ARRAY: [categorySchema],
   POST: postSchema,
   POST_ARRAY: [postSchema],
