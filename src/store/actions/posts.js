@@ -11,7 +11,8 @@ import {
   GET_POST_FAILURE,
 } from '../types/posts';
 
-import { CALL_API, Schemas } from '../sagas/apiSaga';
+import { CALL_API } from '../sagas/apiSaga';
+import Schemas from '../utils/schema';
 
 export const fetchPosts = (category = 'all', refreshCache = false) => ({
   type: CALL_API,

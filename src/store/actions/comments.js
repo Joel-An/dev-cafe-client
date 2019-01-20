@@ -6,7 +6,8 @@ import {
   GET_COMMENTS_FAILURE,
 } from '../types/comments';
 
-import { CALL_API, Schemas } from '../sagas/apiSaga';
+import { CALL_API } from '../sagas/apiSaga';
+import Schemas from '../utils/schema';
 
 export const fetchComments = (postId, refreshCache = false) => ({
   type: CALL_API,

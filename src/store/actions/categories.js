@@ -9,7 +9,8 @@ import {
   GET_CATEGORY_FAILURE,
 } from '../types/categories';
 
-import { CALL_API, Schemas } from '../sagas/apiSaga';
+import { CALL_API } from '../sagas/apiSaga';
+import Schemas from '../utils/schema';
 
 export const fetchCategories = (refreshCache = false) => ({
   type: CALL_API,
