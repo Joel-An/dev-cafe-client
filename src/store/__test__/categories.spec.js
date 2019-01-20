@@ -27,9 +27,6 @@ const categoriesResponse = [
   },
 ];
 
-const result = normalizeCategories(categoriesResponse);
-const normalizedCategories = result.selectCategories();
-
 const categoriesSelector = state => state.newEntities.categories;
 
 function setupStore() {
@@ -58,6 +55,9 @@ describe('스토어 categories', () => {
     it('카테고리가 없으면 카테고리를 fetch한다', async () => {
       // Given
       const store = setupStore();
+
+      const result = normalizeCategories(categoriesResponse);
+      const normalizedCategories = result.selectCategories();
 
       // When
       store.dispatch(actions.loadCategories());
