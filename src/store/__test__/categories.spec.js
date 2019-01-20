@@ -6,6 +6,7 @@ import configureStore from '../index';
 import * as actions from '../actions/categories';
 import * as types from '../types/categories';
 import { normalizeCategories } from '../utils/normalizer';
+import { getCategories } from '../selectors/categories';
 
 expectRedux.configure({ betterErrorMessagesTimeout: 1000 });
 
@@ -27,8 +28,6 @@ const categoriesResponse = [
   },
 ];
 
-const categoriesSelector = state => state.newEntities.categories;
-
 function setupStore() {
   return configureStore([storeSpy]);
 }
@@ -41,7 +40,7 @@ const mutateStoreForTest = (store, categories) => {
 describe('스토어 categories', () => {
   it('categories의 기본값은 빈 객체{} 다', () => {
     const store = setupStore();
-    const categories = categoriesSelector(store.getState());
+    const categories = getCategories(store.getState());
 
     expect(categories).toEqual({});
   });
@@ -74,7 +73,7 @@ describe('스토어 categories', () => {
 
       await expectRedux(store)
         .toHaveState()
-        .withSubtree(categoriesSelector)
+        .withSubtree(getCategories)
         .matching(normalizedCategories);
     });
 
@@ -136,7 +135,7 @@ describe('스토어 categories', () => {
 
         await expectRedux(store)
           .toHaveState()
-          .withSubtree(categoriesSelector)
+          .withSubtree(getCategories)
           .matching(normalizedNewCategory);
       });
     });
@@ -161,7 +160,7 @@ describe('스토어 categories', () => {
 
         await expectRedux(store)
           .toHaveState()
-          .withSubtree(categoriesSelector)
+          .withSubtree(getCategories)
           .matching(expectedCategories);
       });
     });
