@@ -13,3 +13,7 @@ export const deleteCategory = (id, token) => {
 
   return axios.delete(`/api/v1/categories/${id}`, config);
 };
+
+export const getCategory = id => axios.get(`api/v1/categories/${id}`)
+  .then(response => response.data)
+  .catch(err => err.message);
