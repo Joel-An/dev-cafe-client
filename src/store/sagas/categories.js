@@ -2,9 +2,30 @@ import {
   put, takeLatest, select,
 } from 'redux-saga/effects';
 
-import { LOAD_CATEGORIES } from '../types/categories';
+import {
+  LOAD_CATEGORIES,
+  GET_CATEGORY_REQUEST,
+} from '../types/categories';
 import * as actions from '../actions/categories';
 
+import * as Api from '../../api/categories';
+import normalizeData from '../utils/normalizer';
+import { categorySchema } from './schema';
+
+function* getCategorySaga(action) {
+  const id = action.payload;
+  try {
+    const category = yield Api.getCategory(id);
+    const normalizedCategory = normalizeData(category, categorySchema);
+    yield put(actions.getCategorySuccess(normalizedCategory));
+  } catch (err) {
+    yield put(actions.getCategoryFailure(err));
+  }
+}
+
+export function* getCategoryWatcher() {
+  yield takeLatest(GET_CATEGORY_REQUEST, getCategorySaga);
+}
 
 function* loadCategoriesSaga() {
   const state = yield select();

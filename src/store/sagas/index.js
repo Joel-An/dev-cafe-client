@@ -7,6 +7,7 @@ import auth from './auth';
 import watchCallApi from './apiSaga';
 
 export default function* root() {
+  yield spawn(categories.getCategoryWatcher);
   yield spawn(categories.watchCategories);
   yield spawn(watchComments);
   yield spawn(posts.watchPosts);
