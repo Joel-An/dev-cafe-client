@@ -20,6 +20,7 @@ function normalizeData(response, schema) {
   const normalizedData = normalize(response.data, schema);
 
   normalizedData.getEntity = entityName => normalizedData.entities[entityName];
+  normalizedData.hasEntity = entityName => (!!normalizedData.entities[entityName]);
   return normalizedData;
 }
 
