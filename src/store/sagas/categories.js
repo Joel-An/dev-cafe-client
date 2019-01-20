@@ -15,7 +15,10 @@ function* getCategorySaga(action) {
   const id = action.payload;
   try {
     const category = yield Api.getCategory(id);
-    const normalizedCategory = normalizeCategories(category);
+
+    const result = normalizeCategories(category);
+    const normalizedCategory = result.entities.categories;
+
     yield put(actions.getCategorySuccess(normalizedCategory));
   } catch (err) {
     yield put(actions.getCategoryFailure(err));
