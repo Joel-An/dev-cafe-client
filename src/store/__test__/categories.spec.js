@@ -141,9 +141,28 @@ describe('스토어 categories', () => {
       });
     });
 
-    describe.skip('카테고리가 이미 존재할 때', () => {
+    describe('카테고리가 이미 존재할 때', () => {
       it('성공하면 새로운 카테고리가 추가된다', async () => {
-        await Promise.resolve();
+        // Given
+        const store = setupStore();
+
+        const fakeCategories = { C1: {}, C2: {} };
+        mutateStoreForTest(store, fakeCategories);
+
+        // When
+        store.dispatch(actions.getCategory(newCategory._id));
+
+        // Then
+        await expectRedux(store)
+          .toDispatchAnAction()
+          .ofType(types.GET_CATEGORY_SUCCESS);
+
+        const expectedCategories = { ...fakeCategories, ...normalizedNewCategory };
+
+        await expectRedux(store)
+          .toHaveState()
+          .withSubtree(categoriesSelector)
+          .matching(expectedCategories);
       });
     });
   });
