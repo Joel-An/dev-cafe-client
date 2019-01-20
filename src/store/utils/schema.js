@@ -2,7 +2,7 @@ import { schema as Schema } from 'normalizr';
 
 const childCategorySchema = new Schema.Entity('categories', {},
   {
-    idAttribute: category => category.name,
+    idAttribute: category => category._id,
     processStrategy: (value, parent) => {
       const newCategory = { ...value };
       newCategory.parent = parent.name;
@@ -12,7 +12,7 @@ const childCategorySchema = new Schema.Entity('categories', {},
 
 const categorySchema = new Schema.Entity('categories',
   { children: [childCategorySchema] },
-  { idAttribute: category => category.name });
+  { idAttribute: category => category._id });
 
 const userSchema = new Schema.Entity('users',
   {},
@@ -26,7 +26,7 @@ const postSchema = new Schema.Entity('posts',
     idAttribute: post => post._id,
     processStrategy: (post) => {
       const newPost = { ...post };
-      newPost.category = post.category.name;
+      newPost.category = post.category._id;
 
       return newPost;
     },
