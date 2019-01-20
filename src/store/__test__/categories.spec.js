@@ -5,8 +5,7 @@ import configureStore from '../index';
 
 import * as actions from '../actions/categories';
 import * as types from '../types/categories';
-import normalizeData from '../utils/normalizer';
-import { categorySchema } from '../sagas/schema';
+import { normalizeCategories } from '../utils/normalizer';
 
 expectRedux.configure({ betterErrorMessagesTimeout: 1000 });
 
@@ -28,7 +27,7 @@ const categoriesResponse = [
   },
 ];
 
-const { entities } = normalizeData(categoriesResponse, [categorySchema]);
+const { entities } = normalizeCategories(categoriesResponse);
 const normalizedCategories = entities.categories;
 
 const categoriesSelector = state => state.newEntities.categories;
@@ -105,7 +104,7 @@ describe('스토어 categories', () => {
           children: [],
         };
 
-        const result = normalizeData(newCategory, categorySchema);
+        const result = normalizeCategories(newCategory);
         const { categories: normalizedNewCategory } = result.entities;
 
         nock('http://localhost')

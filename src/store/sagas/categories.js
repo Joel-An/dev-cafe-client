@@ -9,14 +9,13 @@ import {
 import * as actions from '../actions/categories';
 
 import * as Api from '../../api/categories';
-import normalizeData from '../utils/normalizer';
-import { categorySchema } from './schema';
+import { normalizeCategories } from '../utils/normalizer';
 
 function* getCategorySaga(action) {
   const id = action.payload;
   try {
     const category = yield Api.getCategory(id);
-    const normalizedCategory = normalizeData(category, categorySchema);
+    const normalizedCategory = normalizeCategories(category);
     yield put(actions.getCategorySuccess(normalizedCategory));
   } catch (err) {
     yield put(actions.getCategoryFailure(err));
