@@ -10,15 +10,15 @@ const childCategorySchema = new Schema.Entity('categories', {},
     },
   });
 
-export const categorySchema = new Schema.Entity('categories',
+const categorySchema = new Schema.Entity('categories',
   { children: [childCategorySchema] },
   { idAttribute: category => category.name });
 
-export const userSchema = new Schema.Entity('users',
+const userSchema = new Schema.Entity('users',
   {},
   { idAttribute: user => user._id });
 
-export const postSchema = new Schema.Entity('posts',
+const postSchema = new Schema.Entity('posts',
   {
     author: userSchema,
   },
@@ -37,9 +37,20 @@ const childCommentSchema = new Schema.Entity('comments',
   { idAttribute: comment => comment._id });
 
 
-export const commentSchema = new Schema.Entity('comments',
+const commentSchema = new Schema.Entity('comments',
   {
     children: [childCommentSchema],
     author: userSchema,
   },
   { idAttribute: comment => comment._id });
+
+
+const Schemas = {
+  CATEGORY: categorySchema,
+  CATEGORY_ARRAY: [categorySchema],
+  POST: postSchema,
+  POST_ARRAY: [postSchema],
+  COMMENT_ARRAY: [commentSchema],
+};
+
+export default Schemas;
