@@ -122,7 +122,7 @@ describe('스토어 categories', () => {
     });
 
     describe('카테고리가 없을 때', () => {
-      it('성공하면 새로운 카테고리가 추가된다', async () => {
+      it('GET_CATEGORY 요청이 성공하면 새로운 카테고리가 추가된다', async () => {
         // Given
         const store = setupStore();
 
@@ -142,7 +142,7 @@ describe('스토어 categories', () => {
     });
 
     describe('카테고리가 이미 존재할 때', () => {
-      it('성공하면 새로운 카테고리가 추가된다', async () => {
+      it('GET_CATEGORY 요청이 성공하면 새로운 카테고리가 추가된다', async () => {
         // Given
         const store = setupStore();
 
