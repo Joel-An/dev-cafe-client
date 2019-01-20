@@ -114,7 +114,7 @@ describe('스토어 categories', () => {
         const store = setupStore();
 
         // When
-        store.dispatch(actions.getCategoryRequest(newCategory._id));
+        store.dispatch(actions.getCategory(newCategory._id));
 
         // Then
         await expectRedux(store)
