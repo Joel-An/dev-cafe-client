@@ -4,30 +4,9 @@ import {
 
 import {
   LOAD_CATEGORIES,
-  GET_CATEGORY_REQUEST,
 } from '../types/categories';
 import * as actions from '../actions/categories';
 
-import * as Api from '../../api/categories';
-import { normalizeCategories } from '../utils/normalizer';
-
-function* getCategorySaga(action) {
-  const id = action.payload;
-  try {
-    const category = yield Api.getCategory(id);
-
-    const result = normalizeCategories(category);
-    const normalizedCategory = result.selectCategories();
-
-    yield put(actions.getCategorySuccess(normalizedCategory));
-  } catch (err) {
-    yield put(actions.getCategoryFailure(err));
-  }
-}
-
-export function* getCategoryWatcher() {
-  yield takeLatest(GET_CATEGORY_REQUEST, getCategorySaga);
-}
 
 function* loadCategoriesSaga() {
   const state = yield select();
