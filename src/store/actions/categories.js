@@ -7,6 +7,7 @@ import {
   GET_CATEGORY_REQUEST,
   GET_CATEGORY_SUCCESS,
   GET_CATEGORY_FAILURE,
+  REMOVE_CATEGORY,
 } from '../types/categories';
 
 import { CALL_API } from '../sagas/apiSaga';
@@ -35,4 +36,9 @@ export const getCategory = id => ({
   endpoint: `/categories/${id}`,
   method: 'get',
   schema: Schemas.CATEGORY,
+});
+
+export const removeCategory = id => ({
+  type: REMOVE_CATEGORY,
+  payload: id,
 });
