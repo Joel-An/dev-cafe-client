@@ -1,9 +1,9 @@
 import { take, fork, put } from 'redux-saga/effects';
-import { normalize } from 'normalizr';
 import axios from 'axios';
 
 import { categorySchema, postSchema, commentSchema } from './schema';
 
+import normalizeData from '../utils/normalizer';
 
 export const CALL_API = 'CALL_API';
 export const Schemas = {
@@ -15,14 +15,6 @@ export const Schemas = {
 };
 
 const API_URI = '/api/v1';
-
-function normalizeData(response, schema) {
-  const normalizedData = normalize(response.data, schema);
-
-  normalizedData.getEntity = entityName => normalizedData.entities[entityName];
-  normalizedData.hasEntity = entityName => (!!normalizedData.entities[entityName]);
-  return normalizedData;
-}
 
 function* callApi(action) {
   const {
@@ -42,7 +34,7 @@ function* callApi(action) {
 
   try {
     const response = yield axios[method](endpoint);
-    const normalizedData = normalizeData(response, schema);
+    const normalizedData = normalizeData(response.data, schema);
     yield put(actionWith({
       type: successType,
       response: normalizedData,
