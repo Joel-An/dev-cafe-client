@@ -18,6 +18,8 @@ const API_URI = '/api/v1';
 
 function normalizeData(response, schema) {
   const normalizedData = normalize(response.data, schema);
+
+  normalizedData.getEntity = entityName => normalizedData.entities[entityName];
   return normalizedData;
 }
 
