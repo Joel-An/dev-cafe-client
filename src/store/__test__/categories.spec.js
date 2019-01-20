@@ -73,14 +73,17 @@ describe('스토어 categories', () => {
         .matching(normalizedCategories);
     });
 
+    const mutateStoreForTest = (store, categories) => {
+      const state = store.getState();
+      state.newEntities.categories = categories;
+    };
+
     it('스토어에 카테고리정보가 있다면 fetch하지 않는다', async () => {
       // Given
       const store = setupStore();
-      store.dispatch(actions.loadCategories());
 
-      await expectRedux(store)
-        .toDispatchAnAction()
-        .ofType(types.GET_CATEGORIES_SUCCESS);
+      const fakeCategories = { C1: {}, C2: {} };
+      mutateStoreForTest(store, fakeCategories);
 
       // When
       store.dispatch(actions.loadCategories());
@@ -89,6 +92,10 @@ describe('스토어 categories', () => {
       await expectRedux(store)
         .toDispatchAnAction()
         .ofType(types.LOAD_CATEGORIES_SUCCESS);
+
+      await expectRedux(store)
+        .toNotDispatchAnAction()
+        .ofType(types.GET_CATEGORIES_REQUEST);
     });
   });
 
