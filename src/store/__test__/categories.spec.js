@@ -27,8 +27,8 @@ const categoriesResponse = [
   },
 ];
 
-const { entities } = normalizeCategories(categoriesResponse);
-const normalizedCategories = entities.categories;
+const result = normalizeCategories(categoriesResponse);
+const normalizedCategories = result.selectCategories();
 
 const categoriesSelector = state => state.newEntities.categories;
 
@@ -105,7 +105,7 @@ describe('스토어 categories', () => {
         };
 
         const result = normalizeCategories(newCategory);
-        const { categories: normalizedNewCategory } = result.entities;
+        const normalizedNewCategory = result.selectCategories();
 
         nock('http://localhost')
           .get(`/api/v1/categories/${newCategory._id}`)
