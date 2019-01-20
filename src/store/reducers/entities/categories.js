@@ -12,10 +12,10 @@ const categoriesReducer = (state = initialState, action) => {
   case GET_CATEGORY_SUCCESS:
     return {
       ...state,
-      ...action.payload,
+      ...action.response.getEntity('categories'),
     };
   case GET_CATEGORIES_SUCCESS:
-    return merge({}, state, action.response.entities.categories);
+    return merge({}, state, action.response.getEntity('categories'));
   default:
     return state;
   }
