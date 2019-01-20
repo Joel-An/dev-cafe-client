@@ -1,20 +1,22 @@
 import merge from 'lodash/merge';
 
+import {
+  GET_CATEGORY_SUCCESS,
+  GET_CATEGORIES_SUCCESS,
+} from '../../types/categories';
+
 const initialState = {};
 
 const categoriesReducer = (state = initialState, action) => {
   switch (action.type) {
-  case 'ADD_CATEGORY':
+  case GET_CATEGORY_SUCCESS:
     return {
       ...state,
-      [action.id]: {
-        ...action.category,
-      },
+      ...action.payload.entities.categories,
     };
+  case GET_CATEGORIES_SUCCESS:
+    return merge({}, state, action.response.entities.categories);
   default:
-    if (action.response && action.response.entities && action.response.entities.categories) {
-      return merge({}, state, action.response.entities.categories);
-    }
     return state;
   }
 };
