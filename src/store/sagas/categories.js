@@ -6,11 +6,12 @@ import {
   LOAD_CATEGORIES,
 } from '../types/categories';
 import * as actions from '../actions/categories';
+import { getCategories } from '../selectors/categories';
 
 
 function* loadCategoriesSaga() {
-  const state = yield select();
-  if (Object.keys(state.entities.categories).length) {
+  const categories = yield select(getCategories);
+  if (Object.keys(categories).length) {
     yield put(actions.loadCategoriesSuccess());
   } else {
     yield put(actions.fetchCategories());
