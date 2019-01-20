@@ -92,4 +92,47 @@ describe('스토어 categories', () => {
         .ofType(types.LOAD_CATEGORIES_SUCCESS);
     });
   });
+
+  describe('GET_CATEGORY', () => {
+    describe('카테고리가 없을 때', () => {
+      it('성공하면 새로운 카테고리가 추가된다', async () => {
+        // Given
+        const newCategory = {
+          _id: 'newID',
+          parent: null,
+          isChild: false,
+          name: 'NEW CATEGORY',
+          children: [],
+        };
+
+        const result = normalizeData(newCategory, categorySchema);
+        const { categories: normalizedNewCategory } = result.entities;
+
+        nock('http://localhost')
+          .get(`/api/v1/categories/${newCategory._id}`)
+          .reply(200, newCategory);
+
+        const store = setupStore();
+
+        // When
+        store.dispatch(actions.getCategoryRequest(newCategory._id));
+
+        // Then
+        await expectRedux(store)
+          .toDispatchAnAction()
+          .ofType(types.GET_CATEGORY_SUCCESS);
+
+        await expectRedux(store)
+          .toHaveState()
+          .withSubtree(categoriesSelector)
+          .matching(normalizedNewCategory);
+      });
+    });
+
+    describe.skip('카테고리가 이미 존재할 때', () => {
+      it('성공하면 새로운 카테고리가 추가된다', async () => {
+        await Promise.resolve();
+      });
+    });
+  });
 });
