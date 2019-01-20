@@ -6,7 +6,11 @@ const normalizeData = (data, schema) => normalize(data, schema);
 
 export const normalizeCategories = (categories) => {
   const data = Array.isArray(categories) ? categories : [categories];
-  return normalizeData(data, [Schema.categorySchema]);
+
+  const result = normalizeData(data, [Schema.categorySchema]);
+
+  result.selectCategories = () => result.entities.categories;
+  return result;
 };
 
 export default normalizeData;

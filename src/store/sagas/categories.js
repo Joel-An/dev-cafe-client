@@ -17,7 +17,7 @@ function* getCategorySaga(action) {
     const category = yield Api.getCategory(id);
 
     const result = normalizeCategories(category);
-    const normalizedCategory = result.entities.categories;
+    const normalizedCategory = result.selectCategories();
 
     yield put(actions.getCategorySuccess(normalizedCategory));
   } catch (err) {
