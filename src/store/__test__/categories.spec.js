@@ -165,4 +165,30 @@ describe('스토어 categories', () => {
       });
     });
   });
+
+  describe('REMOVE_CATEGORY', () => {
+    it('성공하면 해당 카테고리가 제거된다', async () => {
+      // Given
+      const store = setupStore();
+
+      const fakeCategories = { C1: {}, C2: {} };
+      mutateStoreForTest(store, fakeCategories);
+
+      // When
+      store.dispatch(actions.removeCategory('C1'));
+
+      // Then
+      await expectRedux(store)
+        .toDispatchAnAction()
+        .ofType(types.REMOVE_CATEGORY);
+
+      const expectedCategories = { ...fakeCategories };
+      delete expectedCategories.C1;
+
+      await expectRedux(store)
+        .toHaveState()
+        .withSubtree(getCategories)
+        .matching(expectedCategories);
+    });
+  });
 });
