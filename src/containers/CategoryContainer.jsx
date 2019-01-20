@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 
 import { loadCategories } from '../store/actions/categories';
+import { getCategories, getParentCategoryNames } from '../store/selectors/categories';
 
 export default function withCategoryContainer(ComposedComponent) {
   class CategoryContainer extends React.Component {
@@ -26,14 +27,8 @@ export default function withCategoryContainer(ComposedComponent) {
   }
 
   const mapStateToProps = (state) => {
-    const { categories } = state.entities;
-    const categoryNames = Object.keys(categories);
-
-    if (!categoryNames.length) {
-      return { categories: {}, parentCategoryNames: [] };
-    }
-
-    const parentCategoryNames = categoryNames.filter(name => !categories[name].isChild);
+    const categories = getCategories(state);
+    const parentCategoryNames = getParentCategoryNames(state);
 
     return { categories, parentCategoryNames };
   };
