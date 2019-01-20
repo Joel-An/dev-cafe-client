@@ -33,6 +33,11 @@ function setupStore() {
   return configureStore([storeSpy]);
 }
 
+const mutateStoreForTest = (store, categories) => {
+  const state = store.getState();
+  state.newEntities.categories = categories;
+};
+
 describe('스토어 categories', () => {
   it('categories의 기본값은 빈 객체{} 다', () => {
     const store = setupStore();
@@ -72,11 +77,6 @@ describe('스토어 categories', () => {
         .withSubtree(categoriesSelector)
         .matching(normalizedCategories);
     });
-
-    const mutateStoreForTest = (store, categories) => {
-      const state = store.getState();
-      state.newEntities.categories = categories;
-    };
 
     it('스토어에 카테고리정보가 있다면 fetch하지 않는다', async () => {
       // Given
