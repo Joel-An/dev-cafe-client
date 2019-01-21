@@ -12,7 +12,18 @@ const childCategorySchema = new Schema.Entity('categories', {},
 
 const categorySchema = new Schema.Entity('categories',
   { children: [childCategorySchema] },
-  { idAttribute: category => category._id });
+  {
+    idAttribute: category => category._id,
+    processStrategy: (category) => {
+      if (typeof category.children === 'undefined') {
+        const newCategory = { ...category };
+        newCategory.children = [];
+
+        return newCategory;
+      }
+      return category;
+    },
+  });
 
 const userSchema = new Schema.Entity('users',
   {},
