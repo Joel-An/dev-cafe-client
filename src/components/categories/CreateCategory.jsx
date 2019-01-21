@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import withTokenContainer from '../../containers/TokenContainer';
-import { fetchCategories } from '../../store/actions/categories';
 import * as api from '../../api/categories';
 
 class CreateCategory extends React.Component {
@@ -28,13 +27,12 @@ class CreateCategory extends React.Component {
   }
 
   postCategories = (name) => {
-    const { parent, token, dispatch } = this.props;
+    const { parent, token } = this.props;
     const category = { name, parent };
 
     api.postCategory(category, token)
       .then(() => {
         this.setState(prevState => ({ ...prevState, error: null }));
-        dispatch(fetchCategories());
       }).catch((err) => {
         this.setState(prevState => ({ ...prevState, error: err.response.data }));
       });
@@ -67,7 +65,6 @@ class CreateCategory extends React.Component {
 CreateCategory.propTypes = {
   token: PropTypes.string.isRequired,
   parent: PropTypes.string,
-  dispatch: PropTypes.func.isRequired,
 };
 
 CreateCategory.defaultProps = {
