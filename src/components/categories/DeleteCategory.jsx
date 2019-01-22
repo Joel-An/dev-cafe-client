@@ -2,18 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withTokenContainer from '../../containers/TokenContainer';
 import * as api from '../../api/categories';
-import { fetchCategories } from '../../store/actions/categories';
 
 const DeleteCategory = (props) => {
-  const { id, token, dispatch } = props;
+  const { id, token } = props;
 
   const onClick = () => {
     api.deleteCategory(id, token)
       .then((result) => {
-        if (result.status === 204) {
-          const refreshCache = true;
-          dispatch(fetchCategories(refreshCache));
-        }
+        // TODO: 삭제되었습니다.
       })
       .catch((err) => {
         // TODO: 클래스로 바꾸든가, redux-saga로 에러를 알리든가 결정해서 구현예정
