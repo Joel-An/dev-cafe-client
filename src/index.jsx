@@ -5,8 +5,10 @@ import App from './components/App';
 
 import './index.css';
 import configureStore from './store';
+import connectSocket from './socket';
 
 const store = configureStore();
+connectSocket(store);
 
 const renderApp = () => {
   render(
