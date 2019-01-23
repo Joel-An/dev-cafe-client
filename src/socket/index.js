@@ -15,11 +15,9 @@ const setUri = () => {
   }
 };
 
-const URI = setUri();
+const connectSocket = URI => openSocket({ path: URI, transports: ['websocket'] });
 
-const connectSocket = (store) => {
-  const socket = openSocket({ path: URI, transports: ['websocket'] });
-
+const setHandler = (socket, store) => {
   socket.on('NEW_CATEGORY', (id) => {
     store.dispatch(getCategory(id));
   });
@@ -29,4 +27,14 @@ const connectSocket = (store) => {
   });
 };
 
-export default connectSocket;
+const configureSocket = (store) => {
+  const URI = setUri();
+
+  const socket = connectSocket(URI);
+  setHandler(socket, store);
+
+  const closeSocket = () => socket.close();
+  return closeSocket;
+};
+
+export default configureSocket;
