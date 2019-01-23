@@ -28,7 +28,6 @@ const DeleteCategory = (props) => {
 DeleteCategory.propTypes = {
   id: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired,
 };
 
 export default withTokenContainer(DeleteCategory);
