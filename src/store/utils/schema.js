@@ -5,7 +5,7 @@ const childCategorySchema = new Schema.Entity('categories', {},
     idAttribute: category => category._id,
     processStrategy: (value, parent) => {
       const newCategory = { ...value };
-      newCategory.parent = parent.name;
+      newCategory.parent = parent._id;
       return newCategory;
     },
   });
