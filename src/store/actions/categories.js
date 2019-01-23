@@ -35,6 +35,7 @@ export const getCategory = id => ({
   types: [GET_CATEGORY_REQUEST, GET_CATEGORY_SUCCESS, GET_CATEGORY_FAILURE],
   endpoint: `/categories/${id}`,
   method: 'get',
+  categoryId: id,
   schema: Schemas.CATEGORY,
 });
 
