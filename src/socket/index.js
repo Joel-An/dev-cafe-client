@@ -2,11 +2,14 @@ import openSocket from 'socket.io-client';
 
 import { getCategory, removeCategory } from '../store/actions/categories';
 
-const setUri = () => (process.env.NODE_ENV === 'development' ? '/socket.io' : 'http://rejoelve.com');
-
-const connectSocket = URI => openSocket(URI, { transports: ['websocket'] });
+const connectSocket = () => openSocket({ transports: ['websocket'] });
 
 const setHandler = (socket, store) => {
+  socket.on('connect', () => {
+    // eslint-disable-next-line no-console
+    console.log('socket.io is connected');
+  });
+
   socket.on('NEW_CATEGORY', (id) => {
     store.dispatch(getCategory(id));
   });
@@ -17,9 +20,7 @@ const setHandler = (socket, store) => {
 };
 
 const configureSocket = (store) => {
-  const URI = setUri();
-
-  const socket = connectSocket(URI);
+  const socket = connectSocket();
   setHandler(socket, store);
 
   const closeSocket = () => socket.close();
