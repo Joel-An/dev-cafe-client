@@ -18,6 +18,10 @@ class TestCategory {
     this.parent = parent;
     this.children = [];
   }
+
+  addChild(childId) {
+    this.children.push(childId);
+  }
 }
 
 const mockGetCategories = (categories) => {
