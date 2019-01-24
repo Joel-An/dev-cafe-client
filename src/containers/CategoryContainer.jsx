@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 
-import { loadCategories } from '../store/actions/categories';
+import { loadCategories as loadCategoriesAction } from '../store/actions/categories';
 import { getCategories, getParentCategoryIds } from '../store/selectors/categories';
 
 export default function withCategoryContainer(ComposedComponent) {
@@ -13,9 +13,9 @@ export default function withCategoryContainer(ComposedComponent) {
     }
 
     componentDidMount() {
-      this.props.loadCategories();
+      const { loadCategories } = this.props;
+      loadCategories();
     }
-
 
     render() {
       const newProps = { ...this.props };
@@ -32,8 +32,7 @@ export default function withCategoryContainer(ComposedComponent) {
 
     return { categories, parentCategoryIds };
   };
-  const mapDispatchToProps = { loadCategories };
-
+  const mapDispatchToProps = { loadCategories: loadCategoriesAction };
 
   return connect(mapStateToProps, mapDispatchToProps)(CategoryContainer);
 }
