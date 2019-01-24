@@ -10,6 +10,18 @@ import { getCategories } from '../selectors/categories';
 
 expectRedux.configure({ betterErrorMessagesTimeout: 1000 });
 
+const mockGetCategories = (categories) => {
+  nock('http://localhost')
+    .get('/api/v1/categories')
+    .reply(200, categories);
+};
+
+const mockGetCategory = (category) => {
+  nock('http://localhost')
+    .get(`/api/v1/categories/${category._id}`)
+    .reply(200, category);
+};
+
 const categoriesResponse = [
   {
     _id: '5c1f8f78bbfd51296cb0ba8b',
@@ -47,9 +59,7 @@ describe('스토어 categories', () => {
 
   describe('LOAD_CATEGORIES', () => {
     beforeEach(() => {
-      nock('http://localhost')
-        .get('/api/v1/categories')
-        .reply(200, categoriesResponse);
+      mockGetCategories(categoriesResponse);
     });
 
     afterAll(() => {
@@ -111,9 +121,7 @@ describe('스토어 categories', () => {
     const normalizedNewCategory = result.selectCategories();
 
     beforeEach(() => {
-      nock('http://localhost')
-        .get(`/api/v1/categories/${newCategory._id}`)
-        .reply(200, newCategory);
+      mockGetCategory(newCategory);
     });
 
     beforeAll(() => {
