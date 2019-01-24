@@ -10,6 +10,16 @@ import { getCategories } from '../selectors/categories';
 
 expectRedux.configure({ betterErrorMessagesTimeout: 1000 });
 
+class TestCategory {
+  constructor({ name = 'default name', isChild = false, parent = null }) {
+    this.name = name;
+    this._id = `${name.trim()}_id`;
+    this.isChild = isChild;
+    this.parent = parent;
+    this.children = [];
+  }
+}
+
 const mockGetCategories = (categories) => {
   nock('http://localhost')
     .get('/api/v1/categories')
@@ -109,13 +119,7 @@ describe('스토어 categories', () => {
   });
 
   describe('GET_CATEGORY', () => {
-    const newCategory = {
-      _id: 'newID',
-      parent: null,
-      isChild: false,
-      name: 'NEW CATEGORY',
-      children: [],
-    };
+    const newCategory = new TestCategory({ name: 'test' });
 
     const result = normalizeCategories(newCategory);
     const normalizedNewCategory = result.selectCategories();
