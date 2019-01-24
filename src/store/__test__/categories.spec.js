@@ -234,5 +234,36 @@ describe('스토어 categories', () => {
         .withSubtree(getCategories)
         .matching(expectedCategories);
     });
+
+    it('하위카테고리를 제거하면 부모 카테고리의 children도 갱신된다', async () => {
+      // Given
+      const store = setupStore();
+
+      const parentCategory = new TestCategory({ name: 'parent' });
+      const childCategory1 = new TestCategory({ name: 'child1', parentId: parentCategory._id });
+      const childCategory2 = new TestCategory({ name: 'child2', parentId: parentCategory._id });
+
+      parentCategory.addChild(childCategory1._id);
+      parentCategory.addChild(childCategory2._id);
+
+      const fakeCategories = {
+        [parentCategory._id]: parentCategory,
+        [childCategory1._id]: childCategory1,
+        [childCategory2._id]: childCategory2,
+      };
+      mutateStoreForTest(store, fakeCategories);
+
+      // When
+      store.dispatch(actions.removeCategory(childCategory1._id));
+
+      // Then
+      await expectRedux(store)
+        .toDispatchAnAction()
+        .ofType(types.REMOVE_CATEGORY);
+
+      const storedParentCategory = getCategoryById(store.getState(), parentCategory._id);
+
+      expect(storedParentCategory.children).toEqual([childCategory2._id]);
+    });
   });
 });
