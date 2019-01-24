@@ -30,7 +30,7 @@ const mockGetCategories = (categories) => {
     .reply(200, categories);
 };
 
-const mockGetCategory = (category) => {
+const mockGetCategoryRequest = (category) => {
   nock('http://localhost')
     .get(`/api/v1/categories/${category._id}`)
     .reply(200, category);
@@ -129,7 +129,7 @@ describe('스토어 categories', () => {
     const normalizedNewCategory = result.selectCategories();
 
     beforeEach(() => {
-      mockGetCategory(newCategory);
+      mockGetCategoryRequest(newCategory);
     });
 
     beforeAll(() => {
@@ -196,7 +196,7 @@ describe('스토어 categories', () => {
         });
 
         // When
-        mockGetCategory(childCategory);
+        mockGetCategoryRequest(childCategory);
         store.dispatch(actions.getCategory(childCategory._id));
 
         // Then
