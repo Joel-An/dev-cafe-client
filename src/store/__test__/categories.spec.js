@@ -11,11 +11,11 @@ import { getCategories, getCategoryById } from '../selectors/categories';
 expectRedux.configure({ betterErrorMessagesTimeout: 1000 });
 
 class TestCategory {
-  constructor({ name = 'default name', isChild = false, parent = null }) {
+  constructor({ name = 'default name', parentId = null }) {
     this.name = name;
     this._id = `${name.trim()}_id`;
-    this.isChild = isChild;
-    this.parent = parent;
+    this.isChild = !!parentId;
+    this.parent = parentId;
     this.children = [];
   }
 
@@ -191,8 +191,7 @@ describe('스토어 categories', () => {
 
         const childCategory = new TestCategory({
           name: 'child',
-          isChild: true,
-          parent: parentCategory._id,
+          parentId: parentCategory._id,
         });
 
         // When
