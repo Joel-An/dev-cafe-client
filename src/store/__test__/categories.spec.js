@@ -6,7 +6,7 @@ import configureStore from '../index';
 import * as actions from '../actions/categories';
 import * as types from '../types/categories';
 import { normalizeCategories } from '../utils/normalizer';
-import { getCategories } from '../selectors/categories';
+import { getCategories, getCategoryById } from '../selectors/categories';
 
 expectRedux.configure({ betterErrorMessagesTimeout: 1000 });
 
@@ -178,6 +178,35 @@ describe('스토어 categories', () => {
           .toHaveState()
           .withSubtree(getCategories)
           .matching(expectedCategories);
+      });
+
+      it('자식 카테고리 요청이 성공하면 부모 카테고리의 children도 갱신된다', async () => {
+        // Given
+        const store = setupStore();
+
+        const parentCategory = new TestCategory({ name: 'parent' });
+
+        const fakeCategories = { [parentCategory._id]: parentCategory };
+        mutateStoreForTest(store, fakeCategories);
+
+        const childCategory = new TestCategory({
+          name: 'child',
+          isChild: true,
+          parent: parentCategory._id,
+        });
+
+        // When
+        mockGetCategory(childCategory);
+        store.dispatch(actions.getCategory(childCategory._id));
+
+        // Then
+        await expectRedux(store)
+          .toDispatchAnAction()
+          .ofType(types.GET_CATEGORY_SUCCESS);
+
+        const storedParent = getCategoryById(store.getState(), parentCategory._id);
+
+        expect(storedParent.children).toEqual([childCategory._id]);
       });
     });
   });
