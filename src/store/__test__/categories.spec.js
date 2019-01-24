@@ -60,7 +60,7 @@ function setupStore() {
 
 const mutateStoreForTest = (store, categories) => {
   const state = store.getState();
-  state.newEntities.categories = categories;
+  state.newEntities.categories = JSON.parse(JSON.stringify(categories)); // deepCopy
 };
 
 describe('스토어 categories', () => {
