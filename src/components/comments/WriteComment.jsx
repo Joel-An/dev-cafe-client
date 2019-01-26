@@ -47,10 +47,8 @@ class WriteComment extends React.Component {
     axios
       .post('/api/v1/comments', commentForm, config)
       .then((res) => {
-        const { getComments } = this.props;
         console.log(res.data);
         this.setState({ contents: '' });
-        getComments();
       })
       .catch((err) => {
         console.log(err.response.data);
