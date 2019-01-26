@@ -39,7 +39,7 @@ class Comment extends React.Component {
         </button>
         }
 
-        <ChildCommentList childCommentIds={comment.children} users={users} comments={comments}/>
+        <ChildCommentList childCommentIds={comment.childComments} users={users} comments={comments}/>
         {comment.isChild || !addReply || <WriteComment
           postId={comment.post}
           parent={comment._id}

@@ -50,7 +50,7 @@ const childCommentSchema = new Schema.Entity('comments',
 
 const commentSchema = new Schema.Entity('comments',
   {
-    children: [childCommentSchema],
+    childComments: [childCommentSchema],
     author: userSchema,
   },
   { idAttribute: comment => comment._id });
