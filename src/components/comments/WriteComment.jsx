@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 class WriteComment extends React.Component {
   static propTypes = {
     token: PropTypes.string,
-    post: PropTypes.string,
+    postId: PropTypes.string,
     parent: PropTypes.string,
   };
 
   static defaultProps = {
     token: null,
-    post: null,
+    postId: null,
     parent: null,
   };
 
@@ -34,12 +34,12 @@ class WriteComment extends React.Component {
   }
 
   postComment=() => {
-    const { token, post, parent } = this.props;
+    const { token, postId, parent } = this.props;
     const { contents } = this.state;
     const config = { headers: { 'x-access-token': token } };
     const commentForm = {
       contents,
-      postId: post,
+      postId,
       parent,
     };
     axios
