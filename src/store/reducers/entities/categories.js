@@ -31,10 +31,7 @@ const removeCategory = (state, id) => {
 const addToParent = (state, child) => {
   const parent = state[child.parent];
   if (!parent.children.includes(child._id)) {
-    const newChildren = [...parent.children, child._id];
-    const newParent = { ...parent, children: newChildren };
-
-    return { ...state, [newParent._id]: { ...newParent } };
+    return { ...state, [parent._id]: { ...parent, children: parent.children.concat(child._id) } };
   }
   return state;
 };
