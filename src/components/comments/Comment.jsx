@@ -1,4 +1,5 @@
 import React from 'react';
+import dateFormat from 'dateformat';
 
 import ChildCommentList from './ChildCommentList';
 import WriteComment from './WriteComment';
@@ -28,6 +29,7 @@ class Comment extends React.Component {
       <li key={comment._id} style={style}>
     내용 : {comment.contents}<br/>
     작성자 : {users[comment.author].profileName}<br/>
+    작성 시간 : {dateFormat(comment.date, 'yy/mm/dd h:MM TT')}<br/>
         <button type="button">
           수정
         </button>

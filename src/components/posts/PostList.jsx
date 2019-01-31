@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import dateFormat from 'dateformat';
 
 const PostList = (props) => {
   const { entities, postIds } = props;
@@ -27,6 +28,7 @@ const PostList = (props) => {
                 {categories[post.category].name}<br/>
               </Link>
             작성자 : {users[post.author].profileName}<br/>
+            작성 시간 : {dateFormat(post.date, 'yy/mm/dd h:MM TT')}<br/>
             </p>
           </li>
         );
