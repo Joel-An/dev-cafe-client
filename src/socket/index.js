@@ -1,6 +1,7 @@
 import openSocket from 'socket.io-client';
 
 import { getCategory, removeCategory } from '../store/actions/categories';
+import { fetchPost } from '../store/actions/posts';
 
 const connectSocket = () => openSocket({ transports: ['websocket'] });
 
@@ -16,6 +17,10 @@ const setHandler = (socket, store) => {
 
   socket.on('DELETE_CATEGORY', (id) => {
     store.dispatch(removeCategory(id));
+  });
+
+  socket.on('NEW_POST', (data) => {
+    store.dispatch(fetchPost(data.postId, data.categoryId));
   });
 };
 
