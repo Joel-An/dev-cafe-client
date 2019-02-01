@@ -6,7 +6,6 @@ import SelectCategory from '../categories/SelectCategory';
 import withTokenContainer from '../../containers/TokenContainer';
 import withCategoryContainer from '../../containers/CategoryContainer';
 import { postPost } from '../../api/posts';
-import { fetchPosts } from '../../store/actions/posts';
 
 const CategorySelector = withCategoryContainer(SelectCategory);
 
@@ -35,8 +34,6 @@ class Write extends React.Component {
     const { token, dispatch } = this.props;
     postPost(postForm, token)
       .then(() => {
-        const fetchPostAction = fetchPosts(postForm.categoryId);
-        dispatch(fetchPostAction);
         this.setState({ redirect: true });
       })
       .catch((err) => {
