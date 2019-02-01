@@ -1,30 +1,39 @@
 import React from 'react';
+
+import Post from './Post';
+import Category from '../categories/Category';
+import User from '../users/User';
 import CommentArea from '../comments/CommentArea';
-import withPostContainer from '../../containers/PostContainer';
 
-const PostPage = (props) => {
-  const { postId, entities } = props;
-  const { posts, categories, users } = entities;
-
-  const post = posts[postId];
-
+const renderPost = (post) => {
   if (!post) {
-    return <div>글이 없어!</div>;
+    return (<p>글이 없어!</p>);
   }
 
-  const { title } = post;
-  const author = users[post.author].profileName;
-  const category = categories[post.category].name;
-  const contents = post.contents || 'Loading...';
+  const renderCategory = category => (
+    <p>카테고리 : {category.name}</p>
+  );
+  const renderUser = user => (
+    <p>작성자 : {user.profileName}</p>
+  );
+
+  return (
+    <p>
+      제목 : {post.title}<br/>
+      <Category categoryId={post.category} renderCategory={renderCategory}/>
+      <User userId={post.author} renderUser={renderUser}/>
+      내용 : {post.contents || 'Loading...'}
+    </p>
+  );
+};
+
+const PostPage = (props) => {
+  const { match } = props;
+  const { id: postId } = match.params;
 
   return (
     <div>
-      <p>
-        제목 : {title}<br/>
-        카테고리 : {category}<br/>
-        작성자 : {author}<br/>
-        내용 : {contents}
-      </p>
+      <Post postId={postId} renderPost={renderPost}/>
       <CommentArea
         postId={postId}
       />
@@ -32,4 +41,4 @@ const PostPage = (props) => {
   );
 };
 
-export default withPostContainer(PostPage);
+export default PostPage;

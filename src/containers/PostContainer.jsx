@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 
 import { loadPost as loadPostAction } from '../store/actions/posts';
+import { selectPostById } from '../store/selectors/posts';
 
 export default function withPostContainer(ComposedComponent) {
   class PostContainer extends React.Component {
@@ -29,11 +30,11 @@ export default function withPostContainer(ComposedComponent) {
   }
 
   const mapStateToProps = (state, ownProps) => {
-    const { entities } = state;
-    const { id } = ownProps.match.params;
+    const { postId } = ownProps;
+    const post = selectPostById(state, postId);
 
     return {
-      entities, postId: id,
+      post,
     };
   };
   const mapDispatchToProps = { loadPost: loadPostAction };
