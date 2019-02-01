@@ -1,25 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PostList from './PostList';
-import withPostListContainer from '../../containers/PostListContainer';
+
+const getCategoryId = (query) => {
+  const categoryId = query.slice(query.indexOf('=') + 1);
+  return categoryId;
+};
 
 const Posts = (props) => {
-  const { entities, postsByCategory, category } = props;
-
-  const postsInfo = postsByCategory[category];
-  const isFetching = (typeof postsInfo === 'undefined') || postsInfo.isFetching;
+  const { location } = props;
+  const { search: query } = location;
+  const categoryId = getCategoryId(query);
 
   return (
     <div>
-      {isFetching
-        ? 'Loading posts....'
-        : <PostList entities={entities} postIds={postsInfo.ids}/>
-      }
+      <PostList categoryId={categoryId}/>
       <button type="button">
-        <Link to={`/write/${category}`}>글쓰기</Link>
+        <Link to={`/write/${categoryId}`}>글쓰기</Link>
       </button>
     </div>
   );
 };
 
-export default withPostListContainer(Posts);
+export default Posts;
