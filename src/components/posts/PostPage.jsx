@@ -2,7 +2,7 @@ import React from 'react';
 import CommentArea from '../comments/CommentArea';
 import withPostContainer from '../../containers/PostContainer';
 
-const Post = (props) => {
+const PostPage = (props) => {
   const { postId, entities } = props;
   const { posts, categories, users } = entities;
 
@@ -32,4 +32,4 @@ const Post = (props) => {
   );
 };
 
-export default withPostContainer(Post);
+export default withPostContainer(PostPage);
