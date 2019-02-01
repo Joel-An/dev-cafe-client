@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 
 import { loadPosts as loadPostsAction } from '../store/actions/posts';
+import { selectPostsMetaByCategory } from '../store/selectors/posts';
 
 export default function withPostListContainer(ComposedComponent) {
   class PostListContainer extends React.Component {
@@ -12,9 +13,9 @@ export default function withPostListContainer(ComposedComponent) {
     }
 
     componentWillReceiveProps(nextProps) {
-      const { category, loadPosts } = this.props;
-      if (category !== nextProps.category) {
-        loadPosts(nextProps.category);
+      const { categoryId, loadPosts } = this.props;
+      if (categoryId !== nextProps.categoryId) {
+        loadPosts(nextProps.categoryId);
       }
     }
 
@@ -28,20 +29,12 @@ export default function withPostListContainer(ComposedComponent) {
     }
   }
 
-  const getCategoryId = (query) => {
-    const categoryId = query.slice(query.indexOf('=') + 1);
-    return categoryId;
-  };
-
   const mapStateToProps = (state, ownProps) => {
-    const { entities } = state;
-    const { postsByCategory } = state.pagination;
-
-    const { search: query } = ownProps.location;
-    const category = getCategoryId(query);
+    const { categoryId } = ownProps;
+    const postsMeta = selectPostsMetaByCategory(state, categoryId);
 
     return {
-      entities, category, postsByCategory,
+      categoryId, postsMeta,
     };
   };
   const mapDispatchToProps = { loadPosts: loadPostsAction };
