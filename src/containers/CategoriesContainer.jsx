@@ -4,7 +4,7 @@ import React from 'react';
 import { loadCategories as loadCategoriesAction } from '../store/actions/categories';
 import { getCategories, getParentCategoryIds } from '../store/selectors/categories';
 
-export default function withCategoryContainer(ComposedComponent) {
+export default function withCategoriesContainer(ComposedComponent) {
   class CategoryContainer extends React.Component {
     constructor(props) {
       super(props);

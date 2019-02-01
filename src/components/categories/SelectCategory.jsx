@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import withCategoriesContainer from '../../containers/CategoriesContainer';
 // TODO: Fragment <></> 삭제. 코드를 더 깔끔하게...
 
 const renderCategory = category => (
@@ -71,4 +72,4 @@ SelectCategory.propTypes = {
 };
 
 
-export default SelectCategory;
+export default withCategoriesContainer(SelectCategory);

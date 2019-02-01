@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import withCategoryContainer from '../../containers/CategoryContainer';
+import withCategoriesContainer from '../../containers/CategoriesContainer';
 
 
 const renderCategory = category => (
@@ -65,4 +65,4 @@ CategoryMenu.propTypes = {
 };
 
 
-export default withCategoryContainer(CategoryMenu);
+export default withCategoriesContainer(CategoryMenu);

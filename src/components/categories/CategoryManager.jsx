@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CreateCategory from './CreateCategory';
 import DeleteCategory from './DeleteCategory';
-import withCategoryContainer from '../../containers/CategoryContainer';
+import withCategoriesContainer from '../../containers/CategoriesContainer';
 
 const renderChildCategories = (categories, id) => {
   if (categories[id].children.length === 0) {
@@ -70,4 +70,4 @@ CategoryManager.propTypes = {
 };
 
 
-export default withCategoryContainer(CategoryManager);
+export default withCategoriesContainer(CategoryManager);
