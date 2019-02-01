@@ -35,7 +35,7 @@ class Write extends React.Component {
         this.setState({ redirect: true });
       })
       .catch((err) => {
-        this.setState(prevState => ({ ...prevState, error: err.response.data }));
+        this.setState(prevState => ({ ...prevState, error: err.response.data.message }));
       });
   }
 
