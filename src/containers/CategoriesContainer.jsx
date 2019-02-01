@@ -5,7 +5,7 @@ import { loadCategories as loadCategoriesAction } from '../store/actions/categor
 import { getCategories, getParentCategoryIds } from '../store/selectors/categories';
 
 export default function withCategoriesContainer(ComposedComponent) {
-  class CategoryContainer extends React.Component {
+  class CategoriesContainer extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -34,5 +34,5 @@ export default function withCategoriesContainer(ComposedComponent) {
   };
   const mapDispatchToProps = { loadCategories: loadCategoriesAction };
 
-  return connect(mapStateToProps, mapDispatchToProps)(CategoryContainer);
+  return connect(mapStateToProps, mapDispatchToProps)(CategoriesContainer);
 }
