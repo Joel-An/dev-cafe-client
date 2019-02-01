@@ -44,7 +44,11 @@ const postsByCategory = (state = initialState, action) => {
     const meta = state[key];
     return {
       ...state,
-      [key]: { ...meta, error: action.error },
+      [key]: {
+        ...meta,
+        error: action.error,
+        isFetching: false,
+      },
     };
   }
   case GET_POSTS_SUCCESS: {
