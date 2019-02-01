@@ -7,9 +7,9 @@ import { selectPostsMetaByCategory } from '../store/selectors/posts';
 export default function withPostListContainer(ComposedComponent) {
   class PostListContainer extends React.Component {
     componentDidMount() {
-      const { category, loadPosts } = this.props;
+      const { categoryId, loadPosts } = this.props;
 
-      loadPosts(category);
+      loadPosts(categoryId);
     }
 
     componentWillReceiveProps(nextProps) {
