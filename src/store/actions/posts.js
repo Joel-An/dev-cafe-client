@@ -33,13 +33,13 @@ export const loadPostsSuccess = () => ({
   type: LOAD_POSTS_SUCCESS,
 });
 
-export const fetchPost = (postId, refreshCache = false) => ({
+export const fetchPost = (postId, category) => ({
   type: CALL_API,
   types: [GET_POST_REQUEST, GET_POST_SUCCESS, GET_POST_FAILURE],
   endpoint: `/posts/${postId}`,
   postId,
   method: 'get',
-  refreshCache,
+  category,
   schema: Schemas.POST,
 });
 
