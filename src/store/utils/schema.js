@@ -61,6 +61,7 @@ const Schemas = {
   CATEGORY_ARRAY: [categorySchema],
   POST: postSchema,
   POST_ARRAY: [postSchema],
+  COMMENT: commentSchema,
   COMMENT_ARRAY: [commentSchema],
 };
 
