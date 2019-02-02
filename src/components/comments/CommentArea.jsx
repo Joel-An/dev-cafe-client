@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import CommentList from './CommentList';
 import WriteComment from './WriteComment';
-import withCommentContainer from '../../containers/CommentContainer';
+import withCommentsMetaContainer from '../../containers/CommentsMetaContainer';
 
 const CommentArea = (props) => {
   const { postId, entities, commentsByPost } = props;
@@ -25,4 +25,4 @@ const CommentArea = (props) => {
   );
 };
 
-export default withCommentContainer(CommentArea);
+export default withCommentsMetaContainer(CommentArea);

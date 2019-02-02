@@ -3,8 +3,8 @@ import React from 'react';
 
 import { loadComments as loadCommentsAction } from '../store/actions/comments';
 
-export default function withCommentContainer(ComposedComponent) {
-  class CommentContainer extends React.Component {
+export default function withCommentsMetaContainer(ComposedComponent) {
+  class CommentsMetaContainer extends React.Component {
     componentDidMount() {
       const { postId, loadComments } = this.props;
 
@@ -39,5 +39,5 @@ export default function withCommentContainer(ComposedComponent) {
   };
   const mapDispatchToProps = { loadComments: loadCommentsAction };
 
-  return connect(mapStateToProps, mapDispatchToProps)(CommentContainer);
+  return connect(mapStateToProps, mapDispatchToProps)(CommentsMetaContainer);
 }
