@@ -1,18 +1,19 @@
 import React from 'react';
 
-import Comment from './Comment';
+import CommentListItem from './CommentListItem';
+
+const style = { border: '0.5px solid grey', padding: 20 };
 
 const ChildCommentList = (props) => {
-  const { childCommentIds, users, comments } = props;
+  const { childCommentIds } = props;
 
   if (!childCommentIds.length) {
     return null;
   }
-  const style = { border: '0.5px solid grey', padding: 20 };
 
   return (
     <ul style={style}>
-      {childCommentIds.map(id => <Comment comments={comments} commentId={id} users={users}/>)}
+      {childCommentIds.map(childId => <CommentListItem commentId={childId}/>)}
     </ul>
   );
 };

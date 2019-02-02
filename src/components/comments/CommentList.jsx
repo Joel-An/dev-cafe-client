@@ -1,25 +1,26 @@
 import React from 'react';
 
-import Comment from './Comment';
+import CommentListItem from './CommentListItem';
+import withCommentsMetaContainer from '../../containers/CommentsMetaContainer';
 
 const CommentList = (props) => {
-  const { entities, parentCommentIds, postId } = props;
-  const { comments, users } = entities;
+  const { commentsMeta } = props;
 
-  if (parentCommentIds.length == 0) {
-    return <p>댓글이 없다!</p>;
+  if (!commentsMeta || commentsMeta.isFetching) {
+    return <p>Loading...</p>;
   }
+
+  if (commentsMeta.ids.length === 0) {
+    return <p>댓글이 없어!</p>;
+  }
+
   const style = { border: '0.5px solid grey' };
 
   return (
     <ul style={style}>
-      {parentCommentIds.map(id => <Comment
-        comments={comments}
-        commentId={id}
-        users={users}
-      />)}
+      {commentsMeta.ids.map(id => <CommentListItem commentId={id} />)}
     </ul>
   );
 };
 
-export default CommentList;
+export default withCommentsMetaContainer(CommentList);
