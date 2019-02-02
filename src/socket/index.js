@@ -2,6 +2,7 @@ import openSocket from 'socket.io-client';
 
 import { getCategory, removeCategory } from '../store/actions/categories';
 import { fetchPost } from '../store/actions/posts';
+import { fetchComment } from '../store/actions/comments';
 
 const connectSocket = () => openSocket({ transports: ['websocket'] });
 
@@ -21,6 +22,10 @@ const setHandler = (socket, store) => {
 
   socket.on('NEW_POST', (data) => {
     store.dispatch(fetchPost(data.postId, data.categoryId));
+  });
+
+  socket.on('NEW_COMMENT', (data) => {
+    store.dispatch(fetchComment(data.commentId, data.postId));
   });
 };
 
