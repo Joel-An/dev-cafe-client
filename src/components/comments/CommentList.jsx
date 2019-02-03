@@ -6,7 +6,7 @@ import withCommentsMetaContainer from '../../containers/CommentsMetaContainer';
 const CommentList = (props) => {
   const { commentsMeta } = props;
 
-  if (!commentsMeta || commentsMeta.isFetching) {
+  if (!commentsMeta) {
     return <p>Loading...</p>;
   }
 
