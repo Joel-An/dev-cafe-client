@@ -75,7 +75,7 @@ const commentsByPost = (state = {}, action) => {
         ...state,
         [key]: {
           ...meta,
-          ids: union([id], meta.ids),
+          ids: union(meta.ids, [id]),
           isFetching: false,
         },
       };
