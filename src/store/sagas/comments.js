@@ -36,7 +36,24 @@ function* watchCheckCacheAndUpdate() {
   yield takeEvery(Types.CHECK_CACHE_AND_UPDATE_COMMENT, checkCacheAndUpdate);
 }
 
+function* loadEditingComment(action) {
+  const state = yield select();
+  const { commentId } = action;
+
+  const cache = Selectors.selectEditingCommentById(state, commentId);
+
+  if (!cache) {
+    const comment = Selectors.selectCommentById(state, commentId);
+    yield put(Actions.startEditingComment(comment));
+  }
+}
+
+function* watchLoadEditingComment() {
+  yield takeEvery(Types.LOAD_EDITING_COMMENT, loadEditingComment);
+}
+
 export default function* watchComments() {
   yield spawn(watchLoadComments);
   yield spawn(watchCheckCacheAndUpdate);
+  yield spawn(watchLoadEditingComment);
 }
