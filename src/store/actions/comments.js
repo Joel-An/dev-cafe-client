@@ -76,9 +76,9 @@ export const loadEditingComment = commentId => ({
   commentId,
 });
 
-export const startEditingComment = commentId => ({
+export const startEditingComment = comment => ({
   type: START_EDITING_COMENT,
-  commentId,
+  comment,
 });
 
 export const editingCommentDone = commentId => ({
