@@ -52,7 +52,7 @@ class CommentListItem extends React.Component {
           : <Comment comment={comment} renderComment={renderComment}/>
         }
         <button type="button" onClick={this.onEdit}>
-          수정
+          {isEditing ? '취소' : '수정'}
         </button>
         <DeleteComment commentId={comment._id}/>
         {comment.isChild || <button type="button" onClick={this.onAddReply}>
