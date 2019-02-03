@@ -6,6 +6,7 @@ import * as PostActions from '../types/posts';
 import * as CommentActions from '../types/comments';
 import newEntities from './entities';
 import newPagination from './pagination';
+import editing from './editing';
 
 const INITIAL_ENTITIES = {
   categories: {}, users: {}, posts: {}, comments: {},
@@ -42,5 +43,5 @@ const pagination = combineReducers({
 });
 
 export default combineReducers({
-  auth, entities, pagination, newEntities, newPagination,
+  auth, entities, pagination, newEntities, newPagination, editing,
 });
