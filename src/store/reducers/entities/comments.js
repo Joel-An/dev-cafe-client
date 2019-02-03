@@ -4,6 +4,7 @@ import {
   GET_COMMENT_SUCCESS,
   GET_COMMENTS_SUCCESS,
   REMOVE_COMMENT,
+  FETCH_UPDATED_COMMENT_SUCCESS,
 } from '../../types/comments';
 
 
@@ -56,6 +57,15 @@ const addComment = (state, action) => {
   return newState;
 };
 
+// 댓글 갱신
+const updateComment = (state, action) => {
+  const id = action.commentId;
+  const comments = action.response.getEntity('comments');
+  const comment = comments[id];
+
+  return { ...state, [id]: comment };
+};
+
 const commentsReducer = (state = {}, action) => {
   switch (action.type) {
   case GET_COMMENT_SUCCESS: {
@@ -68,6 +78,9 @@ const commentsReducer = (state = {}, action) => {
   case REMOVE_COMMENT: {
     const { commentId } = action;
     return removeComment(state, commentId);
+  }
+  case FETCH_UPDATED_COMMENT_SUCCESS: {
+    return updateComment(state, action);
   }
   default:
     return state;
