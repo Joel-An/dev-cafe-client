@@ -7,6 +7,7 @@ import {
   GET_COMMENT_REQUEST,
   GET_COMMENT_SUCCESS,
   GET_COMMENT_FAILURE,
+  REMOVE_COMMENT,
 } from '../types/comments';
 
 import { CALL_API } from '../sagas/apiSaga';
@@ -39,4 +40,10 @@ export const loadComments = postId => ({
 
 export const loadCommentsSuccess = () => ({
   type: LOAD_COMMENTS_SUCCESS,
+});
+
+export const removeComment = (commentId, postId) => ({
+  type: REMOVE_COMMENT,
+  commentId,
+  postId,
 });

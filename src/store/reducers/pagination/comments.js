@@ -6,6 +6,7 @@ import {
   GET_COMMENTS_REQUEST,
   GET_COMMENTS_SUCCESS,
   GET_COMMENTS_FAILURE,
+  REMOVE_COMMENT,
 } from '../../types/comments';
 
 const mapActionToKey = action => action.postId;
@@ -79,6 +80,21 @@ const commentsByPost = (state = {}, action) => {
           isFetching: false,
         },
       };
+  }
+  case REMOVE_COMMENT: {
+    const key = mapActionToKey(action);
+    const { commentId } = action;
+    const meta = state[key];
+    if (meta && meta.ids.includes(commentId)) {
+      return {
+        ...state,
+        [key]: {
+          ...meta,
+          ids: meta.ids.filter(id => id !== commentId),
+        },
+      };
+    }
+    return state;
   }
   default:
     return state;

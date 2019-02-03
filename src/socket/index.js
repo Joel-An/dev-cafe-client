@@ -2,7 +2,7 @@ import openSocket from 'socket.io-client';
 
 import { getCategory, removeCategory } from '../store/actions/categories';
 import { fetchPost } from '../store/actions/posts';
-import { fetchComment } from '../store/actions/comments';
+import { fetchComment, removeComment } from '../store/actions/comments';
 
 const connectSocket = () => openSocket({ transports: ['websocket'] });
 
@@ -27,6 +27,11 @@ const setHandler = (socket, store) => {
   socket.on('NEW_COMMENT', (data) => {
     store.dispatch(fetchComment(data.commentId, data.postId));
   });
+
+  socket.on('DELETE_COMMENT', (data) => {
+    store.dispatch(removeComment(data.commentId, data.postId));
+  });
+
 };
 
 const configureSocket = (store) => {
