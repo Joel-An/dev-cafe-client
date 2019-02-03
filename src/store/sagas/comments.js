@@ -2,10 +2,7 @@ import {
   put, takeLatest, takeEvery, select, spawn,
 } from 'redux-saga/effects';
 
-import {
-  LOAD_COMMENTS,
-  CHECK_CACHE_AND_UPDATE_COMMENT,
-} from '../types/comments';
+import * as types from '../types/comments';
 
 import * as actions from '../actions/comments';
 import { selectCommentById } from '../selectors/comments';
@@ -23,7 +20,7 @@ function* loadCommentsSaga(action) {
 }
 
 function* watchLoadComments() {
-  yield takeLatest(LOAD_COMMENTS, loadCommentsSaga);
+  yield takeLatest(types.LOAD_COMMENTS, loadCommentsSaga);
 }
 
 function* checkCacheAndUpdate(action) {
@@ -37,7 +34,7 @@ function* checkCacheAndUpdate(action) {
 }
 
 function* watchCheckCacheAndUpdate() {
-  yield takeEvery(CHECK_CACHE_AND_UPDATE_COMMENT, checkCacheAndUpdate);
+  yield takeEvery(types.CHECK_CACHE_AND_UPDATE_COMMENT, checkCacheAndUpdate);
 }
 
 export default function* watchComments() {
