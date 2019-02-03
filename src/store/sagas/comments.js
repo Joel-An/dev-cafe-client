@@ -3,9 +3,8 @@ import {
 } from 'redux-saga/effects';
 
 import * as types from '../types/comments';
-
 import * as actions from '../actions/comments';
-import { selectCommentById } from '../selectors/comments';
+import * as selectors from '../selectors/comments';
 
 
 function* loadCommentsSaga(action) {
@@ -26,7 +25,7 @@ function* watchLoadComments() {
 function* checkCacheAndUpdate(action) {
   const state = yield select();
   const { commentId } = action;
-  const cache = selectCommentById(state, commentId);
+  const cache = selectors.selectCommentById(state, commentId);
 
   if (cache) {
     yield put(actions.fetchUpdatedComment(commentId));
