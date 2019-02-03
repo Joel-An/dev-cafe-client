@@ -6,13 +6,12 @@ import withCommentContainer from '../../containers/CommentContainer';
 import ChildCommentList from './ChildCommentList';
 import WriteComment from './WriteComment';
 import DeleteComment from './DeleteComment';
+import EditComment from './EditComment';
 import { Comment } from './Comment';
 
 import User from '../users/User';
 
 const style = { border: '0.5px solid grey' };
-
-const EditComment = () => (<p>Editing...</p>);
 
 const renderUser = user => user.profileName;
 
@@ -39,8 +38,7 @@ class CommentListItem extends React.Component {
     this.setState(prevState => ({ ...prevState, addReply: !prevState.addReply }));
   }
 
-  onEdit = (e) => {
-    e.preventDefault();
+  onEdit = () => {
     this.setState(prevState => ({ ...prevState, isEditing: !prevState.isEditing }));
   }
 
@@ -50,7 +48,7 @@ class CommentListItem extends React.Component {
     return (
       <li key={comment._id} style={style}>
         {isEditing
-          ? <EditComment/>
+          ? <EditComment commentId={comment._id} offEditMode={this.onEdit}/>
           : <Comment comment={comment} renderComment={renderComment}/>
         }
         <button type="button" onClick={this.onEdit}>
