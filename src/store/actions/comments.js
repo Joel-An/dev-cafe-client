@@ -12,6 +12,9 @@ import {
   FETCH_UPDATED_COMMENT_REQUEST,
   FETCH_UPDATED_COMMENT_SUCCESS,
   FETCH_UPDATED_COMMENT_FAILURE,
+  START_EDITING_COMENT,
+  EDITING_COMMENT_DONE,
+  LOAD_EDITING_COMMENT,
 } from '../types/comments';
 
 import { CALL_API } from '../sagas/apiSaga';
@@ -66,4 +69,19 @@ export const removeComment = (commentId, postId) => ({
   type: REMOVE_COMMENT,
   commentId,
   postId,
+});
+
+export const loadEditingComment = commentId => ({
+  type: LOAD_EDITING_COMMENT,
+  commentId,
+});
+
+export const startEditingComment = commentId => ({
+  type: START_EDITING_COMENT,
+  commentId,
+});
+
+export const editingCommentDone = commentId => ({
+  type: EDITING_COMMENT_DONE,
+  commentId,
 });
