@@ -5,6 +5,7 @@ import withCommentContainer from '../../containers/CommentContainer';
 
 import ChildCommentList from './ChildCommentList';
 import WriteComment from './WriteComment';
+import DeleteComment from './DeleteComment';
 import { Comment } from './Comment';
 
 import User from '../users/User';
@@ -55,9 +56,7 @@ class CommentListItem extends React.Component {
         <button type="button" onClick={this.onEdit}>
           수정
         </button>
-        <button type="button">
-          삭제
-        </button>
+        <DeleteComment commentId={comment._id}/>
         {comment.isChild || <button type="button" onClick={this.onAddReply}>
           답글
         </button>
