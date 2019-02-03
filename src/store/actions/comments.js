@@ -13,6 +13,7 @@ import {
   FETCH_UPDATED_COMMENT_SUCCESS,
   FETCH_UPDATED_COMMENT_FAILURE,
   START_EDITING_COMENT,
+  SAVE_EDITING_COMENT,
   EDITING_COMMENT_DONE,
   LOAD_EDITING_COMMENT,
 } from '../types/comments';
@@ -79,6 +80,11 @@ export const loadEditingComment = commentId => ({
 export const startEditingComment = comment => ({
   type: START_EDITING_COMENT,
   comment,
+});
+
+export const saveEditingComment = editingComment => ({
+  type: SAVE_EDITING_COMENT,
+  editingComment,
 });
 
 export const editingCommentDone = commentId => ({
