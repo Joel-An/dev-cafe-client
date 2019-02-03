@@ -1,5 +1,5 @@
 import {
-  put, takeLatest, select,
+  put, takeLatest, select, spawn,
 } from 'redux-saga/effects';
 
 import { LOAD_COMMENTS } from '../types/comments';
@@ -17,6 +17,10 @@ function* loadCommentsSaga(action) {
   }
 }
 
-export default function* watchComments() {
+function* watchLoadComments() {
   yield takeLatest(LOAD_COMMENTS, loadCommentsSaga);
+}
+
+export default function* watchComments() {
+  yield spawn(watchLoadComments);
 }
