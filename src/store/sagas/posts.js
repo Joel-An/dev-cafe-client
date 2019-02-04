@@ -1,5 +1,5 @@
 import {
-  put, takeLatest, select,
+  put, takeLatest, select, spawn,
 } from 'redux-saga/effects';
 
 import { LOAD_POSTS, LOAD_POST } from '../types/posts';
@@ -18,7 +18,7 @@ function* loadPostsSaga(action) {
   }
 }
 
-export function* watchPosts() {
+function* watchLoadPosts() {
   yield takeLatest(LOAD_POSTS, loadPostsSaga);
 }
 
@@ -35,6 +35,11 @@ function* loadPostSaga(action) {
   }
 }
 
-export function* watchPost() {
+function* watchLoadPost() {
   yield takeLatest(LOAD_POST, loadPostSaga);
+}
+
+export default function* watchPosts() {
+  yield spawn(watchLoadPost);
+  yield spawn(watchLoadPosts);
 }
