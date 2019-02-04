@@ -9,6 +9,9 @@ import {
   GET_POST_REQUEST,
   GET_POST_SUCCESS,
   GET_POST_FAILURE,
+  FETCH_POST_CONTENTS_REQUEST,
+  FETCH_POST_CONTENTS_SUCCESS,
+  FETCH_POST_CONTENTS_FAILURE,
 } from '../types/posts';
 
 import { CALL_API } from '../sagas/apiSaga';
@@ -42,6 +45,17 @@ export const fetchPost = (postId, category) => ({
   category,
   schema: Schemas.POST,
 });
+
+export const fetchPostContents = (postId) => {
+  const action = fetchPost(postId);
+  action.types = [
+    FETCH_POST_CONTENTS_REQUEST,
+    FETCH_POST_CONTENTS_SUCCESS,
+    FETCH_POST_CONTENTS_FAILURE,
+  ];
+
+  return action;
+};
 
 export const loadPost = postId => ({
   type: LOAD_POST,

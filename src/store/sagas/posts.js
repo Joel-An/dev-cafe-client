@@ -31,7 +31,7 @@ function* loadPostSaga(action) {
   if (cache) {
     yield put(actions.loadPostSuccess());
   } else {
-    yield put(actions.fetchPost(postId));
+    yield put(actions.fetchPostContents(postId));
   }
 }
 
