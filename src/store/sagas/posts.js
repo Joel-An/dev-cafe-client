@@ -56,8 +56,23 @@ function* watchLoadEditingPost() {
   yield takeEvery(Types.LOAD_EDITING_POST, loadEditingPost);
 }
 
+function* checkCacheAndUpdate(action) {
+  const state = yield select();
+  const { postId } = action;
+  const cache = Selectors.selectPostById(state, postId);
+
+  if (cache) {
+    yield put(Actions.fetchUpdatedPost(postId));
+  }
+}
+
+function* watchCheckCacheAndUpdate() {
+  yield takeEvery(Types.CHECK_CACHE_AND_UPDATE_POST, checkCacheAndUpdate);
+}
+
 export default function* watchPosts() {
   yield spawn(watchLoadPost);
   yield spawn(watchLoadPosts);
   yield spawn(watchLoadEditingPost);
+  yield spawn(watchCheckCacheAndUpdate);
 }

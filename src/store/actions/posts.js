@@ -17,6 +17,10 @@ import {
   SAVE_EDITING_POST,
   EDITING_POST_DONE,
   LOAD_EDITING_POST,
+  CHECK_CACHE_AND_UPDATE_POST,
+  FETCH_UPDATED_POST_REQUEST,
+  FETCH_UPDATED_POST_SUCCESS,
+  FETCH_UPDATED_POST_FAILURE,
 } from '../types/posts';
 
 import { CALL_API } from '../sagas/apiSaga';
@@ -58,6 +62,18 @@ export const fetchNewPost = (postId, category) => {
     FETCH_NEW_POST_FAILURE,
   ];
   action.category = category;
+
+  return action;
+};
+
+export const fetchUpdatedPost = (postId) => {
+  const action = fetchPost(postId);
+
+  action.types = [
+    FETCH_UPDATED_POST_REQUEST,
+    FETCH_UPDATED_POST_SUCCESS,
+    FETCH_UPDATED_POST_FAILURE,
+  ];
 
   return action;
 };
@@ -107,4 +123,8 @@ export const editingPostDone = postId => ({
   type: EDITING_POST_DONE,
   postId,
 });
+
+export const checkCacheAndUpdatePost = postId => ({
+  type: CHECK_CACHE_AND_UPDATE_POST,
+  postId,
 });

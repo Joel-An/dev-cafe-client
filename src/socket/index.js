@@ -4,6 +4,7 @@ import { getCategory, removeCategory } from '../store/actions/categories';
 import {
   fetchNewPost,
   removePost,
+  checkCacheAndUpdatePost,
 } from '../store/actions/posts';
 import {
   fetchComment,
@@ -35,6 +36,9 @@ const setHandler = (socket, store) => {
     store.dispatch(removePost(data.postId, data.categoryId));
   });
 
+  socket.on('UPDATE_POST', (data) => {
+    store.dispatch(checkCacheAndUpdatePost(data.postId));
+  });
 
   socket.on('NEW_COMMENT', (data) => {
     store.dispatch(fetchComment(data.commentId, data.postId));

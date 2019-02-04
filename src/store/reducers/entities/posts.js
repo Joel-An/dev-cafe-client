@@ -5,6 +5,7 @@ import {
   FETCH_NEW_POST_SUCCESS,
   FETCH_POST_CONTENTS_SUCCESS,
   REMOVE_POST,
+  FETCH_UPDATED_POST_SUCCESS,
 } from '../../types/posts';
 
 const addPost = (state, action) => {
@@ -24,6 +25,9 @@ const postsReducer = (state = {}, action) => {
     return addPost(state, action);
   }
   case FETCH_NEW_POST_SUCCESS: {
+    return addPost(state, action);
+  }
+  case FETCH_UPDATED_POST_SUCCESS: {
     return addPost(state, action);
   }
   case GET_POSTS_SUCCESS: {
