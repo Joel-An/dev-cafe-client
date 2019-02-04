@@ -1,7 +1,7 @@
 import openSocket from 'socket.io-client';
 
 import { getCategory, removeCategory } from '../store/actions/categories';
-import { fetchPost } from '../store/actions/posts';
+import { fetchNewPost } from '../store/actions/posts';
 import {
   fetchComment,
   removeComment,
@@ -25,7 +25,7 @@ const setHandler = (socket, store) => {
   });
 
   socket.on('NEW_POST', (data) => {
-    store.dispatch(fetchPost(data.postId, data.categoryId));
+    store.dispatch(fetchNewPost(data.postId, data.categoryId));
   });
 
   socket.on('NEW_COMMENT', (data) => {

@@ -2,7 +2,7 @@ import merge from 'lodash/merge';
 
 import {
   GET_POSTS_SUCCESS,
-  GET_POST_SUCCESS,
+  FETCH_NEW_POST_SUCCESS,
   FETCH_POST_CONTENTS_SUCCESS,
 } from '../../types/posts';
 
@@ -22,7 +22,7 @@ const postsReducer = (state = {}, action) => {
   case FETCH_POST_CONTENTS_SUCCESS: {
     return addPost(state, action);
   }
-  case GET_POST_SUCCESS: {
+  case FETCH_NEW_POST_SUCCESS: {
     return addPost(state, action);
   }
   case GET_POSTS_SUCCESS: {

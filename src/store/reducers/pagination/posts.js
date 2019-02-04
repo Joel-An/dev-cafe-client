@@ -3,9 +3,9 @@ import {
   GET_POSTS_REQUEST,
   GET_POSTS_FAILURE,
   GET_POSTS_SUCCESS,
-  GET_POST_REQUEST,
-  GET_POST_FAILURE,
-  GET_POST_SUCCESS,
+  FETCH_NEW_POST_REQUEST,
+  FETCH_NEW_POST_SUCCESS,
+  FETCH_NEW_POST_FAILURE,
 } from '../../types/posts';
 
 const mapActionToKey = action => action.category;
@@ -21,7 +21,7 @@ const initialState = {
 
 const postsByCategory = (state = initialState, action) => {
   switch (action.type) {
-  case GET_POST_REQUEST:
+  case FETCH_NEW_POST_REQUEST:
   case GET_POSTS_REQUEST: {
     const key = mapActionToKey(action);
     const meta = state[key];
@@ -38,7 +38,7 @@ const postsByCategory = (state = initialState, action) => {
       },
     };
   }
-  case GET_POST_FAILURE:
+  case FETCH_NEW_POST_FAILURE:
   case GET_POSTS_FAILURE: {
     const key = mapActionToKey(action);
     const meta = state[key];
@@ -63,7 +63,7 @@ const postsByCategory = (state = initialState, action) => {
       },
     };
   }
-  case GET_POST_SUCCESS: {
+  case FETCH_NEW_POST_SUCCESS: {
     const key = mapActionToKey(action);
     const meta = state[key];
     const { postId } = action;

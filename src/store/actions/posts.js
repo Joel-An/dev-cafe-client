@@ -6,9 +6,9 @@ import {
   GET_POSTS_FAILURE,
   LOAD_POST,
   LOAD_POST_SUCCESS,
-  GET_POST_REQUEST,
-  GET_POST_SUCCESS,
-  GET_POST_FAILURE,
+  FETCH_NEW_POST_REQUEST,
+  FETCH_NEW_POST_SUCCESS,
+  FETCH_NEW_POST_FAILURE,
   FETCH_POST_CONTENTS_REQUEST,
   FETCH_POST_CONTENTS_SUCCESS,
   FETCH_POST_CONTENTS_FAILURE,
@@ -36,15 +36,26 @@ export const loadPostsSuccess = () => ({
   type: LOAD_POSTS_SUCCESS,
 });
 
-export const fetchPost = (postId, category) => ({
+const fetchPost = postId => ({
   type: CALL_API,
-  types: [GET_POST_REQUEST, GET_POST_SUCCESS, GET_POST_FAILURE],
   endpoint: `/posts/${postId}`,
   postId,
   method: 'get',
-  category,
   schema: Schemas.POST,
 });
+
+export const fetchNewPost = (postId, category) => {
+  const action = fetchPost(postId);
+
+  action.types = [
+    FETCH_NEW_POST_REQUEST,
+    FETCH_NEW_POST_SUCCESS,
+    FETCH_NEW_POST_FAILURE,
+  ];
+  action.category = category;
+
+  return action;
+};
 
 export const fetchPostContents = (postId) => {
   const action = fetchPost(postId);
