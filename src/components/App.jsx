@@ -16,6 +16,7 @@ import './App.css';
 import PostListPage from './posts/PostListPage';
 import PostPage from './posts/PostPage';
 import Write from './posts/Write';
+import EditPostPage from './posts/EditPostPage';
 import CategoryMenu from './categories/CategoryMenu';
 
 class App extends React.Component {
@@ -66,6 +67,7 @@ class App extends React.Component {
               <Route path="/posts/:id" render={props => (<PostPage {...props} token={token}/>)} />
               <Route exact path="/posts" component={PostListPage} />
               <Route path="/write/:categoryId" render={props => (<Write {...props} token={token}/>)} />
+              <Route path="/edit/:id" component={EditPostPage}/>
               <Route exact path="/login" component={Login}/>
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/categoryManager" component={CategoryManager} />

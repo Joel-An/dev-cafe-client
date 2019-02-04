@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import withPostContainer from '../../containers/PostContainer';
 import withMyInfoContainer from '../../containers/MyInfoContainer';
@@ -29,7 +30,14 @@ const PostView = (props) => {
       <Category categoryId={post.category} renderCategory={renderCategory}/>
       <User userId={post.author} renderUser={renderUser}/>
       내용 : {post.contents || 'Loading...'}
-      {isMyPost && <DeletePost postId={post._id} categoryId={post.category}/>}
+      {isMyPost
+      && <>
+        <DeletePost postId={post._id} categoryId={post.category}/>
+        <button type="button">
+          <Link to={`/edit/${post._id}`}>수정</Link>
+        </button>
+      </>
+      }
     </p>
   );
 };
