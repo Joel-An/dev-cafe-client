@@ -105,5 +105,6 @@ export const saveEditingPost = editingPost => ({
 
 export const editingPostDone = postId => ({
   type: EDITING_POST_DONE,
-  commentId: postId,
+  postId,
+});
 });
