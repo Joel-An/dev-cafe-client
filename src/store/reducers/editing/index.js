@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import * as CommentActions from '../../types/comments';
+import * as PostActions from '../../types/posts';
 
 const comments = (state = {}, action) => {
   switch (action.type) {
@@ -34,6 +35,39 @@ const comments = (state = {}, action) => {
   }
 };
 
+const posts = (state = {}, action) => {
+  switch (action.type) {
+  case PostActions.START_EDITING_POST: {
+    const { post } = action;
+    const editingPost = {
+      _id: post._id,
+      category: post.category,
+      title: post.title,
+      contents: post.contents,
+    };
+    return {
+      ...state,
+      [editingPost._id]: editingPost,
+    };
+  }
+  case PostActions.SAVE_EDITING_POST: {
+    const { editingPost } = action;
+    return {
+      ...state,
+      [editingPost._id]: editingPost,
+    };
+  }
+  case PostActions.EDITING_POST_DONE: {
+    const { postId } = action;
+    const newState = { ...state };
+    delete newState[postId];
+    return newState;
+  }
+  default:
+    return state;
+  }
+};
+
 export default combineReducers({
-  comments,
+  comments, posts,
 });

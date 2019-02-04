@@ -1,9 +1,10 @@
 import {
-  put, takeLatest, select, spawn,
+  put, takeLatest, select, spawn, takeEvery,
 } from 'redux-saga/effects';
 
-import { LOAD_POSTS, LOAD_POST } from '../types/posts';
-import * as actions from '../actions/posts';
+import * as Actions from '../actions/posts';
+import * as Types from '../types/posts';
+import * as Selectors from '../selectors/posts';
 
 
 function* loadPostsSaga(action) {
@@ -12,14 +13,14 @@ function* loadPostsSaga(action) {
   const cache = state.pagination.postsByCategory[category];
 
   if (cache) {
-    yield put(actions.loadPostsSuccess());
+    yield put(Actions.loadPostsSuccess());
   } else {
-    yield put(actions.fetchPosts(category));
+    yield put(Actions.fetchPosts(category));
   }
 }
 
 function* watchLoadPosts() {
-  yield takeLatest(LOAD_POSTS, loadPostsSaga);
+  yield takeLatest(Types.LOAD_POSTS, loadPostsSaga);
 }
 
 
@@ -29,17 +30,34 @@ function* loadPostSaga(action) {
   const cache = state.entities.posts[postId] && state.entities.posts[postId].contents;
 
   if (cache) {
-    yield put(actions.loadPostSuccess());
+    yield put(Actions.loadPostSuccess());
   } else {
-    yield put(actions.fetchPostContents(postId));
+    yield put(Actions.fetchPostContents(postId));
   }
 }
 
 function* watchLoadPost() {
-  yield takeLatest(LOAD_POST, loadPostSaga);
+  yield takeLatest(Types.LOAD_POST, loadPostSaga);
+}
+
+function* loadEditingPost(action) {
+  const state = yield select();
+  const { postId } = action;
+
+  const cache = Selectors.selectEditingPostById(state, postId);
+
+  if (!cache) {
+    const post = Selectors.selectPostById(state, postId);
+    yield put(Actions.startEditingPost(post));
+  }
+}
+
+function* watchLoadEditingPost() {
+  yield takeEvery(Types.LOAD_EDITING_POST, loadEditingPost);
 }
 
 export default function* watchPosts() {
   yield spawn(watchLoadPost);
   yield spawn(watchLoadPosts);
+  yield spawn(watchLoadEditingPost);
 }

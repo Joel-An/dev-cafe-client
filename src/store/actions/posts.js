@@ -13,6 +13,10 @@ import {
   FETCH_POST_CONTENTS_SUCCESS,
   FETCH_POST_CONTENTS_FAILURE,
   REMOVE_POST,
+  START_EDITING_POST,
+  SAVE_EDITING_POST,
+  EDITING_POST_DONE,
+  LOAD_EDITING_POST,
 } from '../types/posts';
 
 import { CALL_API } from '../sagas/apiSaga';
@@ -82,4 +86,24 @@ export const removePost = (postId, category) => ({
   type: REMOVE_POST,
   postId,
   category,
+});
+
+export const loadEditingPost = postId => ({
+  type: LOAD_EDITING_POST,
+  postId,
+});
+
+export const startEditingPost = post => ({
+  type: START_EDITING_POST,
+  post,
+});
+
+export const saveEditingPost = editingPost => ({
+  type: SAVE_EDITING_POST,
+  editingPost,
+});
+
+export const editingPostDone = postId => ({
+  type: EDITING_POST_DONE,
+  commentId: postId,
 });
