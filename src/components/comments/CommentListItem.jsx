@@ -2,6 +2,7 @@ import React from 'react';
 import dateFormat from 'dateformat';
 
 import withCommentContainer from '../../containers/CommentContainer';
+import withMyInfoContainer from '../../containers/MyInfoContainer';
 
 import ChildCommentList from './ChildCommentList';
 import WriteComment from './WriteComment';
@@ -44,17 +45,25 @@ class CommentListItem extends React.Component {
 
   render() {
     const { addReply, isEditing } = this.state;
-    const { comment } = this.props;
+    const { comment, myInfo } = this.props;
+
+    const isMyComment = (comment.author === myInfo._id);
+
     return (
       <li key={comment._id} style={style}>
         {isEditing
           ? <EditComment commentId={comment._id} offEditMode={this.onEdit}/>
           : <Comment comment={comment} renderComment={renderComment}/>
         }
-        <button type="button" onClick={this.onEdit}>
-          {isEditing ? '취소' : '수정'}
-        </button>
-        <DeleteComment commentId={comment._id}/>
+        { isMyComment
+          && <>
+          <button type="button" onClick={this.onEdit}>
+            {isEditing ? '취소' : '수정'}
+          </button>
+          <DeleteComment commentId={comment._id}/>
+          </>
+        }
+
         {comment.isChild || <button type="button" onClick={this.onAddReply}>
           답글
         </button>
@@ -69,6 +78,7 @@ class CommentListItem extends React.Component {
   }
 }
 
-const Connected = withCommentContainer(CommentListItem);
+const CommentListItemWithMyInfo = withMyInfoContainer(CommentListItem);
+const ConnectedCommentListItem = withCommentContainer(CommentListItemWithMyInfo);
 
-export default Connected;
+export default ConnectedCommentListItem;
