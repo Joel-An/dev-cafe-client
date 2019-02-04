@@ -4,6 +4,7 @@ import {
   GET_POSTS_SUCCESS,
   FETCH_NEW_POST_SUCCESS,
   FETCH_POST_CONTENTS_SUCCESS,
+  REMOVE_POST,
 } from '../../types/posts';
 
 const addPost = (state, action) => {
@@ -28,6 +29,13 @@ const postsReducer = (state = {}, action) => {
   case GET_POSTS_SUCCESS: {
     const posts = action.response.getEntity('posts');
     return merge({}, state, posts);
+  }
+  case REMOVE_POST: {
+    const { postId } = action;
+    const newState = { ...state };
+    delete newState[postId];
+
+    return newState;
   }
   default:
     return state;

@@ -6,6 +6,7 @@ import {
   FETCH_NEW_POST_REQUEST,
   FETCH_NEW_POST_SUCCESS,
   FETCH_NEW_POST_FAILURE,
+  REMOVE_POST,
 } from '../../types/posts';
 
 const mapActionToKey = action => action.category;
@@ -79,6 +80,37 @@ const postsByCategory = (state = initialState, action) => {
         isFetching: false,
       },
     };
+  }
+  case REMOVE_POST: {
+    const key = mapActionToKey(action);
+    const meta = state[key];
+    const { all } = state;
+
+    const { postId } = action;
+
+    let newState = state;
+
+    if (all && all.ids.includes(postId)) {
+      newState = {
+        ...newState,
+        all: {
+          ...all,
+          ids: all.ids.filter(id => id !== postId),
+        },
+      };
+    }
+
+    if (meta && meta.ids.includes(postId)) {
+      newState = {
+        ...newState,
+        [key]: {
+          ...meta,
+          ids: meta.ids.filter(id => id !== postId),
+        },
+      };
+    }
+
+    return newState;
   }
   default:
     return state;

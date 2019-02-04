@@ -12,6 +12,7 @@ import {
   FETCH_POST_CONTENTS_REQUEST,
   FETCH_POST_CONTENTS_SUCCESS,
   FETCH_POST_CONTENTS_FAILURE,
+  REMOVE_POST,
 } from '../types/posts';
 
 import { CALL_API } from '../sagas/apiSaga';
@@ -75,4 +76,10 @@ export const loadPost = postId => ({
 
 export const loadPostSuccess = () => ({
   type: LOAD_POST_SUCCESS,
+});
+
+export const removePost = (postId, category) => ({
+  type: REMOVE_POST,
+  postId,
+  category,
 });
