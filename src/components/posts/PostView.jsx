@@ -7,6 +7,7 @@ import withMyInfoContainer from '../../containers/MyInfoContainer';
 import Category from '../categories/Category';
 import User from '../users/User';
 import DeletePost from './DeletePost';
+import ContentsViewer from '../contents/Viewer';
 
 const renderCategory = category => (
   <p>카테고리 : {category.name}</p>
@@ -29,7 +30,7 @@ const PostView = (props) => {
       제목 : {post.title}<br/>
       <Category categoryId={post.category} renderCategory={renderCategory}/>
       <User userId={post.author} renderUser={renderUser}/>
-      내용 : {post.contents || 'Loading...'}
+      내용 : <ContentsViewer contents={post.contents || 'Loading...'}/>
       {isMyPost
       && <>
         <DeletePost postId={post._id} categoryId={post.category}/>

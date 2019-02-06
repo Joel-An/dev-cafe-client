@@ -9,6 +9,7 @@ import WriteComment from './WriteComment';
 import DeleteComment from './DeleteComment';
 import EditComment from './EditComment';
 import { Comment } from './Comment';
+import ContentsViewer from '../contents/Viewer';
 
 import User from '../users/User';
 
@@ -19,7 +20,7 @@ const renderUser = user => user.profileName;
 const renderComment = comment => (
   <>
     작성자 : <User userId={comment.author} renderUser={renderUser}/><br/>
-    내용 : {comment.contents}<br/>
+    내용 : <ContentsViewer contents={comment.contents}/>
     작성 시간 : {dateFormat(comment.date, 'yy/mm/dd h:MM TT')}<br/>
   </>
 );
