@@ -4,6 +4,8 @@ import withTokenContainer from '../../containers/TokenContainer';
 import withEditingCommentContainer from '../../containers/EditingCommentContainer';
 import * as Api from '../../api/comments';
 
+import Editor from '../contents/Editor';
+
 class EditComment extends React.Component {
   constructor(props) {
     super(props);
@@ -71,8 +73,7 @@ class EditComment extends React.Component {
       });
   }
 
-  onChange = (e) => {
-    const { value } = e.target;
+  onChange = (value) => {
     this.setState(prevState => ({
       ...prevState,
       editingComment: {
@@ -86,16 +87,15 @@ class EditComment extends React.Component {
     const { editingComment, isLoading, error } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <label htmlFor="comment">
-          <input type="text"
-            name="comment"
-            value={isLoading ? 'Loading...' : editingComment.contents}
-            onChange={this.onChange}/>
-        </label>
+      <div>
+        <Editor
+          contents={isLoading ? 'Loading...' : editingComment.contents}
+          onChange={this.onChange}/>
         {error || <p>{error}</p>}
-        <button type="submit">등록</button>
-      </form>
+        <button type="button" onClick={this.onSubmit}>
+          등록
+        </button>
+      </div>
     );
   }
 }

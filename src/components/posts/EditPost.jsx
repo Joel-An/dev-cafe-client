@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import withTokenContainer from '../../containers/TokenContainer';
 import withEditingPostContainer from '../../containers/EditingPostContainer';
 import * as Api from '../../api/posts';
+import Editor from '../contents/Editor';
 
 class EditPost extends React.Component {
   constructor(props) {
@@ -67,17 +68,33 @@ class EditPost extends React.Component {
       });
   }
 
-  onChange = (e) => {
+  onTitleChange = (e) => {
     const { target } = e;
-    const { name, value } = target;
-    this.setState(prevState => ({
-      ...prevState,
-      editingPost: {
-        ...prevState.editingPost,
-        [name]: value,
-      },
-    }));
+    const { value } = target;
+
+    this.setState(prevState => (
+      {
+        ...prevState,
+        editingPost: {
+          ...prevState.editingPost,
+          title: value,
+        },
+      }
+    ));
   }
+
+  onContentsChange = (value) => {
+    this.setState(prevState => (
+      {
+        ...prevState,
+        editingPost: {
+          ...prevState.editingPost,
+          contents: value,
+        },
+      }
+    ));
+  }
+
 
   render() {
     const {
@@ -102,13 +119,11 @@ class EditPost extends React.Component {
             value={isLoading ? 'Loading Title...' : editingPost.title}
             onChange={this.onChange}/>
         </label>
-        <label htmlFor="contents">
-          내용
-          <input type="text"
-            name="contents"
-            value={isLoading ? 'Loading Contents...' : editingPost.contents}
-            onChange={this.onChange}/>
-        </label>
+        <Editor
+          contents={editingPost.contents}
+          onChange={this.onContentsChange}
+          preview
+        />
         {error || <p>{error}</p>}
         <button type="submit">등록</button>
       </form>

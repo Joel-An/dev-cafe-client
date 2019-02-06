@@ -5,7 +5,7 @@ import CategorySelector from '../categories/SelectCategory';
 
 import withTokenContainer from '../../containers/TokenContainer';
 import { postPost } from '../../api/posts';
-
+import Editor from '../contents/Editor';
 
 class Write extends React.Component {
   constructor(props) {
@@ -39,17 +39,43 @@ class Write extends React.Component {
       });
   }
 
-  onChange = (e) => {
+  onTitleChange = (e) => {
     const { target } = e;
-    const { name, value } = target;
-    const { postForm } = this.state;
+    const { value } = target;
 
-    this.setState({ postForm: { ...postForm, [name]: value } });
+    this.setState(prevState => (
+      {
+        ...prevState,
+        postForm: {
+          ...prevState.postForm,
+          title: value,
+        },
+      }
+    ));
+  }
+
+  onContentsChange = (value) => {
+    this.setState(prevState => (
+      {
+        ...prevState,
+        postForm: {
+          ...prevState.postForm,
+          contents: value,
+        },
+      }
+    ));
   }
 
   onSelectCategory = (categoryId) => {
-    const { postForm } = this.state;
-    this.setState({ postForm: { ...postForm, categoryId } });
+    this.setState(prevState => (
+      {
+        ...prevState,
+        postForm: {
+          ...prevState.postForm,
+          categoryId,
+        },
+      }
+    ));
   }
 
   render() {
@@ -76,17 +102,15 @@ class Write extends React.Component {
               name="title"
               value={postForm.title}
               placeholder="Title"
-              onChange={this.onChange}/>
+              onChange={this.onTitleChange}/>
           </label>
         </div>
         <div>
-          <label htmlFor="contents">
-            <textarea type="text"
-              name="contents"
-              value={postForm.contents}
-              placeholder="contents"
-              onChange={this.onChange}/>
-          </label>
+          <Editor
+            contents={postForm.contents}
+            onChange={this.onContentsChange}
+            preview
+          />
         </div>
         <button type="submit">작성</button>
         {error}

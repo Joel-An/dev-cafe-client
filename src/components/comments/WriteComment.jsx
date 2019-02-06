@@ -1,8 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import SimpleMDE from 'react-simplemde-editor';
+import 'easymde/dist/easymde.min.css';
 
 import withTokenContainer from '../../containers/TokenContainer';
+
+import MdEditor from '../MdEditor';
+import Editor from '../contents/Editor';
 
 class WriteComment extends React.Component {
   static propTypes = {
@@ -30,8 +35,7 @@ class WriteComment extends React.Component {
     this.postComment();
   }
 
-  onChange = (e) => {
-    const { value } = e.target;
+  onChange = (value) => {
     this.setState({ contents: value });
   }
 
@@ -59,15 +63,12 @@ class WriteComment extends React.Component {
     const { contents } = this.state;
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <label htmlFor="comment">
-          <input type="text"
-            name="comment"
-            value={contents}
-            onChange={this.onChange}/>
-        </label>
-        <button type="submit">등록</button>
-      </form>
+      <div>
+        <Editor contents={contents} onChange={this.onChange}/>
+        <button type="button" onClick={this.onSubmit}>
+          등록
+        </button>
+      </div>
     );
   }
 }
