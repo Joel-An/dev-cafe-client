@@ -7,7 +7,7 @@ import 'easymde/dist/easymde.min.css';
 import withTokenContainer from '../../containers/TokenContainer';
 
 import MdEditor from '../MdEditor';
-import Editor from '../contents/Editor';
+import Editor from '../contents/CommentEditor';
 
 class WriteComment extends React.Component {
   static propTypes = {

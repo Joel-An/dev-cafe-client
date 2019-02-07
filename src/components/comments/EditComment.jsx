@@ -4,7 +4,7 @@ import withTokenContainer from '../../containers/TokenContainer';
 import withEditingCommentContainer from '../../containers/EditingCommentContainer';
 import * as Api from '../../api/comments';
 
-import Editor from '../contents/Editor';
+import Editor from '../contents/CommentEditor';
 
 class EditComment extends React.Component {
   constructor(props) {

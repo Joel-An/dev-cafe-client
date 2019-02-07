@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import withTokenContainer from '../../containers/TokenContainer';
 import withEditingPostContainer from '../../containers/EditingPostContainer';
 import * as Api from '../../api/posts';
-import Editor from '../contents/Editor';
+import Editor from '../contents/PostEditor';
 
 class EditPost extends React.Component {
   constructor(props) {

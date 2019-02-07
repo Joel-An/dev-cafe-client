@@ -5,7 +5,7 @@ import CategorySelector from '../categories/SelectCategory';
 
 import withTokenContainer from '../../containers/TokenContainer';
 import { postPost } from '../../api/posts';
-import Editor from '../contents/Editor';
+import Editor from '../contents/PostEditor';
 
 class Write extends React.Component {
   constructor(props) {
