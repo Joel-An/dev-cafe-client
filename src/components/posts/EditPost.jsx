@@ -120,7 +120,7 @@ class EditPost extends React.Component {
             onChange={this.onChange}/>
         </label>
         <Editor
-          contents={editingPost.contents}
+          contents={isLoading ? 'Loading Contents...' : editingPost.contents}
           onChange={this.onContentsChange}
           preview
         />
