@@ -1,12 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
-import SimpleMDE from 'react-simplemde-editor';
-import 'easymde/dist/easymde.min.css';
 
 import withTokenContainer from '../../containers/TokenContainer';
 
-import MdEditor from '../MdEditor';
 import Editor from '../contents/CommentEditor';
 
 class WriteComment extends React.Component {
