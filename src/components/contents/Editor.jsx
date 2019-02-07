@@ -21,6 +21,7 @@ class Editor extends React.PureComponent {
         }}
         onChange={(editor, data, value) => {
         }}
+        editorDidMount={e => e.setSize(null, '100%')}
       />
     );
   }
