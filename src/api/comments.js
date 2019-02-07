@@ -12,4 +12,8 @@ export const updateComment = (comment, token) => {
   return axios.put(`/api/v1/comments/${comment._id}`, comment, config);
 };
 
-export const postComment = () => {};
+export const postComment = (comment, token) => {
+  const config = { headers: { 'x-access-token': token } };
+
+  return axios.post('/api/v1/comments', comment, config);
+};

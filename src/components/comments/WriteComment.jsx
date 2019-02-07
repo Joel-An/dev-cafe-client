@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import withTokenContainer from '../../containers/TokenContainer';
-
+import * as Api from '../../api/comments';
 import Editor from '../contents/CommentEditor';
 
 class WriteComment extends React.Component {
@@ -38,14 +38,12 @@ class WriteComment extends React.Component {
   postComment=() => {
     const { token, postId, parent } = this.props;
     const { contents } = this.state;
-    const config = { headers: { 'x-access-token': token } };
     const commentForm = {
       contents,
       postId,
       parent,
     };
-    axios
-      .post('/api/v1/comments', commentForm, config)
+    Api.postComment(commentForm, token)
       .then((res) => {
         console.log(res.data);
         this.setState({ contents: '' });
