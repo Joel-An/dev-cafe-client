@@ -13,6 +13,8 @@ import ContentsViewer from '../contents/Viewer';
 
 import User from '../users/User';
 
+import './CommentListItem.scss';
+
 const style = { border: '0.5px solid grey' };
 
 const renderUser = user => user.profileName;
@@ -51,7 +53,7 @@ class CommentListItem extends React.Component {
     const isMyComment = (comment.author === myInfo._id);
 
     return (
-      <li key={comment._id} style={style}>
+      <li key={comment._id} style={style} className="CommentListItem">
         {isEditing
           ? <EditComment commentId={comment._id} offEditMode={this.onEdit}/>
           : <Comment comment={comment} renderComment={renderComment}/>
@@ -70,10 +72,13 @@ class CommentListItem extends React.Component {
         </button>
         }
         <ChildCommentList childCommentIds={comment.childComments}/>
-        {!addReply || <WriteComment
-          postId={comment.post}
-          parent={comment._id}
-        />}
+        {!addReply || <div className="addReply">
+          <WriteComment
+            postId={comment.post}
+            parent={comment._id}
+          />
+        </div>
+        }
       </li>
     );
   }
