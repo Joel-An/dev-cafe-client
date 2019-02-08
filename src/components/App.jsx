@@ -64,7 +64,6 @@ class App extends React.Component {
         <aside className="side">
           <CategoryMenu/>
         </aside>
-        <div className="ad">Advertising</div>
         <footer className="main-footer">
           <p>Would you like a cup of coffee?</p>
         </footer>

@@ -32,9 +32,8 @@
   grid-gap: 20px;
   grid-template-areas:
     'header'
-    'content'
     'sidebar'
-    'ad'
+    'content'
     'footer';
 }
 
@@ -44,7 +43,7 @@
     grid-template-areas:
       'header  header'
       'sidebar content'
-      'ad      footer';
+      'sidebar footer';
   }
 }
 
@@ -54,10 +53,7 @@
     grid-template-areas:
       'header  header'
       'content sidebar'
-      'content ad'
+      'content sidebar'
       'footer  footer';
-  }
-  nav ul {
-    flex-direction: column;
   }
 }
