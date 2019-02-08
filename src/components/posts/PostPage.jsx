@@ -8,7 +8,7 @@ const PostPage = (props) => {
   const { id: postId } = match.params;
 
   return (
-    <div>
+    <div className="PostPage">
       <PostView postId={postId}/>
       <CommentArea
         postId={postId}

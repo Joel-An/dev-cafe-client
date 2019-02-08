@@ -8,7 +8,7 @@ const CommentArea = (props) => {
   const { postId } = props;
 
   return (
-    <div>
+    <div className="CommentArea">
       <CommentList postId={postId} />
       <WriteComment postId={postId} />
     </div>
