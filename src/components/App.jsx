@@ -46,6 +46,7 @@ const App = () => (
         <CategoryMenu/>
       </aside>
       <footer className="main-footer">
+        <hr/>
         <p>Would you like a cup of coffee?</p>
       </footer>
     </div>
