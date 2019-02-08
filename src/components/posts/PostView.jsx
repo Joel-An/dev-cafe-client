@@ -10,10 +10,10 @@ import DeletePost from './DeletePost';
 import ContentsViewer from '../contents/Viewer';
 
 const renderCategory = category => (
-  <p>카테고리 : {category.name}</p>
+  <span>카테고리 : {category.name}<br/></span>
 );
 const renderUser = user => (
-  <p>작성자 : {user.profileName}</p>
+  <span>작성자 : {user.profileName}<br/></span>
 );
 
 const PostView = (props) => {
@@ -26,7 +26,7 @@ const PostView = (props) => {
   const isMyPost = (post.author === myInfo._id);
 
   return (
-    <p>
+    <div className="post">
       제목 : {post.title}<br/>
       <Category categoryId={post.category} renderCategory={renderCategory}/>
       <User userId={post.author} renderUser={renderUser}/>
@@ -39,7 +39,7 @@ const PostView = (props) => {
         </button>
       </>
       }
-    </p>
+    </div>
   );
 };
 
