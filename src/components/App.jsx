@@ -25,22 +25,20 @@ const App = () => (
     <div className="wrapper">
       <Header/>
       <article className="content">
-        <div>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/users" component={Users} />
-            <Route exact path="/oldPosts" component={OldPosts} />
-            <Route path="/posts/:id" component={PostPage} />
-            <Route exact path="/posts" component={PostListPage} />
-            <Route path="/write/:categoryId" component={Write} />
-            <Route path="/edit/:id" component={EditPostPage}/>
-            <Route exact path="/login" component={Login}/>
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/categoryManager" component={CategoryManager} />
-            <Route exact path="/admin" component={AdminPage} />
-            <Route component={NoMatch} />
-          </Switch>
-        </div>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/users" component={Users} />
+          <Route exact path="/oldPosts" component={OldPosts} />
+          <Route path="/posts/:id" component={PostPage} />
+          <Route exact path="/posts" component={PostListPage} />
+          <Route path="/write/:categoryId" component={Write} />
+          <Route path="/edit/:id" component={EditPostPage}/>
+          <Route exact path="/login" component={Login}/>
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/categoryManager" component={CategoryManager} />
+          <Route exact path="/admin" component={AdminPage} />
+          <Route component={NoMatch} />
+        </Switch>
       </article>
       <aside className="side">
         <CategoryMenu/>
