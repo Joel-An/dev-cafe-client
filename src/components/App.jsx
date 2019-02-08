@@ -12,7 +12,7 @@ import Signup from './Signup';
 import Header from './layout/Header';
 import CategoryManager from './categories/CategoryManager';
 
-import './App.css';
+import './App.scss';
 import PostListPage from './posts/PostListPage';
 import PostPage from './posts/PostPage';
 import Write from './posts/Write';
