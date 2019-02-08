@@ -18,7 +18,7 @@ const CommentList = (props) => {
 
   return (
     <ul style={style}>
-      {commentsMeta.ids.map(id => <CommentListItem commentId={id} />)}
+      {commentsMeta.ids.map(id => <CommentListItem commentId={id} key={id}/>)}
     </ul>
   );
 };

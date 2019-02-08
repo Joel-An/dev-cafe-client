@@ -13,7 +13,7 @@ const ChildCommentList = (props) => {
 
   return (
     <ul style={style}>
-      {childCommentIds.map(childId => <CommentListItem commentId={childId}/>)}
+      {childCommentIds.map(childId => <CommentListItem commentId={childId} key={childId}/>)}
     </ul>
   );
 };

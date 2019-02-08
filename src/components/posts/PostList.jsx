@@ -18,7 +18,7 @@ const PostList = (props) => {
   return (
     <ul className="postList" >
       {postsMeta.ids.map(postId => (
-        <PostListItem postId={postId}/>
+        <PostListItem postId={postId} key={postId}/>
       ))
       }
     </ul>
