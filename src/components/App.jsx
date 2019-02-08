@@ -43,22 +43,6 @@ class App extends React.Component {
     return (<Router>
       <div className="wrapper">
         <Header/>
-        <nav className="main-nav">
-          <ul>
-            <li>
-              <Link to="/users">USERS</Link>
-            </li>
-            <li>
-              <Link to="/oldposts">POSTS</Link>
-            </li>
-            <li>
-              <Link to="/signup">SIGNUP</Link>
-            </li>
-            <li>
-              <Link to="/categoryManager">MANAGE CATEGORIES</Link>
-            </li>
-          </ul>
-        </nav>
         <article className="content">
           <div>
             <Switch>
