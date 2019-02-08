@@ -31,17 +31,30 @@ class Header extends React.Component {
     return (
       <header className="main-head">
         <Link to="/">Joel&apos;s Dev Cafe</Link>
-        <p>
+        <span>
+          <br />
           {!profileName || `${profileName}님`} 안녕하세요
           {!profileName
-            ? <Link to="/login" style={{ textDecoration: 'none' }}>
-              <button type="button">
+            ? <>
+                <Link to="/login" >
+                  <button type="button">
                     LOGIN
-              </button>
-            </Link>
+                  </button>
+                </Link>
+                <Link to="/signup">
+                  <button type="button">
+                    SIGNUP
+                  </button>
+                </Link>
+            </>
             : <LogoutButton/>
           }
-        </p>
+          <Link to="/admin">
+            <button type="button">
+              ADMIN
+            </button>
+          </Link>
+        </span>
         <hr />
       </header>
     );

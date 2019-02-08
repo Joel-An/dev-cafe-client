@@ -18,6 +18,7 @@ import PostPage from './posts/PostPage';
 import Write from './posts/Write';
 import EditPostPage from './posts/EditPostPage';
 import CategoryMenu from './categories/CategoryMenu';
+import AdminPage from './AdminPage';
 
 class App extends React.Component {
   constructor(props) {
@@ -71,6 +72,7 @@ class App extends React.Component {
               <Route exact path="/login" component={Login}/>
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/categoryManager" component={CategoryManager} />
+              <Route exact path="/admin" component={AdminPage} />
               <Route component={NoMatch} />
             </Switch>
           </div>
