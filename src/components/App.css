@@ -3,7 +3,7 @@
 }
 .content {
   grid-area: content;
-  padding-left: 150px;
+  padding-left: 10px;
 }
 
 .side {
@@ -44,14 +44,18 @@
   }
 }
 
-@media (min-width: 700px) {
+@media (min-width: 980px) {
   .wrapper {
-    grid-template-columns: 4fr 200px;
+    grid-template-columns: 1fr 700px 200px 1fr;
     grid-template-rows: 100px 4fr 50px;
 
     grid-template-areas:
-      'header  header'
-      'content sidebar'
-      'footer  footer';
+      'header header  header  header'
+      '.      content sidebar .'
+      'footer footer  footer  footer';
+  }
+
+  .content {
+    padding-left: 150px;
   }
 }
