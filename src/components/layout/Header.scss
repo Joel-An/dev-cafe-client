@@ -1,0 +1,30 @@
+.main-head {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  border-bottom: 1px solid black;
+
+  .spacer {
+    flex: 1;
+  }
+
+  .title {
+    align-self: center;
+    padding: 10px;
+    font-size: xx-large;
+  }
+
+  .header-menu{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-self: flex-end;
+    margin-right: 10px;
+
+    .greeting{
+      font-size: large;
+    }
+  }
+
+}

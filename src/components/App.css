@@ -1,7 +1,5 @@
 .main-head {
   grid-area: header;
-  text-align: center;
-  font-size: xx-large;
 }
 .content {
   grid-area: content;

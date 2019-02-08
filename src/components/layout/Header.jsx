@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-
 import { fetchUserInfo as fetchUserInfoAction } from '../../store/actions/auth';
 import LogoutButton from './LogoutButton';
+
+import './Header.scss';
 
 class Header extends React.Component {
   constructor(props) {
@@ -30,10 +31,14 @@ class Header extends React.Component {
     const { profileName } = this.props;
     return (
       <header className="main-head">
-        <Link to="/">Joel&apos;s Dev Cafe</Link>
-        <span>
-          <br />
-          {!profileName || `${profileName}님`} 안녕하세요
+        <div className="spacer"/>
+        <div className="title">
+          <Link to="/">Joel&apos;s Dev Cafe</Link>
+        </div>
+        <div className="header-menu">
+          <span className="greeting">
+            {!profileName || `${profileName}님`} 안녕하세요
+          </span>
           {!profileName
             ? <>
                 <Link to="/login" >
@@ -54,8 +59,7 @@ class Header extends React.Component {
               ADMIN
             </button>
           </Link>
-        </span>
-        <hr />
+        </div>
       </header>
     );
   }
