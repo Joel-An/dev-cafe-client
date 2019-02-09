@@ -5,6 +5,8 @@ import withTokenContainer from '../../containers/TokenContainer';
 import * as Api from '../../api/comments';
 import Editor from '../contents/CommentEditor';
 
+import './WriteComment.scss';
+
 class WriteComment extends React.Component {
   static propTypes = {
     token: PropTypes.string,
@@ -64,9 +66,11 @@ class WriteComment extends React.Component {
           onChange={this.onChange}
           autofocus={autofocus}
         />
-        <button type="button" onClick={this.onSubmit}>
-          등록
-        </button>
+        <div className="write-comment-button-group">
+          <button type="button" onClick={this.onSubmit}>
+            등록
+          </button>
+        </div>
       </div>
     );
   }

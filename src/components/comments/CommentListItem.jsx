@@ -56,19 +56,19 @@ class CommentListItem extends React.Component {
           ? <EditComment commentId={comment._id} offEditMode={this.onEdit}/>
           : <Comment comment={comment} renderComment={renderComment}/>
         }
-        { isMyComment
+        <div className="comment-button-group">
+          { isMyComment
           && <>
-          <button type="button" onClick={this.onEdit}>
-            {isEditing ? '취소' : '수정'}
-          </button>
-          <DeleteComment commentId={comment._id}/>
-          </>
-        }
-
-        {comment.isChild || <button type="button" onClick={this.onAddReply}>
+            <button type="button" onClick={this.onEdit}>
+              {isEditing ? '취소' : '수정'}
+            </button>
+            <DeleteComment commentId={comment._id}/>
+          </> }
+          {comment.isChild || <button type="button" onClick={this.onAddReply}>
           답글
-        </button>
-        }
+          </button>
+          }
+        </div>
         <ChildCommentList childCommentIds={comment.childComments}/>
         {!addReply || <div className="addReply">
           <WriteComment
