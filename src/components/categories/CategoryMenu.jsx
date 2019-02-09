@@ -19,12 +19,11 @@ const rederSubCategories = (categories, id) => {
   if (!parent.children.length) {
     return null;
   }
-  const style = { paddingLeft: '10px' };
 
   return (
-    <ul className="subCategoryList">
+    <ul className="SubCategoryList">
       {parent.children.map(childId => (
-        <li key={childId} name={categories[childId].name} style={style}>
+        <li key={childId} name={categories[childId].name}>
           {renderCategory(categories[childId])}
         </li>))}
     </ul>
