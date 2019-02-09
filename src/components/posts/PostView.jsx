@@ -9,6 +9,8 @@ import User from '../users/User';
 import DeletePost from './DeletePost';
 import ContentsViewer from '../contents/Viewer';
 
+import './PostView.scss';
+
 const renderCategory = category => (
   <span>카테고리 : {category.name}<br/></span>
 );
@@ -37,14 +39,19 @@ const PostView = (props) => {
           <ContentsViewer contents={post.contents || 'Loading...'}/>
         </section>
       </article>
-      {isMyPost
-      && <>
-        <DeletePost postId={post._id} categoryId={post.category}/>
+      <div className="post-button-group">
+        {isMyPost
+        && <>
+          <DeletePost postId={post._id} categoryId={post.category}/>
+          <button type="button">
+            <Link to={`/edit/${post._id}`}>수정</Link>
+          </button>
+        </>}
         <button type="button">
-          <Link to={`/edit/${post._id}`}>수정</Link>
+          목록
         </button>
-      </>
-      }
+      </div>
+
 
     </div>
   );
