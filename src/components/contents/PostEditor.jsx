@@ -7,13 +7,12 @@ import './PostEditor.scss';
 
 class PostEditor extends React.PureComponent {
   render() {
-    const { onChange, contents } = this.props;
+    const { contents } = this.props;
     return (
       <div className="PostEditor">
         <div className="Editor">
           <Editor
-            contents={contents}
-            onChange={onChange}
+            {...this.props}
           />
         </div>
         <div className="Preview">

@@ -5,12 +5,10 @@ import './CommentEditor.scss';
 
 class CommentEditor extends React.PureComponent {
   render() {
-    const { onChange, contents, preview } = this.props;
     return (
       <div className="CommentEditor">
         <Editor
-          contents={contents}
-          onChange={onChange}
+          {...this.props}
         />
       </div>
     );
