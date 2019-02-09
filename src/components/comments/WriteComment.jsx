@@ -55,10 +55,15 @@ class WriteComment extends React.Component {
 
   render() {
     const { contents } = this.state;
+    const { autofocus } = this.props;
 
     return (
       <div className="WriteComment">
-        <Editor contents={contents} onChange={this.onChange}/>
+        <Editor
+          contents={contents}
+          onChange={this.onChange}
+          autofocus={autofocus}
+        />
         <button type="button" onClick={this.onSubmit}>
           등록
         </button>

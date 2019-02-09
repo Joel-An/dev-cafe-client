@@ -74,6 +74,7 @@ class CommentListItem extends React.Component {
           <WriteComment
             postId={comment.post}
             parent={comment._id}
+            autofocus
           />
         </div>
         }

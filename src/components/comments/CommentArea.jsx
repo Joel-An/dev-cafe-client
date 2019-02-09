@@ -10,7 +10,7 @@ const CommentArea = (props) => {
   return (
     <div className="CommentArea">
       <CommentList postId={postId} />
-      <WriteComment postId={postId} />
+      <WriteComment postId={postId} autofocus={false}/>
     </div>
   );
 };

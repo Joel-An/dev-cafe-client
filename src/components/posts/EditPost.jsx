@@ -123,6 +123,7 @@ class EditPost extends React.Component {
           contents={isLoading ? 'Loading Contents...' : editingPost.contents}
           onChange={this.onContentsChange}
           preview
+          autofocus
         />
         {error || <p>{error}</p>}
         <button type="submit">등록</button>

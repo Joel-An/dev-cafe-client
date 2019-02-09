@@ -5,7 +5,7 @@ import 'codemirror/lib/codemirror.css';
 
 class Editor extends React.PureComponent {
   render() {
-    const { onChange, contents } = this.props;
+    const { onChange, contents, autofocus } = this.props;
     return (
       <CodeMirror
         value={contents}
@@ -15,7 +15,7 @@ class Editor extends React.PureComponent {
             highlightFormatting: true,
           },
           viewportMargin: Infinity,
-          autofocus: true,
+          autofocus,
         }}
         onBeforeChange={(editor, data, value) => {
           onChange(value);
