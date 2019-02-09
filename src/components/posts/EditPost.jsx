@@ -117,7 +117,7 @@ class EditPost extends React.Component {
           <input type="text"
             name="title"
             value={isLoading ? 'Loading Title...' : editingPost.title}
-            onChange={this.onChange}/>
+            onChange={this.onTitleChange}/>
         </label>
         <Editor
           contents={isLoading ? 'Loading Contents...' : editingPost.contents}
