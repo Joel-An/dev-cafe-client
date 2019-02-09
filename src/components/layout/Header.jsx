@@ -32,10 +32,10 @@ class Header extends React.Component {
     return (
       <header className="main-head">
         <div className="spacer"/>
-        <div className="title">
+        <h1 className="title">
           <Link to="/">Joel&apos;s Dev Cafe</Link>
-        </div>
-        <div className="header-menu">
+        </h1>
+        <nav className="header-menu">
           <span className="greeting">
             {!profileName || `${profileName}님`} 안녕하세요
           </span>
@@ -59,7 +59,7 @@ class Header extends React.Component {
               ADMIN
             </button>
           </Link>
-        </div>
+        </nav>
       </header>
     );
   }
