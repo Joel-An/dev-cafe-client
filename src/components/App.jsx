@@ -24,7 +24,7 @@ const App = () => (
   <Router>
     <div className="wrapper">
       <Header/>
-      <article className="content">
+      <main className="content">
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/users" component={Users} />
@@ -39,7 +39,7 @@ const App = () => (
           <Route exact path="/admin" component={AdminPage} />
           <Route component={NoMatch} />
         </Switch>
-      </article>
+      </main>
       <aside className="side">
         <CategoryMenu/>
       </aside>
