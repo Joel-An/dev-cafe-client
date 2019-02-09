@@ -35,7 +35,7 @@ const CategoryMenu = ({ categories, parentCategoryIds }) => {
   const isEmpty = !parentCategoryIds.length;
 
   return (
-    <div className="CategoryMenu">
+    <nav className="CategoryMenu">
       <ul className="CategoryList">
         <li key="categoryAll" name="전체보기">
           <Link to="/posts?category=all">전체 보기</Link>
@@ -49,7 +49,7 @@ const CategoryMenu = ({ categories, parentCategoryIds }) => {
             </li>
           ))}
       </ul>
-    </div>
+    </nav>
   );
 };
 
