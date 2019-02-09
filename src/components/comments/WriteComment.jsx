@@ -57,7 +57,7 @@ class WriteComment extends React.Component {
     const { contents } = this.state;
 
     return (
-      <div>
+      <div className="WriteComment">
         <Editor contents={contents} onChange={this.onChange}/>
         <button type="button" onClick={this.onSubmit}>
           등록

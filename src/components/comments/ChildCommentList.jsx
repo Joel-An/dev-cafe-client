@@ -2,7 +2,7 @@ import React from 'react';
 
 import CommentListItem from './CommentListItem';
 
-const style = { border: '0.5px solid grey', padding: 20 };
+import './ChildCommentList.scss';
 
 const ChildCommentList = (props) => {
   const { childCommentIds } = props;
@@ -12,7 +12,7 @@ const ChildCommentList = (props) => {
   }
 
   return (
-    <ul style={style}>
+    <ul className="ChildCommentList">
       {childCommentIds.map(childId => <CommentListItem commentId={childId} key={childId}/>)}
     </ul>
   );

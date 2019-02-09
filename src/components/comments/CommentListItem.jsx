@@ -15,16 +15,14 @@ import User from '../users/User';
 
 import './CommentListItem.scss';
 
-const style = { border: '0.5px solid grey' };
-
 const renderUser = user => user.profileName;
 
 const renderComment = comment => (
-  <>
+  <article className="comment">
     작성자 : <User userId={comment.author} renderUser={renderUser}/><br/>
     내용 : <ContentsViewer contents={comment.contents}/>
     작성 시간 : {dateFormat(comment.date, 'yy/mm/dd h:MM TT')}<br/>
-  </>
+  </article>
 );
 
 
@@ -53,7 +51,7 @@ class CommentListItem extends React.Component {
     const isMyComment = (comment.author === myInfo._id);
 
     return (
-      <li key={comment._id} style={style} className="CommentListItem">
+      <li key={comment._id} className="CommentListItem">
         {isEditing
           ? <EditComment commentId={comment._id} offEditMode={this.onEdit}/>
           : <Comment comment={comment} renderComment={renderComment}/>

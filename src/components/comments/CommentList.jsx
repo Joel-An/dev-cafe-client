@@ -14,10 +14,8 @@ const CommentList = (props) => {
     return <p>댓글이 없어!</p>;
   }
 
-  const style = { border: '0.5px solid grey' };
-
   return (
-    <ul style={style}>
+    <ul className="CommentList">
       {commentsMeta.ids.map(id => <CommentListItem commentId={id} key={id}/>)}
     </ul>
   );
