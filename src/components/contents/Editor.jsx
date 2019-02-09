@@ -15,6 +15,7 @@ class Editor extends React.PureComponent {
             highlightFormatting: true,
           },
           viewportMargin: Infinity,
+          autofocus: true,
         }}
         onBeforeChange={(editor, data, value) => {
           onChange(value);
