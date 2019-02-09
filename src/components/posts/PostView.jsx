@@ -13,7 +13,7 @@ const renderCategory = category => (
   <span>카테고리 : {category.name}<br/></span>
 );
 const renderUser = user => (
-  <span>작성자 : {user.profileName}<br/></span>
+  <span>{user.profileName}</span>
 );
 
 const PostView = (props) => {
@@ -26,11 +26,17 @@ const PostView = (props) => {
   const isMyPost = (post.author === myInfo._id);
 
   return (
-    <div className="post">
-      제목 : {post.title}<br/>
-      <Category categoryId={post.category} renderCategory={renderCategory}/>
-      <User userId={post.author} renderUser={renderUser}/>
-      내용 : <ContentsViewer contents={post.contents || 'Loading...'}/>
+    <div className="PostView">
+      <article className="post">
+        <header>
+          <h1 className="title">{post.title}</h1>
+          <Category categoryId={post.category} renderCategory={renderCategory}/>
+          <User userId={post.author} renderUser={renderUser}/>
+        </header>
+        <section className="post-content">
+          <ContentsViewer contents={post.contents || 'Loading...'}/>
+        </section>
+      </article>
       {isMyPost
       && <>
         <DeletePost postId={post._id} categoryId={post.category}/>
@@ -39,6 +45,7 @@ const PostView = (props) => {
         </button>
       </>
       }
+
     </div>
   );
 };

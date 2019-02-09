@@ -23,12 +23,13 @@ const renderUser = user => (
 const PostListItem = (props) => {
   const { post } = props;
   return (
-    <li name={post.title}>
-      <p>
-        제목 :
+    <li title={post.title}>
+      <h1>
         <Link to={`posts/${post._id}`}>
-          {post.title}<br/>
+          {post.title}
         </Link>
+      </h1>
+      <p>
         <Category categoryId={post.category} renderCategory={renderCategory} />
         <br/>
         <User userId={post.author} renderUser={renderUser} />

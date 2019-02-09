@@ -13,7 +13,7 @@ const Posts = (props) => {
   const categoryId = getCategoryId(query);
 
   return (
-    <div>
+    <div className="PostListPage">
       <PostList categoryId={categoryId}/>
       <button type="button">
         <Link to={`/write/${categoryId}`}>글쓰기</Link>
