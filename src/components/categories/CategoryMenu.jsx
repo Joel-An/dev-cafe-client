@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import withCategoriesContainer from '../../containers/CategoriesContainer';
 
+import './CategoryMenu.scss';
 
 const renderCategory = category => (
   <Link to={{
@@ -34,20 +35,21 @@ const CategoryMenu = ({ categories, parentCategoryIds }) => {
   const isEmpty = !parentCategoryIds.length;
 
   return (
-    <ul className="categoryList">
-      <li key="categoryAll" name="전체보기">
-        <Link to="/posts?category=all">전체 보기</Link>
-      </li>
-      {isEmpty
-        ? <p>Loading...</p>
-        : parentCategoryIds.map(id => (
-          <li key={id} name={categories[id].name}>
-            {renderCategory(categories[id])}
-            {rederSubCategories(categories, id)}
-          </li>
-        ))}
-    </ul>
-
+    <div className="CategoryMenu">
+      <ul className="CategoryList">
+        <li key="categoryAll" name="전체보기">
+          <Link to="/posts?category=all">전체 보기</Link>
+        </li>
+        {isEmpty
+          ? <p>Loading...</p>
+          : parentCategoryIds.map(id => (
+            <li key={id} name={categories[id].name}>
+              {renderCategory(categories[id])}
+              {rederSubCategories(categories, id)}
+            </li>
+          ))}
+      </ul>
+    </div>
   );
 };
 
