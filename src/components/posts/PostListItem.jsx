@@ -23,7 +23,7 @@ const renderUser = user => (
 const PostListItem = (props) => {
   const { post } = props;
   return (
-    <li name={post.title} key={post._id}>
+    <li name={post.title}>
       <p>
         제목 :
         <Link to={`posts/${post._id}`}>
