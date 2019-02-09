@@ -26,13 +26,14 @@
   .header-menu{
     flex: 1;
     align-self: flex-end;
-    margin-right: 10px;
+    margin-bottom: 3px;
 
     .greeting{
       font-size: medium;
     }
 
     button {
+      margin-right: 5px;
       background-color: rgb(17, 160, 64);
     }
   }
