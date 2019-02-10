@@ -2,19 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import withCategoriesContainer from '../../containers/CategoriesContainer';
+import withLastVisitedCategoryIdContainer from '../../containers/LastVisitedCategoryIdContainer';
 
 import './CategoryMenu.scss';
 
-const renderCategory = category => (
+const checkSelected = (categoryId, lastVisited) => (categoryId === lastVisited ? 'selected' : 'none');
+
+const renderCategory = (category, lastVisitedId) => (
   <Link to={{
     pathname: '/posts',
     search: `category=${category._id}`,
-  }}>
+  }}
+  className={checkSelected(category._id, lastVisitedId)}
+  >
     {category.name}
   </Link>
 );
 
-const rederSubCategories = (categories, id) => {
+const rederSubCategories = (categories, id, lastVisitedCategoryId) => {
   const parent = categories[id];
   if (!parent.children.length) {
     return null;
@@ -24,27 +29,32 @@ const rederSubCategories = (categories, id) => {
     <ul className="SubCategoryList">
       {parent.children.map(childId => (
         <li key={childId} name={categories[childId].name}>
-          {renderCategory(categories[childId])}
+          {renderCategory(categories[childId], lastVisitedCategoryId)}
         </li>))}
     </ul>
   );
 };
 
-const CategoryMenu = ({ categories, parentCategoryIds }) => {
+const CategoryMenu = ({ categories, parentCategoryIds, lastVisitedCategoryId }) => {
   const isEmpty = !parentCategoryIds.length;
 
   return (
     <nav className="CategoryMenu">
       <ul className="CategoryList">
         <li key="categoryAll" name="전체보기">
-          <Link to="/posts?category=all">전체 보기</Link>
+          <Link
+            to="/posts?category=all"
+            className={checkSelected('all', lastVisitedCategoryId)}
+          >
+            전체 보기
+          </Link>
         </li>
         {isEmpty
           ? <p>Loading...</p>
           : parentCategoryIds.map(id => (
             <li key={id} name={categories[id].name}>
-              {renderCategory(categories[id])}
-              {rederSubCategories(categories, id)}
+              {renderCategory(categories[id], lastVisitedCategoryId)}
+              {rederSubCategories(categories, id, lastVisitedCategoryId)}
             </li>
           ))}
       </ul>
@@ -65,5 +75,6 @@ CategoryMenu.propTypes = {
   parentCategoryIds: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
+const CategortMenuWithLastVisited = withLastVisitedCategoryIdContainer(CategoryMenu);
 
-export default withCategoriesContainer(CategoryMenu);
+export default withCategoriesContainer(CategortMenuWithLastVisited);
