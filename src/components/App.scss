@@ -20,7 +20,7 @@
   align-self: end;
 }
 
-.wrapper {
+.App {
   height: 100%;
   display: grid;
   grid-gap: 1px;
@@ -33,7 +33,7 @@
 }
 
 @media (min-width: 500px) {
-  .wrapper {
+  .App {
     grid-template-columns: 150px 3fr;
     grid-template-rows: 100px 4fr 50px;
     grid-template-areas:
@@ -44,7 +44,7 @@
 }
 
 @media (min-width: 980px) {
-  .wrapper {
+  .App {
     grid-template-columns: 1fr 700px 200px 1fr;
     grid-template-rows: 70px 4fr 50px;
 

@@ -22,7 +22,7 @@ import AdminPage from './AdminPage';
 
 const App = () => (
   <Router>
-    <div className="wrapper">
+    <div className="App">
       <Header/>
       <main className="content">
         <Switch>
