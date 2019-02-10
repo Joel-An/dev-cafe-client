@@ -8,6 +8,7 @@ import {
   GET_CATEGORY_SUCCESS,
   GET_CATEGORY_FAILURE,
   REMOVE_CATEGORY,
+  UPDATE_LAST_VISITED_CATEGORY,
 } from '../types/categories';
 
 import { CALL_API } from '../sagas/apiSaga';
@@ -42,4 +43,9 @@ export const getCategory = id => ({
 export const removeCategory = id => ({
   type: REMOVE_CATEGORY,
   payload: id,
+});
+
+export const updateLastVisitedCategory = categoryId => ({
+  type: UPDATE_LAST_VISITED_CATEGORY,
+  categoryId,
 });

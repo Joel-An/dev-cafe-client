@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import withPostContainer from '../../containers/PostContainer';
 import withMyInfoContainer from '../../containers/MyInfoContainer';
+import withLastVisitedCategoryIdContainer from '../../containers/LastVisitedCategoryIdContainer';
 
 import Category from '../categories/Category';
 import User from '../users/User';
@@ -19,7 +20,7 @@ const renderUser = user => (
 );
 
 const PostView = (props) => {
-  const { post, myInfo } = props;
+  const { post, myInfo, lastVisitedCategoryId } = props;
 
   if (!post) {
     return (<p>글이 없어!</p>);
@@ -48,7 +49,7 @@ const PostView = (props) => {
           </button>
         </>}
         <button type="button">
-          목록
+          <Link to={`/posts?category=${lastVisitedCategoryId}`}>목록</Link>
         </button>
       </div>
 
@@ -58,5 +59,6 @@ const PostView = (props) => {
 };
 
 const PostViewWithMyInfo = withMyInfoContainer(PostView);
+const PostViewWithLastVistedCategory = withLastVisitedCategoryIdContainer(PostViewWithMyInfo);
 
-export default withPostContainer(PostViewWithMyInfo);
+export default withPostContainer(PostViewWithLastVistedCategory);

@@ -14,3 +14,5 @@ export const getParentCategoryIds = createSelector(
   [getCategories, getCategoryIds],
   (categories, categoryIds) => categoryIds.filter(id => !categories[id].isChild),
 );
+
+export const selectLastVisitedCategoryId = state => state.history.lastVisitedCategory;
