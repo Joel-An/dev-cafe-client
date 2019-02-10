@@ -13,6 +13,7 @@ const renderCategory = (category, lastVisitedId) => (
     pathname: '/posts',
     search: `category=${category._id}`,
   }}
+  style={{ textDecoration: 'none' }}
   className={checkSelected(category._id, lastVisitedId)}
   >
     {category.name}
@@ -44,6 +45,7 @@ const CategoryMenu = ({ categories, parentCategoryIds, lastVisitedCategoryId }) 
         <li key="categoryAll" name="전체보기">
           <Link
             to="/posts?category=all"
+            style={{ textDecoration: 'none' }}
             className={checkSelected('all', lastVisitedCategoryId)}
           >
             전체 보기
