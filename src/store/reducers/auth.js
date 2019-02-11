@@ -10,7 +10,6 @@ import {
 const INITIAL_STATE = () => ({
   token: localStorage.getItem('token'),
   user: { _id: null, profileName: null },
-  showError: false,
   error: null,
 });
 
@@ -21,13 +20,11 @@ export default (state = INITIAL_STATE(), { type, payload, error }) => {
     return {
       ...state,
       token: localStorage.getItem('token'),
-      showError: false,
       error: null,
     };
   case LOGIN_ERROR:
     return {
       ...state,
-      showError: true,
       error,
     };
   case LOGOUT_SUCCESS:
@@ -38,7 +35,6 @@ export default (state = INITIAL_STATE(), { type, payload, error }) => {
   case LOGOUT_ERROR:
     return {
       ...state,
-      showError: true,
       error,
     };
   case FETCH_USERINFO_FULFILLED:
@@ -49,7 +45,6 @@ export default (state = INITIAL_STATE(), { type, payload, error }) => {
   case FETCH_USERINFO_REJECTED:
     return {
       ...state,
-      showError: true,
       error,
     };
   default:

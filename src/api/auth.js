@@ -7,7 +7,7 @@ export const login = loginForm => axios
     return accessToken;
   })
   .catch((err) => {
-    throw err.data;
+    throw err.response.data.message;
   });
 
 export const logout = () => Promise.resolve();
