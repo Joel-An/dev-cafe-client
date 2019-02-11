@@ -10,9 +10,9 @@ import {
 import * as actions from '../actions/auth';
 import * as api from '../../api/auth';
 
-function* authorize(loginForm) {
+function* authorize(loginAction) {
   try {
-    const token = yield call(api.login, loginForm);
+    const token = yield call(api.login, loginAction.payload);
     yield put(actions.loginSucceeded(token));
   } catch (error) {
     yield put(actions.loginFailed(error));
@@ -20,22 +20,7 @@ function* authorize(loginForm) {
 }
 
 function* loginFlow() {
-  let loginTask;
-  while (true) {
-    const loginAction = yield take(LOGIN_REQUEST);
-
-    if (loginTask) {
-      yield cancel(loginTask);
-    }
-
-    loginTask = yield fork(authorize, loginAction.payload);
-
-    const action = yield take(LOGOUT_REQUEST);
-
-    if (action.type === LOGOUT_REQUEST) {
-      yield cancel(loginTask);
-    }
-  }
+  yield takeLatest(LOGIN_REQUEST, authorize);
 }
 
 function* requestLogout(token) {
