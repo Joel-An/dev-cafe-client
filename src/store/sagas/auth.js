@@ -23,9 +23,9 @@ function* loginFlow() {
   yield takeLatest(LOGIN_REQUEST, authorize);
 }
 
-function* requestLogout(token) {
+function* requestLogout(logoutAction) {
   try {
-    yield call(api.logout, token);
+    yield call(api.logout, logoutAction.payload);
     yield put(actions.logoutSucceeded());
   } catch (error) {
     yield put(actions.logoutFailed(error));
@@ -33,16 +33,7 @@ function* requestLogout(token) {
 }
 
 function* logoutFlow() {
-  let logoutTask;
-  while (true) {
-    const logoutAction = yield take(LOGOUT_REQUEST);
-
-    if (logoutTask) {
-      yield cancel(logoutTask);
-    }
-
-    logoutTask = yield fork(requestLogout, logoutAction.payload);
-  }
+  yield takeLatest(LOGOUT_REQUEST, requestLogout);
 }
 
 function* fetchUserInfo(action) {
