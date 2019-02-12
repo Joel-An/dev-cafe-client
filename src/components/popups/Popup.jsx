@@ -9,7 +9,7 @@ class Popup extends React.Component {
 
   render() {
     const {
-      children, pos, close,
+      children, pos, close, title,
     } = this.props;
 
     const style = pos
@@ -19,9 +19,15 @@ class Popup extends React.Component {
     return (
       <div className="Popup" style={style} onClick={this.onDialogClick} >
         <div className="popup-header">
-          <button className="popup-close-button" type="button" onClick={close}>
-            X
-          </button>
+          <div className="spacer"/>
+          <span className="title">
+            {title}
+          </span>
+          <div className="popup-header-menu">
+            <button className="popup-close-button" type="button" onClick={close}>
+              X
+            </button>
+          </div>
         </div>
         <div className="popup-dialog">
           {children}

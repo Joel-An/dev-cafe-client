@@ -4,18 +4,34 @@
     cursor: default;
     border-radius: 4px;
 
-    min-height: 100px;
+    min-height: 60px;
     min-width: 200px;
 
     
     .popup-header{
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
 
-      button {
-        margin: 3px;
-        background-color:#38c5d8;
-        color: white;
+      .spacer {
+        flex: 1;
+      }
+
+      .title {
+        align-self: center;
+      }
+
+      .popup-header-menu{
+        flex: 1;
+        align-self: flex-end;
+
+        display: flex;
+        justify-content: flex-end;
+        
+        button {
+          margin: 3px;
+          background-color:#38c5d8;
+          color: white;
+        }
       }
     }
 
