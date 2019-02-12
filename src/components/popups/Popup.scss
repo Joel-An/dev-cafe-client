@@ -1,16 +1,20 @@
 .Popup {
     background-color: white;
+    border: 3px solid grey;
+    
     
     cursor: default;
     border-radius: 4px;
 
-    min-height: 60px;
+    min-height: 80px;
     min-width: 200px;
 
     
     .popup-header{
       display: flex;
       justify-content: center;
+
+      background-color: #1fc5db;
 
       .spacer {
         flex: 1;
@@ -29,14 +33,19 @@
         
         button {
           margin: 3px;
-          background-color:#38c5d8;
+          background-color:#3aafbed7;
           color: white;
         }
       }
     }
 
     .popup-dialog{
-      padding-left:20px;
-      padding-bottom: 20px;     
+      display: flex;
+      justify-content: center;
+      min-height: 50px;
+      min-width: inherit;
+      padding-top: 5px;
+      padding-left: 3px;
+      padding-bottom: 5px;
     }
 }

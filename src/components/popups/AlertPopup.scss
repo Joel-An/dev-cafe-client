@@ -1,0 +1,9 @@
+.AlertPopup{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .alert-message {
+    align-self: center;
+  }
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Popup from './Popup';
+import './ConfirmPopup.scss';
 
 import { openAlert as openAlertAction } from '../../store/actions/popups';
 
@@ -26,10 +27,17 @@ const ConfirmPopup = (props) => {
 
   return (
     <Popup close={close} pos={pos} title={title}>
-      {message}
-      <button type="button" onClick={confirm}>
-        YES
-      </button>
+      <div className="ConfirmPopup">
+        <div className="spacer"/>
+        <span className="message">
+          {message}
+        </span>
+        <div className="confirm-menu" >
+          <button type="button" onClick={confirm}>
+          YES
+          </button>
+        </div>
+      </div>
     </Popup>
   );
 };
