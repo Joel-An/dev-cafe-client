@@ -7,8 +7,10 @@ import { openLoginPopup as openLoginPopupAction } from '../../store/actions/popu
 class LoginButton extends React.Component {
   openPopup = () => {
     const { openLoginPopup } = this.props;
-    const { x, y } = this.button.getBoundingClientRect();
-    openLoginPopup({ pos: { x, y } });
+    const {
+      left, right, top,
+    } = this.button.getBoundingClientRect();
+    openLoginPopup({ pos: { left, right, top } });
   }
 
   render() {
