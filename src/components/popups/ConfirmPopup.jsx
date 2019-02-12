@@ -1,13 +1,42 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Popup from './Popup';
 
+import { openAlert as openAlertAction } from '../../store/actions/popups';
+
 const ConfirmPopup = (props) => {
-  const { close } = props;
+  const {
+    close, pos, onConfirm, message, openAlert,
+  } = props;
+
+  const confirm = () => {
+    onConfirm()
+      .then(() => {
+        close();
+      })
+      .catch((err) => {
+        close();
+        openAlert({
+          message: err,
+          pos,
+        });
+      });
+  };
+
   return (
-    <Popup close={close}>
-      ConfirmPopup
+    <Popup close={close} pos={pos}>
+      {message}
+      <button type="button" onClick={confirm}>
+        YES
+      </button>
     </Popup>
   );
 };
-export default ConfirmPopup;
+
+const mapDispatchToProps = { openAlert: openAlertAction };
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(ConfirmPopup);
