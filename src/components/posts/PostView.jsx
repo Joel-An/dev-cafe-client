@@ -43,7 +43,7 @@ const PostView = (props) => {
       <div className="post-button-group">
         {isMyPost
         && <>
-          <DeletePost postId={post._id} categoryId={post.category}/>
+          <DeletePost postId={post._id} categoryId={lastVisitedCategoryId}/>
           <button type="button">
             <Link to={`/edit/${post._id}`}>수정</Link>
           </button>
