@@ -1,27 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withTokenContainer from '../../containers/TokenContainer';
+import ConfirmButton from '../popups/buttons/ConfirmButton';
 import * as api from '../../api/categories';
 
 const DeleteCategory = (props) => {
   const { id, token } = props;
 
-  const onClick = () => {
+  const reqDeleteCategory = () => new Promise((resolve, reject) => {
     api.deleteCategory(id, token)
-      .then((result) => {
-        // TODO: 삭제되었습니다.
+      .then(() => {
+        resolve();
       })
       .catch((err) => {
-        // TODO: 클래스로 바꾸든가, redux-saga로 에러를 알리든가 결정해서 구현예정
-        // eslint-disable-next-line no-alert
-        window.alert(err.response.data.message);
+        reject(err.response.data.message);
       });
-  };
+  });
 
   return (
-    <button type="button" onClick={onClick}>
+    <ConfirmButton
+      onConfirm={reqDeleteCategory}
+      title="카테고리 삭제"
+      message="삭제하시겠습니까?"
+    >
       삭제
-    </button>
+    </ConfirmButton>
   );
 };
 

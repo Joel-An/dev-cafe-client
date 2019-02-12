@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import withTokenContainer from '../../containers/TokenContainer';
+import withAlertContainer from '../../containers/AlertContainer';
 import * as api from '../../api/categories';
 
 class CreateCategory extends React.Component {
@@ -9,7 +10,6 @@ class CreateCategory extends React.Component {
     super(props);
     this.state = {
       categoryName: '',
-      error: null,
     };
   }
 
@@ -27,19 +27,21 @@ class CreateCategory extends React.Component {
   }
 
   postCategories = (name) => {
-    const { parent, token } = this.props;
+    const { parent, token, openAlert } = this.props;
     const category = { name, parent };
 
     api.postCategory(category, token)
       .then(() => {
-        this.setState(prevState => ({ ...prevState, error: null }));
+        this.setState({ categoryName: '' });
       }).catch((err) => {
-        this.setState(prevState => ({ ...prevState, error: err.response.data }));
+        openAlert(
+          { message: err.response.data.message },
+        );
       });
   }
 
   render() {
-    const { categoryName, error } = this.state;
+    const { categoryName } = this.state;
     const { parent } = this.props;
 
     const placeholder = parent ? '하위 카테고리' : '상위 카테고리';
@@ -56,7 +58,6 @@ class CreateCategory extends React.Component {
           </label>
           <button type="submit">추가</button>
         </div>
-        {error && <p>{error.message}</p>}
       </form>
     );
   }
@@ -71,4 +72,6 @@ CreateCategory.defaultProps = {
   parent: null,
 };
 
-export default withTokenContainer(CreateCategory);
+const CreateCategoryWithAlert = withAlertContainer(CreateCategory);
+
+export default withTokenContainer(CreateCategoryWithAlert);
