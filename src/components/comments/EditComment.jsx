@@ -1,6 +1,7 @@
 import React from 'react';
 
 import withTokenContainer from '../../containers/TokenContainer';
+import withAlertContainer from '../../containers/AlertContainer';
 import withEditingCommentContainer from '../../containers/EditingCommentContainer';
 import * as Api from '../../api/comments';
 
@@ -16,7 +17,6 @@ class EditComment extends React.Component {
       editingComment,
       isLoading: typeof editingComment === 'undefined',
       isDone: false,
-      error: false,
     };
   }
 
@@ -50,7 +50,9 @@ class EditComment extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { editingComment } = this.state;
-    const { token, offEditMode, editingCommentDone } = this.props;
+    const {
+      token, offEditMode, editingCommentDone, openAlert,
+    } = this.props;
 
     const editedComment = {
       _id: editingComment._id,
@@ -66,10 +68,9 @@ class EditComment extends React.Component {
         offEditMode();
       })
       .catch((err) => {
-        this.setState(prevState => ({
-          ...prevState,
-          error: err.response.data.message,
-        }));
+        openAlert(
+          { message: err.response.data.message },
+        );
       });
   }
 
@@ -84,14 +85,13 @@ class EditComment extends React.Component {
   }
 
   render() {
-    const { editingComment, isLoading, error } = this.state;
+    const { editingComment, isLoading } = this.state;
 
     return (
       <div>
         <Editor
           contents={isLoading ? 'Loading...' : editingComment.contents}
           onChange={this.onChange}/>
-        {error || <p>{error}</p>}
         <button type="button" onClick={this.onSubmit}>
           등록
         </button>
@@ -101,4 +101,6 @@ class EditComment extends React.Component {
 }
 
 const EditCommentWithToken = withTokenContainer(EditComment);
-export default withEditingCommentContainer(EditCommentWithToken);
+const EditCommentwithAlert = withAlertContainer(EditCommentWithToken);
+
+export default withEditingCommentContainer(EditCommentwithAlert);

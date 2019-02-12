@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import withTokenContainer from '../../containers/TokenContainer';
+import withAlertContainer from '../../containers/AlertContainer';
 import * as Api from '../../api/comments';
 import Editor from '../contents/CommentEditor';
 
@@ -38,7 +39,9 @@ class WriteComment extends React.Component {
   }
 
   postComment=() => {
-    const { token, postId, parent } = this.props;
+    const {
+      token, postId, parent, openAlert,
+    } = this.props;
     const { contents } = this.state;
     const commentForm = {
       contents,
@@ -46,12 +49,13 @@ class WriteComment extends React.Component {
       parent,
     };
     Api.postComment(commentForm, token)
-      .then((res) => {
-        console.log(res.data);
+      .then(() => {
         this.setState({ contents: '' });
       })
       .catch((err) => {
-        console.log(err.response.data);
+        openAlert(
+          { message: err.response.data.message },
+        );
       });
   }
 
@@ -76,4 +80,6 @@ class WriteComment extends React.Component {
   }
 }
 
-export default withTokenContainer(WriteComment);
+const WriteCommentWithAlert = withAlertContainer(WriteComment);
+
+export default withTokenContainer(WriteCommentWithAlert);

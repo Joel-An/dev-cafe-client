@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import withTokenContainer from '../../containers/TokenContainer';
+import withAlertContainer from '../../containers/AlertContainer';
 import withEditingPostContainer from '../../containers/EditingPostContainer';
 import * as Api from '../../api/posts';
 import Editor from '../contents/PostEditor';
@@ -16,7 +17,6 @@ class EditPost extends React.Component {
       editingPost,
       isLoading: typeof editingPost === 'undefined',
       isDone: false,
-      error: false,
     };
   }
 
@@ -50,7 +50,7 @@ class EditPost extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { editingPost } = this.state;
-    const { token, editingPostDone } = this.props;
+    const { token, editingPostDone, openAlert } = this.props;
 
     Api.updatePost(editingPost, token)
       .then(() => {
@@ -61,10 +61,9 @@ class EditPost extends React.Component {
         editingPostDone(editingPost._id);
       })
       .catch((err) => {
-        this.setState(prevState => ({
-          ...prevState,
-          error: err.response.data.message,
-        }));
+        openAlert(
+          { message: err.response.data.message },
+        );
       });
   }
 
@@ -98,7 +97,7 @@ class EditPost extends React.Component {
 
   render() {
     const {
-      editingPost, isLoading, error, isDone,
+      editingPost, isLoading, isDone,
     } = this.state;
 
     if (isDone) {
@@ -125,7 +124,6 @@ class EditPost extends React.Component {
           preview
           autofocus
         />
-        {error || <p>{error}</p>}
         <button type="submit">등록</button>
       </form>
     );
@@ -133,4 +131,5 @@ class EditPost extends React.Component {
 }
 
 const EditPostWithToken = withTokenContainer(EditPost);
-export default withEditingPostContainer(EditPostWithToken);
+const EditPostWithAlert = withAlertContainer(EditPostWithToken);
+export default withEditingPostContainer(EditPostWithAlert);
