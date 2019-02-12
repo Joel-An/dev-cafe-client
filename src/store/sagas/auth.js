@@ -10,10 +10,14 @@ import {
 import * as actions from '../actions/auth';
 import * as api from '../../api/auth';
 
+import { closePopup } from '../actions/popups';
+import { LOGIN_POPUP } from '../types/popups';
+
 function* authorize(loginAction) {
   try {
     const token = yield call(api.login, loginAction.payload);
     yield put(actions.loginSucceeded(token));
+    yield put(closePopup(LOGIN_POPUP));
   } catch (error) {
     yield put(actions.loginFailed(error));
   }
