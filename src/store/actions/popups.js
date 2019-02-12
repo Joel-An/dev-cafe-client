@@ -13,22 +13,25 @@ export const closePopup = popupType => ({
   popupType,
 });
 
-export const openAlert = ({ title, message, onConfirm }) => ({
+export const openAlert = ({ title, message, pos }) => ({
   type: Types.OPEN_POPUP,
   popupType: Types.ALERT_POPUP,
   popupProps: {
     title,
     message,
-    onConfirm,
+    pos,
   },
 });
 
-export const openConfirm = ({ title, message, onConfirm }) => ({
+export const openConfirm = ({
+  title, message, onConfirm, pos,
+}) => ({
   type: Types.OPEN_POPUP,
   popupType: Types.CONFIRM_POPUP,
   popupProps: {
     title,
     message,
     onConfirm,
+    pos,
   },
 });
