@@ -1,9 +1,10 @@
 import React from 'react';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import CategorySelector from '../categories/SelectCategory';
 
 import withTokenContainer from '../../containers/TokenContainer';
+import withAlertContainer from '../../containers/AlertContainer';
+
 import { postPost } from '../../api/posts';
 import Editor from '../contents/PostEditor';
 
@@ -22,20 +23,21 @@ class Write extends React.Component {
         categoryId: initialId,
       },
       redirect: false,
-      error: null,
     };
   }
 
   onSubmit = (e) => {
     e.preventDefault();
     const { postForm } = this.state;
-    const { token, dispatch } = this.props;
+    const { token, dispatch, openAlert } = this.props;
     postPost(postForm, token)
       .then(() => {
         this.setState({ redirect: true });
       })
       .catch((err) => {
-        this.setState(prevState => ({ ...prevState, error: err.response.data.message }));
+        openAlert({
+          message: err.response.data.message,
+        });
       });
   }
 
@@ -79,7 +81,7 @@ class Write extends React.Component {
   }
 
   render() {
-    const { postForm, redirect, error } = this.state;
+    const { postForm, redirect } = this.state;
 
     if (redirect) {
       return <Redirect to={{
@@ -113,10 +115,11 @@ class Write extends React.Component {
           />
         </div>
         <button type="submit">작성</button>
-        {error}
       </form>
     );
   }
 }
 
-export default withTokenContainer(Write);
+const WriteWithAlert = withAlertContainer(Write);
+
+export default withTokenContainer(WriteWithAlert);
