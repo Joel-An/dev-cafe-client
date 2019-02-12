@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { fetchUserInfo as fetchUserInfoAction } from '../../store/actions/auth';
 import LogoutButton from './LogoutButton';
+import LoginButton from './LoginButton';
 
 import './Header.scss';
 
@@ -41,11 +42,7 @@ class Header extends React.Component {
           </span>
           {!profileName
             ? <>
-                <Link to="/login" >
-                  <button type="button">
-                    LOGIN
-                  </button>
-                </Link>
+                <LoginButton/>
                 <Link to="/signup">
                   <button type="button">
                     SIGNUP
