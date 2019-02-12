@@ -7,7 +7,7 @@ import { openAlert as openAlertAction } from '../../store/actions/popups';
 
 const ConfirmPopup = (props) => {
   const {
-    close, pos, onConfirm, message, openAlert,
+    close, pos, onConfirm, title, message, openAlert,
   } = props;
 
   const confirm = () => {
@@ -25,7 +25,7 @@ const ConfirmPopup = (props) => {
   };
 
   return (
-    <Popup close={close} pos={pos}>
+    <Popup close={close} pos={pos} title={title}>
       {message}
       <button type="button" onClick={confirm}>
         YES

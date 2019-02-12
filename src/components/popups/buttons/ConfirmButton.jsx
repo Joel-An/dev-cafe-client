@@ -6,7 +6,9 @@ import { openConfirm as openConfirmAction } from '../../../store/actions/popups'
 
 class ConfirmButton extends React.Component {
   openPopup = () => {
-    const { openConfirm, onConfirm, message } = this.props;
+    const {
+      openConfirm, onConfirm, title, message,
+    } = this.props;
     const {
       left, right, top,
     } = this.button.getBoundingClientRect();
@@ -16,6 +18,7 @@ class ConfirmButton extends React.Component {
         left, right, top,
       },
       onConfirm,
+      title,
       message,
     });
   }

@@ -25,6 +25,7 @@ const DeletePost = (props) => {
   return (
     <ConfirmButton
       onConfirm={reqDeletePost}
+      title="글 삭제"
       message="삭제하시겠습니까?"
     >
       삭제

@@ -20,6 +20,7 @@ const DeleteComment = (props) => {
   return (
     <ConfirmButton
       onConfirm={reqDeleteComment}
+      title="댓글 삭제"
       message="삭제하시겠습니까?"
     >
       삭제
