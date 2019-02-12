@@ -40,7 +40,7 @@ class LoginPopup extends React.Component {
     } = this.props;
 
     return (
-      <Popup pos={pos} close={close}>
+      <Popup pos={pos} close={close} title="LOGIN">
         <LoginForm
           username={loginForm.username}
           password={loginForm.password}
