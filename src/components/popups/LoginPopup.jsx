@@ -39,10 +39,8 @@ class LoginPopup extends React.Component {
       close, error, pos,
     } = this.props;
 
-    const style = { position: 'absolute', top: pos.y + 30, left: pos.x };
-
     return (
-      <Popup style={style} close={close}>
+      <Popup pos={pos} close={close}>
         <LoginForm
           username={loginForm.username}
           password={loginForm.password}

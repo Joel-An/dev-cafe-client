@@ -9,8 +9,13 @@ class Popup extends React.Component {
 
   render() {
     const {
-      children, style, close,
+      children, pos, close,
     } = this.props;
+
+    const style = pos
+      ? { position: 'absolute', top: pos.top, right: `calc(100% - ${pos.right}px)` }
+      : {};
+
     return (
       <div className="Popup" style={style} onClick={this.onDialogClick} >
         <div className="popup-header">
