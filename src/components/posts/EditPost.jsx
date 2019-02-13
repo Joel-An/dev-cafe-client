@@ -4,6 +4,9 @@ import { Redirect } from 'react-router-dom';
 import withTokenContainer from '../../containers/TokenContainer';
 import withAlertContainer from '../../containers/AlertContainer';
 import withEditingPostContainer from '../../containers/EditingPostContainer';
+import withAddNotification from '../notifications/WithAddNotification';
+import { connectComponent } from '../../utils';
+
 import * as Api from '../../api/posts';
 import Editor from '../contents/PostEditor';
 
@@ -50,7 +53,9 @@ class EditPost extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { editingPost } = this.state;
-    const { token, editingPostDone, openAlert } = this.props;
+    const {
+      token, editingPostDone, openAlert, addNotification,
+    } = this.props;
 
     Api.updatePost(editingPost, token)
       .then(() => {
@@ -59,6 +64,9 @@ class EditPost extends React.Component {
           isDone: true,
         }));
         editingPostDone(editingPost._id);
+        addNotification({
+          message: '글이 수정되었습니다!!',
+        });
       })
       .catch((err) => {
         openAlert(
@@ -130,6 +138,10 @@ class EditPost extends React.Component {
   }
 }
 
-const EditPostWithToken = withTokenContainer(EditPost);
-const EditPostWithAlert = withAlertContainer(EditPostWithToken);
-export default withEditingPostContainer(EditPostWithAlert);
+export default connectComponent(EditPost,
+  [
+    withAddNotification,
+    withAlertContainer,
+    withTokenContainer,
+    withEditingPostContainer,
+  ]);

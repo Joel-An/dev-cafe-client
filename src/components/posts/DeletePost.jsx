@@ -3,18 +3,23 @@ import { withRouter } from 'react-router-dom';
 
 import { deletePost } from '../../api/posts';
 import withTokenContainer from '../../containers/TokenContainer';
+import withAddNotification from '../notifications/WithAddNotification';
+import { connectComponent } from '../../utils';
 
 import ConfirmButton from '../popups/buttons/ConfirmButton';
 
 const DeletePost = (props) => {
   const {
-    postId, token, history, categoryId,
+    postId, token, history, categoryId, addNotification,
   } = props;
 
   const reqDeletePost = () => new Promise((resolve, reject) => {
     deletePost(postId, token)
       .then(() => {
         history.push(`/posts?category=${categoryId}`);
+        addNotification({
+          message: '글이 삭제되었습니다ㅠㅠ',
+        });
         resolve();
       })
       .catch((err) => {
@@ -33,6 +38,9 @@ const DeletePost = (props) => {
   );
 };
 
-const DeletePostWithRouter = withRouter(DeletePost);
-
-export default withTokenContainer(DeletePostWithRouter);
+export default connectComponent(DeletePost,
+  [
+    withRouter,
+    withTokenContainer,
+    withAddNotification,
+  ]);

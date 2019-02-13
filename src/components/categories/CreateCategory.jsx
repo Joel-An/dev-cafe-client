@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 import withTokenContainer from '../../containers/TokenContainer';
 import withAlertContainer from '../../containers/AlertContainer';
+import withAddNotification from '../notifications/WithAddNotification';
+
+import { connectComponent } from '../../utils';
+
 import * as api from '../../api/categories';
 
 class CreateCategory extends React.Component {
@@ -27,12 +31,17 @@ class CreateCategory extends React.Component {
   }
 
   postCategories = (name) => {
-    const { parent, token, openAlert } = this.props;
+    const {
+      parent, token, openAlert, addNotification,
+    } = this.props;
     const category = { name, parent };
 
     api.postCategory(category, token)
       .then(() => {
         this.setState({ categoryName: '' });
+        addNotification({
+          message: '카테고리가 생성되었습니다!',
+        });
       }).catch((err) => {
         openAlert(
           { message: err.response.data.message },
@@ -72,6 +81,9 @@ CreateCategory.defaultProps = {
   parent: null,
 };
 
-const CreateCategoryWithAlert = withAlertContainer(CreateCategory);
-
-export default withTokenContainer(CreateCategoryWithAlert);
+export default connectComponent(CreateCategory,
+  [
+    withAlertContainer,
+    withAddNotification,
+    withTokenContainer,
+  ]);

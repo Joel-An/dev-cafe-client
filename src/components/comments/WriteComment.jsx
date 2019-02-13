@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 import withTokenContainer from '../../containers/TokenContainer';
 import withAlertContainer from '../../containers/AlertContainer';
+import withAddNotification from '../notifications/WithAddNotification';
+
+import { connectComponent } from '../../utils';
+
 import * as Api from '../../api/comments';
 import Editor from '../contents/CommentEditor';
 
@@ -40,7 +44,7 @@ class WriteComment extends React.Component {
 
   postComment=() => {
     const {
-      token, postId, parent, openAlert,
+      token, postId, parent, openAlert, addNotification,
     } = this.props;
     const { contents } = this.state;
     const commentForm = {
@@ -50,6 +54,9 @@ class WriteComment extends React.Component {
     };
     Api.postComment(commentForm, token)
       .then(() => {
+        addNotification({
+          message: '댓글이 등록되었습니다!!',
+        });
         this.setState({ contents: '' });
       })
       .catch((err) => {
@@ -80,6 +87,9 @@ class WriteComment extends React.Component {
   }
 }
 
-const WriteCommentWithAlert = withAlertContainer(WriteComment);
-
-export default withTokenContainer(WriteCommentWithAlert);
+export default connectComponent(WriteComment,
+  [
+    withTokenContainer,
+    withAlertContainer,
+    withAddNotification,
+  ]);

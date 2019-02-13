@@ -3,6 +3,8 @@ import React from 'react';
 import withTokenContainer from '../../containers/TokenContainer';
 import withAlertContainer from '../../containers/AlertContainer';
 import withEditingCommentContainer from '../../containers/EditingCommentContainer';
+import withAddNotification from '../notifications/WithAddNotification';
+
 import { connectComponent } from '../../utils';
 import * as Api from '../../api/comments';
 
@@ -52,7 +54,7 @@ class EditComment extends React.Component {
     e.preventDefault();
     const { editingComment } = this.state;
     const {
-      token, offEditMode, editingCommentDone, openAlert,
+      token, offEditMode, editingCommentDone, openAlert, addNotification,
     } = this.props;
 
     const editedComment = {
@@ -67,6 +69,9 @@ class EditComment extends React.Component {
         }));
         editingCommentDone(editedComment._id);
         offEditMode();
+        addNotification({
+          message: '댓글이 수정되었습니다!!',
+        });
       })
       .catch((err) => {
         openAlert(
@@ -105,5 +110,6 @@ export default connectComponent(EditComment,
   [
     withTokenContainer,
     withAlertContainer,
+    withAddNotification,
     withEditingCommentContainer,
   ]);

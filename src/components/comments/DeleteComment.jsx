@@ -2,14 +2,21 @@ import React from 'react';
 
 import { deleteComment } from '../../api/comments';
 import withTokenContainer from '../../containers/TokenContainer';
+import withAddNotification from '../notifications/WithAddNotification';
+
+import { connectComponent } from '../../utils';
+
 import ConfirmButton from '../popups/buttons/ConfirmButton';
 
 const DeleteComment = (props) => {
-  const { commentId, token } = props;
+  const { commentId, token, addNotification } = props;
 
   const reqDeleteComment = () => new Promise((resolve, reject) => {
     deleteComment(commentId, token)
       .then(() => {
+        addNotification({
+          message: '댓글이 삭제되었습니다 ㅜㅜ',
+        });
         resolve();
       })
       .catch((err) => {
@@ -28,4 +35,8 @@ const DeleteComment = (props) => {
   );
 };
 
-export default withTokenContainer(DeleteComment);
+export default connectComponent(DeleteComment,
+  [
+    withTokenContainer,
+    withAddNotification,
+  ]);

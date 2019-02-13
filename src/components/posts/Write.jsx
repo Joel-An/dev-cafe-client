@@ -4,6 +4,8 @@ import CategorySelector from '../categories/SelectCategory';
 
 import withTokenContainer from '../../containers/TokenContainer';
 import withAlertContainer from '../../containers/AlertContainer';
+import withAddNotification from '../notifications/WithAddNotification';
+import { connectComponent } from '../../utils';
 
 import { postPost } from '../../api/posts';
 import Editor from '../contents/PostEditor';
@@ -29,9 +31,14 @@ class Write extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { postForm } = this.state;
-    const { token, dispatch, openAlert } = this.props;
+    const {
+      token, dispatch, openAlert, addNotification,
+    } = this.props;
     postPost(postForm, token)
       .then(() => {
+        addNotification({
+          message: '글이 등록되었습니다!',
+        });
         this.setState({ redirect: true });
       })
       .catch((err) => {
@@ -120,6 +127,9 @@ class Write extends React.Component {
   }
 }
 
-const WriteWithAlert = withAlertContainer(Write);
-
-export default withTokenContainer(WriteWithAlert);
+export default connectComponent(Write,
+  [
+    withAlertContainer,
+    withAddNotification,
+    withTokenContainer,
+  ]);
