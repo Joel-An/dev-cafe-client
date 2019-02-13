@@ -3,6 +3,7 @@ import { spawn } from 'redux-saga/effects';
 import watchCategories from './categories';
 import watchPosts from './posts';
 import watchComments from './comments';
+import watchNotifications from './notifications';
 import auth from './auth';
 import watchCallApi from './apiSaga';
 
@@ -14,4 +15,5 @@ export default function* root() {
   yield spawn(auth.logoutFlow);
   yield spawn(auth.watchFetchUserInfo);
   yield spawn(watchCallApi);
+  yield spawn(watchNotifications);
 }
