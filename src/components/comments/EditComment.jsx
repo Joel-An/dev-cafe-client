@@ -3,6 +3,7 @@ import React from 'react';
 import withTokenContainer from '../../containers/TokenContainer';
 import withAlertContainer from '../../containers/AlertContainer';
 import withEditingCommentContainer from '../../containers/EditingCommentContainer';
+import { connectComponent } from '../../utils';
 import * as Api from '../../api/comments';
 
 import Editor from '../contents/CommentEditor';
@@ -100,7 +101,9 @@ class EditComment extends React.Component {
   }
 }
 
-const EditCommentWithToken = withTokenContainer(EditComment);
-const EditCommentwithAlert = withAlertContainer(EditCommentWithToken);
-
-export default withEditingCommentContainer(EditCommentwithAlert);
+export default connectComponent(EditComment,
+  [
+    withTokenContainer,
+    withAlertContainer,
+    withEditingCommentContainer,
+  ]);
