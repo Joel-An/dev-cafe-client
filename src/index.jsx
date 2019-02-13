@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './components/App';
 import Popups from './components/popups/Popups';
+import NotificationCenter from './components/notifications/NotificationCenter';
 
 import './index.scss';
 import configureStore from './store';
@@ -16,6 +17,7 @@ const renderApp = () => {
     <Provider store={store}>
       <App />
       <Popups/>
+      <NotificationCenter/>
     </Provider>,
     document.getElementById('root'),
   );
