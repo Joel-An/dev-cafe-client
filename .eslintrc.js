@@ -33,6 +33,7 @@ module.exports = {
         ignoreUrls: true,
         ignoreRegExpLiterals: true,
         ignoreStrings: true,
+        ignoreComments: true,
       },
     ],
   },
