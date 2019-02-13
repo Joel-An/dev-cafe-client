@@ -1,0 +1,40 @@
+.Notification {
+  background-color: rgb(227, 252, 239);
+  box-shadow: rgba(0, 0, 0, 0.176) 0px 3px 8px;
+
+  margin: 2px;
+  min-width: 100px;
+  max-width: 250px;
+  min-height: 40px;
+
+
+  display: flex;
+
+  .notification-icon{
+    flex-shrink: 0;
+    background-color: rgba(1, 112, 75, 0.849);
+    width: 15px;
+  }
+
+  .notification-message{
+    flex-grow: 1;
+
+    color: rgb(0, 102, 68);
+    padding-top: 8px;
+    padding-right: 12px;
+    padding-bottom: 8px;
+    padding-left: 12px;
+    
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .notification-menu{
+    flex-shrink: 0;
+
+    button {
+      border: 0;
+      color: rgb(0, 102, 68);
+    }
+  }
+}

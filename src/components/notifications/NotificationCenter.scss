@@ -1,0 +1,25 @@
+.NotificationCenter {
+  position: fixed;
+  top: 10px;
+  right: 0;
+  z-index: 1000;
+  width: 30%;
+  max-width: 400px;
+  margin: auto;
+  
+  .fade-enter {
+    opacity: 0.01;
+  }
+  .fade-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+  .fade-exit {
+    opacity: 1;
+  }
+  .fade-exit-active {
+    opacity: 0.01;
+    transition: opacity 500ms ease-in;
+  }
+
+}
