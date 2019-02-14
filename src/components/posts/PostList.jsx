@@ -7,7 +7,7 @@ import PostListItem from './PostListItem';
 const PostList = (props) => {
   const { postsMeta } = props;
 
-  if (!postsMeta || postsMeta.isFetching) {
+  if (!postsMeta || (postsMeta.isFetching && postsMeta.ids.length === 0)) {
     return <p>Loading...</p>;
   }
 
