@@ -9,6 +9,8 @@ import { connectComponent } from '../../utils';
 
 import * as api from '../../api/categories';
 
+import './CreateCategory.scss';
+
 class CreateCategory extends React.Component {
   constructor(props) {
     super(props);
@@ -56,17 +58,15 @@ class CreateCategory extends React.Component {
     const placeholder = parent ? '하위 카테고리' : '상위 카테고리';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <div>
-          <label htmlFor="categoryName">
-            <input type="text"
-              name="categoryName"
-              value={categoryName}
-              placeholder={placeholder}
-              onChange={this.onChange}/>
-          </label>
-          <button type="submit">추가</button>
-        </div>
+      <form onSubmit={this.onSubmit} className="CreateCategory">
+        <label htmlFor="categoryName">
+          <input type="text"
+            name="categoryName"
+            value={categoryName}
+            placeholder={placeholder}
+            onChange={this.onChange}/>
+        </label>
+        <button type="submit">추가</button>
       </form>
     );
   }

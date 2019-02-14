@@ -10,7 +10,7 @@ import NoMatch from './NoMatch';
 import Login from './Login';
 import Signup from './Signup';
 import Header from './layout/Header';
-import CategoryManager from './categories/CategoryManager';
+import ManageCategoriesPage from './categories/ManageCategoriesPage';
 
 import './App.scss';
 import PostListPage from './posts/PostListPage';
@@ -35,7 +35,7 @@ const App = () => (
           <Route path="/edit/:id" component={EditPostPage}/>
           <Route exact path="/login" component={Login}/>
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/categoryManager" component={CategoryManager} />
+          <Route exact path="/categoryManager" component={ManageCategoriesPage} />
           <Route exact path="/admin" component={AdminPage} />
           <Route component={NoMatch} />
         </Switch>

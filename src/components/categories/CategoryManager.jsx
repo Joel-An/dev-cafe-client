@@ -4,6 +4,8 @@ import CreateCategory from './CreateCategory';
 import DeleteCategory from './DeleteCategory';
 import withCategoriesContainer from '../../containers/CategoriesContainer';
 
+import './CategoryManager.scss';
+
 const renderChildCategories = (categories, id) => {
   if (categories[id].children.length === 0) {
     return null;
@@ -13,10 +15,14 @@ const renderChildCategories = (categories, id) => {
     <ul className="subCategoryList">
       {categories[id].children.map(childId => (
         <li name={categories[childId].name} key={childId}>
-          ㄴ{categories[childId].name}
-          <DeleteCategory
-            id={childId}
-          />
+          <div className="category">
+            <span className="title">
+            ㄴ{categories[childId].name}
+            </span>
+            <DeleteCategory
+              id={childId}
+            />
+          </div>
         </li>
       ))
       }
@@ -26,23 +32,20 @@ const renderChildCategories = (categories, id) => {
 
 const CategoryManager = (props) => {
   const { categories, parentCategoryIds } = props;
-  const style = { border: '0.5px solid #dddddd' };
-
-  const isEmpty = !parentCategoryIds.length;
-
-  if (isEmpty) {
-    return null;
-  }
 
   return (
-    <>
-      <ul className="categoryList" style={style}>
+    <div className="CategoryManager">
+      <ul className="categoryList">
         {parentCategoryIds.map(id => (
-          <li name={categories[id].name} style={style} key={id}>
-            {categories[id].name}
-            <DeleteCategory
-              id={id}
-            />
+          <li name={categories[id].name} key={id}>
+            <div className="category">
+              <span className="title">
+                {categories[id].name}
+              </span>
+              <DeleteCategory
+                id={id}
+              />
+            </div>
             {renderChildCategories(categories, id)}
             <CreateCategory
               parent={id}
@@ -52,7 +55,7 @@ const CategoryManager = (props) => {
         }
       </ul>
       <CreateCategory/>
-    </>
+    </div>
   );
 };
 
@@ -66,8 +69,7 @@ const Category = PropTypes.shape({
 
 CategoryManager.propTypes = {
   categories: PropTypes.objectOf(Category).isRequired,
-  parentCategoryNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  parentCategoryIds: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
-
 
 export default withCategoriesContainer(CategoryManager);

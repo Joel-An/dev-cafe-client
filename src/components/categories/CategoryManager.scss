@@ -1,0 +1,28 @@
+.CategoryManager{
+  width: 300px;
+  
+  .categoryList li {
+    padding: 10px;
+    border: 1px solid grey;
+  }
+
+  .subCategoryList li {
+    padding-right:0;
+  }
+
+  .category {
+    display: flex;
+    height: 30px;
+    line-height: 30px;
+
+    span {
+      flex-grow: 1;
+    }
+
+    button {
+      margin-right:5px;
+      flex-shrink: 0;
+      align-self: flex-end;
+    }
+  }
+}

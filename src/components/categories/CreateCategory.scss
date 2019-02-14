@@ -1,0 +1,13 @@
+.CreateCategory{
+  display: flex;
+  padding-top: 10px;
+  label {
+    flex-grow: 1;
+  }
+
+  button {
+    flex-shrink: 0;
+    color: white;
+    background-color: #43c3d4;
+  }
+}
