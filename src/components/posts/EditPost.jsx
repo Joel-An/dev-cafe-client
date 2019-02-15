@@ -9,6 +9,7 @@ import { connectComponent } from '../../utils';
 
 import * as Api from '../../api/posts';
 import Editor from '../contents/PostEditor';
+import UploadImage from './UploadImage';
 
 class EditPost extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class EditPost extends React.Component {
     // editingPost가 없다 === 스토어에 댓글 정보를 등록중이다.
     this.state = {
       editingPost,
+      uploadedImageLink: '',
       isLoading: typeof editingPost === 'undefined',
       isDone: false,
     };
@@ -49,6 +51,21 @@ class EditPost extends React.Component {
       saveEditingPost(editingPost);
     }
   }
+
+  updateUploadedImageLink = (link) => {
+    this.setState(prevState => ({
+      ...prevState,
+      uploadedImageLink: link,
+    }));
+  }
+
+  clearUploadedImageLink = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      uploadedImageLink: '',
+    }));
+  }
+
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -105,7 +122,7 @@ class EditPost extends React.Component {
 
   render() {
     const {
-      editingPost, isLoading, isDone,
+      editingPost, isLoading, isDone, uploadedImageLink,
     } = this.state;
 
     if (isDone) {
@@ -126,11 +143,14 @@ class EditPost extends React.Component {
             value={isLoading ? 'Loading Title...' : editingPost.title}
             onChange={this.onTitleChange}/>
         </label>
+        <UploadImage updateUploadedImageLink={this.updateUploadedImageLink}/>
         <Editor
           contents={isLoading ? 'Loading Contents...' : editingPost.contents}
           onChange={this.onContentsChange}
           preview
           autofocus
+          insertText={uploadedImageLink}
+          clearInsertText={this.clearUploadedImageLink}
         />
         <button type="submit">등록</button>
       </form>

@@ -9,6 +9,7 @@ import { connectComponent } from '../../utils';
 
 import { postPost } from '../../api/posts';
 import Editor from '../contents/PostEditor';
+import UploadImage from './UploadImage';
 
 class Write extends React.Component {
   constructor(props) {
@@ -24,8 +25,23 @@ class Write extends React.Component {
         contents: '',
         categoryId: initialId,
       },
+      uploadedImageLink: '',
       redirect: false,
     };
+  }
+
+  updateUploadedImageLink = (link) => {
+    this.setState(prevState => ({
+      ...prevState,
+      uploadedImageLink: link,
+    }));
+  }
+
+  clearUploadedImageLink = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      uploadedImageLink: '',
+    }));
   }
 
   onSubmit = (e) => {
@@ -88,7 +104,7 @@ class Write extends React.Component {
   }
 
   render() {
-    const { postForm, redirect } = this.state;
+    const { postForm, redirect, uploadedImageLink } = this.state;
 
     if (redirect) {
       return <Redirect to={{
@@ -98,31 +114,36 @@ class Write extends React.Component {
     }
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <div>
-          <CategorySelector
-            onSelect={this.onSelectCategory}
-            selectedCategory={postForm.categoryId}
-          />
-        </div>
-        <div>
-          <label htmlFor="title">
-            <input type="text"
-              name="title"
-              value={postForm.title}
-              placeholder="Title"
-              onChange={this.onTitleChange}/>
-          </label>
-        </div>
-        <div>
-          <Editor
-            contents={postForm.contents}
-            onChange={this.onContentsChange}
-            preview
-          />
-        </div>
-        <button type="submit">작성</button>
-      </form>
+      <div className="WritePost">
+        <form onSubmit={this.onSubmit}>
+          <div>
+            <CategorySelector
+              onSelect={this.onSelectCategory}
+              selectedCategory={postForm.categoryId}
+            />
+          </div>
+          <div>
+            <label htmlFor="title">
+              <input type="text"
+                name="title"
+                value={postForm.title}
+                placeholder="Title"
+                onChange={this.onTitleChange}/>
+            </label>
+            <UploadImage updateUploadedImageLink={this.updateUploadedImageLink}/>
+          </div>
+          <div>
+            <Editor
+              contents={postForm.contents}
+              onChange={this.onContentsChange}
+              preview
+              insertText={uploadedImageLink}
+              clearInsertText={this.clearUploadedImageLink}
+            />
+          </div>
+          <button type="submit">작성</button>
+        </form>
+      </div>
     );
   }
 }
