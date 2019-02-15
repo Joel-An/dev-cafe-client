@@ -1,5 +1,5 @@
 import {
-  put, takeLatest, takeEvery, select, spawn,
+  put, takeLatest, takeEvery, select,
 } from 'redux-saga/effects';
 
 import * as Types from '../types/comments';
@@ -18,9 +18,7 @@ function* loadCommentsSaga(action) {
   }
 }
 
-function* watchLoadComments() {
-  yield takeLatest(Types.LOAD_COMMENTS, loadCommentsSaga);
-}
+const watchLoadComments = takeLatest(Types.LOAD_COMMENTS, loadCommentsSaga);
 
 function* checkCacheAndUpdate(action) {
   const state = yield select();
@@ -32,9 +30,10 @@ function* checkCacheAndUpdate(action) {
   }
 }
 
-function* watchCheckCacheAndUpdate() {
-  yield takeEvery(Types.CHECK_CACHE_AND_UPDATE_COMMENT, checkCacheAndUpdate);
-}
+const watchCheckCacheAndUpdate = takeEvery(
+  Types.CHECK_CACHE_AND_UPDATE_COMMENT,
+  checkCacheAndUpdate,
+);
 
 function* loadEditingComment(action) {
   const state = yield select();
@@ -48,12 +47,12 @@ function* loadEditingComment(action) {
   }
 }
 
-function* watchLoadEditingComment() {
-  yield takeEvery(Types.LOAD_EDITING_COMMENT, loadEditingComment);
-}
+const watchLoadEditingComment = takeEvery(Types.LOAD_EDITING_COMMENT, loadEditingComment);
 
-export default function* watchComments() {
-  yield spawn(watchLoadComments);
-  yield spawn(watchCheckCacheAndUpdate);
-  yield spawn(watchLoadEditingComment);
-}
+const commentsSagas = [
+  watchLoadComments,
+  watchCheckCacheAndUpdate,
+  watchLoadEditingComment,
+];
+
+export default commentsSagas;

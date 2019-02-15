@@ -16,7 +16,6 @@ function* waitClearNotifications() {
   return true;
 }
 
-
 function* waitRemoveNotification(notificationId) {
   while (true) {
     const action = yield take(REMOVE_NOTIFICATION);
@@ -45,6 +44,10 @@ function* watchNotification(action) {
   }
 }
 
-export default function* watchNotifications() {
-  yield takeEvery(ADD_NOTIFICATION, watchNotification);
-}
+const watchNotifications = takeEvery(ADD_NOTIFICATION, watchNotification);
+
+const notificationsSagas = [
+  watchNotifications,
+];
+
+export default notificationsSagas;

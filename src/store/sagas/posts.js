@@ -1,5 +1,5 @@
 import {
-  put, takeLatest, select, spawn, takeEvery,
+  put, takeLatest, select, takeEvery,
 } from 'redux-saga/effects';
 
 import * as Actions from '../actions/posts';
@@ -19,9 +19,7 @@ function* loadPostsSaga(action) {
   }
 }
 
-function* watchLoadPosts() {
-  yield takeLatest(Types.LOAD_POSTS, loadPostsSaga);
-}
+const watchLoadPosts = takeLatest(Types.LOAD_POSTS, loadPostsSaga);
 
 
 function* loadPostSaga(action) {
@@ -36,9 +34,7 @@ function* loadPostSaga(action) {
   }
 }
 
-function* watchLoadPost() {
-  yield takeLatest(Types.LOAD_POST, loadPostSaga);
-}
+const watchLoadPost = takeLatest(Types.LOAD_POST, loadPostSaga);
 
 function* loadEditingPost(action) {
   const state = yield select();
@@ -52,9 +48,7 @@ function* loadEditingPost(action) {
   }
 }
 
-function* watchLoadEditingPost() {
-  yield takeEvery(Types.LOAD_EDITING_POST, loadEditingPost);
-}
+const watchLoadEditingPost = takeEvery(Types.LOAD_EDITING_POST, loadEditingPost);
 
 function* checkCacheAndUpdate(action) {
   const state = yield select();
@@ -66,13 +60,13 @@ function* checkCacheAndUpdate(action) {
   }
 }
 
-function* watchCheckCacheAndUpdate() {
-  yield takeEvery(Types.CHECK_CACHE_AND_UPDATE_POST, checkCacheAndUpdate);
-}
+const watchCheckCacheAndUpdate = takeEvery(Types.CHECK_CACHE_AND_UPDATE_POST, checkCacheAndUpdate);
 
-export default function* watchPosts() {
-  yield spawn(watchLoadPost);
-  yield spawn(watchLoadPosts);
-  yield spawn(watchLoadEditingPost);
-  yield spawn(watchCheckCacheAndUpdate);
-}
+const postsSagas = [
+  watchLoadPosts,
+  watchLoadPost,
+  watchLoadEditingPost,
+  watchCheckCacheAndUpdate,
+];
+
+export default postsSagas;

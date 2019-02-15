@@ -1,19 +1,19 @@
-import { spawn } from 'redux-saga/effects';
+import { all } from 'redux-saga/effects';
 
-import watchCategories from './categories';
-import watchPosts from './posts';
-import watchComments from './comments';
-import watchNotifications from './notifications';
-import auth from './auth';
-import watchCallApi from './apiSaga';
+import categoriesSagas from './categories';
+import postsSagas from './posts';
+import commentsSagas from './comments';
+import notificationsSagas from './notifications';
+import authSagas from './auth';
+import apiSagas from './apiSaga';
 
 export default function* root() {
-  yield spawn(watchCategories);
-  yield spawn(watchComments);
-  yield spawn(watchPosts);
-  yield spawn(auth.loginFlow);
-  yield spawn(auth.logoutFlow);
-  yield spawn(auth.watchFetchUserInfo);
-  yield spawn(watchCallApi);
-  yield spawn(watchNotifications);
+  yield all([
+    ...categoriesSagas,
+    ...apiSagas,
+    ...commentsSagas,
+    ...postsSagas,
+    ...authSagas,
+    ...notificationsSagas,
+  ]);
 }

@@ -1,4 +1,6 @@
-import { take, fork, put } from 'redux-saga/effects';
+import {
+  put, takeEvery,
+} from 'redux-saga/effects';
 import axios from 'axios';
 
 import normalizeData from '../utils/normalizer';
@@ -38,11 +40,10 @@ function* callApi(action) {
   }
 }
 
-function* watchCallApi() {
-  while (true) {
-    const action = yield take(CALL_API);
-    yield fork(callApi, action);
-  }
-}
+const watchCallApi = takeEvery(CALL_API, callApi);
 
-export default watchCallApi;
+const apiSagas = [
+  watchCallApi,
+];
+
+export default apiSagas;

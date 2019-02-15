@@ -1,5 +1,5 @@
 import {
-  put, take, call, fork, cancel, takeLatest,
+  put, call, takeLatest,
 } from 'redux-saga/effects';
 
 import {
@@ -23,9 +23,7 @@ function* authorize(loginAction) {
   }
 }
 
-function* loginFlow() {
-  yield takeLatest(LOGIN_REQUEST, authorize);
-}
+const watchLogin = takeLatest(LOGIN_REQUEST, authorize);
 
 function* requestLogout(logoutAction) {
   try {
@@ -36,9 +34,8 @@ function* requestLogout(logoutAction) {
   }
 }
 
-function* logoutFlow() {
-  yield takeLatest(LOGOUT_REQUEST, requestLogout);
-}
+const watchLogout = takeLatest(LOGOUT_REQUEST, requestLogout);
+
 
 function* fetchUserInfo(action) {
   const token = action.payload;
@@ -51,8 +48,12 @@ function* fetchUserInfo(action) {
   }
 }
 
-function* watchFetchUserInfo() {
-  yield takeLatest(FETCH_USERINFO, fetchUserInfo);
-}
+const watchFetchUserInfo = takeLatest(FETCH_USERINFO, fetchUserInfo);
 
-export default { loginFlow, logoutFlow, watchFetchUserInfo };
+const authSagas = [
+  watchLogin,
+  watchLogout,
+  watchFetchUserInfo,
+];
+
+export default authSagas;

@@ -17,7 +17,10 @@ function* loadCategoriesSaga() {
     yield put(actions.fetchCategories());
   }
 }
+const watchCategories = takeLatest(LOAD_CATEGORIES, loadCategoriesSaga);
 
-export default function* watchCategories() {
-  yield takeLatest(LOAD_CATEGORIES, loadCategoriesSaga);
-}
+const categoriesSagas = [
+  watchCategories,
+];
+
+export default categoriesSagas;
