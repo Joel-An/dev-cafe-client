@@ -14,7 +14,9 @@ function* callApi(action) {
     method, types, schema,
   } = action;
 
-  const endpoint = API_URI + action.endpoint;
+  const endpoint = typeof action.endpoint === 'function'
+    ? action.endpoint()
+    : API_URI + action.endpoint;
 
   const [requestType, successType, failureType] = types;
 
@@ -31,11 +33,13 @@ function* callApi(action) {
     yield put(actionWith({
       type: successType,
       response: normalizedData,
+      nextPageUrl: response.headers['next-page-url'] || false,
     }));
   } catch (err) {
     yield put(actionWith({
       type: failureType,
-      error: err.message || 'Something bad happened',
+      error: err.response.data.message || 'Something bad happened',
+      statusCode: err.response.status,
     }));
   }
 }
