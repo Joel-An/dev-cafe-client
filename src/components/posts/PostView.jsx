@@ -9,6 +9,7 @@ import Category from '../categories/Category';
 import User from '../users/User';
 import DeletePost from './DeletePost';
 import ContentsViewer from '../contents/Viewer';
+import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 
 import './PostView.scss';
 
@@ -37,7 +38,10 @@ const PostView = (props) => {
           <User userId={post.author} renderUser={renderUser}/>
         </header>
         <section className="post-content">
-          <ContentsViewer contents={post.contents || 'Loading...'}/>
+          {post.contents
+            ? <ContentsViewer contents={post.contents}/>
+            : <LoadingSpinner/>
+          }
         </section>
       </article>
       <div className="post-button-group">

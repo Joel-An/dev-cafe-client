@@ -3,12 +3,13 @@ import React from 'react';
 import withPostListContainer from '../../containers/PostListContainer';
 
 import PostListItem from './PostListItem';
+import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 
 const PostList = (props) => {
   const { postsMeta } = props;
 
   if (!postsMeta || (postsMeta.isFetching && postsMeta.ids.length === 0)) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner/>;
   }
 
   if (postsMeta.ids.length === 0) {
@@ -17,6 +18,7 @@ const PostList = (props) => {
 
   return (
     <ul className="postList" >
+      {postsMeta.isFetching && <LoadingSpinner key="isLoading"/>}
       {postsMeta.ids.map(postId => (
         <PostListItem postId={postId} key={postId}/>
       ))
