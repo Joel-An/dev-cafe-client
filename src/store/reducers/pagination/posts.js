@@ -1,8 +1,8 @@
 import union from 'lodash/union';
 import {
-  GET_POSTS_REQUEST,
-  GET_POSTS_FAILURE,
-  GET_POSTS_SUCCESS,
+  FETCH_POSTS_REQUEST,
+  FETCH_POSTS_FAILURE,
+  FETCH_POSTS_SUCCESS,
   FETCH_NEW_POST_REQUEST,
   FETCH_NEW_POST_SUCCESS,
   FETCH_NEW_POST_FAILURE,
@@ -23,7 +23,7 @@ const initialState = {
 const postsByCategory = (state = initialState, action) => {
   switch (action.type) {
   case FETCH_NEW_POST_REQUEST:
-  case GET_POSTS_REQUEST: {
+  case FETCH_POSTS_REQUEST: {
     const key = mapActionToKey(action);
     const meta = state[key];
     if (meta) {
@@ -40,7 +40,7 @@ const postsByCategory = (state = initialState, action) => {
     };
   }
   case FETCH_NEW_POST_FAILURE:
-  case GET_POSTS_FAILURE: {
+  case FETCH_POSTS_FAILURE: {
     const key = mapActionToKey(action);
     const meta = state[key];
     return {
@@ -52,7 +52,7 @@ const postsByCategory = (state = initialState, action) => {
       },
     };
   }
-  case GET_POSTS_SUCCESS: {
+  case FETCH_POSTS_SUCCESS: {
     const key = mapActionToKey(action);
     const meta = state[key];
     return {

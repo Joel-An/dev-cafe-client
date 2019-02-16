@@ -1,7 +1,7 @@
 import merge from 'lodash/merge';
 
 import {
-  GET_POSTS_SUCCESS,
+  FETCH_POSTS_SUCCESS,
   FETCH_NEW_POST_SUCCESS,
   FETCH_POST_CONTENTS_SUCCESS,
   REMOVE_POST,
@@ -30,7 +30,7 @@ const postsReducer = (state = {}, action) => {
   case FETCH_UPDATED_POST_SUCCESS: {
     return addPost(state, action);
   }
-  case GET_POSTS_SUCCESS: {
+  case FETCH_POSTS_SUCCESS: {
     const posts = action.response.getEntity('posts');
     return merge({}, state, posts);
   }

@@ -1,9 +1,9 @@
 import {
   LOAD_POSTS,
   LOAD_POSTS_SUCCESS,
-  GET_POSTS_REQUEST,
-  GET_POSTS_SUCCESS,
-  GET_POSTS_FAILURE,
+  FETCH_POSTS_REQUEST,
+  FETCH_POSTS_SUCCESS,
+  FETCH_POSTS_FAILURE,
   LOAD_POST,
   LOAD_POST_SUCCESS,
   FETCH_NEW_POST_REQUEST,
@@ -28,7 +28,7 @@ import Schemas from '../utils/schema';
 
 export const fetchPosts = (category = 'all', refreshCache = false) => ({
   type: CALL_API,
-  types: [GET_POSTS_REQUEST, GET_POSTS_SUCCESS, GET_POSTS_FAILURE],
+  types: [FETCH_POSTS_REQUEST, FETCH_POSTS_SUCCESS, FETCH_POSTS_FAILURE],
   endpoint: category === 'all' ? '/posts' : `/posts?category=${category}`,
   category,
   method: 'get',

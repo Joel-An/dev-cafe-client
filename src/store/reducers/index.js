@@ -30,9 +30,9 @@ const pagination = combineReducers({
   postsByCategory: paginate({
     mapActionToKey: action => action.category,
     types: [
-      PostActions.GET_POSTS_REQUEST,
-      PostActions.GET_POSTS_SUCCESS,
-      PostActions.GET_POSTS_FAILURE,
+      PostActions.FETCH_POSTS_REQUEST,
+      PostActions.FETCH_POSTS_SUCCESS,
+      PostActions.FETCH_POSTS_FAILURE,
     ],
   }),
   commentsByPost: paginate({
