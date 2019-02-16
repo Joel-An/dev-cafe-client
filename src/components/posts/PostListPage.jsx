@@ -14,10 +14,10 @@ const Posts = (props) => {
 
   return (
     <div className="PostListPage">
-      <PostList categoryId={categoryId}/>
       <button type="button">
         <Link to={`/write/${categoryId}`}>글쓰기</Link>
       </button>
+      <PostList categoryId={categoryId}/>
     </div>
   );
 };
