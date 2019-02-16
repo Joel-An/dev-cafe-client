@@ -26,15 +26,21 @@ import {
 import { CALL_API } from '../sagas/apiSaga';
 import Schemas from '../utils/schema';
 
-export const fetchPosts = (category = 'all', refreshCache = false) => ({
+export const fetchPosts = (category = 'all') => ({
   type: CALL_API,
   types: [FETCH_POSTS_REQUEST, FETCH_POSTS_SUCCESS, FETCH_POSTS_FAILURE],
   endpoint: category === 'all' ? '/posts' : `/posts?category=${category}`,
   category,
   method: 'get',
-  refreshCache,
   schema: Schemas.POST_ARRAY,
 });
+
+export const fetchNextPagePosts = (nextPageUrl, categoryId) => {
+  const action = fetchPosts(categoryId);
+  action.endpoint = () => nextPageUrl;
+
+  return action;
+};
 
 export const loadPosts = category => ({
   type: LOAD_POSTS,
