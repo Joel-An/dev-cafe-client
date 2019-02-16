@@ -2,7 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Popup from './Popup';
 
-import { login } from '../../store/actions/auth';
+import withAlertContainer from '../../containers/AlertContainer';
+import withAddNotification from '../notifications/WithAddNotification';
+
+import { connectComponent } from '../../utils';
+
+import * as Api from '../../api/auth';
+import { loginSucceeded as loginSucceededAction } from '../../store/actions/auth';
 import './LoginPopup.scss';
 
 class LoginPopup extends React.Component {
@@ -27,7 +33,23 @@ class LoginPopup extends React.Component {
   handleInputSubmit = (event) => {
     event.preventDefault();
     const { loginForm } = this.state;
-    this.props.login(loginForm);
+    const {
+      close, loginSucceeded, openAlert, pos, addNotification,
+    } = this.props;
+
+    Api.login(loginForm)
+      .then((token) => {
+        loginSucceeded(token);
+        close();
+        addNotification({
+          message: '이랏샤이마세!!!',
+        });
+      })
+      .catch((err) => {
+        openAlert({
+          message: err,
+        });
+      });
   };
 
   render() {
@@ -36,7 +58,7 @@ class LoginPopup extends React.Component {
     } = this.state;
 
     const {
-      close, error, pos,
+      close, pos,
     } = this.props;
 
     return (
@@ -50,7 +72,6 @@ class LoginPopup extends React.Component {
         <div>
           <button type="button"> 구글로 로그인</button>
         </div>
-        <div>{error}</div>
       </Popup>
     );
   }
@@ -90,11 +111,11 @@ const LoginForm = ({
   </div>
 );
 
-const mapStateToProps = state => ({
-  token: state.auth.token,
-  error: state.auth.error,
-});
+const mapDispatchToProps = { loginSucceeded: loginSucceededAction };
 
-const mapDispatchToProps = { login };
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPopup);
+export default connectComponent(LoginPopup,
+  [
+    connect(null, mapDispatchToProps),
+    withAlertContainer,
+    withAddNotification,
+  ]);
