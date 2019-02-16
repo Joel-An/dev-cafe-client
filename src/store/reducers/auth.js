@@ -1,6 +1,5 @@
 import {
   LOGIN_SUCCESS,
-  LOGIN_ERROR,
   LOGOUT_SUCCESS,
   LOGOUT_ERROR,
   FETCH_USERINFO_FULFILLED,
@@ -21,11 +20,6 @@ export default (state = INITIAL_STATE(), { type, payload, error }) => {
       ...state,
       token: localStorage.getItem('token'),
       error: null,
-    };
-  case LOGIN_ERROR:
-    return {
-      ...state,
-      error,
     };
   case LOGOUT_SUCCESS:
     localStorage.removeItem('token');
