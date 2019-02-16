@@ -11,36 +11,54 @@ import {
 
 const mapActionToKey = action => action.category;
 
+const getDefaultMeta = () => ({
+  isFetchingNewPost: false,
+  isFetchingPosts: false,
+  ids: [],
+  error: false,
+  nextPageUrl: false,
+});
+
 const initialState = {
-  all: {
-    isFetching: false,
-    ids: [],
-    error: false,
-    nextPageUrl: null,
-  },
+  all: getDefaultMeta(),
 };
 
 const postsByCategory = (state = initialState, action) => {
   switch (action.type) {
-  case FETCH_NEW_POST_REQUEST:
+  case FETCH_NEW_POST_REQUEST: {
+    const key = mapActionToKey(action);
+    const meta = state[key];
+    const { all } = state;
+    if (meta) {
+      return {
+        ...state,
+        all: { ...all, isFetchingNewPost: true },
+        [key]: { ...meta, isFetchingNewPost: true },
+      };
+    }
+    const defaultMeta = getDefaultMeta();
+    return {
+      ...state,
+      all: { ...all, isFetchingNewPost: true },
+      [key]: { ...defaultMeta, isFetchingNewPost: true },
+    };
+  }
   case FETCH_POSTS_REQUEST: {
     const key = mapActionToKey(action);
     const meta = state[key];
     if (meta) {
-      return { ...state, [key]: { ...state[key], isFetching: true } };
+      return {
+        ...state,
+        [key]: { ...meta, isFetchingPosts: true },
+      };
     }
+    const defaultMeta = getDefaultMeta();
     return {
       ...state,
-      [key]: {
-        isFetching: true,
-        ids: [],
-        error: false,
-        nextPageUrl: null,
-      },
+      [key]: { ...defaultMeta, isFetchingPosts: true },
     };
   }
-  case FETCH_NEW_POST_FAILURE:
-  case FETCH_POSTS_FAILURE: {
+  case FETCH_NEW_POST_FAILURE: {
     const key = mapActionToKey(action);
     const meta = state[key];
     return {
@@ -48,19 +66,35 @@ const postsByCategory = (state = initialState, action) => {
       [key]: {
         ...meta,
         error: action.error,
-        isFetching: false,
+        isFetchingNewPost: false,
+      },
+    };
+  }
+  case FETCH_POSTS_FAILURE: {
+    const key = mapActionToKey(action);
+    const { statusCode } = action;
+    const meta = state[key];
+    return {
+      ...state,
+      [key]: {
+        ...meta,
+        error: action.error,
+        isFetchingPosts: false,
+        nextPageUrl: statusCode === 404 ? false : meta.nextPageUrl,
       },
     };
   }
   case FETCH_POSTS_SUCCESS: {
     const key = mapActionToKey(action);
+    const { nextPageUrl } = action;
     const meta = state[key];
     return {
       ...state,
       [key]: {
         ...meta,
         ids: union(meta.ids, action.response.result),
-        isFetching: false,
+        isFetchingPosts: false,
+        nextPageUrl,
       },
     };
   }
@@ -68,16 +102,33 @@ const postsByCategory = (state = initialState, action) => {
     const key = mapActionToKey(action);
     const meta = state[key];
     const { postId } = action;
+
+    const { all } = state;
+
+    let nextPageUrlForAll = all.nextPageUrl;
+    let nextPageUrlForMeta = meta.nextPageUrl;
+
+    if (all.ids.length === 0) {
+      nextPageUrlForAll = `/api/v1/posts?before=${postId}`;
+    }
+
+    if (meta.ids.length === 0) {
+      nextPageUrlForMeta = `/api/v1/posts?before=${postId}&category=${key}`;
+    }
+
     return {
       ...state,
       all: {
-        ...state.all,
-        ids: union([postId], state.all.ids),
+        ...all,
+        ids: union([postId], all.ids),
+        isFetchingNewPost: false,
+        nextPageUrl: nextPageUrlForAll,
       },
       [key]: {
         ...meta,
         ids: union([postId], meta.ids),
-        isFetching: false,
+        isFetchingNewPost: false,
+        nextPageUrl: nextPageUrlForMeta,
       },
     };
   }
