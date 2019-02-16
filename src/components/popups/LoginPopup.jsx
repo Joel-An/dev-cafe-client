@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import { connect } from 'react-redux';
 import Popup from './Popup';
@@ -52,6 +54,22 @@ class LoginPopup extends React.Component {
       });
   };
 
+  reqLoginWithGoogle = () => {
+    const { openAlert } = this.props;
+    openAlert({
+      title: 'ㅎ_ㅎ;;',
+      message: '준비중입니다 ㅎㅎ',
+    });
+  }
+
+  reqTesterLogin = () => {
+    const { openAlert } = this.props;
+    openAlert({
+      title: 'ㅎ_ㅎ;;',
+      message: '이것도 준비중입니다;',
+    });
+  }
+
   render() {
     const {
       loginForm,
@@ -63,14 +81,21 @@ class LoginPopup extends React.Component {
 
     return (
       <Popup pos={pos} close={close} title="LOGIN">
-        <LoginForm
-          username={loginForm.username}
-          password={loginForm.password}
-          onChange={this.handleInputChange}
-          onSubmit={this.handleInputSubmit}
-        />
-        <div>
-          <button type="button"> 구글로 로그인</button>
+        <div className="LoginPopup">
+          <LoginForm
+            username={loginForm.username}
+            password={loginForm.password}
+            onChange={this.handleInputChange}
+            onSubmit={this.handleInputSubmit}
+          />
+          <div className="login-popup-submenu">
+            <button type="button" onClick={this.reqLoginWithGoogle}>
+              구글로 로그인
+            </button>
+            <button type="button" onClick={this.reqTesterLogin}>
+              테스터 아이디로 로그인
+            </button>
+          </div>
         </div>
       </Popup>
     );
@@ -80,35 +105,38 @@ class LoginPopup extends React.Component {
 const LoginForm = ({
   username, password, onChange, onSubmit,
 }) => (
-  <div>
-    <form onSubmit={onSubmit}>
-      <div>
-        <label htmlFor="username">
+  <form onSubmit={onSubmit} className="LoginForm">
+    <div className="form-element">
+      <label htmlFor="username">
           사용자 이름
-          <input
-            name="username"
-            id="username"
-            value={username}
-            placeholder="username or E-mail"
-            type="text"
-            onChange={onChange} />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
+      </label>
+      <input
+        name="username"
+        autoComplete="username"
+        id="username"
+        value={username}
+        placeholder="username or E-mail"
+        type="text"
+        onChange={onChange} />
+    </div>
+    <div className="form-element">
+      <label htmlFor="password">
           비밀번호
-          <input
-            name="password"
-            id="password"
-            value={password}
-            placeholder="비밀번호"
-            type="password"
-            onChange={onChange} />
-        </label>
-      </div>
+      </label>
+      <input
+        autoComplete="current-password"
+        name="password"
+        id="password"
+        value={password}
+        placeholder="비밀번호"
+        type="password"
+        onChange={onChange} />
+    </div>
+    <div className="login-popup-menu">
+      <div className="spacer"/>
       <button type="submit">로그인</button>
-    </form>
-  </div>
+    </div>
+  </form>
 );
 
 const mapDispatchToProps = { loginSucceeded: loginSucceededAction };
