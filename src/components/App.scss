@@ -4,6 +4,34 @@
 .content {
   grid-area: content;
   padding-left: 10px;
+
+  display:flex;
+  flex-direction: row;
+
+  .main-content {
+    flex-grow: 1;
+  }
+  .main-nav {
+    flex-shrink: 0;
+    position: relative;
+
+    .main-nav-container {
+      position: absolute;
+      top: calc(100vh - 300px);
+      left: 30px;
+
+      .main-nav-button-groups{
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+
+        button {
+          color: black;
+          margin-top: 3px;
+        }
+      }
+    }
+  }
 }
 
 .side {
