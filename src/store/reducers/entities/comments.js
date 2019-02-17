@@ -1,8 +1,8 @@
 import merge from 'lodash/merge';
 
 import {
-  GET_COMMENT_SUCCESS,
-  GET_COMMENTS_SUCCESS,
+  FETCH_NEW_COMMENT_SUCCESS,
+  FETCH_COMMENTS_SUCCESS,
   REMOVE_COMMENT,
   FETCH_UPDATED_COMMENT_SUCCESS,
 } from '../../types/comments';
@@ -68,10 +68,10 @@ const updateComment = (state, action) => {
 
 const commentsReducer = (state = {}, action) => {
   switch (action.type) {
-  case GET_COMMENT_SUCCESS: {
+  case FETCH_NEW_COMMENT_SUCCESS: {
     return addComment(state, action);
   }
-  case GET_COMMENTS_SUCCESS: {
+  case FETCH_COMMENTS_SUCCESS: {
     const comments = action.response.getEntity('comments');
     return merge({}, state, comments);
   }

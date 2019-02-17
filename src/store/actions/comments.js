@@ -1,12 +1,12 @@
 import {
   LOAD_COMMENTS,
   LOAD_COMMENTS_SUCCESS,
-  GET_COMMENTS_REQUEST,
-  GET_COMMENTS_SUCCESS,
-  GET_COMMENTS_FAILURE,
-  GET_COMMENT_REQUEST,
-  GET_COMMENT_SUCCESS,
-  GET_COMMENT_FAILURE,
+  FETCH_COMMENTS_REQUEST,
+  FETCH_COMMENTS_SUCCESS,
+  FETCH_COMMENTS_FAILURE,
+  FETCH_NEW_COMMENT_REQUEST,
+  FETCH_NEW_COMMENT_SUCCESS,
+  FETCH_NEW_COMMENT_FAILURE,
   REMOVE_COMMENT,
   CHECK_CACHE_AND_UPDATE_COMMENT,
   FETCH_UPDATED_COMMENT_REQUEST,
@@ -23,7 +23,7 @@ import Schemas from '../utils/schema';
 
 export const fetchComments = (postId, refreshCache = false) => ({
   type: CALL_API,
-  types: [GET_COMMENTS_REQUEST, GET_COMMENTS_SUCCESS, GET_COMMENTS_FAILURE],
+  types: [FETCH_COMMENTS_REQUEST, FETCH_COMMENTS_SUCCESS, FETCH_COMMENTS_FAILURE],
   endpoint: `/comments?post=${postId}`,
   postId,
   method: 'get',
@@ -33,7 +33,7 @@ export const fetchComments = (postId, refreshCache = false) => ({
 
 export const fetchComment = (commentId, postId) => ({
   type: CALL_API,
-  types: [GET_COMMENT_REQUEST, GET_COMMENT_SUCCESS, GET_COMMENT_FAILURE],
+  types: [FETCH_NEW_COMMENT_REQUEST, FETCH_NEW_COMMENT_SUCCESS, FETCH_NEW_COMMENT_FAILURE],
   endpoint: `/comments/${commentId}`,
   commentId,
   postId,

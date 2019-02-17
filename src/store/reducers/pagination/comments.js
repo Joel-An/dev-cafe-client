@@ -1,11 +1,11 @@
 import union from 'lodash/union';
 import {
-  GET_COMMENT_REQUEST,
-  GET_COMMENT_SUCCESS,
-  GET_COMMENT_FAILURE,
-  GET_COMMENTS_REQUEST,
-  GET_COMMENTS_SUCCESS,
-  GET_COMMENTS_FAILURE,
+  FETCH_NEW_COMMENT_REQUEST,
+  FETCH_NEW_COMMENT_SUCCESS,
+  FETCH_NEW_COMMENT_FAILURE,
+  FETCH_COMMENTS_REQUEST,
+  FETCH_COMMENTS_SUCCESS,
+  FETCH_COMMENTS_FAILURE,
   REMOVE_COMMENT,
 } from '../../types/comments';
 
@@ -13,8 +13,8 @@ const mapActionToKey = action => action.postId;
 
 const commentsByPost = (state = {}, action) => {
   switch (action.type) {
-  case GET_COMMENT_REQUEST:
-  case GET_COMMENTS_REQUEST: {
+  case FETCH_NEW_COMMENT_REQUEST:
+  case FETCH_COMMENTS_REQUEST: {
     const key = mapActionToKey(action);
     const meta = state[key];
     if (meta) {
@@ -30,8 +30,8 @@ const commentsByPost = (state = {}, action) => {
       },
     };
   }
-  case GET_COMMENT_FAILURE:
-  case GET_COMMENTS_FAILURE: {
+  case FETCH_NEW_COMMENT_FAILURE:
+  case FETCH_COMMENTS_FAILURE: {
     const key = mapActionToKey(action);
     const meta = state[key];
     return {
@@ -43,7 +43,7 @@ const commentsByPost = (state = {}, action) => {
       },
     };
   }
-  case GET_COMMENTS_SUCCESS: {
+  case FETCH_COMMENTS_SUCCESS: {
     const key = mapActionToKey(action);
     const meta = state[key];
     return {
@@ -55,7 +55,7 @@ const commentsByPost = (state = {}, action) => {
       },
     };
   }
-  case GET_COMMENT_SUCCESS: {
+  case FETCH_NEW_COMMENT_SUCCESS: {
     // 자식코멘트면 추가하지 않아야한다.
     const id = action.commentId;
     const comments = action.response.getEntity('comments');
