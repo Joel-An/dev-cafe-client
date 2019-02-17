@@ -15,6 +15,7 @@ const getDefaultMeta = () => ({
   isFetchingNewPost: false,
   isFetchingPosts: false,
   ids: [],
+  pages: [],
   error: false,
   nextPageUrl: false,
 });
@@ -88,11 +89,15 @@ const postsByCategory = (state = initialState, action) => {
     const key = mapActionToKey(action);
     const { nextPageUrl } = action;
     const meta = state[key];
+    const newPostIds = action.response.result;
+    const [firstPostId] = newPostIds;
+
     return {
       ...state,
       [key]: {
         ...meta,
-        ids: union(meta.ids, action.response.result),
+        ids: union(meta.ids, newPostIds),
+        pages: meta.pages.concat([firstPostId]),
         isFetchingPosts: false,
         nextPageUrl,
       },
