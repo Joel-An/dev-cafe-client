@@ -31,11 +31,12 @@ export const fetchComments = (postId, refreshCache = false) => ({
   schema: Schemas.COMMENT_ARRAY,
 });
 
-export const fetchComment = (commentId, postId) => ({
+export const fetchComment = (commentId, parentId, postId) => ({
   type: CALL_API,
   types: [FETCH_NEW_COMMENT_REQUEST, FETCH_NEW_COMMENT_SUCCESS, FETCH_NEW_COMMENT_FAILURE],
   endpoint: `/comments/${commentId}`,
   commentId,
+  parentId,
   postId,
   method: 'get',
   schema: Schemas.COMMENT,

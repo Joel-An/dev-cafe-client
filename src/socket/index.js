@@ -41,7 +41,7 @@ const setHandler = (socket, store) => {
   });
 
   socket.on('NEW_COMMENT', (data) => {
-    store.dispatch(fetchComment(data.commentId, data.postId));
+    store.dispatch(fetchComment(data.commentId, data.parentId, data.postId));
   });
 
   socket.on('DELETE_COMMENT', (data) => {
