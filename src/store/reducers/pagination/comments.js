@@ -11,26 +11,58 @@ import {
 
 const mapActionToKey = action => action.postId;
 
+const getDefaultMeta = () => ({
+  isFetchingNewComment: false,
+  isFetchingComments: false,
+  ids: [],
+  error: false,
+  nextPageUrl: false,
+});
+
 const commentsByPost = (state = {}, action) => {
   switch (action.type) {
-  case FETCH_NEW_COMMENT_REQUEST:
-  case FETCH_COMMENTS_REQUEST: {
+  case FETCH_NEW_COMMENT_REQUEST: {
     const key = mapActionToKey(action);
     const meta = state[key];
     if (meta) {
-      return { ...state, [key]: { ...state[key], isFetching: true } };
+      return { ...state, [key]: { ...state[key], isFetchingNewComment: true } };
     }
     return {
       ...state,
       [key]: {
-        isFetching: true,
-        ids: [],
-        error: false,
-        nextPageUrl: null,
+        ...getDefaultMeta(),
+        isFetchingNewComment: true,
       },
     };
   }
-  case FETCH_NEW_COMMENT_FAILURE:
+  case FETCH_COMMENTS_REQUEST: {
+    const key = mapActionToKey(action);
+    const meta = state[key];
+    if (meta) {
+      return { ...state, [key]: { ...state[key], isFetchingComments: true } };
+    }
+    return {
+      ...state,
+      [key]: {
+        ...getDefaultMeta(),
+        isFetchingComments: true,
+      },
+    };
+  }
+  case FETCH_NEW_COMMENT_FAILURE: {
+    const key = mapActionToKey(action);
+    const { statusCode } = action;
+    const meta = state[key];
+    return {
+      ...state,
+      [key]: {
+        ...meta,
+        error: action.error,
+        isFetchingNewComment: false,
+        nextPageUrl: statusCode === 404 ? false : meta.nextPageUrl,
+      },
+    };
+  }
   case FETCH_COMMENTS_FAILURE: {
     const key = mapActionToKey(action);
     const meta = state[key];
@@ -39,19 +71,21 @@ const commentsByPost = (state = {}, action) => {
       [key]: {
         ...meta,
         error: action.error,
-        isFetching: false,
+        isFetchingComments: false,
       },
     };
   }
   case FETCH_COMMENTS_SUCCESS: {
     const key = mapActionToKey(action);
+    const { nextPageUrl } = action;
     const meta = state[key];
     return {
       ...state,
       [key]: {
         ...meta,
         ids: union(meta.ids, action.response.result),
-        isFetching: false,
+        isFetchingComments: false,
+        nextPageUrl,
       },
     };
   }
@@ -69,7 +103,7 @@ const commentsByPost = (state = {}, action) => {
         ...state,
         [key]: {
           ...meta,
-          isFetching: false,
+          isFetchingNewComment: false,
         },
       }
       : {
@@ -77,7 +111,7 @@ const commentsByPost = (state = {}, action) => {
         [key]: {
           ...meta,
           ids: union(meta.ids, [id]),
-          isFetching: false,
+          isFetchingNewComment: false,
         },
       };
   }

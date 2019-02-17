@@ -7,18 +7,15 @@ import withCommentsMetaContainer from '../../containers/CommentsMetaContainer';
 const CommentList = (props) => {
   const { commentsMeta } = props;
 
-  if (!commentsMeta || (commentsMeta.isFetching && commentsMeta.ids.length === 0)) {
+  if (!commentsMeta || (commentsMeta.isFetchingComments && commentsMeta.ids.length === 0)) {
     return <LoadingSpinner/>;
-  }
-
-  if (commentsMeta.ids.length === 0) {
-    return <p>댓글이 없어!</p>;
   }
 
   return (
     <ul className="CommentList">
       {commentsMeta.ids.map(id => <CommentListItem commentId={id} key={id}/>)}
-      {commentsMeta.isFetching && <LoadingSpinner key="isLoading"/>}
+      {commentsMeta.isFetchingComments && <LoadingSpinner key="isFetchingComments"/>}
+      {commentsMeta.isFetchingNewComment && <LoadingSpinner key="isFetchingNewComment"/>}
     </ul>
   );
 };
