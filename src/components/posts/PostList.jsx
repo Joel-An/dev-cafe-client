@@ -6,11 +6,41 @@ import { connectComponent } from '../../utils';
 
 import { fetchNextPagePosts as fetchNextPagePostsAction } from '../../store/actions/posts';
 
-
 import PostListItem from './PostListItem';
+import PostListNavPortal from './PostListNavPortal';
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 
+const createRef = () => React.createRef();
+
 class PostList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pageRefs: [],
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { postsMeta } = props;
+
+    if (!postsMeta) {
+      return null;
+    }
+
+    const { pages } = postsMeta;
+    const { pageRefs } = state;
+
+    if (pages.length > pageRefs.length) {
+      const diff = pages.length - pageRefs.length;
+      const newRefs = new Array(diff).fill(true).map(() => createRef());
+      return {
+        pageRefs: [...pageRefs, ...newRefs],
+      };
+    }
+
+    return null;
+  }
+
   componentDidMount() {
     window.addEventListener('scroll', this.onScroll, false);
   }
@@ -50,8 +80,14 @@ class PostList extends React.Component {
     }
   }
 
+  goToPage = index => () => {
+    const { pageRefs } = this.state;
+    window.scrollTo(0, pageRefs[index].current.offsetTop);
+  }
+
   render() {
     const { postsMeta, fetchNextPagePosts, categoryId } = this.props;
+    const { pageRefs } = this.state;
 
     if (!postsMeta || (postsMeta.isFetchingPosts && postsMeta.ids.length === 0)) {
       return <LoadingSpinner/>;
@@ -61,13 +97,31 @@ class PostList extends React.Component {
       return <p>글이 없어!</p>;
     }
 
+    const { pages } = postsMeta;
+
     return (
     <>
+    <PostListNavPortal>
+      { pages.map((id, index) => (
+        <button type="button" key={`pageNavButton${id}`} onClick={this.goToPage(index)}>
+          {index + 1}
+        </button>
+      ))
+      }
+    </PostListNavPortal>
     <ul className="postList" >
       {postsMeta.isFetchingNewPost && <LoadingSpinner key="fetchingNewPost"/>}
-      {postsMeta.ids.map(postId => (
-        <PostListItem postId={postId} key={postId}/>
-      ))
+      {postsMeta.ids.map((postId) => {
+        const pageIndex = pages.indexOf(postId);
+        if (pageIndex !== -1) {
+          return (
+            <PostListItem refProp={pageRefs[pageIndex]} postId={postId} key={postId}/>
+          );
+        }
+        return (
+          <PostListItem postId={postId} key={postId}/>
+        );
+      })
       }
       {postsMeta.isFetchingPosts && <LoadingSpinner key="fetchingPosts"/>}
     </ul>

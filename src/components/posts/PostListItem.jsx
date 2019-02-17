@@ -21,9 +21,9 @@ const renderUser = user => (
 );
 
 const PostListItem = (props) => {
-  const { post } = props;
+  const { post, refProp } = props;
   return (
-    <li title={post.title}>
+    <li title={post.title} ref={refProp}>
       <h1>
         <Link to={`posts/${post._id}`}>
           {post.title}
