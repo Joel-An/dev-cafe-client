@@ -9,8 +9,8 @@ const CommentArea = (props) => {
 
   return (
     <div className="CommentArea">
+      <WriteComment postId={postId} autofocus={false} key="defaultCommentForm"/>
       <CommentList postId={postId} />
-      <WriteComment postId={postId} autofocus={false}/>
     </div>
   );
 };
