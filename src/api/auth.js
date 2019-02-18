@@ -10,6 +10,16 @@ export const login = loginForm => axios
     throw err.response.data.message;
   });
 
+export const testerLogin = () => axios
+  .post('/api/v1/auth/tester')
+  .then((result) => {
+    const { accessToken } = result.data;
+    return accessToken;
+  })
+  .catch((err) => {
+    throw err.response.data.message;
+  });
+
 export const logout = () => Promise.resolve();
 // TODO: 백엔드에 로그아웃 구현이 안 돼있음.
 

@@ -66,11 +66,23 @@ class LoginPopup extends React.Component {
   }
 
   reqTesterLogin = () => {
-    const { openAlert } = this.props;
-    openAlert({
-      title: 'ㅎ_ㅎ;;',
-      message: '이것도 준비중입니다;',
-    });
+    const {
+      close, loginSucceeded, openAlert, addNotification,
+    } = this.props;
+
+    Api.testerLogin()
+      .then((token) => {
+        loginSucceeded(token);
+        close();
+        addNotification({
+          message: '이랏샤이마세!!!',
+        });
+      })
+      .catch((err) => {
+        openAlert({
+          message: err,
+        });
+      });
   }
 
   render() {
@@ -95,9 +107,11 @@ class LoginPopup extends React.Component {
             <button type="button" onClick={this.reqLoginWithGoogle}>
               구글로 로그인
             </button>
-            <button type="button" onClick={this.reqTesterLogin}>
+            <div className="tester-login in">
+              <button type="button" onClick={this.reqTesterLogin}>
               테스터 아이디로 로그인
-            </button>
+              </button>
+            </div>
           </div>
         </div>
       </Popup>
