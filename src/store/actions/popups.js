@@ -1,10 +1,11 @@
 import * as Types from '../types/popups';
 
-export const openLoginPopup = ({ pos }) => ({
+export const openLoginPopup = ({ pos, afterLogin }) => ({
   type: Types.OPEN_POPUP,
   popupType: Types.LOGIN_POPUP,
   popupProps: {
     pos,
+    afterLogin,
   },
 });
 

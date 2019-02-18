@@ -36,7 +36,7 @@ class LoginPopup extends React.Component {
     event.preventDefault();
     const { loginForm } = this.state;
     const {
-      close, loginSucceeded, openAlert, pos, addNotification,
+      close, loginSucceeded, openAlert, pos, addNotification, afterLogin,
     } = this.props;
 
     Api.login(loginForm)
@@ -46,6 +46,9 @@ class LoginPopup extends React.Component {
         addNotification({
           message: '이랏샤이마세!!!',
         });
+        if (typeof afterLogin === 'function') {
+          afterLogin();
+        }
       })
       .catch((err) => {
         openAlert({
