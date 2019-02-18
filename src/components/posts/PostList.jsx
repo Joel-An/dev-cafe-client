@@ -43,9 +43,18 @@ class PostList extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.onScroll, false);
+    this.fetchNextPageWhenCannotScroll();
   }
 
   componentDidUpdate() {
+    this.fetchNextPageWhenCannotScroll();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll, false);
+  }
+
+  fetchNextPageWhenCannotScroll = () => {
     const { postsMeta } = this.props;
     const { scrollHeight, offsetHeight } = document.body;
 
@@ -58,10 +67,6 @@ class PostList extends React.Component {
         this.fetchNextPage();
       }
     }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll, false);
   }
 
   fetchNextPage = () => {
