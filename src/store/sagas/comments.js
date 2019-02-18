@@ -10,7 +10,8 @@ import * as Selectors from '../selectors/comments';
 function* loadCommentsSaga(action) {
   const state = yield select();
   const { postId } = action;
-  const cache = state.pagination.commentsByPost[postId];
+  const cache = Selectors.selectCommentsMetaByPost(state, postId);
+
   if (cache) {
     yield put(Actions.loadCommentsSuccess());
   } else {
