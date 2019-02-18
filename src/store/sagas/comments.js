@@ -20,6 +20,42 @@ function* loadCommentsSaga(action) {
 
 const watchLoadComments = takeLatest(Types.LOAD_COMMENTS, loadCommentsSaga);
 
+function* checkCacheAndFetchNewChildComment(action) {
+  const state = yield select();
+  const { commentId, parentId, postId } = action;
+
+  const cache = Selectors.selectCommentById(state, parentId);
+  if (cache) {
+    yield put(Actions.fetchNewChildComment(commentId, parentId, postId));
+  }
+}
+
+function* checkCacheAndFetchNewParentComment(action) {
+  const state = yield select();
+  const { commentId, postId } = action;
+
+  const meta = Selectors.selectCommentsMetaByPost(state, postId);
+  // if(meta && meta.nextPageUrl)
+  if (meta) {
+    yield put(Actions.fetchNewParentComment(commentId, postId));
+  }
+}
+
+function* checkCacheAndFetchNewComment(action) {
+  const { isChild } = action;
+
+  if (isChild) {
+    yield checkCacheAndFetchNewChildComment(action);
+  } else {
+    yield checkCacheAndFetchNewParentComment(action);
+  }
+}
+
+const watchCheckCacheAndFetchNewComment = takeEvery(
+  Types.CHECK_CACHE_AND_FETCH_NEW_COMMENT,
+  checkCacheAndFetchNewComment,
+);
+
 function* checkCacheAndUpdate(action) {
   const state = yield select();
   const { commentId } = action;
@@ -52,6 +88,7 @@ const watchLoadEditingComment = takeEvery(Types.LOAD_EDITING_COMMENT, loadEditin
 const commentsSagas = [
   watchLoadComments,
   watchCheckCacheAndUpdate,
+  watchCheckCacheAndFetchNewComment,
   watchLoadEditingComment,
 ];
 

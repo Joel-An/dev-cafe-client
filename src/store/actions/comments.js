@@ -12,6 +12,7 @@ import {
   FETCH_NEW_CHILD_COMMENT_FAILURE,
   REMOVE_COMMENT,
   CHECK_CACHE_AND_UPDATE_COMMENT,
+  CHECK_CACHE_AND_FETCH_NEW_COMMENT,
   FETCH_UPDATED_COMMENT_REQUEST,
   FETCH_UPDATED_COMMENT_SUCCESS,
   FETCH_UPDATED_COMMENT_FAILURE,
@@ -24,15 +25,21 @@ import {
 import { CALL_API } from '../sagas/apiSaga';
 import Schemas from '../utils/schema';
 
-export const fetchComments = (postId, refreshCache = false) => ({
+export const fetchComments = postId => ({
   type: CALL_API,
   types: [FETCH_COMMENTS_REQUEST, FETCH_COMMENTS_SUCCESS, FETCH_COMMENTS_FAILURE],
   endpoint: `/comments?post=${postId}`,
   postId,
   method: 'get',
-  refreshCache,
   schema: Schemas.COMMENT_ARRAY,
 });
+
+export const fetchNextPageComments = (nextPageUrl, postId) => {
+  const action = fetchComments(postId);
+  action.endpoint = () => nextPageUrl;
+
+  return action;
+};
 
 export const fetchComment = (commentId, postId) => ({
   type: CALL_API,
@@ -41,6 +48,14 @@ export const fetchComment = (commentId, postId) => ({
   postId,
   method: 'get',
   schema: Schemas.COMMENT,
+});
+
+export const checkCacheAndFetchNewComment = (commentId, postId, parentId = false) => ({
+  type: CHECK_CACHE_AND_FETCH_NEW_COMMENT,
+  commentId,
+  postId,
+  parentId,
+  isChild: !!parentId,
 });
 
 export const fetchNewParentComment = (commentId, postId) => {
