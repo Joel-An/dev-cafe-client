@@ -35,8 +35,7 @@ function* checkCacheAndFetchNewParentComment(action) {
   const { commentId, postId } = action;
 
   const meta = Selectors.selectCommentsMetaByPost(state, postId);
-  // if(meta && meta.nextPageUrl)
-  if (meta) {
+  if (meta && !meta.nextPageUrl) {
     yield put(Actions.fetchNewParentComment(commentId, postId));
   }
 }
