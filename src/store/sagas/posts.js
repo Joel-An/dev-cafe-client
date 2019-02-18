@@ -10,8 +10,7 @@ import * as Selectors from '../selectors/posts';
 function* loadPostsSaga(action) {
   const state = yield select();
   const { category } = action;
-  const postsMeta = state.pagination.postsByCategory[category];
-  const cache = postsMeta && postsMeta.ids.length > 0;
+  const cache = Selectors.selectPostsMetaByCategory(state, category);
 
   if (cache) {
     yield put(Actions.loadPostsSuccess());

@@ -20,16 +20,15 @@ const getDefaultMeta = () => ({
   nextPageUrl: false,
 });
 
-const initialState = {
-  all: getDefaultMeta(),
-};
 
-const postsByCategory = (state = initialState, action) => {
+const postsByCategory = (state = {}, action) => {
   switch (action.type) {
   case FETCH_NEW_POST_REQUEST: {
     const key = mapActionToKey(action);
     const meta = state[key];
-    const { all } = state;
+
+    const all = state.all || getDefaultMeta();
+
     if (meta) {
       return {
         ...state,
