@@ -46,6 +46,16 @@ class WriteComment extends React.Component {
     const {
       token, postId, parent, openAlert, addNotification,
     } = this.props;
+
+    if (!token) {
+      openAlert({
+        message: '로그인 후 이용할 수 있습니다!',
+        loginButton: true,
+      });
+
+      return;
+    }
+
     const { contents } = this.state;
     const commentForm = {
       contents,

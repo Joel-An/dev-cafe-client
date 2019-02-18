@@ -5,6 +5,7 @@ import CategorySelector from '../categories/SelectCategory';
 import withTokenContainer from '../../containers/TokenContainer';
 import withAlertContainer from '../../containers/AlertContainer';
 import withAddNotification from '../notifications/WithAddNotification';
+import withLastVisitedCategoryIdContainer from '../../containers/LastVisitedCategoryIdContainer';
 import { connectComponent } from '../../utils';
 
 import { postPost } from '../../api/posts';
@@ -48,7 +49,7 @@ class Write extends React.Component {
     e.preventDefault();
     const { postForm } = this.state;
     const {
-      token, dispatch, openAlert, addNotification,
+      token, openAlert, addNotification,
     } = this.props;
     postPost(postForm, token)
       .then(() => {
@@ -105,6 +106,21 @@ class Write extends React.Component {
 
   render() {
     const { postForm, redirect, uploadedImageLink } = this.state;
+    const { token, openAlert, lastVisitedCategoryId } = this.props;
+
+    if (!token) {
+      openAlert({
+        message: '로그인 후 이용할 수 있습니다!',
+        loginButton: true,
+      });
+
+      return (
+        <Redirect to={{
+          pathname: '/posts',
+          search: `category=${lastVisitedCategoryId}`,
+        }}/>
+      );
+    }
 
     if (redirect) {
       return <Redirect to={{
@@ -153,4 +169,5 @@ export default connectComponent(Write,
     withAlertContainer,
     withAddNotification,
     withTokenContainer,
+    withLastVisitedCategoryIdContainer,
   ]);
