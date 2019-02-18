@@ -9,11 +9,14 @@ import LoginButton from './LoginButton';
 
 import './Header.scss';
 
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
+const withTitle = (profileName) => {
+  if (profileName.endsWith('님')) {
+    return profileName;
   }
+  return `${profileName}님`;
+};
 
+class Header extends React.Component {
   componentDidMount() {
     const { token, fetchUserInfo } = this.props;
     if (token) {
@@ -38,7 +41,7 @@ class Header extends React.Component {
         </h1>
         <nav className="header-menu">
           <span className="greeting">
-            {!profileName || `${profileName}님`} 안녕하세요
+            {!profileName || `${withTitle(profileName)}`} 안녕하세요
           </span>
           {!profileName
             ? <>
