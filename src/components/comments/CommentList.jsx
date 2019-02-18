@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import CommentListItem from './CommentListItem';
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import withCommentsMetaContainer from '../../containers/CommentsMetaContainer';
+import { connectComponent } from '../../utils';
+
+import { fetchNextPageComments as fetchNextPageCommentsAction } from '../../store/actions/comments';
 
 const CommentList = (props) => {
   const { commentsMeta } = props;
@@ -20,4 +24,10 @@ const CommentList = (props) => {
   );
 };
 
-export default withCommentsMetaContainer(CommentList);
+const mapDispatchToProps = { fetchNextPageComments: fetchNextPageCommentsAction };
+
+export default connectComponent(CommentList,
+  [
+    connect(null, mapDispatchToProps),
+    withCommentsMetaContainer,
+  ]);
