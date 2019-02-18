@@ -4,9 +4,12 @@ import {
   FETCH_COMMENTS_REQUEST,
   FETCH_COMMENTS_SUCCESS,
   FETCH_COMMENTS_FAILURE,
-  FETCH_NEW_COMMENT_REQUEST,
-  FETCH_NEW_COMMENT_SUCCESS,
-  FETCH_NEW_COMMENT_FAILURE,
+  FETCH_NEW_PARENT_COMMENT_REQUEST,
+  FETCH_NEW_PARENT_COMMENT_SUCCESS,
+  FETCH_NEW_PARENT_COMMENT_FAILURE,
+  FETCH_NEW_CHILD_COMMENT_REQUEST,
+  FETCH_NEW_CHILD_COMMENT_SUCCESS,
+  FETCH_NEW_CHILD_COMMENT_FAILURE,
   REMOVE_COMMENT,
   CHECK_CACHE_AND_UPDATE_COMMENT,
   FETCH_UPDATED_COMMENT_REQUEST,
@@ -31,16 +34,37 @@ export const fetchComments = (postId, refreshCache = false) => ({
   schema: Schemas.COMMENT_ARRAY,
 });
 
-export const fetchComment = (commentId, parentId, postId) => ({
+export const fetchComment = (commentId, postId) => ({
   type: CALL_API,
-  types: [FETCH_NEW_COMMENT_REQUEST, FETCH_NEW_COMMENT_SUCCESS, FETCH_NEW_COMMENT_FAILURE],
   endpoint: `/comments/${commentId}`,
   commentId,
-  parentId,
   postId,
   method: 'get',
   schema: Schemas.COMMENT,
 });
+
+export const fetchNewParentComment = (commentId, postId) => {
+  const action = fetchComment(commentId, postId);
+  action.types = [
+    FETCH_NEW_PARENT_COMMENT_REQUEST,
+    FETCH_NEW_PARENT_COMMENT_SUCCESS,
+    FETCH_NEW_PARENT_COMMENT_FAILURE,
+  ];
+
+  return action;
+};
+
+export const fetchNewChildComment = (commentId, parentId, postId) => {
+  const action = fetchComment(commentId, postId);
+  action.types = [
+    FETCH_NEW_CHILD_COMMENT_REQUEST,
+    FETCH_NEW_CHILD_COMMENT_SUCCESS,
+    FETCH_NEW_CHILD_COMMENT_FAILURE,
+  ];
+  action.parentId = parentId;
+
+  return action;
+};
 
 export const checkCacheAndUpdateComment = commentId => ({
   type: CHECK_CACHE_AND_UPDATE_COMMENT,

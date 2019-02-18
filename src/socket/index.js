@@ -7,7 +7,8 @@ import {
   checkCacheAndUpdatePost,
 } from '../store/actions/posts';
 import {
-  fetchComment,
+  fetchNewParentComment,
+  fetchNewChildComment,
   removeComment,
   checkCacheAndUpdateComment,
 } from '../store/actions/comments';
@@ -41,7 +42,13 @@ const setHandler = (socket, store) => {
   });
 
   socket.on('NEW_COMMENT', (data) => {
-    store.dispatch(fetchComment(data.commentId, data.parentId, data.postId));
+    const { commentId, parentId, postId } = data;
+
+    if (parentId) {
+      store.dispatch(fetchNewChildComment(commentId, parentId, postId));
+    }
+
+    store.dispatch(fetchNewParentComment(commentId, postId));
   });
 
   socket.on('DELETE_COMMENT', (data) => {

@@ -1,7 +1,8 @@
 import merge from 'lodash/merge';
 
 import {
-  FETCH_NEW_COMMENT_SUCCESS,
+  FETCH_NEW_CHILD_COMMENT_SUCCESS,
+  FETCH_NEW_PARENT_COMMENT_SUCCESS,
   FETCH_COMMENTS_SUCCESS,
   REMOVE_COMMENT,
   FETCH_UPDATED_COMMENT_SUCCESS,
@@ -68,7 +69,8 @@ const updateComment = (state, action) => {
 
 const commentsReducer = (state = {}, action) => {
   switch (action.type) {
-  case FETCH_NEW_COMMENT_SUCCESS: {
+  case FETCH_NEW_CHILD_COMMENT_SUCCESS:
+  case FETCH_NEW_PARENT_COMMENT_SUCCESS: {
     return addComment(state, action);
   }
   case FETCH_COMMENTS_SUCCESS: {
