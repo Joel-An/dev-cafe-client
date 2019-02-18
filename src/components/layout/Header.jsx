@@ -73,7 +73,14 @@ const mapStateToProps = ({ auth }) => ({
 const mapDispatchToProps = { fetchUserInfo: fetchUserInfoAction };
 
 Header.propTypes = {
-  token: PropTypes.string.isRequired,
+  token: PropTypes.string,
+  profileName: PropTypes.string,
+  fetchUserInfo: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+  token: null,
+  profileName: null,
 };
 
 export default connect(
