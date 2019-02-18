@@ -1,11 +1,12 @@
 import React from 'react';
 
 import Popup from './Popup';
+import LoginButton from '../layout/LoginButton';
 import './AlertPopup.scss';
 
 const AlertPopup = (props) => {
   const {
-    close, pos, message, title,
+    close, pos, message, title, loginButton,
   } = props;
 
   return (
@@ -14,6 +15,7 @@ const AlertPopup = (props) => {
         <span className="alert-message">
           {message}
         </span>
+        {loginButton && <LoginButton afterLogin={() => close()}/>}
       </div>
     </Popup>
   );

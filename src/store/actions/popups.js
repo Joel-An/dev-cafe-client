@@ -14,13 +14,16 @@ export const closePopup = popupType => ({
   popupType,
 });
 
-export const openAlert = ({ title, message, pos }) => ({
+export const openAlert = ({
+  title, message, pos, loginButton,
+}) => ({
   type: Types.OPEN_POPUP,
   popupType: Types.ALERT_POPUP,
   popupProps: {
     title,
     message,
     pos,
+    loginButton,
   },
 });
 
