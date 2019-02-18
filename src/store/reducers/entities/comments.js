@@ -1,7 +1,9 @@
 import merge from 'lodash/merge';
 
 import {
+  FETCH_NEW_CHILD_COMMENT_REQUEST,
   FETCH_NEW_CHILD_COMMENT_SUCCESS,
+  FETCH_NEW_CHILD_COMMENT_FAILURE,
   FETCH_NEW_PARENT_COMMENT_SUCCESS,
   FETCH_COMMENTS_SUCCESS,
   REMOVE_COMMENT,
@@ -38,7 +40,11 @@ const addToParent = (state, child) => {
   if (!parent.childComments.includes(child._id)) {
     return {
       ...state,
-      [parent._id]: { ...parent, childComments: parent.childComments.concat(child._id) },
+      [parent._id]: {
+        ...parent,
+        isFetchingNewChildComment: false,
+        childComments: parent.childComments.concat(child._id),
+      },
     };
   }
   return state;
@@ -69,6 +75,30 @@ const updateComment = (state, action) => {
 
 const commentsReducer = (state = {}, action) => {
   switch (action.type) {
+  case FETCH_NEW_CHILD_COMMENT_REQUEST: {
+    const { parentId } = action;
+    const parentComment = state[parentId];
+
+    return {
+      ...state,
+      [parentId]: {
+        ...parentComment,
+        isFetchingNewChildComment: true,
+      },
+    };
+  }
+  case FETCH_NEW_CHILD_COMMENT_FAILURE: {
+    const { parentId } = action;
+    const parentComment = state[parentId];
+
+    return {
+      ...state,
+      [parentId]: {
+        ...parentComment,
+        isFetchingNewChildComment: false,
+      },
+    };
+  }
   case FETCH_NEW_CHILD_COMMENT_SUCCESS:
   case FETCH_NEW_PARENT_COMMENT_SUCCESS: {
     return addComment(state, action);

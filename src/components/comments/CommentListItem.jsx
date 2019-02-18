@@ -4,6 +4,7 @@ import dateFormat from 'dateformat';
 import withCommentContainer from '../../containers/CommentContainer';
 import withMyInfoContainer from '../../containers/MyInfoContainer';
 
+import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import ChildCommentList from './ChildCommentList';
 import WriteComment from './WriteComment';
 import DeleteComment from './DeleteComment';
@@ -49,6 +50,7 @@ class CommentListItem extends React.Component {
     const { comment, myInfo } = this.props;
 
     const isMyComment = (comment.author === myInfo._id);
+    const { isFetchingNewChildComment } = comment;
 
     return (
       <li key={comment._id} className="CommentListItem">
@@ -70,6 +72,7 @@ class CommentListItem extends React.Component {
           }
         </div>
         <ChildCommentList childCommentIds={comment.childComments}/>
+        {isFetchingNewChildComment && <LoadingSpinner center/> }
         {!addReply || <div className="addReply">
           <WriteComment
             postId={comment.post}
