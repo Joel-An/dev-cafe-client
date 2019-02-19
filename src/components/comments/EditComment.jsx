@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
@@ -110,6 +111,7 @@ EditComment.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
   addNotification: addNotificationPropType.type.isRequired,
+  offEditMode: PropTypes.func.isRequired,
 };
 
 EditComment.defaultProps = {

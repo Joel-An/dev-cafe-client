@@ -91,6 +91,7 @@ WriteComment.propTypes = {
   addNotification: addNotificationPropType.type.isRequired,
   postId: PropTypes.string,
   parent: PropTypes.string,
+  autofocus: PropTypes.bool.isRequired,
 };
 
 WriteComment.defaultProps = {

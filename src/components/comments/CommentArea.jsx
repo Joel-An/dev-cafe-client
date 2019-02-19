@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
+import { postIdPropType } from '../../containers/PostContainer';
 import CommentList from './CommentList';
 import WriteComment from './WriteComment';
 
@@ -13,6 +13,10 @@ const CommentArea = (props) => {
       <CommentList postId={postId} />
     </div>
   );
+};
+
+CommentArea.propTypes = {
+  postId: postIdPropType.isRequired,
 };
 
 export default CommentArea;

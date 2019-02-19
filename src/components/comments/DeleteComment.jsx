@@ -3,6 +3,7 @@ import React from 'react';
 import { deleteComment } from '../../api/comments';
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import { commentIdPropType } from '../../containers/WithComment';
 
 import { connectComponent } from '../../utils';
 
@@ -38,6 +39,7 @@ const DeleteComment = (props) => {
 DeleteComment.propTypes = {
   token: tokenPropType.type,
   addNotification: addNotificationPropType.type.isRequired,
+  commentId: commentIdPropType.isRequired,
 };
 
 DeleteComment.defaultProps = {

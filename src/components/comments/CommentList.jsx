@@ -1,10 +1,14 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import CommentListItem from './CommentListItem';
 import WriteComment from './WriteComment';
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
+
 import withCommentsMetaContainer from '../../containers/CommentsMetaContainer';
+import { postIdPropType } from '../../containers/PostContainer';
+
 import { connectComponent } from '../../utils';
 
 import { fetchNextPageComments as fetchNextPageCommentsAction } from '../../store/actions/comments';
@@ -72,6 +76,11 @@ class CommentList extends React.Component {
     );
   }
 }
+
+CommentList.propTypes = {
+  postId: postIdPropType.isRequired,
+  fetchNextPageComments: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = { fetchNextPageComments: fetchNextPageCommentsAction };
 
