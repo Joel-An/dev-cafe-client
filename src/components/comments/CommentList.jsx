@@ -6,7 +6,7 @@ import CommentListItem from './CommentListItem';
 import WriteComment from './WriteComment';
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 
-import withCommentsMetaContainer from '../../containers/CommentsMetaContainer';
+import withCommentsMetaContainer, { CommentsMetaContainerPropTypes, CommentsMetaContainerDefaultProps } from '../../containers/CommentsMetaContainer';
 import { postIdPropType } from '../../containers/PostContainer';
 
 import { connectComponent } from '../../utils';
@@ -80,6 +80,11 @@ class CommentList extends React.Component {
 CommentList.propTypes = {
   postId: postIdPropType.isRequired,
   fetchNextPageComments: PropTypes.func.isRequired,
+  commentsMeta: CommentsMetaContainerPropTypes.commentsMeta,
+};
+
+CommentList.defaultProps = {
+  commentsMeta: CommentsMetaContainerDefaultProps.commentsMeta,
 };
 
 const mapDispatchToProps = { fetchNextPageComments: fetchNextPageCommentsAction };
