@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import withPostContainer from '../../containers/PostContainer';
 import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
-import withLastVisitedCategoryIdContainer from '../../containers/LastVisitedCategoryIdContainer';
+import withLastVisitedCategoryId, { lastVisitedCategoryIdPropType } from '../../containers/WithLastVisitedCategoryId';
 import { connectComponent } from '../../utils';
 
 import Category from '../categories/Category';
@@ -65,15 +65,17 @@ const PostView = (props) => {
 
 PostView.propTypes = {
   myInfo: myInfoPropType.type,
+  lastVisitedCategoryId: lastVisitedCategoryIdPropType.type,
 };
 
 PostView.defaultProps = {
   myInfo: myInfoPropType.default,
+  lastVisitedCategoryId: lastVisitedCategoryIdPropType.default,
 };
 
 export default connectComponent(PostView,
   [
     withMyInfo,
-    withLastVisitedCategoryIdContainer,
+    withLastVisitedCategoryId,
     withPostContainer,
   ]);

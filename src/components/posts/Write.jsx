@@ -5,7 +5,7 @@ import CategorySelector from '../categories/SelectCategory';
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withAddNotification from '../notifications/WithAddNotification';
-import withLastVisitedCategoryIdContainer from '../../containers/LastVisitedCategoryIdContainer';
+import withLastVisitedCategoryId, { lastVisitedCategoryIdPropType } from '../../containers/WithLastVisitedCategoryId';
 import { connectComponent } from '../../utils';
 
 import { postPost } from '../../api/posts';
@@ -167,10 +167,12 @@ class Write extends React.Component {
 Write.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
+  lastVisitedCategoryId: lastVisitedCategoryIdPropType.type,
 };
 
 Write.defaultProps = {
   token: tokenPropType.default,
+  lastVisitedCategoryId: lastVisitedCategoryIdPropType.default,
 };
 
 export default connectComponent(Write,
@@ -178,5 +180,5 @@ export default connectComponent(Write,
     withOpenAlert,
     withAddNotification,
     withToken,
-    withLastVisitedCategoryIdContainer,
+    withLastVisitedCategoryId,
   ]);

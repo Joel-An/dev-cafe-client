@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import withCategoriesContainer from '../../containers/CategoriesContainer';
-import withLastVisitedCategoryIdContainer from '../../containers/LastVisitedCategoryIdContainer';
+import withLastVisitedCategoryId, { lastVisitedCategoryIdPropType } from '../../containers/WithLastVisitedCategoryId';
+import { connectComponent } from '../../utils';
 
 import './CategoryMenu.scss';
 
@@ -75,8 +77,15 @@ const Category = PropTypes.shape({
 CategoryMenu.propTypes = {
   categories: PropTypes.objectOf(Category).isRequired,
   parentCategoryIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  lastVisitedCategoryId: lastVisitedCategoryIdPropType.type,
 };
 
-const CategortMenuWithLastVisited = withLastVisitedCategoryIdContainer(CategoryMenu);
+CategoryMenu.defaultProps = {
+  lastVisitedCategoryId: lastVisitedCategoryIdPropType.default,
+};
 
-export default withCategoriesContainer(CategortMenuWithLastVisited);
+export default connectComponent(CategoryMenu,
+  [
+    withLastVisitedCategoryId,
+    withCategoriesContainer,
+  ]);
