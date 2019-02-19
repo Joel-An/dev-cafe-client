@@ -13,11 +13,11 @@ import {
 import { selectEditingCommentById } from '../store/selectors/comments';
 
 export const EditingCommentContainerPropTypes = {
-  loadEditingComment: PropTypes.func.isRequired,
-  saveEditingComment: PropTypes.func.isRequired,
-  editingCommentDone: PropTypes.func.isRequired,
+  loadEditingComment: PropTypes.func,
+  saveEditingComment: PropTypes.func,
+  editingCommentDone: PropTypes.func,
   editingComment: PropTypes.shape({
-    _id: commentIdPropType,
+    _id: commentIdPropType.isRequired,
     post: postIdPropType.isRequired,
     contents: PropTypes.string.isRequired,
   }),
@@ -29,10 +29,6 @@ export const EditingCommentContainerDefaultProps = {
 
 export default function withEditingCommentContainer(ComposedComponent) {
   class EditingCommentContainer extends React.Component {
-    static propTypes = EditingCommentContainerPropTypes;
-
-    static defaultProps = EditingCommentContainerDefaultProps;
-
     constructor(props) {
       super(props);
 
