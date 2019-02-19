@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import withCategoriesContainer, { CategoriesContainerPropTypes, CategoriesContainerDefaultProps } from '../../containers/CategoriesContainer';
-// TODO: Fragment <></> 삭제. 코드를 더 깔끔하게...
 
 const renderCategory = category => (
   <option key={category._id} value={category._id}>{category.name}</option>
@@ -15,13 +14,13 @@ const rederSubCategories = (categories, id) => {
   }
 
   return (
-    <>
+    <Fragment>
       {parent.children.map(childId => (
         <option key={childId} value={childId}>
           {`ㄴ${categories[childId].name}`}
         </option>
       ))}
-    </>
+    </Fragment>
   );
 };
 
@@ -60,12 +59,12 @@ class SelectCategory extends React.Component {
     return (
       <select value={selectedCategory} onChange={onChange}>
         {isEmpty
-          ? <option key="Loading" value="loading">Loading...</option>
+          ? <option key="Loading">Loading...</option>
           : parentCategoryIds.map(id => (
-          <>
-            {renderCategory(categories[id])}
-            {rederSubCategories(categories, id)}
-          </>
+            <Fragment key={`category${id}withSubCategories`}>
+              {renderCategory(categories[id])}
+              {rederSubCategories(categories, id)}
+            </Fragment>
           ))
         }
       </select>
