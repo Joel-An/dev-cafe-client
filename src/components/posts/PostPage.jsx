@@ -19,7 +19,7 @@ const PostPage = (props) => {
 };
 
 PostPage.propTypes = {
-  match: ReactRouterPropTypes.history.isRequired,
+  match: ReactRouterPropTypes.match.isRequired,
 };
 
 export default PostPage;

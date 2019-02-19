@@ -24,7 +24,7 @@ const PostListPage = (props) => {
 };
 
 PostListPage.propTypes = {
-  location: ReactRouterPropTypes.history.isRequired,
+  location: ReactRouterPropTypes.location.isRequired,
 };
 
 export default PostListPage;
