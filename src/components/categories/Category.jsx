@@ -1,5 +1,6 @@
 import React from 'react';
-import withCategoryContainer from '../../containers/CategoryContainer';
+import PropTypes from 'prop-types';
+import withCategory, { categoryPropType } from '../../containers/WithCategory';
 
 const Category = (props) => {
   const { category, renderCategory } = props;
@@ -11,4 +12,9 @@ const Category = (props) => {
   return renderCategory(category);
 };
 
-export default withCategoryContainer(Category);
+Category.propTypes = {
+  category: categoryPropType.type.isRequired,
+  renderCategory: PropTypes.func.isRequired,
+};
+
+export default withCategory(Category);
