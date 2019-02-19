@@ -2,7 +2,8 @@ import React from 'react';
 import dateFormat from 'dateformat';
 
 import withCommentContainer from '../../containers/CommentContainer';
-import withMyInfoContainer from '../../containers/MyInfoContainer';
+import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
+import { connectComponent } from '../../utils';
 
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import ChildCommentList from './ChildCommentList';
@@ -86,7 +87,16 @@ class CommentListItem extends React.Component {
   }
 }
 
-const CommentListItemWithMyInfo = withMyInfoContainer(CommentListItem);
-const ConnectedCommentListItem = withCommentContainer(CommentListItemWithMyInfo);
+CommentListItem.propTypes = {
+  myInfo: myInfoPropType.type,
+};
 
-export default ConnectedCommentListItem;
+CommentListItem.defaultProps = {
+  myInfo: myInfoPropType.default,
+};
+
+export default connectComponent(CommentListItem,
+  [
+    withMyInfo,
+    withCommentContainer,
+  ]);

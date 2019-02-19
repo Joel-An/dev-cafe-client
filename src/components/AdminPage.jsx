@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import withOpenAlert, { openAlertPropType } from '../containers/WithOpenAlert';
-import withMyInfoContainer from '../containers/MyInfoContainer';
+import withMyInfo, { myInfoPropType } from '../containers/WithMyInfo';
 
 import { connectComponent } from '../utils';
 
@@ -22,10 +22,15 @@ const AdminPage = (props) => {
 
 AdminPage.propTypes = {
   openAlert: openAlertPropType.type.isRequired,
+  myInfo: myInfoPropType.type,
+};
+
+AdminPage.defaultProps = {
+  myInfo: myInfoPropType.default,
 };
 
 export default connectComponent(AdminPage,
   [
     withOpenAlert,
-    withMyInfoContainer,
+    withMyInfo,
   ]);
