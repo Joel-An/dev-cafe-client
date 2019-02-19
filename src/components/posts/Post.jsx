@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withPostContainer, { postPropType } from '../../containers/PostContainer';
+import withPostContainer, { postPropInfo } from '../../containers/PostContainer';
 
 const Post = (props) => {
   const { post, renderPost } = props;
@@ -9,7 +9,7 @@ const Post = (props) => {
 };
 
 Post.propTypes = {
-  post: postPropType.type.isRequired,
+  post: postPropInfo.type.isRequired,
   renderPost: PropTypes.func.isRequired,
 };
 

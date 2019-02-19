@@ -46,7 +46,7 @@ export default function withPostContainer(ComposedComponent) {
 
 export const postIdPropType = PropTypes.string;
 
-export const postPropType = {
+export const postPropInfo = {
   type: PropTypes.shape({
     _id: postIdPropType.isRequired,
     category: categoryIdPropType.isRequired,

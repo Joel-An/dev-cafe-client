@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import dateFormat from 'dateformat';
 
 import withPostListItem from '../../containers/WithPostListItem';
-import { postPropType } from '../../containers/PostContainer';
+import { postPropInfo } from '../../containers/PostContainer';
 
 import Category from '../categories/Category';
 import User from '../users/User';
@@ -42,7 +42,7 @@ const PostListItem = (props) => {
 };
 
 PostListItem.propTypes = {
-  post: postPropType.type.isRequired,
+  post: postPropInfo.type.isRequired,
 };
 
 export default withPostListItem(PostListItem);

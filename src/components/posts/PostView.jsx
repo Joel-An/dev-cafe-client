@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import withPostContainer from '../../containers/PostContainer';
+import withPostContainer, { postPropInfo } from '../../containers/PostContainer';
 import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
 import withLastVisitedCategoryId, { lastVisitedCategoryIdPropType } from '../../containers/WithLastVisitedCategoryId';
 import { connectComponent } from '../../utils';
@@ -66,6 +66,7 @@ const PostView = (props) => {
 PostView.propTypes = {
   myInfo: myInfoPropType.type,
   lastVisitedCategoryId: lastVisitedCategoryIdPropType.type,
+  post: postPropInfo.type.isRequired,
 };
 
 PostView.defaultProps = {
