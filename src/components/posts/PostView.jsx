@@ -49,13 +49,17 @@ const PostView = (props) => {
         {isMyPost
         && <>
           <DeletePost postId={post._id} categoryId={lastVisitedCategoryId}/>
-          <button type="button">
-            <Link to={`/edit/${post._id}`}>수정</Link>
-          </button>
+            <Link to={`/edit/${post._id}`}>
+              <button type="button">
+                수정
+              </button>
+            </Link>
         </>}
-        <button type="button">
-          <Link to={`/posts?category=${lastVisitedCategoryId}`}>목록</Link>
-        </button>
+        <Link to={`/posts?category=${lastVisitedCategoryId}`}>
+          <button type="button">
+            목록
+          </button>
+        </Link>
       </div>
 
 

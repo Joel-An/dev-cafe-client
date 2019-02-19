@@ -15,9 +15,11 @@ const PostListPage = (props) => {
 
   return (
     <div className="PostListPage">
-      <button type="button">
-        <Link to={`/write/${categoryId}`}>글쓰기</Link>
-      </button>
+      <Link to={`/write/${categoryId}`}>
+        <button type="button">
+          글쓰기
+        </button>
+      </Link>
       <PostList categoryId={categoryId}/>
     </div>
   );
