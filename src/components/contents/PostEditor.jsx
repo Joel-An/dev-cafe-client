@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Editor from './Editor';
 import Viewer from './Viewer';
@@ -22,5 +23,13 @@ class PostEditor extends React.PureComponent {
     );
   }
 }
+
+PostEditor.propTypes = {
+  contents: PropTypes.string,
+};
+
+PostEditor.defaultProps = {
+  contents: '',
+};
 
 export default PostEditor;

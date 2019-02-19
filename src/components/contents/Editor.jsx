@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 
 import 'codemirror/lib/codemirror.css';
@@ -52,12 +53,25 @@ class Editor extends React.Component {
          onBeforeChange={(editor, data, value) => {
            onChange(value);
          }}
-         onChange={(editor, data, value) => {
-         }}
          editorDidMount={this.editorDidMount}
        />
      );
    }
 }
+
+Editor.propTypes = {
+  insertText: PropTypes.string,
+  clearInsertText: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
+  contents: PropTypes.string,
+  autofocus: PropTypes.bool,
+};
+
+Editor.defaultProps = {
+  insertText: undefined,
+  clearInsertText: undefined,
+  contents: '',
+  autofocus: undefined,
+};
 
 export default Editor;
