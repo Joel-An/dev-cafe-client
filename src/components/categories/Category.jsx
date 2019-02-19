@@ -13,8 +13,12 @@ const Category = (props) => {
 };
 
 Category.propTypes = {
-  category: categoryPropType.type.isRequired,
+  category: categoryPropType.type,
   renderCategory: PropTypes.func.isRequired,
+};
+
+Category.defaultProps = {
+  category: categoryPropType.default,
 };
 
 export default withCategory(Category);

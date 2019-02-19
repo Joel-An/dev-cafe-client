@@ -24,4 +24,5 @@ export const categoryPropType = {
     name: PropTypes.string.isRequired,
     children: PropTypes.arrayOf(categoryIdPropType),
   }),
+  default: undefined,
 };

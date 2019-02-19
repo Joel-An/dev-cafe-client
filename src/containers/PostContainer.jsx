@@ -55,4 +55,5 @@ export const postPropInfo = {
     date: PropTypes.string.isRequired,
     contents: PropTypes.string,
   }),
+  default: undefined,
 };

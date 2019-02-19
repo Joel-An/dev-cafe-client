@@ -66,12 +66,13 @@ const PostView = (props) => {
 PostView.propTypes = {
   myInfo: myInfoPropType.type,
   lastVisitedCategoryId: lastVisitedCategoryIdPropType.type,
-  post: postPropInfo.type.isRequired,
+  post: postPropInfo.type,
 };
 
 PostView.defaultProps = {
   myInfo: myInfoPropType.default,
   lastVisitedCategoryId: lastVisitedCategoryIdPropType.default,
+  post: postPropInfo.default,
 };
 
 export default connectComponent(PostView,
