@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import withCategoriesContainer from '../../containers/CategoriesContainer';
+import withCategoriesContainer, { CategoriesContainerPropTypes, CategoriesContainerDefaultProps } from '../../containers/CategoriesContainer';
 // TODO: Fragment <></> 삭제. 코드를 더 깔끔하게...
 
 const renderCategory = category => (
@@ -40,7 +40,6 @@ const SelectCategory = (props) => {
     onSelect(e.target.value);
   };
 
-
   return (
     <select value={selectedCategory} onChange={onChange}>
       {isEmpty
@@ -56,20 +55,16 @@ const SelectCategory = (props) => {
   );
 };
 
-const Category = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  parent: PropTypes.string, // default: null
-  isChild: PropTypes.bool.isRequired,
-  children: PropTypes.arrayOf(PropTypes.string).isRequired,
-});
-
 SelectCategory.propTypes = {
-  categories: PropTypes.objectOf(Category).isRequired,
-  parentCategoryIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  categories: CategoriesContainerPropTypes.categories,
+  parentCategoryIds: CategoriesContainerPropTypes.parentCategoryIds,
   onSelect: PropTypes.func.isRequired,
   selectedCategory: PropTypes.string.isRequired,
 };
 
+SelectCategory.defaultProps = {
+  categories: CategoriesContainerDefaultProps.categories,
+  parentCategoryIds: CategoriesContainerDefaultProps.parentCategoryIds,
+};
 
 export default withCategoriesContainer(SelectCategory);

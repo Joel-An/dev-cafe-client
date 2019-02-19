@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CreateCategory from './CreateCategory';
 import DeleteCategory from './DeleteCategory';
-import withCategoriesContainer from '../../containers/CategoriesContainer';
+
+import withCategoriesContainer, { CategoriesContainerPropTypes, CategoriesContainerDefaultProps } from '../../containers/CategoriesContainer';
 
 import './CategoryManager.scss';
 
@@ -59,17 +59,14 @@ const CategoryManager = (props) => {
   );
 };
 
-const Category = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  parent: PropTypes.string, // default: null
-  isChild: PropTypes.bool.isRequired,
-  children: PropTypes.arrayOf(PropTypes.string).isRequired,
-});
-
 CategoryManager.propTypes = {
-  categories: PropTypes.objectOf(Category).isRequired,
-  parentCategoryIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  categories: CategoriesContainerPropTypes.categories,
+  parentCategoryIds: CategoriesContainerPropTypes.parentCategoryIds,
+};
+
+CategoryManager.defaultProps = {
+  categories: CategoriesContainerDefaultProps.categories,
+  parentCategoryIds: CategoriesContainerDefaultProps.parentCategoryIds,
 };
 
 export default withCategoriesContainer(CategoryManager);

@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import withCategoriesContainer from '../../containers/CategoriesContainer';
+import withCategoriesContainer, { CategoriesContainerPropTypes, CategoriesContainerDefaultProps } from '../../containers/CategoriesContainer';
 import withLastVisitedCategoryId, { lastVisitedCategoryIdPropType } from '../../containers/WithLastVisitedCategoryId';
 import { connectComponent } from '../../utils';
 
@@ -66,21 +65,15 @@ const CategoryMenu = ({ categories, parentCategoryIds, lastVisitedCategoryId }) 
   );
 };
 
-const Category = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  parent: PropTypes.string, // default: null
-  isChild: PropTypes.bool.isRequired,
-  children: PropTypes.arrayOf(PropTypes.string).isRequired,
-});
-
 CategoryMenu.propTypes = {
-  categories: PropTypes.objectOf(Category).isRequired,
-  parentCategoryIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  categories: CategoriesContainerPropTypes.categories,
+  parentCategoryIds: CategoriesContainerPropTypes.parentCategoryIds,
   lastVisitedCategoryId: lastVisitedCategoryIdPropType.type,
 };
 
 CategoryMenu.defaultProps = {
+  categories: CategoriesContainerDefaultProps.categories,
+  parentCategoryIds: CategoriesContainerDefaultProps.parentCategoryIds,
   lastVisitedCategoryId: lastVisitedCategoryIdPropType.default,
 };
 
