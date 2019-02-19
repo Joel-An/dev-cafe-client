@@ -7,8 +7,6 @@ import {
   checkCacheAndUpdatePost,
 } from '../store/actions/posts';
 import {
-  fetchNewParentComment,
-  fetchNewChildComment,
   checkCacheAndFetchNewComment,
   removeComment,
   checkCacheAndUpdateComment,
