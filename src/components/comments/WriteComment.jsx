@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
-import withAddNotification from '../notifications/WithAddNotification';
+import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
 
 import { connectComponent } from '../../utils';
 
@@ -88,6 +88,7 @@ class WriteComment extends React.Component {
 WriteComment.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
+  addNotification: addNotificationPropType.type.isRequired,
   postId: PropTypes.string,
   parent: PropTypes.string,
 };

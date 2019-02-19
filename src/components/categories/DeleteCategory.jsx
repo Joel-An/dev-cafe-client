@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withToken, { tokenPropType } from '../../containers/WithToken';
-import withAddNotification from '../notifications/WithAddNotification';
+import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
 
 import { connectComponent } from '../../utils';
 
@@ -38,6 +38,7 @@ const DeleteCategory = (props) => {
 DeleteCategory.propTypes = {
   id: PropTypes.string.isRequired,
   token: tokenPropType.type,
+  addNotification: addNotificationPropType.type.isRequired,
 };
 
 DeleteCategory.defaultProps = {

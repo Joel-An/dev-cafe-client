@@ -3,7 +3,7 @@ import React from 'react';
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withEditingCommentContainer from '../../containers/EditingCommentContainer';
-import withAddNotification from '../notifications/WithAddNotification';
+import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
 
 import { connectComponent } from '../../utils';
 import * as Api from '../../api/comments';
@@ -109,6 +109,7 @@ class EditComment extends React.Component {
 EditComment.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
+  addNotification: addNotificationPropType.type.isRequired,
 };
 
 EditComment.defaultProps = {

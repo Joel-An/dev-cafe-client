@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
-import React from 'react';
+import PropTypes from 'prop-types';
 
 import { addNotification } from '../../store/actions/notifications';
 
-export default function WithAddNotification(ComposedComponent) {
-  const AddNotification = props => (
-    <ComposedComponent {...props} />
-  );
+const mapDispatchToProps = { addNotification };
 
-  const mapDispatchToProps = { addNotification };
-
-  return connect(null, mapDispatchToProps)(AddNotification);
+export default function WithAddNotification(Component) {
+  return connect(null, mapDispatchToProps)(Component);
 }
+
+export const addNotificationPropType = {
+  type: PropTypes.func,
+};

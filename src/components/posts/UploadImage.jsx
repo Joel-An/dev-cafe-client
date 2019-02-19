@@ -1,7 +1,7 @@
 import React from 'react';
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
-import withAddNotification from '../notifications/WithAddNotification';
+import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
 import { connectComponent } from '../../utils';
 
 import * as Api from '../../api/images';
@@ -82,6 +82,7 @@ class UploadImage extends React.Component {
 UploadImage.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
+  addNotification: addNotificationPropType.type.isRequired,
 };
 
 UploadImage.defaultProps = {

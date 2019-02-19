@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import { deletePost } from '../../api/posts';
 import withToken, { tokenPropType } from '../../containers/WithToken';
-import withAddNotification from '../notifications/WithAddNotification';
+import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
 import { connectComponent } from '../../utils';
 
 import ConfirmButton from '../popups/buttons/ConfirmButton';
@@ -40,6 +40,7 @@ const DeletePost = (props) => {
 
 DeletePost.propTypes = {
   token: tokenPropType.type,
+  addNotification: addNotificationPropType.type.isRequired,
 };
 
 DeletePost.defaultProps = {
