@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import withTokenContainer from '../../containers/TokenContainer';
+import withToken from '../../containers/WithToken';
 import withAlertContainer from '../../containers/AlertContainer';
 import withAddNotification from '../notifications/WithAddNotification';
 
@@ -99,7 +99,7 @@ class WriteComment extends React.Component {
 
 export default connectComponent(WriteComment,
   [
-    withTokenContainer,
+    withToken,
     withAlertContainer,
     withAddNotification,
   ]);

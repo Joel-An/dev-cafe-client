@@ -1,5 +1,5 @@
 import React from 'react';
-import withTokenContainer from '../../containers/TokenContainer';
+import withToken from '../../containers/WithToken';
 import withAlertContainer from '../../containers/AlertContainer';
 import withAddNotification from '../notifications/WithAddNotification';
 import { connectComponent } from '../../utils';
@@ -81,7 +81,7 @@ class UploadImage extends React.Component {
 
 export default connectComponent(UploadImage,
   [
-    withTokenContainer,
+    withToken,
     withAlertContainer,
     withAddNotification,
   ]);

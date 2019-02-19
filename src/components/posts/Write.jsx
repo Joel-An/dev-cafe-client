@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import CategorySelector from '../categories/SelectCategory';
 
-import withTokenContainer from '../../containers/TokenContainer';
+import withToken from '../../containers/WithToken';
 import withAlertContainer from '../../containers/AlertContainer';
 import withAddNotification from '../notifications/WithAddNotification';
 import withLastVisitedCategoryIdContainer from '../../containers/LastVisitedCategoryIdContainer';
@@ -168,6 +168,6 @@ export default connectComponent(Write,
   [
     withAlertContainer,
     withAddNotification,
-    withTokenContainer,
+    withToken,
     withLastVisitedCategoryIdContainer,
   ]);

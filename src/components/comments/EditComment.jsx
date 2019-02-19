@@ -1,6 +1,6 @@
 import React from 'react';
 
-import withTokenContainer from '../../containers/TokenContainer';
+import withToken from '../../containers/WithToken';
 import withAlertContainer from '../../containers/AlertContainer';
 import withEditingCommentContainer from '../../containers/EditingCommentContainer';
 import withAddNotification from '../notifications/WithAddNotification';
@@ -108,7 +108,7 @@ class EditComment extends React.Component {
 
 export default connectComponent(EditComment,
   [
-    withTokenContainer,
+    withToken,
     withAlertContainer,
     withAddNotification,
     withEditingCommentContainer,

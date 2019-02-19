@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { deletePost } from '../../api/posts';
-import withTokenContainer from '../../containers/TokenContainer';
+import withToken from '../../containers/WithToken';
 import withAddNotification from '../notifications/WithAddNotification';
 import { connectComponent } from '../../utils';
 
@@ -41,6 +41,6 @@ const DeletePost = (props) => {
 export default connectComponent(DeletePost,
   [
     withRouter,
-    withTokenContainer,
+    withToken,
     withAddNotification,
   ]);

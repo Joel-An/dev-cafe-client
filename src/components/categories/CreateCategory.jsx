@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import withTokenContainer from '../../containers/TokenContainer';
+import withToken from '../../containers/WithToken';
 import withAlertContainer from '../../containers/AlertContainer';
 import withAddNotification from '../notifications/WithAddNotification';
 
@@ -85,5 +85,5 @@ export default connectComponent(CreateCategory,
   [
     withAlertContainer,
     withAddNotification,
-    withTokenContainer,
+    withToken,
   ]);

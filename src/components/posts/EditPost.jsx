@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import withTokenContainer from '../../containers/TokenContainer';
+import withToken from '../../containers/WithToken';
 import withAlertContainer from '../../containers/AlertContainer';
 import withEditingPostContainer from '../../containers/EditingPostContainer';
 import withAddNotification from '../notifications/WithAddNotification';
@@ -162,6 +162,6 @@ export default connectComponent(EditPost,
   [
     withAddNotification,
     withAlertContainer,
-    withTokenContainer,
+    withToken,
     withEditingPostContainer,
   ]);

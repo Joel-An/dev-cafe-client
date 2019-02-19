@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withTokenContainer from '../../containers/TokenContainer';
+import withToken from '../../containers/WithToken';
 import withAddNotification from '../notifications/WithAddNotification';
 
 import { connectComponent } from '../../utils';
@@ -42,6 +42,6 @@ DeleteCategory.propTypes = {
 
 export default connectComponent(DeleteCategory,
   [
-    withTokenContainer,
+    withToken,
     withAddNotification,
   ]);

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { deleteComment } from '../../api/comments';
-import withTokenContainer from '../../containers/TokenContainer';
+import withToken from '../../containers/WithToken';
 import withAddNotification from '../notifications/WithAddNotification';
 
 import { connectComponent } from '../../utils';
@@ -37,6 +37,6 @@ const DeleteComment = (props) => {
 
 export default connectComponent(DeleteComment,
   [
-    withTokenContainer,
+    withToken,
     withAddNotification,
   ]);
