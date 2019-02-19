@@ -7,6 +7,10 @@ const LogoutButton = ({ requestLogout }) => (
   <button type="button" onClick={requestLogout}>LOGOUT</button>
 );
 
+LogoutButton.propTypes = {
+  requestLogout: PropTypes.func.isRequired,
+};
+
 const mapDispatchToProps = { requestLogout: logout };
 
 export default connect(

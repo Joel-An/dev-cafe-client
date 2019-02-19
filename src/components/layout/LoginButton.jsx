@@ -22,6 +22,15 @@ class LoginButton extends React.Component {
   }
 }
 
+LoginButton.propTypes = {
+  afterLogin: PropTypes.func,
+  openLoginPopup: PropTypes.func.isRequired,
+};
+
+LoginButton.defaultProps = {
+  afterLogin: undefined,
+};
+
 const mapDispatchToProps = { openLoginPopup: openLoginPopupAction };
 
 export default connect(
