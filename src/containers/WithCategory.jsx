@@ -14,7 +14,7 @@ export default function withCategory(Component) {
   return connect(mapStateToProps)(Component);
 }
 
-const categoryIdPropType = PropTypes.string;
+export const categoryIdPropType = PropTypes.string;
 
 export const categoryPropType = {
   type: PropTypes.shape({

@@ -14,9 +14,11 @@ export default function withUser(Component) {
   return connect(mapStateToProps)(Component);
 }
 
+export const userIdPropType = PropTypes.string;
+
 export const userPropType = {
   type: PropTypes.shape({
-    _id: PropTypes.string,
+    _id: userIdPropType,
     profileName: PropTypes.string,
   }),
 };
