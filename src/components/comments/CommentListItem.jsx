@@ -1,7 +1,7 @@
 import React from 'react';
 import dateFormat from 'dateformat';
 
-import withCommentContainer from '../../containers/CommentContainer';
+import withComment, { commentPropInfo } from '../../containers/WithComment';
 import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
 import { connectComponent } from '../../utils';
 
@@ -26,7 +26,6 @@ const renderComment = comment => (
     작성 시간 : {dateFormat(comment.date, 'yy/mm/dd h:MM TT')}<br/>
   </article>
 );
-
 
 class CommentListItem extends React.Component {
   constructor(props) {
@@ -89,6 +88,7 @@ class CommentListItem extends React.Component {
 
 CommentListItem.propTypes = {
   myInfo: myInfoPropType.type,
+  comment: commentPropInfo.type.isRequired,
 };
 
 CommentListItem.defaultProps = {
@@ -98,5 +98,5 @@ CommentListItem.defaultProps = {
 export default connectComponent(CommentListItem,
   [
     withMyInfo,
-    withCommentContainer,
+    withComment,
   ]);

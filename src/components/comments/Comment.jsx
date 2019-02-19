@@ -1,5 +1,6 @@
 import React from 'react';
-import withCommentContainer from '../../containers/CommentContainer';
+import PropTypes from 'prop-types';
+import withComment, { commentPropInfo } from '../../containers/WithComment';
 
 export const Comment = (props) => {
   const { comment, renderComment } = props;
@@ -7,4 +8,9 @@ export const Comment = (props) => {
   return renderComment(comment);
 };
 
-export default withCommentContainer(Comment);
+Comment.propTypes = {
+  comment: commentPropInfo.type.isRequired,
+  renderComment: PropTypes.func.isRequired,
+};
+
+export default withComment(Comment);
