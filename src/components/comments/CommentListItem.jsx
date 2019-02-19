@@ -22,7 +22,7 @@ const renderUser = user => user.profileName;
 const renderComment = comment => (
   <article className="comment">
     작성자 : <User userId={comment.author} renderUser={renderUser}/><br/>
-    내용 : <ContentsViewer contents={comment.contents}/>
+    <ContentsViewer contents={comment.contents}/>
     작성 시간 : {dateFormat(comment.date, 'yy/mm/dd h:MM TT')}<br/>
   </article>
 );

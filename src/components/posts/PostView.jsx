@@ -18,7 +18,7 @@ const renderCategory = category => (
   <span>카테고리 : {category.name}<br/></span>
 );
 const renderUser = user => (
-  <span>{user.profileName}</span>
+  <span>작성자 : {user.profileName}</span>
 );
 
 const PostView = (props) => {
