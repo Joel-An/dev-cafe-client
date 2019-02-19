@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Popup from './Popup';
 
-import withAlertContainer from '../../containers/AlertContainer';
+import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withAddNotification from '../notifications/WithAddNotification';
 
 import { connectComponent } from '../../utils';
@@ -158,9 +158,13 @@ const LoginForm = ({
 
 const mapDispatchToProps = { loginSucceeded: loginSucceededAction };
 
+LoginPopup.propTypes = {
+  openAlert: openAlertPropType.type.isRequired,
+};
+
 export default connectComponent(LoginPopup,
   [
     connect(null, mapDispatchToProps),
-    withAlertContainer,
+    withOpenAlert,
     withAddNotification,
   ]);

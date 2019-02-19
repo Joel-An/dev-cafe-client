@@ -1,6 +1,6 @@
 import React from 'react';
 import withToken, { tokenPropType } from '../../containers/WithToken';
-import withAlertContainer from '../../containers/AlertContainer';
+import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withAddNotification from '../notifications/WithAddNotification';
 import { connectComponent } from '../../utils';
 
@@ -81,6 +81,7 @@ class UploadImage extends React.Component {
 
 UploadImage.propTypes = {
   token: tokenPropType.type,
+  openAlert: openAlertPropType.type.isRequired,
 };
 
 UploadImage.defaultProps = {
@@ -90,6 +91,6 @@ UploadImage.defaultProps = {
 export default connectComponent(UploadImage,
   [
     withToken,
-    withAlertContainer,
+    withOpenAlert,
     withAddNotification,
   ]);

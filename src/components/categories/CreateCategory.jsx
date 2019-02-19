@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
-import withAlertContainer from '../../containers/AlertContainer';
+import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withAddNotification from '../notifications/WithAddNotification';
 
 import { connectComponent } from '../../utils';
@@ -74,6 +74,7 @@ class CreateCategory extends React.Component {
 
 CreateCategory.propTypes = {
   token: tokenPropType.type,
+  openAlert: openAlertPropType.type.isRequired,
   parent: PropTypes.string,
 };
 
@@ -84,7 +85,7 @@ CreateCategory.defaultProps = {
 
 export default connectComponent(CreateCategory,
   [
-    withAlertContainer,
+    withOpenAlert,
     withAddNotification,
     withToken,
   ]);

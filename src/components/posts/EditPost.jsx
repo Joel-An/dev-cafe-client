@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
-import withAlertContainer from '../../containers/AlertContainer';
+import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withEditingPostContainer from '../../containers/EditingPostContainer';
 import withAddNotification from '../notifications/WithAddNotification';
 import { connectComponent } from '../../utils';
@@ -160,6 +160,7 @@ class EditPost extends React.Component {
 
 EditPost.propTypes = {
   token: tokenPropType.type,
+  openAlert: openAlertPropType.type.isRequired,
 };
 
 EditPost.defaultProps = {
@@ -169,7 +170,7 @@ EditPost.defaultProps = {
 export default connectComponent(EditPost,
   [
     withAddNotification,
-    withAlertContainer,
+    withOpenAlert,
     withToken,
     withEditingPostContainer,
   ]);

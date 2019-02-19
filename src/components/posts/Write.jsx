@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import CategorySelector from '../categories/SelectCategory';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
-import withAlertContainer from '../../containers/AlertContainer';
+import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withAddNotification from '../notifications/WithAddNotification';
 import withLastVisitedCategoryIdContainer from '../../containers/LastVisitedCategoryIdContainer';
 import { connectComponent } from '../../utils';
@@ -166,6 +166,7 @@ class Write extends React.Component {
 
 Write.propTypes = {
   token: tokenPropType.type,
+  openAlert: openAlertPropType.type.isRequired,
 };
 
 Write.defaultProps = {
@@ -174,7 +175,7 @@ Write.defaultProps = {
 
 export default connectComponent(Write,
   [
-    withAlertContainer,
+    withOpenAlert,
     withAddNotification,
     withToken,
     withLastVisitedCategoryIdContainer,
