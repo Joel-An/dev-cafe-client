@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Popup from './Popup';
 
@@ -36,7 +37,7 @@ class LoginPopup extends React.Component {
     event.preventDefault();
     const { loginForm } = this.state;
     const {
-      close, loginSucceeded, openAlert, pos, addNotification, afterLogin,
+      close, loginSucceeded, openAlert, addNotification, afterLogin,
     } = this.props;
 
     Api.login(loginForm)
@@ -160,6 +161,27 @@ const mapDispatchToProps = { loginSucceeded: loginSucceededAction };
 
 LoginPopup.propTypes = {
   openAlert: openAlertPropType.type.isRequired,
+  close: PropTypes.func.isRequired,
+  pos: PropTypes.shape({
+    left: PropTypes.number.isRequired,
+    right: PropTypes.number.isRequired,
+    top: PropTypes.number.isRequired,
+  }),
+  addNotification: PropTypes.func.isRequired,
+  loginSucceeded: PropTypes.func.isRequired,
+  afterLogin: PropTypes.func,
+};
+
+LoginPopup.defaultProps = {
+  pos: undefined,
+  afterLogin: undefined,
+};
+
+LoginForm.propTypes = {
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default connectComponent(LoginPopup,

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { closePopup as closePopupAction } from '../../store/actions/popups';
@@ -78,6 +79,7 @@ class PopupSwitcher extends React.Component {
             key={popup.props.popupType}
             className="popup-background"
             onClick={this.closeIfEscapable(popup)}
+            role="presentation"
           >
             {popup}
           </div>
@@ -86,6 +88,24 @@ class PopupSwitcher extends React.Component {
     );
   }
 }
+
+const popupPropType = PropTypes.shape({
+  popupType: PropTypes.string.isRequired,
+  popupProps: PropTypes.object,
+});
+
+PopupSwitcher.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  openedPopups: PropTypes.arrayOf(popupPropType),
+  closePopup: PropTypes.func.isRequired,
+};
+
+PopupSwitcher.defaultProps = {
+  openedPopups: [],
+};
 
 const mapStateToProps = (state) => {
   const openedPopups = state.popups;

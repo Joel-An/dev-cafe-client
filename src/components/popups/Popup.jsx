@@ -1,4 +1,6 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Popup.scss';
 
@@ -17,7 +19,7 @@ class Popup extends React.Component {
       : {};
 
     return (
-      <div className="Popup" style={style} onClick={this.onDialogClick} >
+      <div className="Popup" style={style} onClick={this.onDialogClick} role="presentation" >
         <div className="popup-header">
           <div className="spacer"/>
           <span className="title">
@@ -36,5 +38,22 @@ class Popup extends React.Component {
     );
   }
 }
+
+Popup.propTypes = {
+  children: PropTypes.node.isRequired,
+  pos: PropTypes.shape({
+    left: PropTypes.number.isRequired,
+    right: PropTypes.number.isRequired,
+    top: PropTypes.number.isRequired,
+  }),
+  close: PropTypes.func.isRequired,
+  title: PropTypes.string,
+};
+
+Popup.defaultProps = {
+  pos: undefined,
+  title: undefined,
+};
+
 
 export default Popup;

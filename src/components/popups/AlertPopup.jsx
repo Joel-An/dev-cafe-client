@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Popup from './Popup';
 import LoginButton from '../layout/LoginButton';
@@ -20,4 +21,25 @@ const AlertPopup = (props) => {
     </Popup>
   );
 };
+
+AlertPopup.propTypes = {
+  pos: PropTypes.shape({
+    left: PropTypes.number.isRequired,
+    right: PropTypes.number.isRequired,
+    top: PropTypes.number.isRequired,
+  }),
+  close: PropTypes.func,
+  message: PropTypes.string,
+  title: PropTypes.string,
+  loginButton: PropTypes.bool,
+};
+
+AlertPopup.defaultProps = {
+  pos: undefined,
+  title: undefined,
+  close: undefined,
+  message: undefined,
+  loginButton: undefined,
+};
+
 export default AlertPopup;

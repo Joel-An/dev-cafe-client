@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Popup from './Popup';
@@ -40,6 +41,24 @@ const ConfirmPopup = (props) => {
       </div>
     </Popup>
   );
+};
+
+ConfirmPopup.propTypes = {
+  pos: PropTypes.shape({
+    left: PropTypes.number.isRequired,
+    right: PropTypes.number.isRequired,
+    top: PropTypes.number.isRequired,
+  }),
+  close: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  onConfirm: PropTypes.func.isRequired,
+  openAlert: PropTypes.func.isRequired,
+};
+
+ConfirmPopup.defaultProps = {
+  pos: undefined,
+  title: undefined,
 };
 
 const mapDispatchToProps = { openAlert: openAlertAction };
