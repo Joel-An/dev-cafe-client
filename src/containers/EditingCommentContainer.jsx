@@ -17,9 +17,6 @@ export default function withEditingCommentContainer(ComposedComponent) {
       loadEditingComment(commentId);
     }
 
-    componentDidMount() {
-    }
-
     render() {
       return (
         <ComposedComponent {...this.props} />
