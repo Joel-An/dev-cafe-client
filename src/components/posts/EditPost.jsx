@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
-import withEditingPostContainer from '../../containers/EditingPostContainer';
+import withEditingPostContainer, { EditingPostContainerPropTypes, EditingPostContainerDefaultProps } from '../../containers/EditingPostContainer';
 import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
 import { connectComponent } from '../../utils';
 
@@ -162,10 +162,14 @@ EditPost.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
   addNotification: addNotificationPropType.type.isRequired,
+  saveEditingPost: EditingPostContainerPropTypes.saveEditingPost.isRequired,
+  editingPostDone: EditingPostContainerPropTypes.editingPostDone.isRequired,
+  editingPost: EditingPostContainerPropTypes.editingPost,
 };
 
 EditPost.defaultProps = {
   token: tokenPropType.default,
+  editingPost: EditingPostContainerDefaultProps.editingPost,
 };
 
 export default connectComponent(EditPost,

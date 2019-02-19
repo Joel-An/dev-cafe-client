@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 
 import PostView from './PostView';
 import CommentArea from '../comments/CommentArea';
@@ -15,6 +16,10 @@ const PostPage = (props) => {
       />
     </div>
   );
+};
+
+PostPage.propTypes = {
+  match: ReactRouterPropTypes.history.isRequired,
 };
 
 export default PostPage;

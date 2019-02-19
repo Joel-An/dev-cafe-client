@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import dateFormat from 'dateformat';
 
@@ -22,9 +23,9 @@ const renderUser = user => (
 );
 
 const PostListItem = (props) => {
-  const { post, refProp } = props;
+  const { post, pageRefProp } = props;
   return (
-    <li title={post.title} ref={refProp}>
+    <li title={post.title} ref={pageRefProp}>
       <h1>
         <Link to={`posts/${post._id}`}>
           {post.title}
@@ -43,6 +44,11 @@ const PostListItem = (props) => {
 
 PostListItem.propTypes = {
   post: postPropInfo.type.isRequired,
+  pageRefProp: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+};
+
+PostListItem.defaultProps = {
+  pageRefProp: undefined,
 };
 
 export default withPostListItem(PostListItem);

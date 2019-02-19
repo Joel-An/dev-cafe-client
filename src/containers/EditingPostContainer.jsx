@@ -1,5 +1,9 @@
 import { connect } from 'react-redux';
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { postIdPropType } from './PostContainer';
+import { categoryIdPropType } from './WithCategory';
 
 import {
   loadEditingPost as loadEditingPostAction,
@@ -7,6 +11,24 @@ import {
   editingPostDone as editingPostDoneAction,
 } from '../store/actions/posts';
 import { selectEditingPostById } from '../store/selectors/posts';
+
+
+export const EditingPostContainerPropTypes = {
+  loadEditingPost: PropTypes.func,
+  saveEditingPost: PropTypes.func,
+  editingPostDone: PropTypes.func,
+  postId: postIdPropType,
+  editingPost: PropTypes.shape({
+    _id: postIdPropType.isRequired,
+    category: categoryIdPropType.isRequired,
+    title: PropTypes.string.isRequired,
+    contents: PropTypes.string.isRequired,
+  }),
+};
+
+export const EditingPostContainerDefaultProps = {
+  editingPost: undefined,
+};
 
 export default function withEditingPostContainer(ComposedComponent) {
   class EditingPostContainer extends React.Component {

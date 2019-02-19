@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Link } from 'react-router-dom';
 import PostList from './PostList';
 
@@ -7,7 +8,7 @@ const getCategoryId = (query) => {
   return categoryId;
 };
 
-const Posts = (props) => {
+const PostListPage = (props) => {
   const { location } = props;
   const { search: query } = location;
   const categoryId = getCategoryId(query);
@@ -22,4 +23,8 @@ const Posts = (props) => {
   );
 };
 
-export default Posts;
+PostListPage.propTypes = {
+  location: ReactRouterPropTypes.history.isRequired,
+};
+
+export default PostListPage;

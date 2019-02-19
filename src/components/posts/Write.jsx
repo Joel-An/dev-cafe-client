@@ -1,5 +1,7 @@
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Redirect } from 'react-router-dom';
+
 import CategorySelector from '../categories/SelectCategory';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
@@ -169,6 +171,7 @@ Write.propTypes = {
   openAlert: openAlertPropType.type.isRequired,
   addNotification: addNotificationPropType.type.isRequired,
   lastVisitedCategoryId: lastVisitedCategoryIdPropType.type,
+  match: ReactRouterPropTypes.history.isRequired,
 };
 
 Write.defaultProps = {

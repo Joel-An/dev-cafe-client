@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import withPostListContainer from '../../containers/PostListContainer';
+import withPostsMetaContainer, { PostsMetaContainerPropTypes, PostsMetaContainerDefaultProps } from '../../containers/PostsMetaContainer';
 import { connectComponent } from '../../utils';
 
 import { fetchNextPagePosts as fetchNextPagePostsAction } from '../../store/actions/posts';
@@ -71,7 +72,7 @@ class PostList extends React.Component {
   }
 
   render() {
-    const { postsMeta, fetchNextPagePosts, categoryId } = this.props;
+    const { postsMeta } = this.props;
     const { pageRefs } = this.state;
 
     if (!postsMeta || (postsMeta.isFetchingPosts && postsMeta.ids.length === 0)) {
@@ -100,7 +101,7 @@ class PostList extends React.Component {
         const pageIndex = pages.indexOf(postId);
         if (pageIndex !== -1) {
           return (
-            <PostListItem refProp={pageRefs[pageIndex]} postId={postId} key={postId}/>
+            <PostListItem pageRefProp={pageRefs[pageIndex]} postId={postId} key={postId}/>
           );
         }
         return (
@@ -119,10 +120,20 @@ class PostList extends React.Component {
   }
 }
 
+PostList.propTypes = {
+  fetchNextPagePosts: PropTypes.func.isRequired,
+  postsMeta: PostsMetaContainerPropTypes.postsMeta,
+  categoryId: PostsMetaContainerPropTypes.categoryId.isRequired,
+};
+
+PostList.defaultProps = {
+  postsMeta: PostsMetaContainerDefaultProps.postsMeta,
+};
+
 const mapDispatchToProps = { fetchNextPagePosts: fetchNextPagePostsAction };
 
 export default connectComponent(PostList,
   [
     connect(null, mapDispatchToProps),
-    withPostListContainer,
+    withPostsMetaContainer,
   ]);

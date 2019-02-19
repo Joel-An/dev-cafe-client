@@ -1,5 +1,9 @@
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { withRouter } from 'react-router-dom';
+
+import { postIdPropType } from '../../containers/PostContainer';
+import { categoryIdPropType } from '../../containers/WithCategory';
 
 import { deletePost } from '../../api/posts';
 import withToken, { tokenPropType } from '../../containers/WithToken';
@@ -41,6 +45,9 @@ const DeletePost = (props) => {
 DeletePost.propTypes = {
   token: tokenPropType.type,
   addNotification: addNotificationPropType.type.isRequired,
+  postId: postIdPropType.isRequired,
+  categoryId: categoryIdPropType.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 };
 
 DeletePost.defaultProps = {

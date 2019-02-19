@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
@@ -83,6 +85,7 @@ UploadImage.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
   addNotification: addNotificationPropType.type.isRequired,
+  updateUploadedImageLink: PropTypes.func.isRequired,
 };
 
 UploadImage.defaultProps = {
