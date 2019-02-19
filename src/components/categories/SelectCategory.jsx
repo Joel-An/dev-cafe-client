@@ -25,35 +25,53 @@ const rederSubCategories = (categories, id) => {
   );
 };
 
-const SelectCategory = (props) => {
-  const {
-    categories, parentCategoryIds, onSelect, selectedCategory,
-  } = props;
-  const isEmpty = !parentCategoryIds.length;
-
-  if (!isEmpty && !selectedCategory) {
-    // TODO: 카테고리 로딩 전에 /write 페이지로 바로 접속하면 Redux랑 충돌함
-    onSelect(categories[parentCategoryIds[0]]._id);
+class SelectCategory extends React.Component {
+  componentDidMount() {
+    this.updateSelectedCategoryIfEmpty();
   }
 
-  const onChange = (e) => {
-    onSelect(e.target.value);
-  };
+  componentDidUpdate() {
+    this.updateSelectedCategoryIfEmpty();
+  }
 
-  return (
-    <select value={selectedCategory} onChange={onChange}>
-      {isEmpty
-        ? <p key="Loading">Loading...</p>
-        : parentCategoryIds.map(id => (
+  updateSelectedCategoryIfEmpty = () => {
+    /*
+      1. "전체보기 -> 글쓰기"로 접근하는 경우에는
+          카테고리를 임의로 지정해서 onSelect를 이용해 업데이트 해줘야한다.
+      2.  두번째 조건은 카테고리목록 fetch가 늦어지는 경우를 고려한 것
+    */
+    const { parentCategoryIds, onSelect, selectedCategory } = this.props;
+
+    if (!selectedCategory && parentCategoryIds.length !== 0) {
+      onSelect(parentCategoryIds[0]);
+    }
+  }
+
+  render() {
+    const {
+      categories, parentCategoryIds, onSelect, selectedCategory,
+    } = this.props;
+    const isEmpty = !parentCategoryIds.length;
+
+    const onChange = (e) => {
+      onSelect(e.target.value);
+    };
+
+    return (
+      <select value={selectedCategory} onChange={onChange}>
+        {isEmpty
+          ? <option key="Loading" value="loading">Loading...</option>
+          : parentCategoryIds.map(id => (
           <>
             {renderCategory(categories[id])}
             {rederSubCategories(categories, id)}
           </>
-        ))
-      }
-    </select>
-  );
-};
+          ))
+        }
+      </select>
+    );
+  }
+}
 
 SelectCategory.propTypes = {
   categories: CategoriesContainerPropTypes.categories,
