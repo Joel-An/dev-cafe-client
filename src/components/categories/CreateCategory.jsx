@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import withToken from '../../containers/WithToken';
+import withToken, { tokenPropType } from '../../containers/WithToken';
 import withAlertContainer from '../../containers/AlertContainer';
 import withAddNotification from '../notifications/WithAddNotification';
 
@@ -73,11 +73,12 @@ class CreateCategory extends React.Component {
 }
 
 CreateCategory.propTypes = {
-  token: PropTypes.string.isRequired,
+  token: tokenPropType.type,
   parent: PropTypes.string,
 };
 
 CreateCategory.defaultProps = {
+  token: tokenPropType.default,
   parent: null,
 };
 

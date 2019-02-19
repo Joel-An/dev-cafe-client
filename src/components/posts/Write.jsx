@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import CategorySelector from '../categories/SelectCategory';
 
-import withToken from '../../containers/WithToken';
+import withToken, { tokenPropType } from '../../containers/WithToken';
 import withAlertContainer from '../../containers/AlertContainer';
 import withAddNotification from '../notifications/WithAddNotification';
 import withLastVisitedCategoryIdContainer from '../../containers/LastVisitedCategoryIdContainer';
@@ -163,6 +163,14 @@ class Write extends React.Component {
     );
   }
 }
+
+Write.propTypes = {
+  token: tokenPropType.type,
+};
+
+Write.defaultProps = {
+  token: tokenPropType.default,
+};
 
 export default connectComponent(Write,
   [

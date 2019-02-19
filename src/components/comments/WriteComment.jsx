@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import withToken from '../../containers/WithToken';
+import withToken, { tokenPropType } from '../../containers/WithToken';
 import withAlertContainer from '../../containers/AlertContainer';
 import withAddNotification from '../notifications/WithAddNotification';
 
@@ -13,18 +13,6 @@ import Editor from '../contents/CommentEditor';
 import './WriteComment.scss';
 
 class WriteComment extends React.Component {
-  static propTypes = {
-    token: PropTypes.string,
-    postId: PropTypes.string,
-    parent: PropTypes.string,
-  };
-
-  static defaultProps = {
-    token: null,
-    postId: null,
-    parent: null,
-  };
-
   constructor(props) {
     super(props);
 
@@ -96,6 +84,19 @@ class WriteComment extends React.Component {
     );
   }
 }
+
+WriteComment.propTypes = {
+  token: tokenPropType.type,
+  postId: PropTypes.string,
+  parent: PropTypes.string,
+};
+
+WriteComment.defaultProps = {
+  token: tokenPropType.default,
+  postId: null,
+  parent: null,
+};
+
 
 export default connectComponent(WriteComment,
   [

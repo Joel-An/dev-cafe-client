@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { deletePost } from '../../api/posts';
-import withToken from '../../containers/WithToken';
+import withToken, { tokenPropType } from '../../containers/WithToken';
 import withAddNotification from '../notifications/WithAddNotification';
 import { connectComponent } from '../../utils';
 
@@ -36,6 +36,14 @@ const DeletePost = (props) => {
       삭제
     </ConfirmButton>
   );
+};
+
+DeletePost.propTypes = {
+  token: tokenPropType.type,
+};
+
+DeletePost.defaultProps = {
+  token: tokenPropType.default,
 };
 
 export default connectComponent(DeletePost,

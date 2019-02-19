@@ -1,6 +1,6 @@
 import React from 'react';
 
-import withToken from '../../containers/WithToken';
+import withToken, { tokenPropType } from '../../containers/WithToken';
 import withAlertContainer from '../../containers/AlertContainer';
 import withEditingCommentContainer from '../../containers/EditingCommentContainer';
 import withAddNotification from '../notifications/WithAddNotification';
@@ -105,6 +105,14 @@ class EditComment extends React.Component {
     );
   }
 }
+
+EditComment.propTypes = {
+  token: tokenPropType.type,
+};
+
+EditComment.defaultProps = {
+  token: tokenPropType.default,
+};
 
 export default connectComponent(EditComment,
   [

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import withToken from '../../containers/WithToken';
+import withToken, { tokenPropType } from '../../containers/WithToken';
 import withAlertContainer from '../../containers/AlertContainer';
 import withEditingPostContainer from '../../containers/EditingPostContainer';
 import withAddNotification from '../notifications/WithAddNotification';
@@ -157,6 +157,14 @@ class EditPost extends React.Component {
     );
   }
 }
+
+EditPost.propTypes = {
+  token: tokenPropType.type,
+};
+
+EditPost.defaultProps = {
+  token: tokenPropType.default,
+};
 
 export default connectComponent(EditPost,
   [

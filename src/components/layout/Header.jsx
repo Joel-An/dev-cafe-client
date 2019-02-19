@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { fetchUserInfo as fetchUserInfoAction } from '../../store/actions/auth';
+
+import withToken, { tokenPropType } from '../../containers/WithToken';
+import { connectComponent } from '../../utils';
+
 import LogoutButton from './LogoutButton';
 import LoginButton from './LoginButton';
 
@@ -66,24 +70,24 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = ({ auth }) => ({
-  token: auth.token,
   profileName: auth.user.profileName,
 });
 
 const mapDispatchToProps = { fetchUserInfo: fetchUserInfoAction };
 
 Header.propTypes = {
-  token: PropTypes.string,
+  token: tokenPropType.type,
   profileName: PropTypes.string,
   fetchUserInfo: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {
-  token: null,
+  token: tokenPropType.default,
   profileName: null,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Header);
+export default connectComponent(Header,
+  [
+    connect(mapStateToProps, mapDispatchToProps),
+    withToken,
+  ]);

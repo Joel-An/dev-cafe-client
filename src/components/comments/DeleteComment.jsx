@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { deleteComment } from '../../api/comments';
-import withToken from '../../containers/WithToken';
+import withToken, { tokenPropType } from '../../containers/WithToken';
 import withAddNotification from '../notifications/WithAddNotification';
 
 import { connectComponent } from '../../utils';
@@ -33,6 +33,14 @@ const DeleteComment = (props) => {
       삭제
     </ConfirmButton>
   );
+};
+
+DeleteComment.propTypes = {
+  token: tokenPropType.type,
+};
+
+DeleteComment.defaultProps = {
+  token: tokenPropType.default,
 };
 
 export default connectComponent(DeleteComment,
