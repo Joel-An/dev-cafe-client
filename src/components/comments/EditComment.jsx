@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
-import withEditingCommentContainer from '../../containers/EditingCommentContainer';
+import withEditingCommentContainer, { EditingCommentContainerPropTypes, EditingCommentContainerDefaultProps } from '../../containers/EditingCommentContainer';
 import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
 
 import { connectComponent } from '../../utils';
@@ -112,10 +112,14 @@ EditComment.propTypes = {
   openAlert: openAlertPropType.type.isRequired,
   addNotification: addNotificationPropType.type.isRequired,
   offEditMode: PropTypes.func.isRequired,
+  editingComment: EditingCommentContainerPropTypes.editingComment,
+  saveEditingComment: EditingCommentContainerPropTypes.saveEditingComment.isRequired,
+  editingCommentDone: EditingCommentContainerPropTypes.editingCommentDone.isRequired,
 };
 
 EditComment.defaultProps = {
   token: tokenPropType.default,
+  editingComment: EditingCommentContainerDefaultProps.editingComment,
 };
 
 export default connectComponent(EditComment,
