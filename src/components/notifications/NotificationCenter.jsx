@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -31,6 +32,17 @@ const NotificationCenter = (props) => {
       {renderedNotifications}
     </TransitionGroup>
   );
+};
+
+const notificationPropType = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+  visibleTime: PropTypes.number,
+});
+
+NotificationCenter.propTypes = {
+  removeNotification: PropTypes.func.isRequired,
+  notifications: PropTypes.arrayOf(notificationPropType).isRequired,
 };
 
 const mapStateToProps = (state) => {
