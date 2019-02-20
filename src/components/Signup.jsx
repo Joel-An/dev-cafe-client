@@ -70,7 +70,9 @@ class Signup extends React.Component {
           onChange={this.onChange}
           onSubmit={this.onSubmit}
         />
-        <div>{error}</div>
+        <div className="regster-error">
+          {error}
+        </div>
       </div>
     );
   }
