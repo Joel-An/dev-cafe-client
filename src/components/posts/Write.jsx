@@ -7,7 +7,6 @@ import CategorySelector from '../categories/SelectCategory';
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
-import withLastVisitedCategoryId, { lastVisitedCategoryIdPropType } from '../../containers/WithLastVisitedCategoryId';
 import { connectComponent } from '../../utils';
 
 import { postPost } from '../../api/posts';
@@ -31,6 +30,17 @@ class Write extends React.Component {
       uploadedImageLink: '',
       redirect: false,
     };
+  }
+
+  componentDidMount() {
+    const { token, openAlert } = this.props;
+
+    if (!token) {
+      openAlert({
+        message: '로그인해야 글 등록이 가능합니다!',
+        loginButton: true,
+      });
+    }
   }
 
   updateUploadedImageLink = (link) => {
@@ -108,21 +118,6 @@ class Write extends React.Component {
 
   render() {
     const { postForm, redirect, uploadedImageLink } = this.state;
-    const { token, openAlert, lastVisitedCategoryId } = this.props;
-
-    if (!token) {
-      openAlert({
-        message: '로그인 후 이용할 수 있습니다!',
-        loginButton: true,
-      });
-
-      return (
-        <Redirect to={{
-          pathname: '/posts',
-          search: `category=${lastVisitedCategoryId}`,
-        }}/>
-      );
-    }
 
     if (redirect) {
       return <Redirect to={{
@@ -170,13 +165,11 @@ Write.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
   addNotification: addNotificationPropType.type.isRequired,
-  lastVisitedCategoryId: lastVisitedCategoryIdPropType.type,
-  match: ReactRouterPropTypes.history.isRequired,
+  match: ReactRouterPropTypes.match.isRequired,
 };
 
 Write.defaultProps = {
   token: tokenPropType.default,
-  lastVisitedCategoryId: lastVisitedCategoryIdPropType.default,
 };
 
 export default connectComponent(Write,
@@ -184,5 +177,4 @@ export default connectComponent(Write,
     withOpenAlert,
     withAddNotification,
     withToken,
-    withLastVisitedCategoryId,
   ]);
