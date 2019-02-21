@@ -1,5 +1,7 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+
+import { postIdPropType } from '../../containers/PostContainer';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
@@ -125,35 +127,48 @@ class EditPost extends React.Component {
       editingPost, isLoading, isDone, uploadedImageLink,
     } = this.state;
 
+    const { postId } = this.props;
+
     if (isDone) {
       return (
-        <Redirect to={{
-          pathname: '/posts',
-          search: `category=${editingPost.category}`,
-        }}/>
+        <Redirect to={`/posts/${postId}`}/>
       );
     }
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <label htmlFor="title">
-          제목
-          <input type="text"
-            name="title"
-            value={isLoading ? 'Loading Title...' : editingPost.title}
-            onChange={this.onTitleChange}/>
-        </label>
-        <UploadImage updateUploadedImageLink={this.updateUploadedImageLink}/>
-        <Editor
-          contents={isLoading ? 'Loading Contents...' : editingPost.contents}
-          onChange={this.onContentsChange}
-          preview
-          autofocus
-          insertText={uploadedImageLink}
-          clearInsertText={this.clearUploadedImageLink}
-        />
-        <button type="submit">등록</button>
-      </form>
+      <div className="post-from-container">
+        <form className="post-form" onSubmit={this.onSubmit}>
+          <div className="header">
+            <div className="post-form-header-menu" >
+              <div className="post-form-header-menu-front">
+                <Link to={`/posts/${postId}`}>
+                  <button type="button">
+                    뒤로가기
+                  </button>
+                </Link>
+              </div>
+              <div className="post-form-header-menu-back">
+                <UploadImage updateUploadedImageLink={this.updateUploadedImageLink}/>
+                <button type="submit">등록</button>
+              </div>
+            </div>
+            <div className="post-form-header-input">
+              <input type="text"
+                name="title"
+                value={isLoading ? 'Loading Title...' : editingPost.title}
+                onChange={this.onTitleChange}/>
+            </div>
+          </div>
+          <Editor
+            contents={isLoading ? 'Loading Contents...' : editingPost.contents}
+            onChange={this.onContentsChange}
+            preview
+            autofocus
+            insertText={uploadedImageLink}
+            clearInsertText={this.clearUploadedImageLink}
+          />
+        </form>
+      </div>
     );
   }
 }
@@ -165,6 +180,7 @@ EditPost.propTypes = {
   saveEditingPost: EditingPostContainerPropTypes.saveEditingPost.isRequired,
   editingPostDone: EditingPostContainerPropTypes.editingPostDone.isRequired,
   editingPost: EditingPostContainerPropTypes.editingPost,
+  postId: postIdPropType.isRequired,
 };
 
 EditPost.defaultProps = {

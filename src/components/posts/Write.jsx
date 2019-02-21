@@ -132,7 +132,7 @@ class Write extends React.Component {
     }
 
     return (
-      <div className="WritePost">
+      <div className="post-from-container">
         <form className="post-form" onSubmit={this.onSubmit}>
           <div className="header">
             <div className="post-form-header-menu">
