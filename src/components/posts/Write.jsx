@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import CategorySelector from '../categories/SelectCategory';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import withLastVisitedCategoryId, { lastVisitedCategoryIdPropType } from '../../containers/WithLastVisitedCategoryId';
 import { connectComponent } from '../../utils';
 
 import { postPost } from '../../api/posts';
 import Editor from '../contents/PostEditor';
 import UploadImage from './UploadImage';
+import LoginButton from '../layout/LoginButton';
+
+import './Write.scss';
 
 class Write extends React.Component {
   constructor(props) {
@@ -118,6 +122,7 @@ class Write extends React.Component {
 
   render() {
     const { postForm, redirect, uploadedImageLink } = this.state;
+    const { token, lastVisitedCategoryId } = this.props;
 
     if (redirect) {
       return <Redirect to={{
@@ -128,33 +133,41 @@ class Write extends React.Component {
 
     return (
       <div className="WritePost">
-        <form onSubmit={this.onSubmit}>
-          <div>
-            <CategorySelector
-              onSelect={this.onSelectCategory}
-              selectedCategory={postForm.categoryId}
-            />
-          </div>
-          <div>
-            <label htmlFor="title">
+        <form className="post-form" onSubmit={this.onSubmit}>
+          <div className="header">
+            <div className="post-form-header-menu">
+              <div className="post-form-header-menu-front">
+                <Link to={`/posts?category=${lastVisitedCategoryId}`}>
+                  <button type="button">
+                    뒤로가기
+                  </button>
+                </Link>
+              </div>
+              <div className="post-form-header-menu-back">
+                {!!token || <LoginButton/> }
+                <UploadImage updateUploadedImageLink={this.updateUploadedImageLink}/>
+                <button type="submit">작성</button>
+              </div>
+            </div>
+            <div className="post-form-header-input">
+              <CategorySelector
+                onSelect={this.onSelectCategory}
+                selectedCategory={postForm.categoryId}
+              />
               <input type="text"
                 name="title"
                 value={postForm.title}
                 placeholder="Title"
                 onChange={this.onTitleChange}/>
-            </label>
-            <UploadImage updateUploadedImageLink={this.updateUploadedImageLink}/>
+            </div>
           </div>
-          <div>
-            <Editor
-              contents={postForm.contents}
-              onChange={this.onContentsChange}
-              preview
-              insertText={uploadedImageLink}
-              clearInsertText={this.clearUploadedImageLink}
-            />
-          </div>
-          <button type="submit">작성</button>
+          <Editor
+            contents={postForm.contents}
+            onChange={this.onContentsChange}
+            preview
+            insertText={uploadedImageLink}
+            clearInsertText={this.clearUploadedImageLink}
+          />
         </form>
       </div>
     );
@@ -166,10 +179,12 @@ Write.propTypes = {
   openAlert: openAlertPropType.type.isRequired,
   addNotification: addNotificationPropType.type.isRequired,
   match: ReactRouterPropTypes.match.isRequired,
+  lastVisitedCategoryId: lastVisitedCategoryIdPropType.type,
 };
 
 Write.defaultProps = {
   token: tokenPropType.default,
+  lastVisitedCategoryId: lastVisitedCategoryIdPropType.default,
 };
 
 export default connectComponent(Write,
@@ -177,4 +192,5 @@ export default connectComponent(Write,
     withOpenAlert,
     withAddNotification,
     withToken,
+    withLastVisitedCategoryId,
   ]);

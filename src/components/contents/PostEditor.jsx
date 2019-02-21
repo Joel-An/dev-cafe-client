@@ -13,6 +13,7 @@ class PostEditor extends React.PureComponent {
       <div className="PostEditor">
         <div className="Editor">
           <Editor
+            theme="material"
             {...this.props}
           />
         </div>

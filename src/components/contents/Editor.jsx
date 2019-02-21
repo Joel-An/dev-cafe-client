@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 
 import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material.css';
+
+require('codemirror/mode/javascript/javascript.js');
+require('codemirror/mode/markdown/markdown');
 
 class Editor extends React.Component {
   constructor(props) {
@@ -38,7 +42,9 @@ class Editor extends React.Component {
    }
 
    render() {
-     const { onChange, contents, autofocus } = this.props;
+     const {
+       onChange, contents, autofocus, theme,
+     } = this.props;
      return (
        <CodeMirror
          value={contents}
@@ -47,8 +53,10 @@ class Editor extends React.Component {
              name: 'markdown',
              highlightFormatting: true,
            },
+           theme: theme || 'default',
            viewportMargin: Infinity,
            autofocus,
+           lineWrapping: true,
          }}
          onBeforeChange={(editor, data, value) => {
            onChange(value);
@@ -65,6 +73,7 @@ Editor.propTypes = {
   onChange: PropTypes.func.isRequired,
   contents: PropTypes.string,
   autofocus: PropTypes.bool,
+  theme: PropTypes.string,
 };
 
 Editor.defaultProps = {
@@ -72,6 +81,7 @@ Editor.defaultProps = {
   clearInsertText: undefined,
   contents: '',
   autofocus: undefined,
+  theme: undefined,
 };
 
 export default Editor;

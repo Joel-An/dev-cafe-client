@@ -1,0 +1,42 @@
+.WritePost{
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: calc(100% - 70px);
+  background-color: rgb(158, 157, 157);
+  z-index: 100;
+
+  .post-form {
+    height: 100%;
+
+    .header{
+     display: flex;
+     flex-direction: column;
+
+      .post-form-header-menu {
+        justify-content: space-between;
+        display: flex;
+
+        button {
+          background-color: rgb(99, 198, 223);
+          color: white;
+        }
+
+        .post-form-header-menu-back {
+          display: flex;
+        }
+      }
+
+      .post-form-header-input{
+        display: flex;
+
+        input {
+          flex-grow: 1;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
