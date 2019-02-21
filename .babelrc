@@ -2,7 +2,9 @@
   "presets": [
     [
       "@babel/preset-env",
-      { "targets": { "browsers": ["last 2 versions", ">= 5% in KR"] } }
+      { "targets": { "browsers": ["last 2 versions", ">= 5% in KR"] },
+        "modules": false,
+      }
     ],
     ["@babel/react"]
   ],

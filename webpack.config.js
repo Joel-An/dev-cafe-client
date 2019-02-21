@@ -19,18 +19,8 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                targets: { node: 'current' },
-                modules: 'false',
-              },
-            ],
-            '@babel/preset-react',
-          ],
+        use: {
+          loader: 'babel-loader',
         },
         exclude: ['/node_modules', '/config'],
       },
