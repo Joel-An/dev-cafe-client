@@ -44,11 +44,37 @@ class PostList extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.onScroll, false);
+    this.fetchNextPageWhenCannotScroll();
+  }
+
+  componentDidUpdate() {
+    this.fetchNextPageWhenCannotScroll();
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll, false);
   }
+
+  fetchNextPageWhenCannotScroll = () => {
+    const { postsMeta } = this.props;
+    const { scrollHeight, offsetHeight } = document.body;
+
+    if (!postsMeta) {
+      return;
+    }
+
+    if (scrollHeight === offsetHeight) {
+      // 스크롤 바가 없을 때는 스크롤 이벤트가 발생하지 않는다.
+
+      const isFetching = postsMeta.isFetchingNewPost || postsMeta.isFetchingPosts;
+      const hasNextPageUrl = postsMeta.nextPageUrl;
+      if (!isFetching && hasNextPageUrl) {
+        // fetch가 완료되었는데도, nextPageUrl이 있다면 fetch한다.
+        this.fetchNextPage();
+      }
+    }
+  }
+
 
   fetchNextPage = () => {
     const { postsMeta, fetchNextPagePosts, categoryId } = this.props;
