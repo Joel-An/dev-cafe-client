@@ -34,6 +34,8 @@ class Write extends React.Component {
       uploadedImageLink: '',
       redirect: false,
     };
+
+    this.submitButton = React.createRef();
   }
 
   componentDidMount() {
@@ -67,6 +69,9 @@ class Write extends React.Component {
     const {
       token, openAlert, addNotification,
     } = this.props;
+
+    this.submitButton.current.setAttribute('disabled', 'disabled');
+
     postPost(postForm, token)
       .then(() => {
         addNotification({
@@ -78,6 +83,9 @@ class Write extends React.Component {
         openAlert({
           message: err.response.data.message,
         });
+      })
+      .finally(() => {
+        this.submitButton.current.removeAttribute('disabled');
       });
   }
 
@@ -146,7 +154,9 @@ class Write extends React.Component {
               <div className="post-form-header-menu-back">
                 {!!token || <LoginButton/> }
                 <UploadImage updateUploadedImageLink={this.updateUploadedImageLink}/>
-                <button type="submit">작성</button>
+                <button type="submit" ref={this.submitButton}>
+                  작성
+                </button>
               </div>
             </div>
             <div className="post-form-header-input">
