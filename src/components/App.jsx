@@ -4,10 +4,7 @@ import {
 } from 'react-router-dom';
 
 import Home from './Home';
-import Users from './UsersPage';
-import OldPosts from './PostsPage';
 import NoMatch from './NoMatch';
-import Login from './Login';
 import Signup from './Signup';
 import Header from './layout/Header';
 import MainPageNav from './layout/MainPageNav';
@@ -29,13 +26,10 @@ const App = () => (
         <div className="main-content">
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/users" component={Users} />
-            <Route exact path="/oldPosts" component={OldPosts} />
             <Route path="/posts/:id" component={PostPage} />
             <Route exact path="/posts" component={PostListPage} />
             <Route path="/write/:categoryId" component={Write} />
             <Route path="/edit/:id" component={EditPostPage}/>
-            <Route exact path="/login" component={Login}/>
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/categoryManager" component={ManageCategoriesPage} />
             <Route exact path="/admin" component={AdminPage} />
