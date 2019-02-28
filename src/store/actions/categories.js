@@ -1,12 +1,12 @@
 import {
   LOAD_CATEGORIES,
   LOAD_CATEGORIES_SUCCESS,
-  GET_CATEGORIES_REQUEST,
-  GET_CATEGORIES_SUCCESS,
-  GET_CATEGORIES_FAILURE,
-  GET_CATEGORY_REQUEST,
-  GET_CATEGORY_SUCCESS,
-  GET_CATEGORY_FAILURE,
+  FETCH_CATEGORIES_REQUEST,
+  FETCH_CATEGORIES_SUCCESS,
+  FETCH_CATEGORIES_FAILURE,
+  FETCH_CATEGORY_REQUEST,
+  FETCH_CATEGORY_SUCCESS,
+  FETCH_CATEGORY_FAILURE,
   REMOVE_CATEGORY,
   UPDATE_LAST_VISITED_CATEGORY,
 } from '../types/categories';
@@ -16,7 +16,7 @@ import Schemas from '../utils/schema';
 
 export const fetchCategories = (refreshCache = false) => ({
   type: CALL_API,
-  types: [GET_CATEGORIES_REQUEST, GET_CATEGORIES_SUCCESS, GET_CATEGORIES_FAILURE],
+  types: [FETCH_CATEGORIES_REQUEST, FETCH_CATEGORIES_SUCCESS, FETCH_CATEGORIES_FAILURE],
   endpoint: '/categories',
   method: 'get',
   refreshCache,
@@ -31,9 +31,9 @@ export const loadCategoriesSuccess = () => ({
   type: LOAD_CATEGORIES_SUCCESS,
 });
 
-export const getCategory = id => ({
+export const fetchCategory = id => ({
   type: CALL_API,
-  types: [GET_CATEGORY_REQUEST, GET_CATEGORY_SUCCESS, GET_CATEGORY_FAILURE],
+  types: [FETCH_CATEGORY_REQUEST, FETCH_CATEGORY_SUCCESS, FETCH_CATEGORY_FAILURE],
   endpoint: `/categories/${id}`,
   method: 'get',
   categoryId: id,

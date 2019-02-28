@@ -1,6 +1,6 @@
 import openSocket from 'socket.io-client';
 
-import { getCategory, removeCategory } from '../store/actions/categories';
+import { fetchCategory, removeCategory } from '../store/actions/categories';
 import {
   fetchNewPost,
   removePost,
@@ -21,7 +21,7 @@ const setHandler = (socket, store) => {
   });
 
   socket.on('NEW_CATEGORY', (id) => {
-    store.dispatch(getCategory(id));
+    store.dispatch(fetchCategory(id));
   });
 
   socket.on('DELETE_CATEGORY', (id) => {
