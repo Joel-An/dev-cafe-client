@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --content-base ./dist --inline",
-    "build": "webpack",
+    "start": "webpack-dev-server --config webpack.dev.config.js --content-base ./dist --inline",
+    "build": "webpack --config webpack.prod.config.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors"
