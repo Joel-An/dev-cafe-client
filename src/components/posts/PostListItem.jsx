@@ -42,6 +42,11 @@ const PostListItem = (props) => {
   );
 };
 
+if (!process.env.BROWSER) {
+  // Node 서버의 Element polyfill
+  global.Element = null;
+}
+
 PostListItem.propTypes = {
   post: postPropInfo.type.isRequired,
   pageRefProp: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),

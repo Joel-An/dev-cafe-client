@@ -5,8 +5,10 @@ import { Controlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 
-require('codemirror/mode/javascript/javascript.js');
-require('codemirror/mode/markdown/markdown');
+if (process.env.BROWSER) {
+  require('codemirror/mode/javascript/javascript.js');
+  require('codemirror/mode/markdown/markdown');
+}
 
 class Editor extends React.Component {
   constructor(props) {

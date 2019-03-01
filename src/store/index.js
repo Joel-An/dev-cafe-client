@@ -4,6 +4,11 @@ import createSagaMiddleware, { END } from 'redux-saga';
 import rootReducer from './reducers';
 import rootSaga from './sagas';
 
+if (!process.env.BROWSER) {
+  // Node 서버의 window polyfill
+  global.window = {};
+}
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default function configureStore(extraEnhancers = []) {
@@ -17,7 +22,7 @@ export default function configureStore(extraEnhancers = []) {
     ),
   );
 
-  saga.run(rootSaga);
+  store.runSaga = () => saga.run(rootSaga);
   store.close = () => store.dispatch(END);
 
 
