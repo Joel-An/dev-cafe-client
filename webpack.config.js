@@ -65,6 +65,9 @@ module.exports = {
       favicon: './public/favicon.ico',
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.BROWSER': JSON.stringify(true),
+    }),
   ],
   optimization: {},
   resolve: {
