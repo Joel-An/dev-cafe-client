@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+
 import App from './components/App';
 import Popups from './components/popups/Popups';
 import NotificationCenter from './components/notifications/NotificationCenter';
@@ -15,7 +17,9 @@ configureSocket(store);
 const renderApp = () => {
   render(
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
       <Popups/>
       <NotificationCenter/>
     </Provider>,

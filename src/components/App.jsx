@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Switch, BrowserRouter as Router, Route,
+  Switch, Route,
 } from 'react-router-dom';
 
 import Home from './Home';
@@ -19,36 +19,34 @@ import CategoryMenu from './categories/CategoryMenu';
 import AdminPage from './AdminPage';
 
 const App = () => (
-  <Router>
-    <div className="App">
-      <Header/>
-      <main className="content">
-        <div className="main-content">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/posts/:id" component={PostPage} />
-            <Route exact path="/posts" component={PostListPage} />
-            <Route path="/write/:categoryId" component={Write} />
-            <Route path="/edit/:id" component={EditPostPage}/>
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/categoryManager" component={ManageCategoriesPage} />
-            <Route exact path="/admin" component={AdminPage} />
-            <Route component={NoMatch} />
-          </Switch>
-        </div>
-        <div className="main-nav">
-          <MainPageNav/>
-        </div>
-      </main>
-      <aside className="side">
-        <CategoryMenu/>
-      </aside>
-      <footer className="main-footer">
-        <hr/>
-        <p>Would you like a cup of coffee?</p>
-      </footer>
-    </div>
-  </Router>
+  <div className="App">
+    <Header/>
+    <main className="content">
+      <div className="main-content">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/posts/:id" component={PostPage} />
+          <Route path="/posts" component={PostListPage} />
+          <Route path="/write/:categoryId" component={Write} />
+          <Route path="/edit/:id" component={EditPostPage}/>
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/categoryManager" component={ManageCategoriesPage} />
+          <Route exact path="/admin" component={AdminPage} />
+          <Route component={NoMatch} />
+        </Switch>
+      </div>
+      <div className="main-nav">
+        <MainPageNav/>
+      </div>
+    </main>
+    <aside className="side">
+      <CategoryMenu/>
+    </aside>
+    <footer className="main-footer">
+      <hr/>
+      <p>Would you like a cup of coffee?</p>
+    </footer>
+  </div>
 );
 
 export default App;
