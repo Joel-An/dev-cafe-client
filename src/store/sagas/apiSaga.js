@@ -1,13 +1,15 @@
 import {
   put, takeEvery,
 } from 'redux-saga/effects';
+
 import axios from 'axios';
+import { host } from '../../api/config';
 
 import normalizeData from '../utils/normalizer';
 
 export const CALL_API = 'CALL_API';
 
-const API_URI = '/api/v1';
+const API_URI = `${host}/api/v1`;
 
 function* callApi(action) {
   const {
@@ -15,7 +17,7 @@ function* callApi(action) {
   } = action;
 
   const endpoint = typeof action.endpoint === 'function'
-    ? action.endpoint()
+    ? `${host}${action.endpoint()}`
     : API_URI + action.endpoint;
 
   const [requestType, successType, failureType] = types;

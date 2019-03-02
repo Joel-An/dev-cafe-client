@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios';
+import { host } from './config';
 
 export const postImage = (image, token) => {
   const config = {
@@ -9,7 +10,7 @@ export const postImage = (image, token) => {
     },
   };
 
-  return axios.post('/api/v1/images', image, config);
+  return axios.post(`${host}/api/v1/images`, image, config);
 };
 
 export const getImage = () => {};

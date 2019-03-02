@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { host } from './config';
 
 export const login = loginForm => axios
-  .post('/api/v1/auth', loginForm)
+  .post(`${host}/api/v1/auth`, loginForm)
   .then((result) => {
     const { accessToken } = result.data;
     return accessToken;
@@ -11,7 +12,7 @@ export const login = loginForm => axios
   });
 
 export const testerLogin = () => axios
-  .post('/api/v1/auth/tester')
+  .post(`${host}/api/v1/auth/tester`)
   .then((result) => {
     const { accessToken } = result.data;
     return accessToken;
@@ -27,7 +28,7 @@ export const fetchUserInfo = (token) => {
   const headers = {
     'x-access-token': token,
   };
-  return axios.get('/api/v1/users/me', { headers })
+  return axios.get(`${host}/api/v1/users/me`, { headers })
     .then(result => result.data.myInfo)
     .catch((err) => {
       throw err.data;
