@@ -7,6 +7,11 @@ import notificationsSagas from './notifications';
 import authSagas from './auth';
 import apiSagas from './apiSaga';
 
+import ssr from './ssr';
+
+const noop = [];
+const ssrSagas = process.env.BROWSER ? noop : ssr;
+
 export default function* root() {
   yield all([
     ...categoriesSagas,
@@ -15,5 +20,6 @@ export default function* root() {
     ...postsSagas,
     ...authSagas,
     ...notificationsSagas,
+    ...ssrSagas,
   ]);
 }
