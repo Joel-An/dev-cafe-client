@@ -13,7 +13,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: '[name].js',
+    filename: '[name].dev.js',
     publicPath: '/',
   },
   module: {
@@ -27,10 +27,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader',
-        }),
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
       },
       {
         test: /\.scss$/,
@@ -57,9 +57,6 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
       DEBUG: false,
-    }),
-    new ExtractTextPlugin({
-      filename: 'app.css',
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
