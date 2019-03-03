@@ -70,8 +70,7 @@ app.use((req, res) => {
       ${isDev ? '' : `<link href=${prodCssUrl} rel="stylesheet">`}
     </head>
     <body>
-      <div id="root">
-    `);
+      <div id="root">`);
 
     const stream = renderToNodeStream(rootComp);
     stream.pipe(res, { end: false });
