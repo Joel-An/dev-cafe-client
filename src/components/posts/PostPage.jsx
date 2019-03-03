@@ -6,7 +6,7 @@ import CommentArea from '../comments/CommentArea';
 
 const PostPage = (props) => {
   const { match } = props;
-  const { id: postId } = match.params;
+  const { postId } = match.params;
 
   return (
     <div className="PostPage">
