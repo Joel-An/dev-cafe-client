@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.client.dev.config.js",
-    "build": "webpack --config webpack.prod.config.js",
+    "build": "webpack --config webpack.client.prod.config.js",
     "build:dev": "webpack --config webpack.client.dev.config.js",
     "build:server": "webpack --config ./ssr/webpack.server.prod.config.js",
     "server": "node ./ssr/build/server.js",
