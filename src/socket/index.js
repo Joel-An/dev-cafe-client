@@ -12,7 +12,9 @@ import {
   checkCacheAndUpdateComment,
 } from '../store/actions/comments';
 
-const connectSocket = () => openSocket({ transports: ['websocket'] });
+const url = process.env.NODE_ENV === 'production' ? 'http://rejoelve.com' : 'http://localhost:3000';
+
+const connectSocket = () => openSocket(url, { transports: ['websocket'] });
 
 const setHandler = (socket, store) => {
   socket.on('connect', () => {
