@@ -3,7 +3,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { Link } from 'react-router-dom';
 import PostList from './PostList';
 
-const getCategoryId = (query) => {
+export const parseCategoryId = (query) => {
   const categoryId = query.slice(query.indexOf('=') + 1);
   return categoryId;
 };
@@ -11,7 +11,7 @@ const getCategoryId = (query) => {
 const PostListPage = (props) => {
   const { location } = props;
   const { search: query } = location;
-  const categoryId = getCategoryId(query);
+  const categoryId = parseCategoryId(query);
 
   return (
     <div className="PostListPage">

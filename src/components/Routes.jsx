@@ -5,7 +5,7 @@ import NoMatch from './NoMatch';
 import SignupPage from './Signup';
 import ManageCategoriesPage from './categories/ManageCategoriesPage';
 
-import PostListPage, { getCategoryId } from './posts/PostListPage';
+import PostListPage, { parseCategoryId } from './posts/PostListPage';
 import PostPage from './posts/PostPage';
 import WritePostPage from './posts/Write';
 import EditPostPage from './posts/EditPostPage';
@@ -48,7 +48,7 @@ const Routes = [
     component: PostListPage,
     mapUrlToActions: (url) => {
       // posts?category=all 이런 형태로 구성되어있음
-      const categoryId = getCategoryId(url);
+      const categoryId = parseCategoryId(url);
 
       return setFetchActions(ssrPostListPage(), loadPosts(categoryId));
     },
