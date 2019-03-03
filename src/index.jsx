@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { render, hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -11,11 +11,15 @@ import './index.scss';
 import configureStore from './store';
 import configureSocket from './socket';
 
-const store = configureStore();
+// eslint-disable-next-line no-underscore-dangle
+const initialState = window.__INITIAL_STATE__;
+
+const store = configureStore(initialState);
+store.runSaga();
 configureSocket(store);
 
-const renderApp = () => {
-  render(
+const renderApp = fn => () => {
+  fn(
     <Provider store={store}>
       <BrowserRouter>
         <App />
@@ -28,7 +32,11 @@ const renderApp = () => {
 };
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {
-  module.hot.accept('./components/App', renderApp);
+  module.hot.accept('./components/App', renderApp(render));
 }
 
-renderApp();
+if (process.env.NODE_ENV === 'production') {
+  renderApp(hydrate)();
+} else {
+  renderApp(render)();
+}
