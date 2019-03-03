@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { host } from './config';
 
-export const getCategories = () => axios.get('api/v1/categories');
+export const getCategories = () => axios.get(`${host}/api/v1/categories`);
 
 export const postCategory = (category, token) => {
   const config = { headers: { 'x-access-token': token } };
