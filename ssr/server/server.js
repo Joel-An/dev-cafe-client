@@ -63,11 +63,11 @@ app.use((req, res) => {
     <!DOCTYPE html>
     <html lang="ko">
     <head>
-     <meta charset="UTF-8"/>
+      <meta charset="UTF-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Joel's D'cafe</title>
       <link rel="shortcut icon" href="/dist/favicon.ico">
-      ${isDev ? '' : `<link href=${prodCssUrl} rel="stylesheet">`}
+      <link href=${prodCssUrl} rel="stylesheet">
     </head>
     <body>
       <div id="root">`);
@@ -77,7 +77,7 @@ app.use((req, res) => {
 
     stream.on('end', () => {
       res.end(`</div>
-     <script type="text/javascript" charset="utf-8">
+      <script type="text/javascript" charset="utf-8">
         window.__INITIAL_STATE__ = ${initialState};
       </script>
       <script type="text/javascript" src=${bundleUrl}></script>
