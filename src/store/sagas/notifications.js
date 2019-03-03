@@ -1,7 +1,6 @@
 import {
-  put, take, takeEvery, race, call,
+  put, take, takeEvery, race, call, delay,
 } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 
 import {
   ADD_NOTIFICATION,
@@ -33,7 +32,7 @@ function* watchNotification(action) {
 
   if (visibleTime) {
     const { timeout, removed, reset } = yield race({
-      timeout: call(delay, visibleTime),
+      timeout: delay(visibleTime),
       removed: call(waitRemoveNotification, id),
       reset: call(waitClearNotifications),
     });
