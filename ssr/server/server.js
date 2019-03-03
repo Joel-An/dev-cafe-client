@@ -4,7 +4,7 @@
 /* eslint-disable no-console */
 import express from 'express';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { renderToNodeStream } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { matchRoutes } from 'react-router-config';
@@ -28,26 +28,6 @@ const bundleUrl = isDev ? devBundleUrl : prodBundleUrl;
 
 const prodCssUrl = '/dist/app.css';
 
-const layout = (body, initialState) => (`
-  <!DOCTYPE html>
-  <html lang="ko">
-  <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Joel's D'cafe</title>
-    <link rel="shortcut icon" href="/dist/favicon.ico">
-    ${isDev ? '' : `<link href=${prodCssUrl} rel="stylesheet">`}
-  </head>
-  <body>
-    <div id="root">${body}</div>
-    <script type="text/javascript" charset="utf-8">
-      window.__INITIAL_STATE__ = ${initialState};
-    </script>
-    <script type="text/javascript" src=${bundleUrl}></script>
-  </body>
-  </html>
-`);
-
 const app = express();
 
 app.use('/dist', express.static('dist'));
@@ -67,7 +47,6 @@ app.use((req, res) => {
     store.dispatch(action);
   });
 
-
   return promises.then(() => {
     const rootComp = (
       <Provider store={store} >
@@ -77,12 +56,35 @@ app.use((req, res) => {
         <NotificationCenter/>
       </Provider>
     );
-    res.status(200).send(
-      layout(
-        renderToString(rootComp),
-        JSON.stringify(store.getState()),
-      ),
-    );
+
+    const initialState = JSON.stringify(store.getState());
+
+    res.write(`
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+     <meta charset="UTF-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Joel's D'cafe</title>
+      <link rel="shortcut icon" href="/dist/favicon.ico">
+      ${isDev ? '' : `<link href=${prodCssUrl} rel="stylesheet">`}
+    </head>
+    <body>
+      <div id="root">
+    `);
+
+    const stream = renderToNodeStream(rootComp);
+    stream.pipe(res, { end: false });
+
+    stream.on('end', () => {
+      res.end(`</div>
+     <script type="text/javascript" charset="utf-8">
+        window.__INITIAL_STATE__ = ${initialState};
+      </script>
+      <script type="text/javascript" src=${bundleUrl}></script>
+    </body>
+   </html>`);
+    });
   }).catch((e) => {
     console.log(e.message);
     res.status(500).send(e.message);
