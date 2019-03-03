@@ -1,3 +1,5 @@
+/* eslint-disable import/first */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-console */
 import express from 'express';
@@ -7,30 +9,44 @@ import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { matchRoutes } from 'react-router-config';
 
+// Dev
+import { getDevServerBundleUrl } from 'universal-hot-reload';
+import webpackClientConfig from '../webpack.hot.client.dev.config';
+
+// Rendering
 import App from '../../src/components/App';
 import Routes from '../../src/components/Routes';
 import configureStore from '../../src/store';
 
-const app = express();
+const isDev = process.env.NODE_ENV === 'development';
+
+const devBundleUrl = getDevServerBundleUrl(webpackClientConfig);
+const prodBundleUrl = '/dist/app.js';
+
+const bundleUrl = isDev ? devBundleUrl : prodBundleUrl;
+
+const prodCssUrl = './dist/app.css';
 
 const layout = (body, initialState) => (`
   <!DOCTYPE html>
   <html>
   <head>
     <meta charset="UTF-8"/>
-    <title>SSddSdsadss</title>
+    <title>dSSddSdsadss</title>
     <link rel="shortcut icon" href="/dist/favicon.ico">
-    <link href="/dist/app.css" rel="stylesheet">
+    ${isDev ? '' : `<link href=${prodCssUrl} rel="stylesheet">`}
   </head>
   <body>
     <div id="root">${body}</div>
     <script type="text/javascript" charset="utf-8">
       window.__INITIAL_STATE__ = ${initialState};
     </script>
-    <script type="text/javascript" src="/dist/app.dev.js"></script>
+    <script type="text/javascript" src=${bundleUrl}></script>
   </body>
   </html>
 `);
+
+const app = express();
 
 app.use('/dist', express.static('dist'));
 
@@ -70,4 +86,12 @@ app.use((req, res) => {
   });
 });
 
-export default app;
+const port = 8000;
+
+export default app.listen(port, (error) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.info('==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port);
+  }
+});
