@@ -5,17 +5,16 @@ const webpackNodeExternals = require('webpack-node-externals');
 
 module.exports = {
   mode: 'development',
+  devtool: 'source-map',
   target: 'node',
-  entry: {
-    server: [
+  entry: [
       '@babel/polyfill', 
-      './ssr/server/index.js'
-    ],
-  },
+      './ssr/server/server.js',
+  ],
   output: {
     path: path.resolve(__dirname,'build'),
-    filename: '[name].dev.js',
-    publicPath: '/',
+    filename: 'server.dev.js',
+    libraryTarget: 'commonjs2',
   },
   module: {
     rules: [
