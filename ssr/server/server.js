@@ -26,14 +26,15 @@ const prodBundleUrl = '/dist/app.js';
 
 const bundleUrl = isDev ? devBundleUrl : prodBundleUrl;
 
-const prodCssUrl = './dist/app.css';
+const prodCssUrl = '/dist/app.css';
 
 const layout = (body, initialState) => (`
   <!DOCTYPE html>
-  <html>
+  <html lang="ko">
   <head>
     <meta charset="UTF-8"/>
-    <title>dSSddSdsadss</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joel's D'cafe</title>
     <link rel="shortcut icon" href="/dist/favicon.ico">
     ${isDev ? '' : `<link href=${prodCssUrl} rel="stylesheet">`}
   </head>
