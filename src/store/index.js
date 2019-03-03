@@ -11,12 +11,13 @@ if (!process.env.BROWSER) {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export default function configureStore(extraEnhancers = []) {
+export default function configureStore(initialState, extraEnhancers = []) {
   const saga = createSagaMiddleware();
   const middlewares = [saga];
 
   const store = createStore(
     rootReducer,
+    initialState,
     composeEnhancers(
       applyMiddleware(...middlewares), ...extraEnhancers,
     ),
