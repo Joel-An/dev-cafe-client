@@ -1,5 +1,5 @@
 import {
-  put, call, takeLatest,
+  put, call, takeLatest, select,
 } from 'redux-saga/effects';
 
 import {
@@ -8,6 +8,7 @@ import {
 } from '../types/auth';
 import * as actions from '../actions/auth';
 import * as api from '../../api/auth';
+import { selectToken } from '../selectors/auth';
 
 function* requestLogout(logoutAction) {
   try {
@@ -33,9 +34,27 @@ function* fetchUserInfo(action) {
 
 const watchFetchUserInfo = takeLatest(FETCH_USERINFO, fetchUserInfo);
 
+function* autoLogin() {
+  if (!process.env.BROWSER) {
+    return;
+  }
+  const token = yield select(selectToken);
+
+  if (token) {
+    return;
+  }
+
+  const storedToken = localStorage.getItem('token');
+
+  if (storedToken) {
+    yield put(actions.loginSucceeded(storedToken));
+  }
+}
+
 const authSagas = [
   watchLogout,
   watchFetchUserInfo,
+  autoLogin(),
 ];
 
 export default authSagas;
