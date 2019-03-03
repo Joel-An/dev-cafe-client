@@ -2,8 +2,9 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
 import PropTypes from 'prop-types';
+
+import { register } from '../api/users';
 
 import './SignUP.scss';
 
@@ -34,12 +35,11 @@ class Signup extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { registerForm } = this.state;
-    this.register(registerForm);
+    this.reqRegister(registerForm);
   }
 
-  register = (registerForm) => {
-    axios
-      .post('/api/v1/users', registerForm)
+  reqRegister = (registerForm) => {
+    register(registerForm)
       .then((result) => {
         if (result.status === 201) {
           this.setState({ redirect: true });
