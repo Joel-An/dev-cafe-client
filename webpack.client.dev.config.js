@@ -8,12 +8,13 @@ const port = process.env.PORT || 4000;
 
 module.exports = {
   mode: 'development',
-  entry: {
-    app: ['@babel/polyfill', './src/index.jsx'],
-  },
+  entry: [
+      '@babel/polyfill',
+      './src/index.jsx'
+  ],
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: '[name].dev.js',
+    path: path.resolve(__dirname,'dist'),
+    filename: 'app.dev.js',
     publicPath: '/',
   },
   module: {
