@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack.client.dev.config.js",
     "build": "webpack --config webpack.prod.config.js",
+    "build:dev": "webpack --config webpack.client.dev.config.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors"
