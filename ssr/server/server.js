@@ -15,6 +15,7 @@ import webpackClientConfig from '../webpack.hot.client.dev.config';
 
 // Rendering
 import App from '../../src/components/App';
+import NotificationCenter from '../../src/components/notifications/NotificationCenter';
 import Routes from '../../src/components/Routes';
 import configureStore from '../../src/store';
 
@@ -72,6 +73,7 @@ app.use((req, res) => {
         <StaticRouter location={req.url} context={context}>
           <App />
         </StaticRouter>
+        <NotificationCenter/>
       </Provider>
     );
     res.status(200).send(
