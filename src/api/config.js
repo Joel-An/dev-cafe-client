@@ -3,7 +3,7 @@ const isBrowser = process.env.BROWSER;
 
 const DEV_API_SERVER = 'http://localhost:3000';
 
-const PROD_API_SERVER = 'http://rejoelve.com';
+const PROD_API_SERVER = 'https://rejoelve.com';
 const PROD_API_SERVER_LOCAL = 'http://localhost:3000';
 
 const setHost = () => {
