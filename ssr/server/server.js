@@ -57,7 +57,10 @@ app.use((req, res) => {
       </Provider>
     );
 
-    const initialState = JSON.stringify(store.getState());
+    const initialState = JSON.stringify(store.getState()).replace(
+      /</g,
+      '\\u003c',
+    );
 
     res.write(`
     <!DOCTYPE html>
