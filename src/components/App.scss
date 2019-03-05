@@ -76,13 +76,12 @@
 
 @media (min-width: 980px) {
   .App {
-    grid-template-columns: 1fr 700px 200px 1fr;
+    grid-template-columns: 1fr 200px 700px 200px 1fr;
     grid-template-rows: 70px 4fr 50px;
 
     grid-template-areas:
-      'header header  header  header'
-      '.      content sidebar .'
-      'footer footer  footer  footer';
+      'header header header  header   header'
+      '.      .      content sidebar .'
+      'footer footer footer  footer  footer';
   }
-
 }
