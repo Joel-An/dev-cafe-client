@@ -9,6 +9,8 @@ import { postPropInfo } from '../../containers/PostContainer';
 import Category from '../categories/Category';
 import User from '../users/User';
 
+import './PostListItem.scss';
+
 const renderCategory = category => (
   <span>
     카테고리 :
@@ -25,7 +27,7 @@ const renderUser = user => (
 const PostListItem = (props) => {
   const { post, pageRefProp } = props;
   return (
-    <li title={post.title} ref={pageRefProp}>
+    <li title={post.title} ref={pageRefProp} className="PostListItem" >
       <h1>
         <Link to={`posts/${post._id}`}>
           {post.title}
