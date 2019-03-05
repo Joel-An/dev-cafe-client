@@ -1,0 +1,13 @@
+.EditComment{
+  .edit-comment-button-group{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    button{
+      color: white;
+      background-color: #da7b63;
+    }
+  }
+}

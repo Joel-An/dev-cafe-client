@@ -11,6 +11,8 @@ import * as Api from '../../api/comments';
 
 import Editor from '../contents/CommentEditor';
 
+import './EditComment.scss';
+
 class EditComment extends React.Component {
   constructor(props) {
     super(props);
@@ -95,13 +97,15 @@ class EditComment extends React.Component {
     const { editingComment, isLoading } = this.state;
 
     return (
-      <div>
+      <div className="EditComment">
         <Editor
           contents={isLoading ? 'Loading...' : editingComment.contents}
           onChange={this.onChange}/>
-        <button type="button" onClick={this.onSubmit}>
+        <div className="edit-comment-button-group">
+          <button type="button" onClick={this.onSubmit}>
           등록
-        </button>
+          </button>
+        </div>
       </div>
     );
   }
