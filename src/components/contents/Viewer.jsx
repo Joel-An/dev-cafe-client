@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
+
 import CodeBlock from './CodeBlock';
+import InlineCode from './InlineCode';
 
 const Viewer = (props) => {
   const { contents } = props;
   return (
     <ReactMarkdown
       source={contents}
-      renderers={{ code: CodeBlock }}
+      renderers={{ code: CodeBlock, inlineCode: InlineCode }}
     />
   );
 };
