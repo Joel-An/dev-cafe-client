@@ -10,6 +10,7 @@ import PostPage from './posts/PostPage';
 import WritePostPage from './posts/Write';
 import EditPostPage from './posts/EditPostPage';
 import AdminPage from './AdminPage';
+import AboutPage from './AboutPage';
 
 import {
   ssrCommonPage,
@@ -79,6 +80,12 @@ const Routes = [
     path: '/categoryManager',
     exact: true,
     component: ManageCategoriesPage,
+    mapUrlToActions: () => setFetchActions(),
+  },
+  {
+    path: '/about',
+    exact: true,
+    component: AboutPage,
     mapUrlToActions: () => setFetchActions(),
   },
   {
