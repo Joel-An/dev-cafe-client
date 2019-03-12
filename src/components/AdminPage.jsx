@@ -16,7 +16,7 @@ const AdminPage = (props) => {
     });
   }
   return (
-    <Link to="/categoryManager">MANAGE CATEGORIES</Link>
+    <Link to="/admin/categoryManager">MANAGE CATEGORIES</Link>
   );
 };
 

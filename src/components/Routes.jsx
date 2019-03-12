@@ -77,7 +77,7 @@ const Routes = [
     mapUrlToActions: () => setFetchActions(),
   },
   {
-    path: '/categoryManager',
+    path: '/admin/categoryManager',
     exact: true,
     component: ManageCategoriesPage,
     mapUrlToActions: () => setFetchActions(),
