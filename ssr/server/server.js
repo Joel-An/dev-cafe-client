@@ -30,6 +30,11 @@ const prodCssUrl = '/dist/app.css';
 
 const app = express();
 
+app.use('/robot.txt', (req, res) => {
+  res.type('text/plain');
+  res.send('User-agent: *\nDisallow: /admin/');
+});
+
 app.use('/dist', express.static('dist'));
 
 app.use((req, res) => {
