@@ -8,6 +8,8 @@ import { getCategoryById } from '../../store/selectors/categories';
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import { categoryPropType } from '../../containers/WithCategory';
 
+import './PostListPage.scss';
+
 export const parseCategoryId = (query) => {
   const categoryId = query.slice(query.indexOf('=') + 1);
   return categoryId;
@@ -32,14 +34,6 @@ const PostListPage = (props) => {
         />
       </Helmet>
       <div className="PostListPage">
-        <h1>
-          {category.name}
-        </h1>
-        <Link to={`/write/${category._id}`}>
-          <button type="button">
-          글쓰기
-          </button>
-        </Link>
         <PostList categoryId={category._id}/>
       </div>
     </Fragment>

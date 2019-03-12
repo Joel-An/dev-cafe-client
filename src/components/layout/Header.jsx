@@ -10,6 +10,7 @@ import { connectComponent } from '../../utils';
 
 import LogoutButton from './LogoutButton';
 import LoginButton from './LoginButton';
+import WritePostButton from '../posts/WritePostButton';
 
 import './Header.scss';
 
@@ -56,7 +57,10 @@ class Header extends React.Component {
                   </button>
                 </Link>
             </>
-            : <LogoutButton/>
+            : <>
+            <LogoutButton/>
+            <WritePostButton/>
+            </>
           }
           <Link to="/admin">
             <button type="button">
