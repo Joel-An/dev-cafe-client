@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
-import React from 'react';
+import React, { Fragment } from 'react';
+import Helmet from 'react-helmet-async';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -60,20 +61,29 @@ class Signup extends React.Component {
     }
 
     return (
-      <div className="SignUpPage">
-        <RegisterForm
-          username={registerForm.username}
-          profileName={registerForm.profileName}
-          email={registerForm.email}
-          password={registerForm.password}
-          confirmPassword={registerForm.confirmPassword}
-          onChange={this.onChange}
-          onSubmit={this.onSubmit}
-        />
-        <div className="regster-error">
-          {error}
+      <Fragment>
+        <Helmet>
+          <title>회원가입! | Dev Cafe</title>
+          <meta
+            name="description"
+            content="어서오세요! 환영합니다!"
+          />
+        </Helmet>
+        <div className="SignUpPage">
+          <RegisterForm
+            username={registerForm.username}
+            profileName={registerForm.profileName}
+            email={registerForm.email}
+            password={registerForm.password}
+            confirmPassword={registerForm.confirmPassword}
+            onChange={this.onChange}
+            onSubmit={this.onSubmit}
+          />
+          <div className="regster-error">
+            {error}
+          </div>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }

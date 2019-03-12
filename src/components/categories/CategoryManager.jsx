@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import Helmet from 'react-helmet-async';
+
 import CreateCategory from './CreateCategory';
 import DeleteCategory from './DeleteCategory';
 
@@ -34,28 +36,33 @@ const CategoryManager = (props) => {
   const { categories, parentCategoryIds } = props;
 
   return (
-    <div className="CategoryManager">
-      <ul className="categoryList">
-        {parentCategoryIds.map(id => (
-          <li name={categories[id].name} key={id}>
-            <div className="category">
-              <span className="title">
-                {categories[id].name}
-              </span>
-              <DeleteCategory
-                id={id}
+    <Fragment>
+      <Helmet>
+        <meta name="robots" content="noindex,nofollow" />
+      </Helmet>
+      <div className="CategoryManager">
+        <ul className="categoryList">
+          {parentCategoryIds.map(id => (
+            <li name={categories[id].name} key={id}>
+              <div className="category">
+                <span className="title">
+                  {categories[id].name}
+                </span>
+                <DeleteCategory
+                  id={id}
+                />
+              </div>
+              {renderChildCategories(categories, id)}
+              <CreateCategory
+                parent={id}
               />
-            </div>
-            {renderChildCategories(categories, id)}
-            <CreateCategory
-              parent={id}
-            />
-          </li>
-        ))
-        }
-      </ul>
-      <CreateCategory/>
-    </div>
+            </li>
+          ))
+          }
+        </ul>
+        <CreateCategory/>
+      </div>
+    </Fragment>
   );
 };
 

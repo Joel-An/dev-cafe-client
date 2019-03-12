@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import Helmet from 'react-helmet-async';
+
 
 import withOpenAlert, { openAlertPropType } from '../containers/WithOpenAlert';
 import withMyInfo, { myInfoPropType } from '../containers/WithMyInfo';
@@ -16,7 +18,13 @@ const AdminPage = (props) => {
     });
   }
   return (
-    <Link to="/admin/categoryManager">MANAGE CATEGORIES</Link>
+    <Fragment>
+      <Helmet>
+        <title>Admin | Dev Cafe</title>
+        <meta name="robots" content="noindex,nofollow" />
+      </Helmet>
+      <Link to="/admin/categoryManager">MANAGE CATEGORIES</Link>
+    </Fragment>
   );
 };
 

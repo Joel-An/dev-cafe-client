@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { Redirect, Link } from 'react-router-dom';
+import Helmet from 'react-helmet-async';
+
 
 import CategorySelector from '../categories/SelectCategory';
 
@@ -140,46 +142,58 @@ class Write extends React.Component {
     }
 
     return (
-      <div className="post-from-container">
-        <form className="post-form" onSubmit={this.onSubmit}>
-          <div className="header">
-            <div className="post-form-header-menu">
-              <div className="post-form-header-menu-front">
-                <Link to={`/posts?category=${lastVisitedCategoryId}`}>
-                  <button type="button">
+      <Fragment>
+        <Helmet>
+          <title>글 작성 | Dev Cafe</title>
+          <meta
+            name="description"
+            content="글 작성 페이지입니다."/>
+          <meta
+            name="robots"
+            content="noindex,nofollow" />
+        </Helmet>
+        <div className="post-from-container">
+          <form className="post-form" onSubmit={this.onSubmit}>
+            <div className="header">
+              <div className="post-form-header-menu">
+                <div className="post-form-header-menu-front">
+                  <Link to={`/posts?category=${lastVisitedCategoryId}`}>
+                    <button type="button">
                     뒤로가기
-                  </button>
-                </Link>
-              </div>
-              <div className="post-form-header-menu-back">
-                {!!token || <LoginButton/> }
-                <UploadImage updateUploadedImageLink={this.updateUploadedImageLink}/>
-                <button type="submit" ref={this.submitButton}>
+                    </button>
+                  </Link>
+                </div>
+                <div className="post-form-header-menu-back">
+                  {!!token || <LoginButton/> }
+                  <UploadImage updateUploadedImageLink={this.updateUploadedImageLink}/>
+                  <button type="submit" ref={this.submitButton}>
                   작성
-                </button>
+                  </button>
+                </div>
+              </div>
+              <div className="post-form-header-input">
+                <CategorySelector
+                  onSelect={this.onSelectCategory}
+                  selectedCategory={postForm.categoryId}
+                />
+                <input type="text"
+                  name="title"
+                  value={postForm.title}
+                  placeholder="Title"
+                  onChange={this.onTitleChange}/>
               </div>
             </div>
-            <div className="post-form-header-input">
-              <CategorySelector
-                onSelect={this.onSelectCategory}
-                selectedCategory={postForm.categoryId}
-              />
-              <input type="text"
-                name="title"
-                value={postForm.title}
-                placeholder="Title"
-                onChange={this.onTitleChange}/>
-            </div>
-          </div>
-          <Editor
-            contents={postForm.contents}
-            onChange={this.onContentsChange}
-            preview
-            insertText={uploadedImageLink}
-            clearInsertText={this.clearUploadedImageLink}
-          />
-        </form>
-      </div>
+            <Editor
+              contents={postForm.contents}
+              onChange={this.onContentsChange}
+              preview
+              insertText={uploadedImageLink}
+              clearInsertText={this.clearUploadedImageLink}
+            />
+          </form>
+        </div>
+      </Fragment>
+
     );
   }
 }

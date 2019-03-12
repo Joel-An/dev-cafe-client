@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import Helmet from 'react-helmet-async';
 
 const NoMatch = () => (
-  <div>
-    <strong>Page not found!!</strong>
-  </div>
+  <Fragment>
+    <Helmet>
+      <title>없어!</title>
+      <meta name="robots" content="noindex,nofollow" />
+    </Helmet>
+    <div>
+      <strong>Page not found!!</strong>
+    </div>
+  </Fragment>
 );
 
 export default NoMatch;
