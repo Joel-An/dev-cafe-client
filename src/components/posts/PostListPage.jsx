@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet-async';
 import { connect } from 'react-redux';
 
@@ -7,8 +6,6 @@ import PostList from './PostList';
 import { getCategoryById } from '../../store/selectors/categories';
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import { categoryPropType } from '../../containers/WithCategory';
-
-import './PostListPage.scss';
 
 export const parseCategoryId = (query) => {
   const categoryId = query.slice(query.indexOf('=') + 1);
