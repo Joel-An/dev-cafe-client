@@ -4,10 +4,11 @@
 /* eslint-disable no-console */
 import express from 'express';
 import React from 'react';
-import { renderToNodeStream } from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { matchRoutes } from 'react-router-config';
+import { HelmetProvider } from 'react-helmet-async';
 
 // Dev
 import { getDevServerBundleUrl } from 'universal-hot-reload';
@@ -40,6 +41,8 @@ app.use('/dist', express.static('dist'));
 app.use((req, res) => {
   console.log('req', req.url);
   const context = {};
+  const helmetContext = {};
+
   const store = configureStore();
   const promises = store.runSaga().toPromise();
 
@@ -54,12 +57,14 @@ app.use((req, res) => {
 
   return promises.then(() => {
     const rootComp = (
-      <Provider store={store} >
-        <StaticRouter location={req.url} context={context}>
-          <App />
-        </StaticRouter>
-        <NotificationCenter/>
-      </Provider>
+      <HelmetProvider context={helmetContext}>
+        <Provider store={store} >
+          <StaticRouter location={req.url} context={context}>
+            <App />
+          </StaticRouter>
+          <NotificationCenter/>
+        </Provider>
+      </HelmetProvider>
     );
 
     const initialState = JSON.stringify(store.getState()).replace(
@@ -67,31 +72,30 @@ app.use((req, res) => {
       '\\u003c',
     );
 
-    res.write(`
+    const renderedApp = renderToString(rootComp);
+    const { helmet } = helmetContext;
+
+    res.status(200);
+    res.send(`
     <!DOCTYPE html>
     <html lang="ko">
     <head>
       <meta charset="UTF-8"/>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Joel's D'cafe</title>
+      ${helmet.title.toString()}
+      ${helmet.meta.toString()}
+      ${helmet.link.toString()}
       <link rel="shortcut icon" href="/dist/favicon.ico">
       <link href=${prodCssUrl} rel="stylesheet">
     </head>
     <body>
-      <div id="root">`);
-
-    const stream = renderToNodeStream(rootComp);
-    stream.pipe(res, { end: false });
-
-    stream.on('end', () => {
-      res.end(`</div>
+      <div id="root">${renderedApp}</div>
       <script type="text/javascript" charset="utf-8">
         window.__INITIAL_STATE__ = ${initialState};
       </script>
       <script type="text/javascript" src=${bundleUrl}></script>
     </body>
    </html>`);
-    });
   }).catch((e) => {
     console.log(e.message);
     res.status(500).send(e.message);
