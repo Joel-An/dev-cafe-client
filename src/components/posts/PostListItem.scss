@@ -1,11 +1,44 @@
 .PostListItem {
+  margin-bottom: 40px;
 
-  h1 a {
-    display: block;
-    text-decoration: none;
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    margin-top: 10px;
+
+    a {
+      display: block;
+      text-decoration: none;
+    }
+
+     a:hover {
+      background-color: rgb(216, 212, 212);
+    }
   }
 
-  h1 a:hover {
-    background-color: rgb(216, 212, 212);
+  .post-subInfo {
+    p {
+      padding:0;
+      margin:0;
+    }
+    color: grey;
+
+    .summary {
+      color: rgba(75, 66, 66, 0.87);
+      line-height: 1.5;
+    }
+
+    a {
+      color: grey;
+      text-decoration: none;
+    }
+
+    .post-meta {
+      padding-top: 5px;
+      span {
+        padding-right: 20px;
+      }
+    }
   }
+
 }

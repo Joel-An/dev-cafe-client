@@ -9,37 +9,45 @@ import { postPropInfo } from '../../containers/PostContainer';
 import Category from '../categories/Category';
 import User from '../users/User';
 
+import { extractSummary } from '../../utils';
+
 import './PostListItem.scss';
 
 const renderCategory = category => (
-  <span>
-    카테고리 :
+  <span className="category">
     <Link to={`posts?categories=${category._id}`}>
-      {category.name}
+      {`#${category.name}`}
     </Link>
   </span>
 );
 
 const renderUser = user => (
-  <span>작성자 : {user.profileName}</span>
+  <span>posted by {user.profileName}</span>
 );
 
 const PostListItem = (props) => {
   const { post, pageRefProp } = props;
   return (
     <li title={post.title} ref={pageRefProp} className="PostListItem" >
-      <h1>
+      <h2 className="post-title">
         <Link to={`posts/${post._id}`}>
           {post.title}
         </Link>
-      </h1>
-      <p>
-        <Category categoryId={post.category} renderCategory={renderCategory} />
-        <br/>
-        <User userId={post.author} renderUser={renderUser} />
-        <br/>
-        작성 시간 : {dateFormat(post.date, 'yy/mm/dd h:MM TT')}<br/>
-      </p>
+      </h2>
+      <div className="post-subInfo">
+        {
+          post.contents && <p className="summary">
+            {extractSummary(post.contents)}
+          </p>
+        }
+        <div className="post-meta">
+          <span className="date">
+            {dateFormat(post.date, 'yy/mm/dd h:MM TT')}
+          </span>
+          <Category categoryId={post.category} renderCategory={renderCategory} />
+          <User userId={post.author} renderUser={renderUser} />
+        </div>
+      </div>
     </li>
   );
 };
