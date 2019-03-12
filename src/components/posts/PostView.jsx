@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import Helmet from 'react-helmet-async';
 
 import withPostContainer, { postPropInfo } from '../../containers/PostContainer';
 import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
 import withLastVisitedCategoryId, { lastVisitedCategoryIdPropType } from '../../containers/WithLastVisitedCategoryId';
-import { connectComponent } from '../../utils';
+import { connectComponent, extractSummary } from '../../utils';
 
 import Category from '../categories/Category';
 import User from '../users/User';
@@ -30,23 +31,34 @@ const PostView = (props) => {
 
   const isMyPost = (post.author === myInfo._id);
 
+  const url = `https://rejoelve.com/posts/${post._id}`;
+  const summary = extractSummary(post.contents);
   return (
-    <div className="PostView">
-      <article className="post">
-        <header>
-          <h1 className="title">{post.title}</h1>
-          <Category categoryId={post.category} renderCategory={renderCategory}/>
-          <User userId={post.author} renderUser={renderUser}/>
-        </header>
-        <section className="post-content">
-          {post.contents
-            ? <ContentsViewer contents={post.contents}/>
-            : <LoadingSpinner/>
-          }
-        </section>
-      </article>
-      <div className="post-button-group">
-        {isMyPost
+    <Fragment>
+      <Helmet>
+        <title>{post.title}</title>
+        <meta name="description" content={summary}/>
+        <meta property="og:url" content={url} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={summary} />
+      </Helmet>
+      <div className="PostView">
+        <article className="post">
+          <header>
+            <h1 className="title">{post.title}</h1>
+            <Category categoryId={post.category} renderCategory={renderCategory}/>
+            <User userId={post.author} renderUser={renderUser}/>
+          </header>
+          <section className="post-content">
+            {post.contents
+              ? <ContentsViewer contents={post.contents}/>
+              : <LoadingSpinner/>
+            }
+          </section>
+        </article>
+        <div className="post-button-group">
+          {isMyPost
         && <>
           <DeletePost postId={post._id} categoryId={lastVisitedCategoryId}/>
             <Link to={`/edit/${post._id}`}>
@@ -55,15 +67,14 @@ const PostView = (props) => {
               </button>
             </Link>
         </>}
-        <Link to={`/posts?category=${lastVisitedCategoryId}`}>
-          <button type="button">
+          <Link to={`/posts?category=${lastVisitedCategoryId}`}>
+            <button type="button">
             목록
-          </button>
-        </Link>
+            </button>
+          </Link>
+        </div>
       </div>
-
-
-    </div>
+    </Fragment>
   );
 };
 
