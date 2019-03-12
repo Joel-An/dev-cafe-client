@@ -17,7 +17,7 @@ class PostEditor extends React.PureComponent {
             {...this.props}
           />
         </div>
-        <div className="Preview">
+        <div className="Preview markdown">
           <Viewer contents={contents} />
         </div>
       </div>

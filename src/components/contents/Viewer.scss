@@ -1,0 +1,31 @@
+.markdown {
+  line-height: 1.8;
+
+  p {
+    font-weight: 400;
+  }
+
+  a {
+    text-decoration: none;
+    color: rgb(52, 52, 190);
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  blockquote {
+    border-left: 4px solid #ddd;
+    padding: 0 15px;
+    background-color: white;
+  }
+
+  h1 {
+    font-size: 2em;
+    border-bottom: 1px solid rgba(165, 156, 156, 0.767);
+  }    
+
+  h2 {
+    border-bottom: 1px solid rgba(165, 156, 156, 0.767);
+  }
+}

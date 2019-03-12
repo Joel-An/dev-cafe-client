@@ -50,7 +50,7 @@ const PostView = (props) => {
             <Category categoryId={post.category} renderCategory={renderCategory}/>
             <User userId={post.author} renderUser={renderUser}/>
           </header>
-          <section className="post-content">
+          <section className="post-content markdown">
             {post.contents
               ? <ContentsViewer contents={post.contents}/>
               : <LoadingSpinner/>

@@ -5,6 +5,8 @@ import ReactMarkdown from 'react-markdown';
 import CodeBlock from './CodeBlock';
 import InlineCode from './InlineCode';
 
+import './Viewer.scss';
+
 const Viewer = (props) => {
   const { contents } = props;
   return (
