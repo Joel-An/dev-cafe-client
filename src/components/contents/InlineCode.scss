@@ -1,6 +1,10 @@
 .inline-code {
-  padding: 1px;
   border-radius: 3px;
-  background-color: rgba(65, 66, 66, 0.096);
+  //background-color: rgba(65, 66, 66, 0.096);
   font: inherit;
+  background-color: #f5f4f4;
+  border: 0.5px solid #e1e2e3;
+  margin: 1px;
+  padding: 0.01rem 0.2rem;
+  font-size: 90%;
 }
