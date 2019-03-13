@@ -3,10 +3,23 @@
 
   article header h1{
     font-size: 2rem;
+    margin-bottom: 5px;
   }
   
   .post-button-group{
     display: flex;
     justify-content: flex-end;
+  }
+
+  .post {
+    .post-subInfo {
+      display: flex;
+      justify-content: flex-end;
+
+      span {
+        margin-right: 20px;
+      }
+      color: grey;
+    }
   }
 }

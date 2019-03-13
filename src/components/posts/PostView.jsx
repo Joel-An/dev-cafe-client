@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet-async';
+import dateFormat from 'dateformat';
 
 import withPostContainer, { postPropInfo } from '../../containers/PostContainer';
 import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
@@ -16,10 +17,10 @@ import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import './PostView.scss';
 
 const renderCategory = category => (
-  <span>카테고리 : {category.name}<br/></span>
+  <span>#{category.name}</span>
 );
 const renderUser = user => (
-  <span>작성자 : {user.profileName}</span>
+  <span>posted by {user.profileName}</span>
 );
 
 const PostView = (props) => {
@@ -47,8 +48,13 @@ const PostView = (props) => {
         <article className="post">
           <header>
             <h1 className="title">{post.title}</h1>
-            <Category categoryId={post.category} renderCategory={renderCategory}/>
-            <User userId={post.author} renderUser={renderUser}/>
+            <div className="post-subInfo">
+              <Category categoryId={post.category} renderCategory={renderCategory}/>
+              <User userId={post.author} renderUser={renderUser}/>
+              <span className="date">
+                {dateFormat(post.date, 'yy/mm/dd h:MM TT')}
+              </span>
+            </div>
           </header>
           <section className="post-content markdown">
             {post.contents
