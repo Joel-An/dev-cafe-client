@@ -2,6 +2,15 @@
   line-height: 1.8;
   letter-spacing: -0.02rem;
 
+  ul li{
+    margin-left: 40px;
+    list-style-type: square;
+  }
+
+  ol li {
+    list-style-type: decimal;
+  }
+
   p {
     font-weight: 400;
   }
