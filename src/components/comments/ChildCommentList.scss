@@ -4,7 +4,12 @@ ul.ChildCommentList{
   padding-right: 20px;  
 
   li{
-    margin-top: 3px;
     background-color: #ffffff;
+    border: 1px solid #afb3b8;
+    border-top: none;
+  }
+
+  li:first-child {
+    border-top: 1px solid #afb3b8;
   }
 }

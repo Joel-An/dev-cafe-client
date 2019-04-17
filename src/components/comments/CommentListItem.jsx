@@ -17,13 +17,25 @@ import User from '../users/User';
 
 import './CommentListItem.scss';
 
-const renderUser = user => user.profileName;
+const getProfileName = user => (<a href={`#/${user.username}`}>{user.profileName}</a>);
+const getProfilePic = user => (<div className="profile-pic" />);
+
+const ProfileName = ({ userId }) => <User userId={userId} renderUser={getProfileName}/>;
+const ProfilePic = ({ userId }) => <User userId={userId} renderUser={getProfilePic}/>;
+
 
 const renderComment = comment => (
-  <article className="comment markdown">
-    작성자 : <User userId={comment.author} renderUser={renderUser}/><br/>
-    <ContentsViewer contents={comment.contents}/>
-    작성 시간 : {dateFormat(comment.date, 'yy/mm/dd h:MM TT')}<br/>
+  <article className="comment">
+    <div className="comment-header">
+      <ProfilePic userId={comment.author}/>
+      <span className="comment-meta">
+        <ProfileName userId={comment.author}/>
+        <p className="date">
+          {dateFormat(comment.date, 'yy/mm/dd h:MM TT')}
+        </p>
+      </span>
+    </div>
+    <ContentsViewer className="comment-body markdown" contents={comment.contents}/>
   </article>
 );
 
