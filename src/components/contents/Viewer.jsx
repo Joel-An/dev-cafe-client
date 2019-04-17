@@ -8,10 +8,11 @@ import InlineCode from './InlineCode';
 import './Viewer.scss';
 
 const Viewer = (props) => {
-  const { contents } = props;
+  const { contents, className } = props;
   return (
     <ReactMarkdown
       source={contents}
+      className={className}
       renderers={{ code: CodeBlock, inlineCode: InlineCode }}
     />
   );
@@ -19,10 +20,12 @@ const Viewer = (props) => {
 
 Viewer.propTypes = {
   contents: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Viewer.defaultProps = {
   contents: '',
+  className: undefined,
 };
 
 export default Viewer;
