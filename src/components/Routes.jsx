@@ -12,6 +12,7 @@ import EditPostPage from './posts/EditPostPage';
 import AdminPage from './AdminPage';
 import AboutPage from './AboutPage';
 import UserPage from './users/UserPage';
+import MyPage from './users/MyPage';
 
 import {
   ssrCommonPage,
@@ -98,6 +99,12 @@ const Routes = [
     path: '/about',
     exact: true,
     component: AboutPage,
+    mapUrlToActions: () => setFetchActions(),
+  },
+  {
+    path: '/mypage',
+    exact: true,
+    component: MyPage,
     mapUrlToActions: () => setFetchActions(),
   },
   {
