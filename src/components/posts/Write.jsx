@@ -51,10 +51,12 @@ class Write extends React.Component {
     }
   }
 
-  updateUploadedImageLink = (link) => {
+  updateUploadedImageLink = (imageName, imageUrl) => {
+    const markdownLink = `![${imageName}](${imageUrl} "${imageName}")\n`;
+
     this.setState(prevState => ({
       ...prevState,
-      uploadedImageLink: link,
+      uploadedImageLink: markdownLink,
     }));
   }
 
@@ -165,7 +167,7 @@ class Write extends React.Component {
                 </div>
                 <div className="post-form-header-menu-back">
                   {!!token || <LoginButton/> }
-                  <UploadImage updateUploadedImageLink={this.updateUploadedImageLink}/>
+                  <UploadImage afterUpload={this.updateUploadedImageLink}/>
                   <button type="submit" ref={this.submitButton}>
                   작성
                   </button>

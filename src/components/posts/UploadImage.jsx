@@ -33,7 +33,7 @@ class UploadImage extends React.Component {
     const imageName = selectedImage.name;
 
     const {
-      token, addNotification, openAlert, updateUploadedImageLink, path,
+      token, addNotification, openAlert, afterUpload, path,
     } = this.props;
 
     const fileType = selectedImage.type;
@@ -57,9 +57,9 @@ class UploadImage extends React.Component {
           message: `[${imageName}] 이미지가 등록되었습니다!`,
         });
 
-        const markdownLink = `![${imageName}](${imageUrl} "${imageName}")\n`;
-
-        updateUploadedImageLink(markdownLink);
+        if (typeof afterUpload === 'function') {
+          afterUpload(imageName, imageUrl);
+        }
         this.resetFile();
       })
       .catch((err) => {
@@ -86,13 +86,14 @@ UploadImage.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
   addNotification: addNotificationPropType.type.isRequired,
-  updateUploadedImageLink: PropTypes.func.isRequired,
+  afterUpload: PropTypes.func,
   path: PropTypes.string,
   children: PropTypes.string,
 };
 
 UploadImage.defaultProps = {
   token: tokenPropType.default,
+  afterUpload: undefined,
   path: undefined,
   children: undefined,
 };
