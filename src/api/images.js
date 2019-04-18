@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { host } from './config';
 
-export const postImage = (image, token) => {
+export const postImage = (token, image, path = '') => {
   const config = {
     headers: {
       'x-access-token': token,
@@ -10,7 +10,7 @@ export const postImage = (image, token) => {
     },
   };
 
-  return axios.post(`${host}/api/v1/images`, image, config);
+  return axios.post(`${host}/api/v1/images/${path}`, image, config);
 };
 
 export const getImage = () => {};

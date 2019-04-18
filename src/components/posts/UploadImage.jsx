@@ -33,7 +33,7 @@ class UploadImage extends React.Component {
     const imageName = selectedImage.name;
 
     const {
-      token, addNotification, openAlert, updateUploadedImageLink,
+      token, addNotification, openAlert, updateUploadedImageLink, path,
     } = this.props;
 
     const fileType = selectedImage.type;
@@ -50,7 +50,7 @@ class UploadImage extends React.Component {
     const formData = new FormData();
     formData.append('image', selectedImage);
 
-    Api.postImage(formData, token)
+    Api.postImage(token, formData, path)
       .then((response) => {
         const { imageUrl } = response.data;
         addNotification({
@@ -70,11 +70,12 @@ class UploadImage extends React.Component {
   }
 
   render() {
+    const { children } = this.props;
     return (
       <div className="UploadImage">
         <label htmlFor="image-upload">
           <input type="file" id="image-upload" onChange={this.onSelectFile} ref={(el) => { this.file = el; }}/>
-            Upload Image
+          {children || 'Upload Image'}
         </label>
       </div>
     );
@@ -86,10 +87,14 @@ UploadImage.propTypes = {
   openAlert: openAlertPropType.type.isRequired,
   addNotification: addNotificationPropType.type.isRequired,
   updateUploadedImageLink: PropTypes.func.isRequired,
+  path: PropTypes.string,
+  children: PropTypes.string,
 };
 
 UploadImage.defaultProps = {
   token: tokenPropType.default,
+  path: undefined,
+  children: undefined,
 };
 
 export default connectComponent(UploadImage,
