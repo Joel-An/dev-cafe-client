@@ -11,6 +11,7 @@ import WritePostPage from './posts/Write';
 import EditPostPage from './posts/EditPostPage';
 import AdminPage from './AdminPage';
 import AboutPage from './AboutPage';
+import UserPage from './users/UserPage';
 
 import {
   ssrCommonPage,
@@ -33,6 +34,17 @@ const Routes = [
     exact: true,
     component: Home,
     mapUrlToActions: () => setFetchActions(),
+  },
+  {
+    path: '/users/:userId',
+    component: UserPage,
+    mapUrlToActions: (url) => {
+      const pattern = new UrlPattern('/posts/:userId');
+      const { userId } = pattern.match(url);
+      // TODO: ssr을 위한 saga 세팅 필요
+
+      return setFetchActions();
+    },
   },
   {
     path: '/posts/:postId',
