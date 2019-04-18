@@ -59,9 +59,15 @@ class CommentListItem extends React.Component {
             <ProfilePic userId={comment.author}/>
             <span className="comment-meta">
               <ProfileName userId={comment.author}/>
-              <p className="date">
-                {dateFormat(comment.date, 'yy/mm/dd h:MM TT')}
-              </p>
+              <div className="date">
+                {comment.isThisModified
+                  ? <>
+                      <p className="last-modified-date hide-on-hover">{dateFormat(comment.modifiedDate, 'yy/mm/dd h:MM TT (수정됨)')}</p>
+                      <p className="pub-date reveal-on-hover">{dateFormat(comment.date, 'yy/mm/dd h:MM TT (작성)')}</p>
+                    </>
+                  : <p className="pub-date">{dateFormat(comment.date, 'yy/mm/dd h:MM TT')}</p>
+                }
+              </div>
             </span>
             <div className="comment-control-group">
               { isMyComment
