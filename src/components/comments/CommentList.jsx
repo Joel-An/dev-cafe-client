@@ -13,6 +13,8 @@ import { connectComponent } from '../../utils';
 
 import { fetchNextPageComments as fetchNextPageCommentsAction } from '../../store/actions/comments';
 
+import './CommentList.scss';
+
 class CommentList extends React.Component {
   constructor(props) {
     super(props);
@@ -67,9 +69,12 @@ class CommentList extends React.Component {
           {commentsMeta.isFetchingComments && <LoadingSpinner key="isFetchingComments" center/>}
           {commentsMeta.isFetchingNewParentComment && <LoadingSpinner key="isFetchingNewComment" center/>}
         </ul>
-        {commentsMeta.ids.length > 4 && <button type="button" onClick={this.toggleExtraCommentForm}>
-          +댓글 달기
-        </button>}
+        {commentsMeta.ids.length > 4 && <div className="extra-comment-form-wrapper">
+          <button type="button" onClick={this.toggleExtraCommentForm}>
+            +댓글 달기
+          </button>
+        </div>
+        }
         {toggleExtraCommentForm && <WriteComment postId={postId} autofocus key="extraCommentForm"/>}
       </Fragment>
 
