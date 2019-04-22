@@ -22,6 +22,10 @@ import {
   LOAD_EDITING_COMMENT,
   ADD_HEART,
   REMOVE_HEART,
+  ADD_COMMENT_LIKES,
+  REMOVE_COMMENT_LIKES,
+  ADD_COMMENT_DISLIKES,
+  REMOVE_COMMENT_DISLIKES,
 } from '../types/comments';
 
 import { CALL_API } from '../sagas/apiSaga';
@@ -145,3 +149,26 @@ export const removeHeart = commentId => ({
   commentId,
 });
 
+export const addCommentLikes = (commentId, userId) => ({
+  type: ADD_COMMENT_LIKES,
+  commentId,
+  userId,
+});
+
+export const removeCommentLikes = (commentId, userId) => ({
+  type: REMOVE_COMMENT_LIKES,
+  commentId,
+  userId,
+});
+
+export const addCommentDislikes = (commentId, userId) => ({
+  type: ADD_COMMENT_DISLIKES,
+  commentId,
+  userId,
+});
+
+export const removeCommentDislikes = (commentId, userId) => ({
+  type: REMOVE_COMMENT_DISLIKES,
+  commentId,
+  userId,
+});

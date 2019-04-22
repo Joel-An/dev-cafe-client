@@ -10,6 +10,10 @@ import {
   FETCH_UPDATED_COMMENT_SUCCESS,
   ADD_HEART,
   REMOVE_HEART,
+  ADD_COMMENT_LIKES,
+  REMOVE_COMMENT_LIKES,
+  ADD_COMMENT_DISLIKES,
+  REMOVE_COMMENT_DISLIKES,
 } from '../../types/comments';
 
 
@@ -128,6 +132,58 @@ const commentsReducer = (state = {}, action) => {
     const comment = state[commentId];
 
     return comment ? { ...state, [commentId]: { ...comment, authorHeart: null } } : state;
+  }
+  case ADD_COMMENT_LIKES: {
+    const { commentId, userId } = action;
+
+    const comment = state[commentId];
+
+    if (!comment) return state;
+
+    const { likes } = comment;
+
+    return likes.includes(userId)
+      ? state
+      : { ...state, [commentId]: { ...comment, likes: likes.concat([userId]) } };
+  }
+  case REMOVE_COMMENT_LIKES: {
+    const { commentId, userId } = action;
+
+    const comment = state[commentId];
+
+    if (!comment) return state;
+
+    const { likes } = comment;
+
+    return likes.includes(userId)
+      ? { ...state, [commentId]: { ...comment, likes: likes.filter(id => userId !== id) } }
+      : state;
+  }
+  case ADD_COMMENT_DISLIKES: {
+    const { commentId, userId } = action;
+
+    const comment = state[commentId];
+
+    if (!comment) return state;
+
+    const { dislikes } = comment;
+
+    return dislikes.includes(userId)
+      ? state
+      : { ...state, [commentId]: { ...comment, dislikes: dislikes.concat([userId]) } };
+  }
+  case REMOVE_COMMENT_DISLIKES: {
+    const { commentId, userId } = action;
+
+    const comment = state[commentId];
+
+    if (!comment) return state;
+
+    const { dislikes } = comment;
+
+    return dislikes.includes(userId)
+      ? { ...state, [commentId]: { ...comment, dislikes: dislikes.filter(id => userId !== id) } }
+      : state;
   }
   default:
     return state;

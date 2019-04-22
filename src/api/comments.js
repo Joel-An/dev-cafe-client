@@ -31,3 +31,26 @@ export const deleteAuthorHeart = (commentId, token) => {
   return axios.delete(`${host}/api/v1/comments/${commentId}/heart`, config);
 };
 
+export const likeComment = (commentId, token) => {
+  const config = { headers: { 'x-access-token': token } };
+
+  return axios.post(`${host}/api/v1/comments/${commentId}/likes`, null, config);
+};
+
+export const deleteCommentLikes = (commentId, token) => {
+  const config = { headers: { 'x-access-token': token } };
+
+  return axios.delete(`${host}/api/v1/comments/${commentId}/likes`, config);
+};
+
+export const dislikeComment = (commentId, token) => {
+  const config = { headers: { 'x-access-token': token } };
+
+  return axios.post(`${host}/api/v1/comments/${commentId}/dislikes`, null, config);
+};
+
+export const deleteCommentDisLikes = (commentId, token) => {
+  const config = { headers: { 'x-access-token': token } };
+
+  return axios.delete(`${host}/api/v1/comments/${commentId}/dislikes`, config);
+};
