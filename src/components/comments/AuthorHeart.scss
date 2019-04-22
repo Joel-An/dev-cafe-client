@@ -1,0 +1,17 @@
+.AuthorHeart{
+  position: relative;
+
+  .author-profile-pic {
+    border: 1px solid white;
+    border-radius: 50%;
+  }
+
+  .heart-container {
+    font-size: 14px;
+    stroke: #eeeeee;
+    stroke-width: 10;
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+  }
+}
