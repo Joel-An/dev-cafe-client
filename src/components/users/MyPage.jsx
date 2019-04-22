@@ -2,6 +2,7 @@ import React from 'react';
 
 import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
 import { connectComponent } from '../../utils';
+import UploadImage from '../posts/UploadImage';
 
 const MyPage = (props) => {
   const { myInfo } = props;
@@ -11,6 +12,9 @@ const MyPage = (props) => {
       마이 페이지!
       <br/>
       {myInfo.profileName}!!
+      <UploadImage path="profilePic">
+        프사 변경!
+      </UploadImage>
     </div>
   );
 };
