@@ -1,4 +1,5 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { deleteComment } from '../../api/comments';
 import withToken, { tokenPropType } from '../../containers/WithToken';
@@ -31,7 +32,7 @@ const DeleteComment = (props) => {
       title="댓글 삭제"
       message="삭제하시겠습니까?"
     >
-      삭제
+      <FontAwesomeIcon icon="trash-alt"/>
     </ConfirmButton>
   );
 };
