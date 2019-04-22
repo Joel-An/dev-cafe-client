@@ -20,6 +20,8 @@ import {
   SAVE_EDITING_COMENT,
   EDITING_COMMENT_DONE,
   LOAD_EDITING_COMMENT,
+  ADD_HEART,
+  REMOVE_HEART,
 } from '../types/comments';
 
 import { CALL_API } from '../sagas/apiSaga';
@@ -131,3 +133,15 @@ export const editingCommentDone = commentId => ({
   type: EDITING_COMMENT_DONE,
   commentId,
 });
+
+export const addHeart = (commentId, authorId) => ({
+  type: ADD_HEART,
+  commentId,
+  authorId,
+});
+
+export const removeHeart = commentId => ({
+  type: REMOVE_HEART,
+  commentId,
+});
+

@@ -18,3 +18,16 @@ export const postComment = (comment, token) => {
 
   return axios.post(`${host}/api/v1/comments`, comment, config);
 };
+
+export const postAuthorHeart = (commentId, token) => {
+  const config = { headers: { 'x-access-token': token } };
+
+  return axios.post(`${host}/api/v1/comments/${commentId}/heart`, null, config);
+};
+
+export const deleteAuthorHeart = (commentId, token) => {
+  const config = { headers: { 'x-access-token': token } };
+
+  return axios.delete(`${host}/api/v1/comments/${commentId}/heart`, config);
+};
+

@@ -8,6 +8,8 @@ import {
   FETCH_COMMENTS_SUCCESS,
   REMOVE_COMMENT,
   FETCH_UPDATED_COMMENT_SUCCESS,
+  ADD_HEART,
+  REMOVE_HEART,
 } from '../../types/comments';
 
 
@@ -113,6 +115,19 @@ const commentsReducer = (state = {}, action) => {
   }
   case FETCH_UPDATED_COMMENT_SUCCESS: {
     return updateComment(state, action);
+  }
+  case ADD_HEART: {
+    const { commentId, authorId } = action;
+
+    const comment = state[commentId];
+
+    return comment ? { ...state, [commentId]: { ...comment, authorHeart: authorId } } : state;
+  }
+  case REMOVE_HEART: {
+    const { commentId } = action;
+    const comment = state[commentId];
+
+    return comment ? { ...state, [commentId]: { ...comment, authorHeart: null } } : state;
   }
   default:
     return state;
