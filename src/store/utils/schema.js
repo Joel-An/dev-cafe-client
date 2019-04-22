@@ -44,7 +44,12 @@ const postSchema = new Schema.Entity('posts',
   });
 
 const childCommentSchema = new Schema.Entity('comments',
-  { author: userSchema },
+  {
+    author: userSchema,
+    authorHeart: userSchema,
+    likes: [userSchema],
+    dislikes: [userSchema],
+  },
   { idAttribute: comment => comment._id });
 
 
@@ -52,6 +57,9 @@ const commentSchema = new Schema.Entity('comments',
   {
     childComments: [childCommentSchema],
     author: userSchema,
+    authorHeart: userSchema,
+    likes: [userSchema],
+    dislikes: [userSchema],
   },
   { idAttribute: comment => comment._id });
 
