@@ -1,6 +1,7 @@
 import React from 'react';
 import dateFormat from 'dateformat';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import withComment, { commentPropInfo } from '../../containers/WithComment';
 import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
@@ -12,7 +13,13 @@ import WriteComment from './WriteComment';
 import DeleteComment from './DeleteComment';
 import EditComment from './EditComment';
 import ContentsViewer from '../contents/Viewer';
+import GiveHeartButton from './GiveHeartButton';
+import AuthorHeart from './AuthorHeart';
+import CommentLikesButton from './CommentLikesButton';
+import CommentDislikesButton from './CommentDislikesButton';
+import Hoverable from '../common/Hoverable';
 
+import UserList from '../users/UserList';
 import User from '../users/User';
 
 import './CommentListItem.scss';
@@ -69,26 +76,40 @@ class CommentListItem extends React.Component {
                 }
               </div>
             </span>
+
             <div className="comment-control-group">
               { isMyComment
             && <>
               <button type="button" onClick={this.onEdit}>
-                {isEditing ? '취소' : '수정'}
+                <FontAwesomeIcon icon="edit" />
               </button>
               <DeleteComment commentId={comment._id}/>
               </>
               }
-              {comment.isChild || <button type="button" onClick={this.onAddReply}>답글</button>}
+              <GiveHeartButton commentId={comment._id}/>
             </div>
           </div>
           {isEditing
             ? <EditComment commentId={comment._id} offEditMode={this.onEdit}/>
             : <ContentsViewer className="comment-body markdown" contents={comment.contents}/>
           }
+          <div className="comment-action-buttons">
+            <Hoverable hoverComponent={<UserList title="좋아요!" userIds={comment.likes}/>}>
+              <CommentLikesButton commentId={comment._id}/>
+            </Hoverable>
+            <span className="likes-count">
+              {comment.likes.length !== 0 && comment.likes.length}
+            </span>
+            <Hoverable hoverComponent={<UserList title="싫어요;" userIds={comment.dislikes}/>}>
+              <CommentDislikesButton commentId={comment._id}/>
+            </Hoverable>
+            <span className="dislikes-count">
+              {comment.dislikes.length !== 0 && `-${comment.dislikes.length}`}
+            </span>
+            {comment.authorHeart && <AuthorHeart userId={comment.authorHeart}/>}
+            {comment.isChild || <button type="button" onClick={this.onAddReply}>답글</button>}
+          </div>
         </article>
-
-        <ChildCommentList childCommentIds={comment.childComments}/>
-        {isFetchingNewChildComment && <LoadingSpinner center/> }
         {!addReply || <div className="addReply">
           <WriteComment
             postId={comment.post}
@@ -97,6 +118,8 @@ class CommentListItem extends React.Component {
           />
         </div>
         }
+        <ChildCommentList childCommentIds={comment.childComments}/>
+        {isFetchingNewChildComment && <LoadingSpinner center/> }
       </li>
     );
   }
@@ -110,6 +133,7 @@ CommentListItem.propTypes = {
 CommentListItem.defaultProps = {
   myInfo: myInfoPropType.default,
 };
+
 
 export default connectComponent(CommentListItem,
   [
