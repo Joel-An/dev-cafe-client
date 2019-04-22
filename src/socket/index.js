@@ -10,6 +10,12 @@ import {
   checkCacheAndFetchNewComment,
   removeComment,
   checkCacheAndUpdateComment,
+  addHeart,
+  removeHeart,
+  addCommentLikes,
+  removeCommentLikes,
+  addCommentDislikes,
+  removeCommentDislikes,
 } from '../store/actions/comments';
 
 const url = process.env.NODE_ENV === 'production' ? 'https://rejoelve.com' : 'http://localhost:3000';
@@ -54,6 +60,36 @@ const setHandler = (socket, store) => {
 
   socket.on('UPDATE_COMMENT', (data) => {
     store.dispatch(checkCacheAndUpdateComment(data.commentId));
+  });
+
+  socket.on('POST_HEART', (data) => {
+    const { commentId, authorId } = data;
+    store.dispatch(addHeart(commentId, authorId));
+  });
+
+  socket.on('DELETE_HEART', (data) => {
+    const { commentId } = data;
+    store.dispatch(removeHeart(commentId));
+  });
+
+  socket.on('POST_COMMENT_LIKES', (data) => {
+    const { commentId, userId } = data;
+    store.dispatch(addCommentLikes(commentId, userId));
+  });
+
+  socket.on('DELETE_COMMENT_LIKES', (data) => {
+    const { commentId, userId } = data;
+    store.dispatch(removeCommentLikes(commentId, userId));
+  });
+
+  socket.on('POST_COMMENT_DISLIKES', (data) => {
+    const { commentId, userId } = data;
+    store.dispatch(addCommentDislikes(commentId, userId));
+  });
+
+  socket.on('DELETE_COMMENT_DISLIKES', (data) => {
+    const { commentId, userId } = data;
+    store.dispatch(removeCommentDislikes(commentId, userId));
   });
 };
 
