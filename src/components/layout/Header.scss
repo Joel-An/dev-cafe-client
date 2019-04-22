@@ -16,10 +16,11 @@
   .title {
     align-self: center;
     padding: 10px;
-    font-size: xx-large;
+    font-size: 2.2rem;
 
     a {
       color: #e4e4e4;
+      white-space: nowrap;
     }
   }
 
@@ -28,14 +29,26 @@
     align-self: flex-end;
     margin-bottom: 3px;
 
+    .spacer {
+      max-width: 50px;
+    }
+
     .greeting{
-      font-size: medium;
+      font-size: 1rem;
+      display: none;
+    }
+
+    @media (min-width: 800px) {
+      .greeting {
+         display: inline-block;
+        white-space: nowrap;
+      }
     }
 
     button {
       line-height: 1.0;
-      margin-right: 5px;
-      background-color: rgb(17, 160, 64);
+      margin-left: 5px;
+      border: 0;
     }
   }
 

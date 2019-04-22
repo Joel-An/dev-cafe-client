@@ -11,6 +11,7 @@ import { connectComponent } from '../../utils';
 import LogoutButton from './LogoutButton';
 import LoginButton from './LoginButton';
 import WritePostButton from '../posts/WritePostButton';
+import HeaderMenu from './HeaderMenu';
 
 import './Header.scss';
 
@@ -44,30 +45,7 @@ class Header extends React.Component {
         <h1 className="title">
           <Link to="/">Joel&apos;s Dev Cafe</Link>
         </h1>
-        <nav className="header-menu">
-          <span className="greeting">
-            {!profileName || `${withTitle(profileName)}`} 안녕하세요
-          </span>
-          {!profileName
-            ? <>
-                <LoginButton/>
-                <Link to="/signup">
-                  <button type="button">
-                    SIGNUP
-                  </button>
-                </Link>
-            </>
-            : <>
-            <LogoutButton/>
-            <WritePostButton/>
-            </>
-          }
-          <Link to="/admin">
-            <button type="button">
-              ADMIN
-            </button>
-          </Link>
-        </nav>
+        <HeaderMenu/>
       </header>
     );
   }
