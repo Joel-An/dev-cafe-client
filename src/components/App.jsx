@@ -9,6 +9,8 @@ import MainPageNav from './layout/MainPageNav';
 import './App.scss';
 import CategoryMenu from './categories/CategoryMenu';
 
+import '../utils/font-awesome';
+
 const App = () => (
   <div className="App">
     <Header/>
