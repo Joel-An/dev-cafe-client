@@ -38,7 +38,7 @@ const PostListPage = (props) => {
   );
 };
 
-const all = { _id: 'all', name: '전체보기' };
+const all = { _id: 'all', name: '전체보기', isChild: false };
 
 const mapStateToProps = (state, ownProps) => {
   const { location } = ownProps;
