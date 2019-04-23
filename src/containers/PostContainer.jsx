@@ -16,10 +16,10 @@ export default function withPostContainer(ComposedComponent) {
       loadPost(postId);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps) {
       const { postId, loadPost } = this.props;
-      if (postId !== nextProps.postId) {
-        loadPost(nextProps.postId);
+      if (postId !== prevProps.postId) {
+        loadPost(prevProps);
       }
     }
 

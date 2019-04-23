@@ -35,10 +35,10 @@ export default function withCommentsMetaContainer(ComposedComponent) {
       loadComments(postId);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps) {
       const { postId, loadComments } = this.props;
-      if (postId !== nextProps.postId) {
-        loadComments(nextProps.postId);
+      if (postId !== prevProps.postId) {
+        loadComments(postId);
       }
     }
 

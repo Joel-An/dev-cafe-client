@@ -36,11 +36,11 @@ export default function withPostsMetaContainer(ComposedComponent) {
       updateLastVisitedCategory(categoryId);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps) {
       const { categoryId, loadPosts, updateLastVisitedCategory } = this.props;
-      if (categoryId !== nextProps.categoryId) {
-        loadPosts(nextProps.categoryId);
-        updateLastVisitedCategory(nextProps.categoryId);
+      if (categoryId !== prevProps.categoryId) {
+        loadPosts(categoryId);
+        updateLastVisitedCategory(categoryId);
       }
     }
 
