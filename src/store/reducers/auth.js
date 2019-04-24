@@ -7,7 +7,7 @@ import {
 } from '../types/auth';
 
 const INITIAL_STATE = () => ({
-  token: process.env.BROWSER ? localStorage.getItem('token') : null,
+  token: null,
   user: { _id: null, profileName: null },
   error: null,
 });

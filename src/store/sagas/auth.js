@@ -38,16 +38,12 @@ function* autoLogin() {
   if (!process.env.BROWSER) {
     return;
   }
-  const token = yield select(selectToken);
-
-  if (token) {
-    return;
-  }
 
   const storedToken = localStorage.getItem('token');
 
   if (storedToken) {
     yield put(actions.loginSucceeded(storedToken));
+    yield put(actions.fetchMyInfo(storedToken));
   }
 }
 
