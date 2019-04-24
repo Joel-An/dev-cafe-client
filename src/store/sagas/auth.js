@@ -4,7 +4,7 @@ import {
 
 import {
   LOGOUT_REQUEST,
-  FETCH_USERINFO,
+  FETCH_MYINFO_REQUEST,
 } from '../types/auth';
 import * as actions from '../actions/auth';
 import * as api from '../../api/auth';
@@ -32,7 +32,7 @@ function* fetchUserInfo(action) {
   }
 }
 
-const watchFetchUserInfo = takeLatest(FETCH_USERINFO, fetchUserInfo);
+const watchFetchUserInfo = takeLatest(FETCH_MYINFO_REQUEST, fetchUserInfo);
 
 function* autoLogin() {
   if (!process.env.BROWSER) {

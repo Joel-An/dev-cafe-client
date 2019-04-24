@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { fetchUserInfo as fetchUserInfoAction } from '../../store/actions/auth';
+import { fetchMyInfo as fetchMyInfoAction } from '../../store/actions/auth';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import { connectComponent } from '../../utils';
@@ -24,16 +24,16 @@ const withTitle = (profileName) => {
 
 class Header extends React.Component {
   componentDidMount() {
-    const { token, fetchUserInfo } = this.props;
+    const { token, fetchMyInfo } = this.props;
     if (token) {
-      fetchUserInfo(token);
+      fetchMyInfo(token);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { token, fetchUserInfo } = this.props;
+    const { token, fetchMyInfo } = this.props;
     if (nextProps.token && nextProps.token !== token) {
-      fetchUserInfo(nextProps.token);
+      fetchMyInfo(nextProps.token);
     }
   }
 
@@ -55,12 +55,12 @@ const mapStateToProps = ({ auth }) => ({
   profileName: auth.user.profileName,
 });
 
-const mapDispatchToProps = { fetchUserInfo: fetchUserInfoAction };
+const mapDispatchToProps = { fetchMyInfo: fetchMyInfoAction };
 
 Header.propTypes = {
   token: tokenPropType.type,
   profileName: PropTypes.string,
-  fetchUserInfo: PropTypes.func.isRequired,
+  fetchMyInfo: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {
