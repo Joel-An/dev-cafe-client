@@ -8,19 +8,9 @@ import { fetchMyInfo as fetchMyInfoAction } from '../../store/actions/auth';
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import { connectComponent } from '../../utils';
 
-import LogoutButton from './LogoutButton';
-import LoginButton from './LoginButton';
-import WritePostButton from '../posts/WritePostButton';
 import HeaderMenu from './HeaderMenu';
 
 import './Header.scss';
-
-const withTitle = (profileName) => {
-  if (profileName.endsWith('님')) {
-    return profileName;
-  }
-  return `${profileName}님`;
-};
 
 class Header extends React.Component {
   componentDidMount() {
