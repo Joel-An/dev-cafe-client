@@ -43,12 +43,12 @@ export const fetchMyInfo = token => ({
   payload: token,
 });
 
-export const fetchUserInfoFulfilled = user => ({
+export const fetchMyInfoSuccess = user => ({
   type: FETCH_MYINFO_SUCCESS,
   payload: user,
 });
 
-export const fetchUserInfoRejected = error => ({
+export const fetchMyInfoFailure = error => ({
   type: FETCH_MYINFO_FAILURE,
   error,
 });

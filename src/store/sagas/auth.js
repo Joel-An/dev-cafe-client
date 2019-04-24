@@ -24,9 +24,9 @@ function* fetchUserInfo(action) {
   const token = action.payload;
   try {
     const user = yield call(api.fetchUserInfo, token);
-    yield put(actions.fetchUserInfoFulfilled(user));
+    yield put(actions.fetchMyInfoSuccess(user));
   } catch (error) {
-    yield put(actions.fetchUserInfoRejected(error));
+    yield put(actions.fetchMyInfoFailure(error));
     yield put(actions.logout(token));
   }
 }
