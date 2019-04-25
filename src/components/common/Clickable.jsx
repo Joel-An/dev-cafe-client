@@ -43,4 +43,16 @@ class Clickable extends React.Component {
   }
 }
 
+Clickable.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
+};
+
+Clickable.defaultProps = {
+  className: '',
+};
+
 export default Clickable;

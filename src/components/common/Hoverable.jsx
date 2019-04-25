@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './Hoverable.scss';
 
@@ -32,7 +33,7 @@ class Hoverable extends React.Component {
     const { hover } = this.state;
     return (
       <div
-        className="hoverable"
+        className={classNames('hoverable', className)}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
       >
@@ -43,5 +44,17 @@ class Hoverable extends React.Component {
     );
   }
 }
+
+Hoverable.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  hoverComponent: PropTypes.node.isRequired,
+  delay: PropTypes.number,
+};
+
+Hoverable.defaultProps = {
+  className: '',
+  delay: 500,
+};
 
 export default Hoverable;
