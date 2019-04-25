@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import withComment, { commentPropInfo } from '../../containers/WithComment';
 import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
-import { connectComponent } from '../../utils';
+import { connectComponent, isAuthor } from '../../utils';
 
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import ChildCommentList from './ChildCommentList';
@@ -56,7 +56,7 @@ class CommentListItem extends React.Component {
     const { addReply, isEditing } = this.state;
     const { comment, myInfo } = this.props;
 
-    const isMyComment = (comment.author === myInfo._id);
+    const isMyComment = isAuthor(myInfo, comment);
     const { isFetchingNewChildComment } = comment;
 
     return (

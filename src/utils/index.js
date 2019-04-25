@@ -18,3 +18,13 @@ export const extractSummary = (markdown) => {
   const summary = plainText.slice(0, 120);
   return summary.length === 120 ? summary.concat('...') : summary;
 };
+
+export const isAuthor = (myInfo, docOrAuthorId) => {
+  const document = typeof docOrAuthorId === 'string' ? { author: docOrAuthorId } : docOrAuthorId;
+
+  if (!myInfo || !document) {
+    return false;
+  }
+
+  return document.author === myInfo._id;
+};

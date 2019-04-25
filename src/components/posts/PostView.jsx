@@ -6,7 +6,7 @@ import dateFormat from 'dateformat';
 import withPostContainer, { postPropInfo } from '../../containers/PostContainer';
 import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
 import withLastVisitedCategoryId, { lastVisitedCategoryIdPropType } from '../../containers/WithLastVisitedCategoryId';
-import { connectComponent, extractSummary } from '../../utils';
+import { connectComponent, extractSummary, isAuthor } from '../../utils';
 
 import Category from '../categories/Category';
 import User from '../users/User';
@@ -30,7 +30,7 @@ const PostView = (props) => {
     return (<p>글이 없어!</p>);
   }
 
-  const isMyPost = (post.author === myInfo._id);
+  const isMyPost = isAuthor(myInfo, post);
 
   const url = `https://rejoelve.com/posts/${post._id}`;
   const summary = extractSummary(post.contents);

@@ -8,7 +8,7 @@ import withToken, { tokenPropType } from '../../containers/WithToken';
 import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
-import { connectComponent } from '../../utils';
+import { connectComponent, isAuthor } from '../../utils';
 
 import * as Api from '../../api/comments';
 
@@ -81,7 +81,7 @@ class GiveHeartButton extends React.Component {
 
   render() {
     const { myInfo, postAuthorId, comment } = this.props;
-    const amIAuthor = myInfo._id && (myInfo._id === postAuthorId);
+    const amIAuthor = isAuthor(myInfo, postAuthorId);
     const hearted = comment.authorHeart
       ? <FontAwesomeIcon icon="heartbeat" title="댓글에 준 ♥ 회수하기"/>
       : <FontAwesomeIcon icon={['far', 'heart']} title="댓글에 ♥주기"/>;
