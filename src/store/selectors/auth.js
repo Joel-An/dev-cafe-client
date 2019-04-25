@@ -1,5 +1,12 @@
+import { selectUserById } from './users';
+
 export const selectToken = state => state.auth.token;
 
-export const selectMyInfo = state => state.auth.user;
+const selectMyId = state => state.auth.myId;
 
-export const selectMyId = state => state.auth.user._id;
+export const selectMyInfo = (state) => {
+  const myId = selectMyId(state);
+  const myInfo = selectUserById(state, myId);
+
+  return myInfo;
+};
