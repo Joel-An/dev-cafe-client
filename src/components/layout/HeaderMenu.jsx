@@ -56,11 +56,11 @@ class HeaderMenu extends Component {
         <div className="spacer" />
         <div className="header-menu-wrapper">
           <span className="greeting">
-            {!myInfo || `${withTitle(myInfo.profileName)}`} 안녕하세요
+            {myInfo.isGuest || `${withTitle(myInfo.profileName)}`} 안녕하세요
           </span>
-          { myInfo
-            ? <LogoutButton/>
-            : <LoginButton/>
+          { myInfo.isGuest
+            ? <LoginButton/>
+            : <LogoutButton/>
           }
           <div className="dd-menu-wrapper">
             <button type="button" className="toggle-button" onClick={this.toggleMenu}>
@@ -70,7 +70,7 @@ class HeaderMenu extends Component {
               <Link to="/admin">
               ADMIN
               </Link>
-              {!myInfo
+              {myInfo.isGuest
                 ? <>
                     <Link to="/signup">
                       SIGNUP
