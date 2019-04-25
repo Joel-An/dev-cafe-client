@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import { selectMyInfo } from '../store/selectors/auth';
+import { userPropType } from './WithUser';
 
 const mapStateToProps = (state) => {
   const myInfo = selectMyInfo(state);
@@ -14,12 +14,6 @@ export default function withMyInfo(Component) {
 }
 
 export const myInfoPropType = {
-  type: PropTypes.shape({
-    _id: PropTypes.string,
-    profileName: PropTypes.string,
-  }),
-  default: {
-    _id: null,
-    profileName: null,
-  },
+  type: userPropType.type,
+  default: undefined,
 };
