@@ -1,5 +1,4 @@
 import React, { Component, createRef } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -52,15 +51,14 @@ class HeaderMenu extends Component {
   render() {
     const { isToggled } = this.state;
     const { myInfo } = this.props;
-    const { profileName } = myInfo;
     return (
       <nav className="header-menu">
         <div className="spacer" />
         <div className="header-menu-wrapper">
           <span className="greeting">
-            {!profileName || `${withTitle(profileName)}`} 안녕하세요
+            {!myInfo || `${withTitle(myInfo.profileName)}`} 안녕하세요
           </span>
-          { profileName
+          { myInfo
             ? <LogoutButton/>
             : <LoginButton/>
           }
@@ -72,22 +70,19 @@ class HeaderMenu extends Component {
               <Link to="/admin">
               ADMIN
               </Link>
-              {!profileName
+              {!myInfo
                 ? <>
-                <Link to="/signup">
-                    SIGNUP
-                </Link>
-            </>
+                    <Link to="/signup">
+                      SIGNUP
+                    </Link>
+                  </>
                 : <>
-
-            <WritePostButton/>
-            <Link to="/mypage">
-              MY PAGE
-            </Link>
-            </>
+                    <WritePostButton/>
+                    <Link to="/mypage">
+                      MY PAGE
+                    </Link>
+                  </>
               }
-
-
             </div>}
           </div>
         </div>
@@ -97,7 +92,11 @@ class HeaderMenu extends Component {
 }
 
 HeaderMenu.propTypes = {
-  myInfo: myInfoPropType.type.isRequired,
+  myInfo: myInfoPropType.type,
+};
+
+HeaderMenu.defaultProps = {
+  myInfo: myInfoPropType.default,
 };
 
 export default connectComponent(HeaderMenu,
