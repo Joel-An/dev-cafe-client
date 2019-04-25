@@ -20,11 +20,23 @@ class Clickable extends React.Component {
       });
   }
 
+  onKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      this.onClick();
+    }
+  }
+
   render() {
     const { className, children } = this.props;
 
     return (
-      <div role="button" tabIndex={0} className={className} onClick={this.onClick} style={style} >
+      <div
+        role="button"
+        tabIndex={0}
+        className={className}
+        onClick={this.onClick}
+        onKeyDown={this.onKeyDown}
+        style={style} >
         {children}
       </div>
     );
