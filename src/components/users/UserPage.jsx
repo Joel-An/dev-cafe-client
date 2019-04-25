@@ -3,7 +3,10 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 
 import User from './User';
 
-const renderUser = user => <div>{user.profileName}</div>;
+const renderUser = user => <div>
+  <img alt={`@${user.profileName}`} height="200" width="200" src={user.profilePic}/>
+  <p>{user.profileName}</p>
+</div>;
 
 const UserPage = (props) => {
   const { match } = props;
