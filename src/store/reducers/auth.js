@@ -8,7 +8,7 @@ import {
 
 const INITIAL_STATE = () => ({
   token: null,
-  user: { _id: null, profileName: null },
+  myId: null,
   error: null,
 });
 
@@ -34,7 +34,7 @@ export default (state = INITIAL_STATE(), { type, payload, error }) => {
   case FETCH_MYINFO_SUCCESS:
     return {
       ...state,
-      user: { ...payload },
+      myId: payload._id,
     };
   case FETCH_MYINFO_FAILURE:
     return {
