@@ -4,10 +4,19 @@
   .categoryList li {
     padding: 10px;
     border: 1px solid grey;
+    border-top: 0;
+  }
+
+  ul.subCategoryList {
+    margin-top: 10px;
   }
 
   .subCategoryList li {
-    padding-right:0;
+    padding-right: 0;
+  }
+
+  li:first-child {
+    border: 1px solid grey;
   }
 
   .category {
