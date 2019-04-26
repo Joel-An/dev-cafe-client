@@ -7,7 +7,7 @@ import withPostListItem from '../../containers/WithPostListItem';
 import { postPropInfo } from '../../containers/PostContainer';
 
 import Category from '../categories/Category';
-import User from '../users/User';
+import { ProfileName } from '../users/User';
 
 import { extractSummary } from '../../utils';
 
@@ -19,10 +19,6 @@ const renderCategory = category => (
       {`#${category.name}`}
     </Link>
   </span>
-);
-
-const renderUser = user => (
-  <span>posted by {user.profileName}</span>
 );
 
 const PostListItem = (props) => {
@@ -45,7 +41,9 @@ const PostListItem = (props) => {
             {dateFormat(post.date, 'yy/mm/dd h:MM TT')}
           </span>
           <Category categoryId={post.category} renderCategory={renderCategory} />
-          <User userId={post.author} renderUser={renderUser} />
+          <span>
+            posted by <ProfileName userId={post.author} />
+          </span>
         </div>
       </div>
     </li>

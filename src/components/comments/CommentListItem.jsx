@@ -20,19 +20,10 @@ import CommentDislikesButton from './CommentDislikesButton';
 import Hoverable from '../common/Hoverable';
 
 import UserList from '../users/UserList';
-import User from '../users/User';
+import { ProfileName, ProfilePic } from '../users/User';
 
 import './CommentListItem.scss';
 
-const getProfileName = user => (<Link to={`/users/${user._id}`}>{user.profileName}</Link>);
-const getProfilePic = user => (
-  <Link to={`/users/${user._id}`}>
-    <img alt={`@${user.profileName}`} height="44" width="44" src={user.profilePic}/>
-  </Link>
-);
-
-const ProfileName = ({ userId }) => <User userId={userId} renderUser={getProfileName}/>;
-const ProfilePic = ({ userId }) => <User userId={userId} renderUser={getProfilePic}/>;
 
 class CommentListItem extends React.Component {
   constructor(props) {
@@ -63,9 +54,13 @@ class CommentListItem extends React.Component {
       <li key={comment._id} className="CommentListItem">
         <article className="comment">
           <div className="comment-header">
-            <ProfilePic userId={comment.author}/>
+            <Link to={`/users/${comment.author}`}>
+              <ProfilePic userId={comment.author} height="44" width="44"/>
+            </Link>
             <span className="comment-meta">
-              <ProfileName userId={comment.author}/>
+              <Link to={`/users/${comment.author}`}>
+                <ProfileName userId={comment.author}/>
+              </Link>
               <div className="date">
                 {comment.isThisModified
                   ? <>

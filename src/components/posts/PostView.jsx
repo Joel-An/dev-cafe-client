@@ -9,7 +9,7 @@ import withLastVisitedCategoryId, { lastVisitedCategoryIdPropType } from '../../
 import { connectComponent, extractSummary, isAuthor } from '../../utils';
 
 import Category from '../categories/Category';
-import User from '../users/User';
+import { ProfileName } from '../users/User';
 import DeletePost from './DeletePost';
 import ContentsViewer from '../contents/Viewer';
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
@@ -18,9 +18,6 @@ import './PostView.scss';
 
 const renderCategory = category => (
   <span>#{category.name}</span>
-);
-const renderUser = user => (
-  <span>posted by {user.profileName}</span>
 );
 
 const PostView = (props) => {
@@ -50,7 +47,9 @@ const PostView = (props) => {
             <h1 className="title">{post.title}</h1>
             <div className="post-subInfo">
               <Category categoryId={post.category} renderCategory={renderCategory}/>
-              <User userId={post.author} renderUser={renderUser}/>
+              <span>
+                posted by <ProfileName userId={post.author} />
+              </span>
               <span className="date">
                 {dateFormat(post.date, 'yy/mm/dd h:MM TT')}
               </span>
