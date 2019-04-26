@@ -12,4 +12,24 @@ User.propTypes = {
   renderUser: PropTypes.func.isRequired,
 };
 
+export const ProfilePic = withUser((props) => {
+  const {
+    user, height, width, className,
+  } = props;
+  return user
+    ? <img
+      className={className}
+      alt={`${user.profileName}님의 프로필사진`}
+      src={user.profilePic}
+      height={height || '40'}
+      width={width || '40'}
+    />
+    : null;
+});
+
+export const ProfileName = withUser((props) => {
+  const { user } = props;
+  return user ? user.profileName : null;
+});
+
 export default withUser(User);
