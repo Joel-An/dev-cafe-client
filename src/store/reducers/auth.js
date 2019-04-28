@@ -4,11 +4,13 @@ import {
   LOGOUT_ERROR,
   FETCH_MYINFO_SUCCESS,
   FETCH_MYINFO_FAILURE,
+  FETCH_MY_NOTIFICATIONS_SUCCESS,
 } from '../types/auth';
 
 const INITIAL_STATE = () => ({
   token: null,
   myId: null,
+  myNotifications: null,
   error: null,
 });
 
@@ -40,6 +42,11 @@ export default (state = INITIAL_STATE(), { type, payload, error }) => {
     return {
       ...state,
       error,
+    };
+  case FETCH_MY_NOTIFICATIONS_SUCCESS:
+    return {
+      ...state,
+      myNotifications: payload,
     };
   default:
     return state;

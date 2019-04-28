@@ -5,6 +5,7 @@ import {
 import {
   LOGOUT_REQUEST,
   FETCH_MYINFO_REQUEST,
+  FETCH_MY_NOTIFICATIONS_REQUEST,
 } from '../types/auth';
 import * as actions from '../actions/auth';
 import * as api from '../../api/auth';
@@ -33,6 +34,18 @@ function* fetchUserInfo(action) {
 
 const watchFetchUserInfo = takeLatest(FETCH_MYINFO_REQUEST, fetchUserInfo);
 
+function* fetchMyNotifications(action) {
+  const token = action.payload;
+  try {
+    const notifications = yield call(api.fetchMyNotifications, token);
+    yield put(actions.fetchMyNotificationsSuccess(notifications));
+  } catch (error) {
+    yield put(actions.fetchMyNotificationsFailure(error));
+  }
+}
+
+const watchFetchMyNotifications = takeLatest(FETCH_MY_NOTIFICATIONS_REQUEST, fetchMyNotifications);
+
 function* autoLogin() {
   if (!process.env.BROWSER) {
     return;
@@ -49,6 +62,7 @@ function* autoLogin() {
 const authSagas = [
   watchLogout,
   watchFetchUserInfo,
+  watchFetchMyNotifications,
   autoLogin(),
 ];
 

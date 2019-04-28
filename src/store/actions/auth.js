@@ -8,6 +8,9 @@ import {
   FETCH_MYINFO_REQUEST,
   FETCH_MYINFO_SUCCESS,
   FETCH_MYINFO_FAILURE,
+  FETCH_MY_NOTIFICATIONS_REQUEST,
+  FETCH_MY_NOTIFICATIONS_SUCCESS,
+  FETCH_MY_NOTIFICATIONS_FAILURE,
 } from '../types/auth';
 
 export const login = loginForm => ({
@@ -50,5 +53,20 @@ export const fetchMyInfoSuccess = user => ({
 
 export const fetchMyInfoFailure = error => ({
   type: FETCH_MYINFO_FAILURE,
+  error,
+});
+
+export const fetchMyNotifications = token => ({
+  type: FETCH_MY_NOTIFICATIONS_REQUEST,
+  payload: token,
+});
+
+export const fetchMyNotificationsSuccess = myNotifications => ({
+  type: FETCH_MY_NOTIFICATIONS_SUCCESS,
+  payload: myNotifications,
+});
+
+export const fetchMyNotificationsFailure = error => ({
+  type: FETCH_MY_NOTIFICATIONS_FAILURE,
   error,
 });
