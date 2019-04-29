@@ -34,3 +34,11 @@ export const fetchUserInfo = (token) => {
       throw err.data;
     });
 };
+
+export const fetchMyNotifications = (token) => {
+  const headers = {
+    'x-access-token': token,
+  };
+  return axios.get(`${host}/api/v1/users/me/notifications`, { headers })
+    .then(result => result.data);
+};
