@@ -13,7 +13,6 @@ import { connectComponent } from '../../utils';
 import * as Api from '../../api/auth';
 import {
   loginSucceeded as loginSucceededAction,
-  fetchMyInfo as fetchMyInfoAction,
 } from '../../store/actions/auth';
 import './LoginPopup.scss';
 
@@ -40,13 +39,16 @@ class LoginPopup extends React.Component {
     event.preventDefault();
     const { loginForm } = this.state;
     const {
-      close, loginSucceeded, openAlert, addNotification, afterLogin, fetchMyInfo,
+      close,
+      loginSucceeded,
+      openAlert,
+      addNotification,
+      afterLogin,
     } = this.props;
 
     Api.login(loginForm)
       .then((token) => {
         loginSucceeded(token);
-        fetchMyInfo(token);
         close();
         addNotification({
           message: '이랏샤이마세!!!',
@@ -72,13 +74,12 @@ class LoginPopup extends React.Component {
 
   reqTesterLogin = () => {
     const {
-      close, loginSucceeded, openAlert, addNotification, fetchMyInfo,
+      close, loginSucceeded, openAlert, addNotification,
     } = this.props;
 
     Api.testerLogin()
       .then((token) => {
         loginSucceeded(token);
-        fetchMyInfo(token);
         close();
         addNotification({
           message: '이랏샤이마세!!!',
@@ -164,7 +165,6 @@ const LoginForm = ({
 
 const mapDispatchToProps = {
   loginSucceeded: loginSucceededAction,
-  fetchMyInfo: fetchMyInfoAction,
 };
 
 LoginPopup.propTypes = {
@@ -178,7 +178,6 @@ LoginPopup.propTypes = {
   addNotification: PropTypes.func.isRequired,
   loginSucceeded: PropTypes.func.isRequired,
   afterLogin: PropTypes.func,
-  fetchMyInfo: PropTypes.func.isRequired,
 };
 
 LoginPopup.defaultProps = {

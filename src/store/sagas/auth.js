@@ -1,14 +1,16 @@
 import {
-  put, call, takeLatest,
+  put, call, takeLatest, select,
 } from 'redux-saga/effects';
 
 import {
+  LOGIN_SUCCESS,
   LOGOUT_REQUEST,
   FETCH_MYINFO_REQUEST,
   FETCH_MY_NOTIFICATIONS_REQUEST,
 } from '../types/auth';
 import * as actions from '../actions/auth';
 import * as api from '../../api/auth';
+import { selectToken } from '../selectors/auth';
 
 function* requestLogout(logoutAction) {
   try {
@@ -46,6 +48,15 @@ function* fetchMyNotifications(action) {
 
 const watchFetchMyNotifications = takeLatest(FETCH_MY_NOTIFICATIONS_REQUEST, fetchMyNotifications);
 
+function* loginSuccessSaga() {
+  const token = yield select(selectToken);
+
+  yield put(actions.fetchMyInfo(token));
+  yield put(actions.fetchMyNotifications(token));
+}
+
+const watchLoginSuccess = takeLatest(LOGIN_SUCCESS, loginSuccessSaga);
+
 function* autoLogin() {
   if (!process.env.BROWSER) {
     return;
@@ -55,7 +66,6 @@ function* autoLogin() {
 
   if (storedToken) {
     yield put(actions.loginSucceeded(storedToken));
-    yield put(actions.fetchMyInfo(storedToken));
   }
 }
 
@@ -64,6 +74,7 @@ const authSagas = [
   watchFetchUserInfo,
   watchFetchMyNotifications,
   autoLogin(),
+  watchLoginSuccess,
 ];
 
 export default authSagas;
