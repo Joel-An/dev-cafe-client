@@ -10,7 +10,7 @@ import {
 const INITIAL_STATE = () => ({
   token: null,
   myId: null,
-  myNotifications: null,
+  myNotifications: [],
   error: null,
 });
 

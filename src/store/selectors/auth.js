@@ -16,3 +16,5 @@ export const selectMyInfo = (state) => {
 
   return myInfo || GUEST;
 };
+
+export const selectMyNotifications = state => state.auth.myNotifications;
