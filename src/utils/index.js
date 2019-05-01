@@ -9,14 +9,14 @@ export const connectComponent = (Component, hocArray = []) => {
   return ConnectedComponent;
 };
 
-export const extractSummary = (markdown) => {
+export const extractSummary = (markdown, length = 120) => {
   if (!markdown) return '';
 
   const replaced = markdown.replace(/\n\n?/g, ' ').replace(/```(.*)```/g, '');
   const plainText = removeMd(replaced);
 
-  const summary = plainText.slice(0, 120);
-  return summary.length === 120 ? summary.concat('...') : summary;
+  const summary = plainText.slice(0, length);
+  return summary.length === length ? summary.concat('...') : summary;
 };
 
 export const isAuthor = (myInfo, docOrAuthorId) => {
