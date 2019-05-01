@@ -63,10 +63,15 @@ class DropDownMenu extends React.Component {
 DropDownMenu.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
+  toggleIcon: PropTypes.node.isRequired,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 DropDownMenu.defaultProps = {
   className: '',
+  onOpen: () => {},
+  onClose: () => {},
 };
 
 export default DropDownMenu;
