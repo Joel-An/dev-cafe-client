@@ -46,7 +46,6 @@ class DropDownMenu extends React.Component {
     const { isToggled } = this.state;
     const { className, toggleIcon, children } = this.props;
 
-
     return (
       <div className={classNames(className, 'dd-menu')}>
         <Clickable className={classNames(className, 'toggle-button', { toggled: isToggled })} handleClick={this.toggleMenu}>
