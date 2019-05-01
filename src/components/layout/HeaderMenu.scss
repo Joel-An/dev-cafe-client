@@ -4,9 +4,13 @@
   justify-content: flex-end;
 
   button {
-    border: 0;
     background-color: #33b3c4;
+    border: 0;
     border-radius: 0;
+  }
+
+  button, .toggle-button {
+    margin-left: 4px;
   }
 
   button:hover {
@@ -22,36 +26,20 @@
 }
 
 
-.dd-menu-wrapper {
-  position: relative;
+.header-toggle-menu {
 
-  .menu-list {
-    position: absolute;
-
-    margin-top: 3px;
-    
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    right: 0;
+  .menu-list {    
     background-color: rgb(69, 140, 207);
 
-    white-space: nowrap;
     text-align: right;
 
     a {
       color: white;
-      text-decoration: none;
       padding: 5px 10px;
-    }
-
-    a:last-child {
-      border-bottom: 0;
     }
 
     a:hover {
       background-color: rgb(238, 124, 124);
     }
-    
   }
 }

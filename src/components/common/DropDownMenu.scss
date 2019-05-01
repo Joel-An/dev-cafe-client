@@ -1,0 +1,31 @@
+.dd-menu {
+  position: relative;
+
+  .toggle-button {
+    color: white;
+    padding: 5px;
+  }
+
+  .toggle-button.toggled {
+    color: black;
+  }
+
+  .menu-list {
+    position: absolute;
+    margin-top: 3px;
+    z-index: 20;
+
+    background-color: white;
+    
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    right: 0;
+
+    white-space: nowrap;
+
+    a {
+      text-decoration: none;
+    }       
+  }
+}

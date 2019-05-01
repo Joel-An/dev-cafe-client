@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -8,82 +8,50 @@ import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
 import LogoutButton from './LogoutButton';
 import LoginButton from './LoginButton';
 import WritePostButton from '../posts/WritePostButton';
+import DropDownMenu from '../common/DropDownMenu';
+
 import './HeaderMenu.scss';
 
-
-class HeaderMenu extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isToggled: false,
-    };
-    this.menu = createRef();
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this.hideMenu);
-  }
-
-  showMenu = () => {
-    this.setState({ isToggled: true }, () => {
-      document.addEventListener('click', this.hideMenu);
-    });
-  }
-
-  hideMenu = () => {
-    this.setState({ isToggled: false }, () => {
-      document.removeEventListener('click', this.hideMenu);
-    });
-  }
-
-  toggleMenu = () => {
-    const { isToggled } = this.state;
-
-    return isToggled ? this.hideMenu() : this.showMenu();
-  }
-
-  render() {
-    const { isToggled } = this.state;
-    const { myInfo } = this.props;
-    return (
-      <nav className="header-menu">
-        <div className="spacer" />
-        <div className="header-menu-wrapper">
-          <span className="greeting">
-            {myInfo.isGuest || `${removeTitle(myInfo.profileName)}님`} 안녕하세요
-          </span>
-          { myInfo.isGuest
-            ? <LoginButton/>
-            : <LogoutButton/>
-          }
-          <div className="dd-menu-wrapper">
-            <button type="button" className="toggle-button" onClick={this.toggleMenu}>
-              <FontAwesomeIcon icon="bars" color={isToggled ? 'black' : 'white'}/>
-            </button>
-            {isToggled && <div className="menu-list" ref={this.menu}>
-              <Link to="/admin">
+const HeaderMenu = (props) => {
+  const { myInfo } = props;
+  return (
+    <nav className="header-menu">
+      <div className="spacer" />
+      <div className="header-menu-wrapper">
+        <span className="greeting">
+          {myInfo.isGuest || `${removeTitle(myInfo.profileName)}님`} 안녕하세요
+        </span>
+        { myInfo.isGuest
+          ? <LoginButton/>
+          : <LogoutButton/>
+        }
+        <DropDownMenu
+          className="header-toggle-menu"
+          toggleIcon={<FontAwesomeIcon icon="bars"/>}
+        >
+          <Fragment>
+            <Link to="/admin">
               ADMIN
-              </Link>
-              {myInfo.isGuest
-                ? <>
+            </Link>
+            {myInfo.isGuest
+              ? <>
                     <Link to="/signup">
                       SIGNUP
                     </Link>
                   </>
-                : <>
+              : <>
                     <WritePostButton/>
                     <Link to="/mypage">
                       MY PAGE
                     </Link>
                   </>
-              }
-            </div>}
-          </div>
-        </div>
-      </nav>
-    );
-  }
-}
+            }
+          </Fragment>
+        </DropDownMenu>
+      </div>
+    </nav>
+  );
+};
 
 HeaderMenu.propTypes = {
   myInfo: myInfoPropType.type,
