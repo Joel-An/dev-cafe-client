@@ -5,10 +5,6 @@
 
   background-color: #299eae;
 
-  a,span,button {
-    color: white
-  }
-
   .spacer {
     flex: 1;
   }
@@ -28,6 +24,12 @@
     flex: 1;
     align-self: flex-end;
     margin-bottom: 3px;
+
+    color: white;
+
+    button {
+      color: white;
+    }
 
     .spacer {
       max-width: 50px;
