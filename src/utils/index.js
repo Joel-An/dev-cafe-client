@@ -1,4 +1,6 @@
 import removeMd from 'remove-markdown';
+import koLocale from 'date-fns/locale/ko';
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 
 export const noop = () => {};
 
@@ -37,4 +39,12 @@ export const removeTitle = (profileName) => {
     return profileName.slice(0, -1);
   }
   return profileName;
+};
+
+export const fromNow = (date) => {
+  const fromNowStr = distanceInWordsToNow(date, {
+    locale: koLocale,
+  });
+
+  return `${fromNowStr} 전`;
 };
