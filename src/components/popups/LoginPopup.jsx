@@ -52,6 +52,7 @@ class LoginPopup extends React.Component {
         close();
         addNotification({
           message: '이랏샤이마세!!!',
+          visibleTime: 1000,
         });
         if (typeof afterLogin === 'function') {
           afterLogin();
@@ -83,6 +84,7 @@ class LoginPopup extends React.Component {
         close();
         addNotification({
           message: '이랏샤이마세!!!',
+          visibleTime: 1000,
         });
       })
       .catch((err) => {
