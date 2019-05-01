@@ -28,3 +28,13 @@ export const isAuthor = (myInfo, docOrAuthorId) => {
 
   return document.author === myInfo._id;
 };
+
+export const removeTitle = (profileName) => {
+  if (typeof profileName !== 'string') {
+    return '';
+  }
+  if (profileName.endsWith('님')) {
+    return profileName.slice(0, -1);
+  }
+  return profileName;
+};
