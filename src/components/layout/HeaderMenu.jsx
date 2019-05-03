@@ -8,6 +8,7 @@ import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
 import LogoutButton from './LogoutButton';
 import LoginButton from './LoginButton';
 import WritePostButton from '../posts/WritePostButton';
+import UserNotificationMenu from '../myNotifications/UserNotificationMenu';
 import DropDownMenu from '../common/DropDownMenu';
 
 import './HeaderMenu.scss';
@@ -25,6 +26,7 @@ const HeaderMenu = (props) => {
           ? <LoginButton/>
           : <LogoutButton/>
         }
+        {myInfo.isGuest || <UserNotificationMenu />}
         <DropDownMenu
           className="header-toggle-menu"
           toggleIcon={<FontAwesomeIcon icon="bars"/>}

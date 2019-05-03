@@ -1,0 +1,64 @@
+.user-notifications {
+
+  .toggle-button {
+    display: flex;
+  }
+
+  .menu-list {
+    color: #222;
+    background-color: #fff;
+    border: 1px solid rgb(212, 207, 207);
+
+    max-height: 500px;
+    width: 380px;
+    overflow-y: auto;
+    margin-top: 5px;
+
+    a:hover {
+      background-color: rgb(245, 241, 241);
+    }
+    
+    .notification-list-title {
+      font-weight: 700;
+
+      padding: 5px 6px;
+      border-bottom: 1px solid rgb(221, 223, 226);
+    }
+
+    .empty-notifications {
+      min-height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      color: grey;
+      background-color: #eeeeee;
+    }
+  }
+}
+
+.new-notifications > .user-notification {
+  background-color: #edf2fa;
+}
+
+.new-notification-count-wrapper {
+  position: relative;
+  .new-notification-count {
+    position: absolute;
+
+    top: 0;
+    left: -3px;
+    transform: translate(0,-100%);
+    z-index: 20;
+
+    border-radius: 2px;
+    padding: 0 2px;
+
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.507);
+    font-size: 0.7rem;
+
+    color: white;
+    background-color: red;
+
+  }
+}
