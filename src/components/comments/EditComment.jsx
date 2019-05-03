@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withEditingCommentContainer, { EditingCommentContainerPropTypes, EditingCommentContainerDefaultProps } from '../../containers/EditingCommentContainer';
-import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import withToastAddNotification, { addToastNotificationPropInfo } from '../toastNotifications/WithAddToastNotification';
 
 import { connectComponent } from '../../utils';
 import * as Api from '../../api/comments';
@@ -57,7 +57,7 @@ class EditComment extends React.Component {
     e.preventDefault();
     const { editingComment } = this.state;
     const {
-      token, offEditMode, editingCommentDone, openAlert, addNotification,
+      token, offEditMode, editingCommentDone, openAlert, addToastNotification,
     } = this.props;
 
     const editedComment = {
@@ -72,7 +72,7 @@ class EditComment extends React.Component {
         }));
         editingCommentDone(editedComment._id);
         offEditMode();
-        addNotification({
+        addToastNotification({
           message: '댓글이 수정되었습니다!!',
         });
       })
@@ -114,7 +114,7 @@ class EditComment extends React.Component {
 EditComment.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
-  addNotification: addNotificationPropType.type.isRequired,
+  addToastNotification: addToastNotificationPropInfo.type.isRequired,
   offEditMode: PropTypes.func.isRequired,
   editingComment: EditingCommentContainerPropTypes.editingComment,
   saveEditingComment: EditingCommentContainerPropTypes.saveEditingComment.isRequired,
@@ -130,6 +130,6 @@ export default connectComponent(EditComment,
   [
     withToken,
     withOpenAlert,
-    withAddNotification,
+    withToastAddNotification,
     withEditingCommentContainer,
   ]);

@@ -1,4 +1,4 @@
-.Notification {
+.ToastNotification {
   background-color: rgb(227, 252, 239);
   box-shadow: rgba(0, 0, 0, 0.176) 0px 3px 8px;
 
@@ -10,13 +10,13 @@
 
   display: flex;
 
-  .notification-icon{
+  .toast-notification-icon{
     flex-shrink: 0;
     background-color: rgba(1, 112, 75, 0.849);
     width: 15px;
   }
 
-  .notification-message{
+  .toast-notification-message{
     flex-grow: 1;
 
     color: rgb(0, 102, 68);
@@ -29,7 +29,7 @@
     line-height: 1.4;
   }
 
-  .notification-menu{
+  .toast-notification-menu{
     flex-shrink: 0;
 
     button {

@@ -1,26 +1,26 @@
 import {
-  ADD_NOTIFICATION,
-  REMOVE_NOTIFICATION,
-  CLEAR_NOTIFICATIONS,
-} from '../types/notifications';
+  ADD_TOAST_NOTIFICATION,
+  REMOVE_TOAST_NOTIFICATION,
+  CLEAR_TOAST_NOTIFICATIONS,
+} from '../types/toastNotifications';
 
 function filterNotifications(notifications, id) {
   return notifications.filter(notification => notification.id !== id);
 }
 
-const notifications = (state = [], action) => {
+const toastNotifications = (state = [], action) => {
   switch (action.type) {
-  case ADD_NOTIFICATION: {
+  case ADD_TOAST_NOTIFICATION: {
     const { notificationProps } = action;
     const filteredNotifications = filterNotifications(state, notificationProps.id);
 
     return [...filteredNotifications, notificationProps];
   }
-  case REMOVE_NOTIFICATION: {
+  case REMOVE_TOAST_NOTIFICATION: {
     const { id } = action;
     return filterNotifications(state, id);
   }
-  case CLEAR_NOTIFICATIONS: {
+  case CLEAR_TOAST_NOTIFICATIONS: {
     return [];
   }
   default:
@@ -28,4 +28,4 @@ const notifications = (state = [], action) => {
   }
 };
 
-export default notifications;
+export default toastNotifications;

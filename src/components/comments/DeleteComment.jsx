@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { deleteComment } from '../../api/comments';
 import withToken, { tokenPropType } from '../../containers/WithToken';
-import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import withToastAddNotification, { addToastNotificationPropInfo } from '../toastNotifications/WithAddToastNotification';
 import { commentIdPropType } from '../../containers/WithComment';
 
 import { connectComponent } from '../../utils';
@@ -11,12 +11,12 @@ import { connectComponent } from '../../utils';
 import ConfirmButton from '../popups/buttons/ConfirmButton';
 
 const DeleteComment = (props) => {
-  const { commentId, token, addNotification } = props;
+  const { commentId, token, addToastNotification } = props;
 
   const reqDeleteComment = () => new Promise((resolve, reject) => {
     deleteComment(commentId, token)
       .then(() => {
-        addNotification({
+        addToastNotification({
           message: '댓글이 삭제되었습니다 ㅜㅜ',
         });
         resolve();
@@ -39,7 +39,7 @@ const DeleteComment = (props) => {
 
 DeleteComment.propTypes = {
   token: tokenPropType.type,
-  addNotification: addNotificationPropType.type.isRequired,
+  addToastNotification: addToastNotificationPropInfo.type.isRequired,
   commentId: commentIdPropType.isRequired,
 };
 
@@ -50,5 +50,5 @@ DeleteComment.defaultProps = {
 export default connectComponent(DeleteComment,
   [
     withToken,
-    withAddNotification,
+    withToastAddNotification,
   ]);

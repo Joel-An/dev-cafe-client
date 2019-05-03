@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
-import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import withAddToastNotification, { addToastNotificationPropInfo } from '../toastNotifications/WithAddToastNotification';
 
 import { connectComponent } from '../../utils';
 
@@ -34,14 +34,14 @@ class CreateCategory extends React.Component {
 
   postCategories = (name) => {
     const {
-      parent, token, openAlert, addNotification,
+      parent, token, openAlert, addToastNotification,
     } = this.props;
     const category = { name, parent };
 
     api.postCategory(category, token)
       .then(() => {
         this.setState({ categoryName: '' });
-        addNotification({
+        addToastNotification({
           message: '카테고리가 생성되었습니다!',
         });
       }).catch((err) => {
@@ -75,7 +75,7 @@ class CreateCategory extends React.Component {
 CreateCategory.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
-  addNotification: addNotificationPropType.type.isRequired,
+  addToastNotification: addToastNotificationPropInfo.type.isRequired,
   parent: PropTypes.string,
 };
 
@@ -87,6 +87,6 @@ CreateCategory.defaultProps = {
 export default connectComponent(CreateCategory,
   [
     withOpenAlert,
-    withAddNotification,
+    withAddToastNotification,
     withToken,
   ]);

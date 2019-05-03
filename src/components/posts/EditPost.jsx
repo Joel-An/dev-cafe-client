@@ -6,7 +6,7 @@ import { postIdPropType } from '../../containers/PostContainer';
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
 import withEditingPostContainer, { EditingPostContainerPropTypes, EditingPostContainerDefaultProps } from '../../containers/EditingPostContainer';
-import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import withAddToastNotification, { addToastNotificationPropInfo } from '../toastNotifications/WithAddToastNotification';
 import { connectComponent } from '../../utils';
 
 import * as Api from '../../api/posts';
@@ -73,7 +73,7 @@ class EditPost extends React.Component {
     e.preventDefault();
     const { editingPost } = this.state;
     const {
-      token, editingPostDone, openAlert, addNotification,
+      token, editingPostDone, openAlert, addToastNotification,
     } = this.props;
 
     Api.updatePost(editingPost, token)
@@ -83,7 +83,7 @@ class EditPost extends React.Component {
           isDone: true,
         }));
         editingPostDone(editingPost._id);
-        addNotification({
+        addToastNotification({
           message: '글이 수정되었습니다!!',
         });
       })
@@ -176,7 +176,7 @@ class EditPost extends React.Component {
 EditPost.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
-  addNotification: addNotificationPropType.type.isRequired,
+  addToastNotification: addToastNotificationPropInfo.type.isRequired,
   saveEditingPost: EditingPostContainerPropTypes.saveEditingPost.isRequired,
   editingPostDone: EditingPostContainerPropTypes.editingPostDone.isRequired,
   editingPost: EditingPostContainerPropTypes.editingPost,
@@ -190,7 +190,7 @@ EditPost.defaultProps = {
 
 export default connectComponent(EditPost,
   [
-    withAddNotification,
+    withAddToastNotification,
     withOpenAlert,
     withToken,
     withEditingPostContainer,

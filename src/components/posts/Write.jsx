@@ -8,7 +8,7 @@ import CategorySelector from '../categories/SelectCategory';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
-import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import withAddToastNotification, { addToastNotificationPropInfo } from '../toastNotifications/WithAddToastNotification';
 import withLastVisitedCategoryId, { lastVisitedCategoryIdPropType } from '../../containers/WithLastVisitedCategoryId';
 import { connectComponent } from '../../utils';
 
@@ -71,14 +71,14 @@ class Write extends React.Component {
     e.preventDefault();
     const { postForm } = this.state;
     const {
-      token, openAlert, addNotification,
+      token, openAlert, addToastNotification,
     } = this.props;
 
     this.submitButton.current.setAttribute('disabled', 'disabled');
 
     postPost(postForm, token)
       .then(() => {
-        addNotification({
+        addToastNotification({
           message: '글이 등록되었습니다!',
         });
         this.setState({ redirect: true });
@@ -203,7 +203,7 @@ class Write extends React.Component {
 Write.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
-  addNotification: addNotificationPropType.type.isRequired,
+  addToastNotification: addToastNotificationPropInfo.type.isRequired,
   match: ReactRouterPropTypes.match.isRequired,
   lastVisitedCategoryId: lastVisitedCategoryIdPropType.type,
 };
@@ -216,7 +216,7 @@ Write.defaultProps = {
 export default connectComponent(Write,
   [
     withOpenAlert,
-    withAddNotification,
+    withAddToastNotification,
     withToken,
     withLastVisitedCategoryId,
   ]);

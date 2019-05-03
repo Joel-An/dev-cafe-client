@@ -5,7 +5,7 @@ import pagination from './pagination';
 import editing from './editing';
 import history from './history';
 import popups from './popups';
-import notifications from './notifications';
+import toastNotifications from './toastNotifications';
 
 
 export default combineReducers({
@@ -15,5 +15,5 @@ export default combineReducers({
   editing,
   history,
   popups,
-  notifications,
+  toastNotifications,
 });

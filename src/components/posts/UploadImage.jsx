@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
-import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import withAddToastNotification, { addToastNotificationPropInfo } from '../toastNotifications/WithAddToastNotification';
 import { connectComponent } from '../../utils';
 
 import * as Api from '../../api/images';
@@ -33,7 +33,7 @@ class UploadImage extends React.Component {
     const imageName = selectedImage.name;
 
     const {
-      token, addNotification, openAlert, afterUpload, path,
+      token, addToastNotification, openAlert, afterUpload, path,
     } = this.props;
 
     const fileType = selectedImage.type;
@@ -53,7 +53,7 @@ class UploadImage extends React.Component {
     Api.postImage(token, formData, path)
       .then((response) => {
         const { imageUrl } = response.data;
-        addNotification({
+        addToastNotification({
           message: `[${imageName}] 이미지가 등록되었습니다!`,
         });
 
@@ -85,7 +85,7 @@ class UploadImage extends React.Component {
 UploadImage.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
-  addNotification: addNotificationPropType.type.isRequired,
+  addToastNotification: addToastNotificationPropInfo.type.isRequired,
   afterUpload: PropTypes.func,
   path: PropTypes.string,
   children: PropTypes.string,
@@ -102,5 +102,5 @@ export default connectComponent(UploadImage,
   [
     withToken,
     withOpenAlert,
-    withAddNotification,
+    withAddToastNotification,
   ]);

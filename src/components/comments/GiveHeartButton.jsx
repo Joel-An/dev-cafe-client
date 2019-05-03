@@ -7,7 +7,7 @@ import withComment, { commentPropInfo } from '../../containers/WithComment';
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
-import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import withAddToastNotification, { addToastNotificationProp } from '../toastNotifications/WithAddToastNotification';
 import { connectComponent, isAuthor } from '../../utils';
 
 import * as Api from '../../api/comments';
@@ -25,13 +25,13 @@ class GiveHeartButton extends React.Component {
   giveHeart = () => {
     this.isProcessing = true;
     const {
-      commentId, token, addNotification, openAlert,
+      commentId, token, addToastNotification, openAlert,
     } = this.props;
 
 
     return Api.postAuthorHeart(commentId, token)
       .then(() => {
-        addNotification({
+        addToastNotification({
           message: '댓글에 하트를 줬어요!',
         });
       })
@@ -48,12 +48,12 @@ class GiveHeartButton extends React.Component {
   takeHeartBack = () => {
     this.isProcessing = true;
     const {
-      commentId, token, addNotification, openAlert,
+      commentId, token, addToastNotification, openAlert,
     } = this.props;
 
     Api.deleteAuthorHeart(commentId, token)
       .then(() => {
-        addNotification({
+        addToastNotification({
           message: '하트를 회수했습니다ㅠㅠ',
         });
       })
@@ -104,7 +104,7 @@ export default connectComponent(GiveHeartButton,
     withComment,
     withToken,
     withMyInfo,
-    withAddNotification,
+    withAddToastNotification,
     withOpenAlert,
     connect(mapStateToProps),
   ]);

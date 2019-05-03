@@ -8,7 +8,7 @@ import withComment, { commentPropInfo } from '../../containers/WithComment';
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withMyInfo, { myInfoPropType } from '../../containers/WithMyInfo';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
-import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import withToastAddNotification, { addToastNotificationPropInfo } from '../toastNotifications/WithAddToastNotification';
 import { connectComponent } from '../../utils';
 
 import * as Api from '../../api/comments';
@@ -58,6 +58,6 @@ export default connectComponent(CommentLikesButton,
     withComment,
     withToken,
     withMyInfo,
-    withAddNotification,
+    withToastAddNotification,
     withOpenAlert,
   ]);

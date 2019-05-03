@@ -3,21 +3,21 @@ import {
 } from 'redux-saga/effects';
 
 import {
-  ADD_NOTIFICATION,
-  REMOVE_NOTIFICATION,
-  CLEAR_NOTIFICATIONS,
-} from '../types/notifications';
-import { removeNotification } from '../actions/notifications';
+  ADD_TOAST_NOTIFICATION,
+  REMOVE_TOAST_NOTIFICATION,
+  CLEAR_TOAST_NOTIFICATIONS,
+} from '../types/toastNotifications';
+import { removeToastNotification } from '../actions/toastNotifications';
 
 function* waitClearNotifications() {
-  yield take(CLEAR_NOTIFICATIONS);
+  yield take(CLEAR_TOAST_NOTIFICATIONS);
 
   return true;
 }
 
 function* waitRemoveNotification(notificationId) {
   while (true) {
-    const action = yield take(REMOVE_NOTIFICATION);
+    const action = yield take(REMOVE_TOAST_NOTIFICATION);
     const { id } = action;
 
     if (id === notificationId) {
@@ -26,7 +26,7 @@ function* waitRemoveNotification(notificationId) {
   }
 }
 
-function* watchNotification(action) {
+function* watchToastNotification(action) {
   const { notificationProps } = action;
   const { visibleTime, id } = notificationProps;
 
@@ -38,15 +38,15 @@ function* watchNotification(action) {
     });
 
     if (timeout) {
-      yield put(removeNotification(id));
+      yield put(removeToastNotification(id));
     }
   }
 }
 
-const watchNotifications = takeEvery(ADD_NOTIFICATION, watchNotification);
+const watchToastNotifications = takeEvery(ADD_TOAST_NOTIFICATION, watchToastNotification);
 
-const notificationsSagas = [
-  watchNotifications,
+const toastNotificationsSagas = [
+  watchToastNotifications,
 ];
 
-export default notificationsSagas;
+export default toastNotificationsSagas;

@@ -7,21 +7,21 @@ import { categoryIdPropType } from '../../containers/WithCategory';
 
 import { deletePost } from '../../api/posts';
 import withToken, { tokenPropType } from '../../containers/WithToken';
-import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import withAddToastNotification, { addToastNotificationPropInfo } from '../toastNotifications/WithAddToastNotification';
 import { connectComponent } from '../../utils';
 
 import ConfirmButton from '../popups/buttons/ConfirmButton';
 
 const DeletePost = (props) => {
   const {
-    postId, token, history, categoryId, addNotification,
+    postId, token, history, categoryId, addToastNotification,
   } = props;
 
   const reqDeletePost = () => new Promise((resolve, reject) => {
     deletePost(postId, token)
       .then(() => {
         history.push(`/posts?category=${categoryId}`);
-        addNotification({
+        addToastNotification({
           message: '글이 삭제되었습니다ㅠㅠ',
         });
         resolve();
@@ -44,7 +44,7 @@ const DeletePost = (props) => {
 
 DeletePost.propTypes = {
   token: tokenPropType.type,
-  addNotification: addNotificationPropType.type.isRequired,
+  addToastNotification: addToastNotificationPropInfo.type.isRequired,
   postId: postIdPropType.isRequired,
   categoryId: categoryIdPropType.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
@@ -58,5 +58,5 @@ export default connectComponent(DeletePost,
   [
     withRouter,
     withToken,
-    withAddNotification,
+    withAddToastNotification,
   ]);

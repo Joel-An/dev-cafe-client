@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
-import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import withToastAddNotification, { addToastNotificationPropInfo } from '../toastNotifications/WithAddToastNotification';
 
 import { connectComponent } from '../../utils';
 
@@ -32,7 +32,7 @@ class WriteComment extends React.Component {
 
   postComment=() => {
     const {
-      token, postId, parent, openAlert, addNotification,
+      token, postId, parent, openAlert, addToastNotification,
     } = this.props;
 
     if (!token) {
@@ -52,7 +52,7 @@ class WriteComment extends React.Component {
     };
     Api.postComment(commentForm, token)
       .then(() => {
-        addNotification({
+        addToastNotification({
           message: '댓글이 등록되었습니다!!',
         });
         this.setState({ contents: '' });
@@ -88,7 +88,7 @@ class WriteComment extends React.Component {
 WriteComment.propTypes = {
   token: tokenPropType.type,
   openAlert: openAlertPropType.type.isRequired,
-  addNotification: addNotificationPropType.type.isRequired,
+  addToastNotification: addToastNotificationPropInfo.type.isRequired,
   postId: PropTypes.string,
   parent: PropTypes.string,
   autofocus: PropTypes.bool.isRequired,
@@ -105,5 +105,5 @@ export default connectComponent(WriteComment,
   [
     withToken,
     withOpenAlert,
-    withAddNotification,
+    withToastAddNotification,
   ]);

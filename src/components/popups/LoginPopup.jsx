@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Popup from './Popup';
 
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
-import withAddNotification from '../notifications/WithAddNotification';
+import withAddToastNotification from '../toastNotifications/WithAddToastNotification';
 
 import { connectComponent } from '../../utils';
 
@@ -42,7 +42,7 @@ class LoginPopup extends React.Component {
       close,
       loginSucceeded,
       openAlert,
-      addNotification,
+      addToastNotification,
       afterLogin,
     } = this.props;
 
@@ -50,7 +50,7 @@ class LoginPopup extends React.Component {
       .then((token) => {
         loginSucceeded(token);
         close();
-        addNotification({
+        addToastNotification({
           message: '이랏샤이마세!!!',
           visibleTime: 1000,
         });
@@ -75,14 +75,14 @@ class LoginPopup extends React.Component {
 
   reqTesterLogin = () => {
     const {
-      close, loginSucceeded, openAlert, addNotification,
+      close, loginSucceeded, openAlert, addToastNotification,
     } = this.props;
 
     Api.testerLogin()
       .then((token) => {
         loginSucceeded(token);
         close();
-        addNotification({
+        addToastNotification({
           message: '이랏샤이마세!!!',
           visibleTime: 1000,
         });
@@ -177,7 +177,7 @@ LoginPopup.propTypes = {
     right: PropTypes.number.isRequired,
     top: PropTypes.number.isRequired,
   }),
-  addNotification: PropTypes.func.isRequired,
+  addToastNotification: PropTypes.func.isRequired,
   loginSucceeded: PropTypes.func.isRequired,
   afterLogin: PropTypes.func,
 };
@@ -198,5 +198,5 @@ export default connectComponent(LoginPopup,
   [
     connect(null, mapDispatchToProps),
     withOpenAlert,
-    withAddNotification,
+    withAddToastNotification,
   ]);

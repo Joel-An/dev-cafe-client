@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withToken, { tokenPropType } from '../../containers/WithToken';
-import withAddNotification, { addNotificationPropType } from '../notifications/WithAddNotification';
+import withAddToastNotification, { addToastNotificationPropInfo } from '../toastNotifications/WithAddToastNotification';
 
 import { connectComponent } from '../../utils';
 
@@ -9,12 +9,12 @@ import ConfirmButton from '../popups/buttons/ConfirmButton';
 import * as api from '../../api/categories';
 
 const DeleteCategory = (props) => {
-  const { id, token, addNotification } = props;
+  const { id, token, addToastNotification } = props;
 
   const reqDeleteCategory = () => new Promise((resolve, reject) => {
     api.deleteCategory(id, token)
       .then(() => {
-        addNotification({
+        addToastNotification({
           message: '카테고리가 삭제되었습니다 ㅜㅠ',
         });
         resolve();
@@ -38,7 +38,7 @@ const DeleteCategory = (props) => {
 DeleteCategory.propTypes = {
   id: PropTypes.string.isRequired,
   token: tokenPropType.type,
-  addNotification: addNotificationPropType.type.isRequired,
+  addToastNotification: addToastNotificationPropInfo.type.isRequired,
 };
 
 DeleteCategory.defaultProps = {
@@ -48,5 +48,5 @@ DeleteCategory.defaultProps = {
 export default connectComponent(DeleteCategory,
   [
     withToken,
-    withAddNotification,
+    withAddToastNotification,
   ]);

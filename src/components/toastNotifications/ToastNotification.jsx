@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Notification.scss';
+import './ToastNotification.scss';
 
-const Notification = (props) => {
+const ToastNotification = (props) => {
   const {
     message, close,
   } = props;
 
   return (
-    <div className="Notification" >
-      <div className="notification-icon"/>
-      <div className="notification-message">
+    <div className="ToastNotification" >
+      <div className="toast-notification-icon"/>
+      <div className="toast-notification-message">
         {message}
       </div>
-      <div className="notification-menu">
+      <div className="toast-notification-menu">
         <button type="button" onClick={close}>
             X
         </button>
@@ -23,9 +23,9 @@ const Notification = (props) => {
   );
 };
 
-Notification.propTypes = {
+ToastNotification.propTypes = {
   message: PropTypes.string.isRequired,
   close: PropTypes.func.isRequired,
 };
 
-export default Notification;
+export default ToastNotification;
