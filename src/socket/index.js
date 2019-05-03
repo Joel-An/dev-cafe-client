@@ -17,6 +17,12 @@ import {
   addCommentDislikes,
   removeCommentDislikes,
 } from '../store/actions/comments';
+import {
+  newNotification,
+  fetchNotoficationCheckTimeSuccess,
+} from '../store/actions/auth';
+
+import { selectToken } from '../store/selectors/auth';
 
 const url = process.env.NODE_ENV === 'production' ? 'https://rejoelve.com' : 'http://localhost:3000';
 
@@ -95,6 +101,15 @@ const setHandler = (socket, store) => {
   socket.on('DELETE_COMMENT_DISLIKES', (data) => {
     const { commentId, userId } = data;
     store.dispatch(removeCommentDislikes(commentId, userId));
+  });
+
+  socket.on('NOTIFICATION_CHECKED', (data) => {
+    const time = data;
+    store.dispatch(fetchNotoficationCheckTimeSuccess(time));
+  });
+
+  socket.on('NEW_NOTIFICATION', (data) => {
+    store.dispatch(newNotification(data));
   });
 };
 
