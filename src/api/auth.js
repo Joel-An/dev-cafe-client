@@ -35,10 +35,34 @@ export const fetchUserInfo = (token) => {
     });
 };
 
-export const fetchMyNotifications = (token) => {
+export const fetchNewNotifications = (token) => {
   const headers = {
     'x-access-token': token,
   };
-  return axios.get(`${host}/api/v1/users/me/notifications`, { headers })
+  return axios.get(`${host}/api/v1/users/me/new-notifications`, { headers })
+    .then(result => result.data);
+};
+
+export const fetchOldNotifications = (token) => {
+  const headers = {
+    'x-access-token': token,
+  };
+  return axios.get(`${host}/api/v1/users/me/old-notifications`, { headers })
+    .then(result => result.data);
+};
+
+export const fetchNotifCheckTime = (token) => {
+  const headers = {
+    'x-access-token': token,
+  };
+  return axios.get(`${host}/api/v1/users/me/notification-check-date`, { headers })
+    .then(result => result.data.notificationCheckDate);
+};
+
+export const updateNotifCheckTime = (token) => {
+  const headers = {
+    'x-access-token': token,
+  };
+  return axios.put(`${host}/api/v1/users/me/notification-check-date`, null, { headers })
     .then(result => result.data);
 };

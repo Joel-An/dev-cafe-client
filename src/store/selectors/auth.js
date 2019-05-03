@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect';
+
 import { selectUserById } from './users';
 
 export const selectToken = state => state.auth.token;
@@ -17,4 +19,13 @@ export const selectMyInfo = (state) => {
   return myInfo || GUEST;
 };
 
-export const selectMyNotifications = state => state.auth.myNotifications;
+export const selectNewNotifications = state => state.auth.newNotifications;
+export const selectOldNotifications = state => state.auth.oldNotifications;
+
+export const selectLastNotificationCheckTime = state => state.auth.lastNotificationCheckTime;
+
+export const selectUncheckedNotificationCount = createSelector(
+  [selectNewNotifications, selectLastNotificationCheckTime],
+  (newNotifications, lastCheckTime) => newNotifications
+    .filter(noti => noti.date > lastCheckTime).length,
+);

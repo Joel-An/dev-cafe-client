@@ -8,9 +8,16 @@ import {
   FETCH_MYINFO_REQUEST,
   FETCH_MYINFO_SUCCESS,
   FETCH_MYINFO_FAILURE,
-  FETCH_MY_NOTIFICATIONS_REQUEST,
-  FETCH_MY_NOTIFICATIONS_SUCCESS,
-  FETCH_MY_NOTIFICATIONS_FAILURE,
+  NEW_NOTIFICATION,
+  FETCH_NEW_NOTIFICATIONS_REQUEST,
+  FETCH_NEW_NOTIFICATIONS_SUCCESS,
+  FETCH_NEW_NOTIFICATIONS_FAILURE,
+  FETCH_OLD_NOTIFICATIONS_REQUEST,
+  FETCH_OLD_NOTIFICATIONS_SUCCESS,
+  FETCH_OLD_NOTIFICATIONS_FAILURE,
+  FETCH_NOTIFICATION_CHECK_TIME_REQUEST,
+  FETCH_NOTIFICATION_CHECK_TIME_SUCCESS,
+  FETCH_NOTIFICATION_CHECK_TIME_FAILURE,
 } from '../types/auth';
 
 export const login = loginForm => ({
@@ -56,17 +63,52 @@ export const fetchMyInfoFailure = error => ({
   error,
 });
 
-export const fetchMyNotifications = token => ({
-  type: FETCH_MY_NOTIFICATIONS_REQUEST,
+export const newNotification = notification => ({
+  type: NEW_NOTIFICATION,
+  payload: notification,
+});
+
+export const fetchNewNotifications = token => ({
+  type: FETCH_NEW_NOTIFICATIONS_REQUEST,
   payload: token,
 });
 
-export const fetchMyNotificationsSuccess = myNotifications => ({
-  type: FETCH_MY_NOTIFICATIONS_SUCCESS,
-  payload: myNotifications,
+export const fetchNewNotificationsSuccess = notifications => ({
+  type: FETCH_NEW_NOTIFICATIONS_SUCCESS,
+  payload: notifications,
 });
 
-export const fetchMyNotificationsFailure = error => ({
-  type: FETCH_MY_NOTIFICATIONS_FAILURE,
+export const fetchNewNotificationsFailure = error => ({
+  type: FETCH_NEW_NOTIFICATIONS_FAILURE,
+  error,
+});
+
+export const fetchOldNotifications = token => ({
+  type: FETCH_OLD_NOTIFICATIONS_REQUEST,
+  payload: token,
+});
+
+export const fetchOldNotificationsSuccess = notifications => ({
+  type: FETCH_OLD_NOTIFICATIONS_SUCCESS,
+  payload: notifications,
+});
+
+export const fetchOldNotificationsFailure = error => ({
+  type: FETCH_OLD_NOTIFICATIONS_FAILURE,
+  error,
+});
+
+export const fetchNotoficationCheckTime = token => ({
+  type: FETCH_NOTIFICATION_CHECK_TIME_REQUEST,
+  payload: token,
+});
+
+export const fetchNotoficationCheckTimeSuccess = time => ({
+  type: FETCH_NOTIFICATION_CHECK_TIME_SUCCESS,
+  payload: time,
+});
+
+export const fetchNotoficationCheckTimeFailure = error => ({
+  type: FETCH_NOTIFICATION_CHECK_TIME_FAILURE,
   error,
 });

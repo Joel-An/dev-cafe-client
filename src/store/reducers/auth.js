@@ -4,13 +4,18 @@ import {
   LOGOUT_ERROR,
   FETCH_MYINFO_SUCCESS,
   FETCH_MYINFO_FAILURE,
-  FETCH_MY_NOTIFICATIONS_SUCCESS,
+  NEW_NOTIFICATION,
+  FETCH_NEW_NOTIFICATIONS_SUCCESS,
+  FETCH_OLD_NOTIFICATIONS_SUCCESS,
+  FETCH_NOTIFICATION_CHECK_TIME_SUCCESS,
 } from '../types/auth';
 
 const INITIAL_STATE = () => ({
   token: null,
   myId: null,
-  myNotifications: [],
+  newNotifications: [],
+  oldNotifications: [],
+  lastNotificationCheckTime: new Date().toString(),
   error: null,
 });
 
@@ -43,10 +48,27 @@ export default (state = INITIAL_STATE(), { type, payload, error }) => {
       ...state,
       error,
     };
-  case FETCH_MY_NOTIFICATIONS_SUCCESS:
+  case NEW_NOTIFICATION: {
+    const { newNotifications } = state;
     return {
       ...state,
-      myNotifications: payload,
+      newNotifications: [payload].concat(newNotifications),
+    };
+  }
+  case FETCH_NEW_NOTIFICATIONS_SUCCESS:
+    return {
+      ...state,
+      newNotifications: payload,
+    };
+  case FETCH_OLD_NOTIFICATIONS_SUCCESS:
+    return {
+      ...state,
+      oldNotifications: payload,
+    };
+  case FETCH_NOTIFICATION_CHECK_TIME_SUCCESS:
+    return {
+      ...state,
+      lastNotificationCheckTime: payload,
     };
   default:
     return state;
