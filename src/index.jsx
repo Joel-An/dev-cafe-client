@@ -6,7 +6,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import App from './components/App';
 import Popups from './components/popups/Popups';
-import NotificationCenter from './components/notifications/NotificationCenter';
+import ToastNotifier from './components/toastNotifications/ToastNotifier';
 
 import './index.scss';
 import configureStore from './store';
@@ -28,7 +28,7 @@ const renderApp = fn => () => {
           <App />
         </BrowserRouter>
         <Popups/>
-        <NotificationCenter/>
+        <ToastNotifier/>
       </Provider>
     </HelmetProvider>,
     document.getElementById('root'),
