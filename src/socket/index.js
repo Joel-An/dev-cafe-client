@@ -24,6 +24,11 @@ const connectSocket = () => openSocket(url, { transports: ['websocket'] });
 
 const setHandler = (socket, store) => {
   socket.on('connect', () => {
+    const token = selectToken(store.getState());
+
+    if (token) {
+      socket.emit('LOGIN', token);
+    }
     // eslint-disable-next-line no-console
     console.log('socket.io is connected');
   });
@@ -93,12 +98,18 @@ const setHandler = (socket, store) => {
   });
 };
 
-const configureSocket = (store) => {
-  const socket = connectSocket();
+let socket = null;
+
+export const configureSocket = (store) => {
+  socket = connectSocket();
   setHandler(socket, store);
 
   const closeSocket = () => socket.close();
   return closeSocket;
 };
 
-export default configureSocket;
+export const getSocket = () => {
+  if (!socket) throw new Error('socket is not initialized');
+
+  return socket;
+};

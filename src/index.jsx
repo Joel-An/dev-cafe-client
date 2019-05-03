@@ -10,7 +10,7 @@ import NotificationCenter from './components/notifications/NotificationCenter';
 
 import './index.scss';
 import configureStore from './store';
-import configureSocket from './socket';
+import { configureSocket } from './socket';
 
 
 // eslint-disable-next-line no-underscore-dangle

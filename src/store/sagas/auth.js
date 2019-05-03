@@ -14,10 +14,21 @@ import * as actions from '../actions/auth';
 import * as api from '../../api/auth';
 import { selectToken } from '../selectors/auth';
 
+import { getSocket } from '../../socket';
+
 function* requestLogout(logoutAction) {
   try {
     yield call(api.logout, logoutAction.payload);
     yield put(actions.logoutSucceeded());
+
+    try {
+      const socket = getSocket();
+      if (socket && socket.connected) {
+        socket.emit('LOGOUT');
+      }
+    } catch (e) {
+      // socket is not initialized yet
+    }
   } catch (error) {
     yield put(actions.logoutFailed(error));
   }
@@ -85,12 +96,13 @@ function* loginSuccessSaga() {
 
   try {
     const socket = getSocket();
-    socket.emit('LOGIN', token);
-    console.log('소켓이 살아있다!');
-  } catch (e) {
-    console.log('소켓이 죽었다!');
-  }
 
+    if (socket && socket.connected) {
+      socket.emit('LOGIN', token);
+    }
+  } catch (e) {
+    // socket is not initialized yet
+  }
 
   yield put(actions.fetchMyInfo(token));
   yield put(actions.fetchNewNotifications(token));
