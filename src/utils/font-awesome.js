@@ -10,6 +10,7 @@ import {
   faHeartbeat,
   faCog,
   faBars,
+  faBell,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -29,4 +30,5 @@ library.add(
   faHeartbeat,
   faCog,
   faBars,
+  faBell,
 );
