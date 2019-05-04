@@ -19,7 +19,7 @@ export default function withPostContainer(ComposedComponent) {
     componentDidUpdate(prevProps) {
       const { postId, loadPost } = this.props;
       if (postId !== prevProps.postId) {
-        loadPost(prevProps);
+        loadPost(postId);
       }
     }
 
