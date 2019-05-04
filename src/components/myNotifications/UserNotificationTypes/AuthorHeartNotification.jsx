@@ -1,7 +1,6 @@
 import React from 'react';
 
-import UserNotification from './UserNotification';
-import { extractSummary, removeTitle } from '../../../utils';
+import UserNotification, { CommentSummary, ProfileName, notificationPropInfo } from './UserNotification';
 
 const CommentLikesNotification = (props) => {
   const { notification } = props;
@@ -12,17 +11,17 @@ const CommentLikesNotification = (props) => {
       linkTo={`/posts/${notification.post._id}`}
       date={notification.date}
     >
-      <span className="profileName">
-        {removeTitle(notification.fromWhom.profileName)}
-      </span>
+      <ProfileName profileName={notification.fromWhom.profileName}/>
       <span>
-        {'님이 내 댓글에 하트를 줬습니다: '}
+        {'님이 회원님의 댓글에 하트를 줬습니다: '}
       </span>
-      <span>
-        {` "${extractSummary(notification.comment.contents, 30)}"`}
-      </span>
+      <CommentSummary markdown={notification.comment.contents}/>
     </UserNotification>
   );
+};
+
+CommentLikesNotification.propTypes = {
+  notification: notificationPropInfo.type.isRequired,
 };
 
 export default CommentLikesNotification;

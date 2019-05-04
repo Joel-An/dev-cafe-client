@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { fromNow } from '../../../utils';
+import { fromNow, extractSummary, removeTitle } from '../../../utils';
 import './UserNotification.scss';
 
 const UserNotification = (props) => {
@@ -33,4 +33,33 @@ const UserNotification = (props) => {
   );
 };
 
+export const CommentSummary = (props) => {
+  const { markdown } = props;
+
+  return (
+    <span className="comment-contents">
+      {`"${extractSummary(markdown)}"`}
+    </span>
+  );
+};
+
+export const ProfileName = (props) => {
+  const { profileName } = props;
+
+  return (
+    <span className="profileName">
+      {removeTitle(profileName)}
+    </span>
+  );
+};
+
+export const PostTitle = (props) => {
+  const { title } = props;
+
+  return (
+    <span className="post-title" >
+      {title}
+    </span>
+  );
+};
 export default UserNotification;
