@@ -27,6 +27,19 @@
       font-weight: 700;
     }
 
+    .post-title {
+      font-size: 85%;
+      background-color: rgba(240, 240, 240, 0.767);
+      border: 1px solid rgb(235, 220, 220);
+      border-radius: 3px;
+    }
+
+    .comment-contents {
+      font-size: 85%;
+      background-color: rgba(183, 210, 235, 0.295);
+      border-left: 3px solid rgb(193, 219, 243);
+    }
+
     .time-ago {
       color: grey;
       font-size: 12px;
