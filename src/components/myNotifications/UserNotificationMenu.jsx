@@ -1,4 +1,5 @@
 import React, { useCallback, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -8,6 +9,8 @@ import { selectNewNotifications, selectOldNotifications, selectUncheckedNotifica
 import { updateNotifCheckTime } from '../../api/auth';
 import withToken, { tokenPropType } from '../../containers/WithToken';
 import { connectComponent } from '../../utils';
+import { notificationPropInfo } from './UserNotificationTypes/UserNotification';
+
 import './UserNotificationMenu.scss';
 
 const ToggleIcon = (props) => {
@@ -25,6 +28,10 @@ const ToggleIcon = (props) => {
       </div>
     </Fragment>
   );
+};
+
+ToggleIcon.propTypes = {
+  newNotificationCount: PropTypes.number.isRequired,
 };
 
 const UserNotificationMenu = (props) => {
@@ -55,7 +62,7 @@ const UserNotificationMenu = (props) => {
     >
       <Fragment>
         <div className="notification-list-title">
-          {hasNewNotif ? '새 알림' : '알림'}
+          {hasNewNotif ? '새로운 알림' : '알림'}
         </div>
         <UserNotificationList
           className="new-notifications"
@@ -75,6 +82,13 @@ const UserNotificationMenu = (props) => {
       </Fragment>
     </DropDownMenu>
   );
+};
+
+UserNotificationMenu.propTypes = {
+  newNotifications: PropTypes.arrayOf(notificationPropInfo.type).isRequired,
+  oldNotifications: PropTypes.arrayOf(notificationPropInfo.type).isRequired,
+  token: tokenPropType.type.isRequired,
+  uncheckedNotificationCount: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => {

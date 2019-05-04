@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import NotificationSwitcher from './UserNotificationSwitcher';
+import { notificationPropInfo } from './UserNotificationTypes/UserNotification';
 
 const MyNotificationList = (props) => {
-  const { notifications, title, className } = props;
+  const { notifications, className } = props;
 
   if (notifications.length === 0) {
     return null;
@@ -16,6 +19,11 @@ const MyNotificationList = (props) => {
       )}
     </div>
   );
+};
+
+MyNotificationList.propTypes = {
+  notifications: PropTypes.arrayOf(notificationPropInfo.type).isRequired,
+  className: PropTypes.string.isRequired,
 };
 
 export default MyNotificationList;
