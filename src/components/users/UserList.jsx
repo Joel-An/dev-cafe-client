@@ -14,7 +14,7 @@ const UserList = (props) => {
   return (
     <div className={className || 'UserList'}>
       <div className="title">{title}</div>
-      {userIds.map(userId => <div className="user">
+      {userIds.map(userId => <div className="user" key={userId}>
         <Link to={`/users/${userId}`}>
           <ProfilePic className="user-list-profile-pic" userId={userId} height="33" width="33"/>
         </Link>
