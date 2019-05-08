@@ -17,6 +17,9 @@ import {
   faHeart as farHeart,
 } from '@fortawesome/free-regular-svg-icons';
 
+import {
+  faGithub,
+} from '@fortawesome/free-brands-svg-icons';
 
 library.add(
   faThumbsUp,
@@ -31,4 +34,5 @@ library.add(
   faCog,
   faBars,
   faBell,
+  faGithub,
 );

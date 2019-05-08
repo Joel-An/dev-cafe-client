@@ -3,6 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Popup from './Popup';
 
 import withOpenAlert, { openAlertPropType } from '../../containers/WithOpenAlert';
@@ -114,7 +115,8 @@ class LoginPopup extends React.Component {
           />
           <div className="login-popup-submenu">
             <button type="button" onClick={this.reqLoginWithGoogle}>
-              구글로 로그인
+              <FontAwesomeIcon icon={['fab', 'github']}/>
+              {' Github로 로그인'}
             </button>
             <div className="tester-login in">
               <button type="button" onClick={this.reqTesterLogin}>
