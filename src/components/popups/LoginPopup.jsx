@@ -76,7 +76,7 @@ class LoginPopup extends React.Component {
 
   reqTesterLogin = () => {
     const {
-      close, loginSucceeded, openAlert, addToastNotification,
+      close, loginSucceeded, openAlert, addToastNotification, afterLogin,
     } = this.props;
 
     Api.testerLogin()
@@ -87,6 +87,9 @@ class LoginPopup extends React.Component {
           message: '이랏샤이마세!!!',
           visibleTime: 1000,
         });
+        if (typeof afterLogin === 'function') {
+          afterLogin();
+        }
       })
       .catch((err) => {
         openAlert({
