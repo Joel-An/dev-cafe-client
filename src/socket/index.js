@@ -124,7 +124,13 @@ export const configureSocket = (store) => {
 };
 
 export const getSocket = () => {
-  if (!socket) throw new Error('socket is not initialized');
+  if (!socket) {
+    throw new Error('socket is not initialized');
+  }
+
+  if (!socket.connected) {
+    throw new Error('socket is not connected');
+  }
 
   return socket;
 };
