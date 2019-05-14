@@ -18,6 +18,10 @@ import {
   FETCH_NOTIFICATION_CHECK_TIME_REQUEST,
   FETCH_NOTIFICATION_CHECK_TIME_SUCCESS,
   FETCH_NOTIFICATION_CHECK_TIME_FAILURE,
+  GITHUB_LOGIN_REQUEST,
+  GITHUB_LOGIN_IN_PROGRESS,
+  GITHUB_LOGIN_SUCCESS,
+  GITHUB_LOGIN_FAILURE,
 } from '../types/auth';
 
 export const login = loginForm => ({
@@ -112,3 +116,39 @@ export const fetchNotoficationCheckTimeFailure = error => ({
   type: FETCH_NOTIFICATION_CHECK_TIME_FAILURE,
   error,
 });
+
+export const requestGithubLogin = () => ({
+  type: GITHUB_LOGIN_REQUEST,
+});
+
+export const oauthLoginInProgress = (oauthType) => {
+  const OAUTH_IN_PROGRESS = {
+    GITHUB: GITHUB_LOGIN_IN_PROGRESS,
+  };
+
+  return {
+    type: OAUTH_IN_PROGRESS[oauthType],
+  };
+};
+
+export const oauthLoginSuccess = (token, oauthType) => {
+  const OAUTH_LOGIN_SUCCESS = {
+    GITHUB: GITHUB_LOGIN_SUCCESS,
+  };
+
+  return {
+    type: OAUTH_LOGIN_SUCCESS[oauthType],
+    payload: token,
+  };
+};
+
+export const oauthLoginFailure = (message, oauthType) => {
+  const OAUTH_LOGIN_FAILURE = {
+    GITHUB: GITHUB_LOGIN_FAILURE,
+  };
+
+  return {
+    type: OAUTH_LOGIN_FAILURE[oauthType],
+    payload: message,
+  };
+};
