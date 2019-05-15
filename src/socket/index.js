@@ -20,6 +20,9 @@ import {
 import {
   newNotification,
   fetchNotoficationCheckTimeSuccess,
+  oauthLoginInProgress,
+  oauthLoginSuccess,
+  oauthLoginFailure,
 } from '../store/actions/auth';
 
 import { selectToken } from '../store/selectors/auth';
@@ -110,6 +113,21 @@ const setHandler = (socket, store) => {
 
   socket.on('NEW_NOTIFICATION', (data) => {
     store.dispatch(newNotification(data));
+  });
+
+  socket.on('OAUTH_LOGIN_IN_PROGRESS', (data) => {
+    const { type } = data;
+    store.dispatch(oauthLoginInProgress(type));
+  });
+
+  socket.on('OAUTH_LOGIN_SUCCESS', (data) => {
+    const { type, token } = data;
+    store.dispatch(oauthLoginSuccess(token, type));
+  });
+
+  socket.on('OAUTH_LOGIN_FAILURE', (data) => {
+    const { type, message } = data;
+    store.dispatch(oauthLoginFailure(message, type));
   });
 };
 

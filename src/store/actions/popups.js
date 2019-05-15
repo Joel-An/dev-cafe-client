@@ -14,6 +14,8 @@ export const closePopup = popupType => ({
   popupType,
 });
 
+export const closeLoginPopup = () => closePopup(Types.LOGIN_POPUP);
+
 export const openAlert = ({
   title, message, pos, loginButton,
 }) => ({

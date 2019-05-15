@@ -14,6 +14,7 @@ import { connectComponent } from '../../utils';
 import * as Api from '../../api/auth';
 import {
   loginSucceeded as loginSucceededAction,
+  requestGithubLogin as requestGithubLoginAction,
 } from '../../store/actions/auth';
 import './LoginPopup.scss';
 
@@ -26,6 +27,14 @@ class LoginPopup extends React.Component {
         password: '',
       },
     };
+  }
+
+  componentWillUnmount() {
+    const { afterLogin } = this.props;
+
+    if (typeof afterLogin === 'function') {
+      afterLogin();
+    }
   }
 
   handleInputChange = (event) => {
@@ -43,21 +52,12 @@ class LoginPopup extends React.Component {
       close,
       loginSucceeded,
       openAlert,
-      addToastNotification,
-      afterLogin,
     } = this.props;
 
     Api.login(loginForm)
       .then((token) => {
         loginSucceeded(token);
         close();
-        addToastNotification({
-          message: '이랏샤이마세!!!',
-          visibleTime: 1000,
-        });
-        if (typeof afterLogin === 'function') {
-          afterLogin();
-        }
       })
       .catch((err) => {
         openAlert({
@@ -67,29 +67,19 @@ class LoginPopup extends React.Component {
   };
 
   reqLoginWithGoogle = () => {
-    const { openAlert } = this.props;
-    openAlert({
-      title: 'ㅎ_ㅎ;;',
-      message: '준비중입니다 ㅎㅎ',
-    });
+    const { requestGithubLogin } = this.props;
+    requestGithubLogin();
   }
 
   reqTesterLogin = () => {
     const {
-      close, loginSucceeded, openAlert, addToastNotification, afterLogin,
+      close, loginSucceeded, openAlert,
     } = this.props;
 
     Api.testerLogin()
       .then((token) => {
         loginSucceeded(token);
         close();
-        addToastNotification({
-          message: '이랏샤이마세!!!',
-          visibleTime: 1000,
-        });
-        if (typeof afterLogin === 'function') {
-          afterLogin();
-        }
       })
       .catch((err) => {
         openAlert({
@@ -172,6 +162,7 @@ const LoginForm = ({
 
 const mapDispatchToProps = {
   loginSucceeded: loginSucceededAction,
+  requestGithubLogin: requestGithubLoginAction,
 };
 
 LoginPopup.propTypes = {
@@ -182,8 +173,8 @@ LoginPopup.propTypes = {
     right: PropTypes.number.isRequired,
     top: PropTypes.number.isRequired,
   }),
-  addToastNotification: PropTypes.func.isRequired,
   loginSucceeded: PropTypes.func.isRequired,
+  requestGithubLogin: PropTypes.func.isRequired,
   afterLogin: PropTypes.func,
 };
 
